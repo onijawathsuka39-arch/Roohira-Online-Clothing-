@@ -10,7 +10,7 @@ const products = [
         material: '100% Silk',
         category: 'Luxury',
         images: [
-            'https://images.unsplash.com/photo-1522771753035-0a153950c6f2?q=80&w=2069&auto=format&fit=crop',
+            'https://imgur.com/a/CeBAFrM',
             'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=2070&auto=format&fit=crop'
         ],
@@ -676,3 +676,4 @@ function initForgotPassword() {
         }
     };
 }
+
