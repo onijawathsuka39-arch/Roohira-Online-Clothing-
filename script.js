@@ -3,88 +3,25 @@
 const products = [
     {
         id: 1,
-        name: 'Silk Rose Luxury Sheet',
-        description: 'Experience the ultimate comfort with our premium silk rose bedsheet. Perfect for creating a romantic and elegant atmosphere in your bedroom.',
-        material: '100% Silk',
-        category: 'Luxury',
+        name: 'Bedsheet ',
+        description: 'Experience a comfortable sleep today.',
+        material: '80% Cotton',
+        category: 'Bedsheet',
         images: [
-            'https://images.unsplash.com/photo-1522771753035-0a153950c6f2?q=80&w=2069&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=2070&auto=format&fit=crop'
+            'https://i.ibb.co/1tnLRyBh/Whats-App-Image-2026-02-14-at-8-16-24-PM.jpg',
+            'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
+           
         ],
-        stock: 20,
+        stock: 5,
         variants: [
-            { size: 'King', price: 3500 },
-            { size: 'Queen', price: 2800 },
-            { size: 'Double', price: 2200 }
+            { size: 'King Size (110*90)', price: 2100 }
+           
         ]
     },
-    {
-        id: 2,
-        name: 'Floral Dream Quilt Set',
-        description: 'A beautiful floral pattern quilt set that brings the freshness of spring into your home. Soft cotton material for a cozy sleep.',
-        material: 'Cotton Blend',
-        category: 'Floral',
-        images: [
-            'https://images.unsplash.com/photo-1595188800160-5a3962646c75?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1635739066103-ba956461994a?q=80&w=2070&auto=format&fit=crop'
-        ],
-        stock: 15,
-        variants: [
-            { size: 'Queen', price: 2800 },
-            { size: 'Double', price: 2400 },
-            { size: 'Single', price: 1800 }
-        ]
-    },
-    {
-        id: 3,
-        name: 'Classic White Cotton',
-        description: 'Timeless elegance with our classic white cotton bedsheet. High thread count for durability and softness.',
-        material: 'Egyptian Cotton',
-        category: 'Plain',
-        images: [
-            'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae8?q=80&w=2071&auto=format&fit=crop'
-        ],
-        stock: 30,
-        variants: [
-            { size: 'Double', price: 1500 },
-            { size: 'Single', price: 1000 }
-        ]
-    },
-    {
-        id: 4,
-        name: 'Kids Adventure Theme',
-        description: 'Fun and adventurous theme for your little ones. Bright colors and durable fabric suitable for kids rooms.',
-        material: 'Polyester Microfiber',
-        category: 'Kids',
-        images: [
-            'https://images.unsplash.com/photo-1629949009765-4ef64b633a57?q=80&w=2059&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1632059032733-0c464402660d?q=80&w=2070&auto=format&fit=crop'
-        ],
-        stock: 25,
-        variants: [
-            { size: 'Single', price: 1800 },
-            { size: 'Double', price: 2500 }
-        ]
-    },
-    {
-        id: 5,
-        name: 'Golden Elegance Duvet',
-        description: 'Add a touch of gold to your bedroom with this exquisite duvet cover. Matches perfectly with our luxury collection.',
-        material: 'Satin',
-        category: 'Luxury',
-        images: [
-            'https://images.unsplash.com/photo-1616627547584-bf28cee262db?q=80&w=2070&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1618377382555-d3680e908646?q=80&w=2069&auto=format&fit=crop'
-        ],
-        stock: 10,
-        variants: [
-            { size: 'King', price: 4200 },
-            { size: 'Queen', price: 3500 }
-        ]
-    },
+   
+       
+          
+       
     {
         id: 6,
         name: 'Pastel Pink Delight',
@@ -769,3 +706,4 @@ function initForgotPassword() {
         }
     };
 }
+
