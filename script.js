@@ -23,19 +23,19 @@ const products = [
           
        
     {
-        id: 6,
-        name: 'Pastel Pink Delight',
-        description: 'Soft pastel pink sheets to create a serene and calming environment. Matches our brand colors perfectly.',
-        material: 'Bamboo Fiber',
-        category: 'Plain',
+        id: 2,
+        name: 'Handloom Bedsheets',
+        description: 'Best Quality and 100% Handloom Products',
+        material: '100% Cotton',
+        category: 'Handloom Bedsheet',
         images: [
-            'https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1992&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1510134446-3dc9a716eb3d?q=80&w=2070&auto=format&fit=crop'
+            'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
+            'https://www.tradeindia.com/products/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-7864033.html'
         ],
-        stock: 18,
+        stock: 2,
         variants: [
-            { size: 'Queen', price: 2200 },
-            { size: 'Double', price: 1800 }
+            { size: 'Singal(54*80)', price: 950 },
+            { size: 'Double(60*90)', price: 1200 }
         ]
     }
 ];
@@ -706,4 +706,5 @@ function initForgotPassword() {
         }
     };
 }
+
 
