@@ -66,9 +66,13 @@
 
                     <!-- Specifications Box -->
                     <div class="spec-box">
-                        <div class="spec-item">
-                            <span class="label">Size</span>
-                            <span id="detail-size" class="value">Loading...</span>
+                        <div class="spec-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                            <label for="size-select" class="label" style="margin-bottom: 0;">Select Size</label>
+                            <select id="size-select" class="form-input"
+                                style="padding: 8px 12px; font-size: 14px; border-radius: 8px; width: 100%;"
+                                onchange="updatePriceOnSizeChange()">
+                                <!-- Injected by JS -->
+                            </select>
                         </div>
                         <div class="spec-item">
                             <span class="label">Material</span>
