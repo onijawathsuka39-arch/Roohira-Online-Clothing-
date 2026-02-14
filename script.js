@@ -40,8 +40,8 @@ const products = [
         material: 'Egyptian Cotton',
         category: 'Plain',
         images: [
-            'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop',
-            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae8?q=80&w=2071&auto=format&fit=crop'
+            'https://i.ibb.co/3yx5RkCV/353ecf8fad4daf78842901d62bfd42e0-jpg-720x720q80.jpg',
+            'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop'
         ],
         stock: 30
     },
@@ -676,4 +676,5 @@ function initForgotPassword() {
         }
     };
 }
+
 
