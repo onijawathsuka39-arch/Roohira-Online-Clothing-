@@ -6,7 +6,7 @@ const products = [
         name: 'Bedsheet ',
         description: 'Experience a comfortable sleep today.',
         material: '80% Cotton',
-        category: 'Bedsheet',
+        category: 'Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/1tnLRyBh/Whats-App-Image-2026-02-14-at-8-16-24-PM.jpg',
             'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
@@ -30,7 +30,8 @@ const products = [
         category: 'Handloom Bedsheet',
         images: [
             'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
-            'https://www.tradeindia.com/products/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-7864033.html'
+            'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
+            'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
         ],
         stock: 2,
         variants: [
@@ -706,5 +707,6 @@ function initForgotPassword() {
         }
     };
 }
+
 
 
