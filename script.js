@@ -633,8 +633,8 @@ function loadProfile() {
     }
 
     // Show full signup details in profile header
-    document.getElementById('profile-name').textContent = user.name;
-    document.getElementById('profile-email').textContent = user.email;
+    if (document.getElementById('profile-name')) document.getElementById('profile-name').textContent = user.name || 'User';
+    if (document.getElementById('profile-email')) document.getElementById('profile-email').textContent = user.email || '';
 
     // Add phone to profile if element exists
     const phoneEl = document.getElementById('profile-phone');
@@ -643,21 +643,23 @@ function loadProfile() {
     const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
     const container = document.getElementById('order-history');
 
+    if (!container) return;
+
     if (orders.length === 0) {
         container.innerHTML = '<div class="text-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200"><p class="text-gray-500">You haven\'t placed any orders yet.</p></div>';
     } else {
-        // Sort orders by newest first
-        const sortedOrders = orders.reverse();
+        // Sort orders by newest first (descending by timestamp/ID)
+        const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
 
         container.innerHTML = sortedOrders.map(o => `
             <div class="bg-white border border-gray-100 rounded-xl p-6 mb-4 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex justify-between items-start mb-4">
                     <div>
-                        <div class="text-sm text-gray-400 mb-1">Order #${o.id.split('-').pop()}</div>
-                        <div class="font-bold text-lg text-gray-900">${new Date(o.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                        <div class="text-sm text-gray-400 mb-1">Order #${o.id ? o.id.split('-').pop() : 'N/A'}</div>
+                        <div class="font-bold text-lg text-gray-900">${o.date ? new Date(o.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown Date'}</div>
                     </div>
                     <div class="text-right">
-                        <div class="text-primary font-bold text-xl">Rs. ${o.total.toLocaleString()}</div>
+                        <div class="text-primary font-bold text-xl">Rs. ${o.total ? o.total.toLocaleString() : '0'}</div>
                         <div class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full inline-block mt-1">Confirmed</div>
                     </div>
                 </div>
@@ -668,16 +670,16 @@ function loadProfile() {
                     </button>
                     
                     <div id="details-${o.id}" style="display: none;" class="mt-4 bg-gray-50 p-4 rounded-lg">
-                        ${o.items.map(item => `
+                        ${(o.items || []).map(item => `
                             <div class="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
                                 <div class="flex items-center gap-3">
-                                    <img src="${item.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
-                                    <div>
+                                    <img src="${item.image || (item.images ? item.images[0] : '')}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                    <div style="text-align: left;">
                                         <div class="text-sm font-semibold text-gray-800">${item.name}</div>
-                                        <div class="text-xs text-gray-500">Size: ${item.size} | Qty: ${item.qty}</div>
+                                        <div class="text-xs text-gray-500">Size: ${item.size || 'Standard'} | Qty: ${item.qty}</div>
                                     </div>
                                 </div>
-                                <div class="text-sm font-bold text-gray-700">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                                <div class="text-sm font-bold text-gray-700">Rs. ${((item.price || 0) * (item.qty || 1)).toLocaleString()}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -685,6 +687,11 @@ function loadProfile() {
             </div>
         `).join('');
     }
+}
+
+function logout() {
+    localStorage.removeItem('roohira_user');
+    window.location.href = 'index.html';
 }
 
 function toggleOrderDetails(id) {
