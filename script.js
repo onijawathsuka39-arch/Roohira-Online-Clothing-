@@ -4,10 +4,10 @@ const products = [
     {
         id: 1,
         name: 'Silk Rose Luxury Sheet',
-        price: 3500,
+        price: 1050,
         description: 'Experience the ultimate comfort with our premium silk rose bedsheet. Perfect for creating a romantic and elegant atmosphere in your bedroom.',
         size: 'King',
-        material: '100% Silk',
+        material: '100% cotton',
         category: 'Luxury',
         images: [
             'https://imgur.com/a/CeBAFrM',
@@ -676,5 +676,6 @@ function initForgotPassword() {
         }
     };
 }
+
 
 
