@@ -29,6 +29,9 @@
                 <a href="shop.html" class="nav-link">Shop</a>
 
                 <div class="flex items-center gap-4 ml-4 pl-4 border-l border-gray-200">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
                     <a href="cart.html" class="nav-link cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span id="cart-badge" class="cart-count">0</span>
@@ -47,7 +50,7 @@
                         <div style="position: absolute; right: 0; top: 100%; background: white; border-radius: 8px; box-shadow: var(--shadow-lg); padding: 0.5rem; min-width: 150px; display: none;"
                             id="user-dropdown">
                             <a href="profile.html"
-                                style="display: block; padding: 0.5rem; color: var(--text-dark); hover:color:var(--primary);">Profile</a>
+                                style="display: block; padding: 0.5rem; color: var(--text-dark);">Profile</a>
                             <button onclick="logout()"
                                 style="display: block; width: 100%; text-align: left; padding: 0.5rem; background: none; border: none; cursor: pointer; color: var(--text-dark);">Logout</button>
                         </div>

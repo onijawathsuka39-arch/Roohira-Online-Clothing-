@@ -95,9 +95,11 @@ const products = [
 // State Management
 let cart = JSON.parse(localStorage.getItem('roohira_cart')) || [];
 let user = JSON.parse(localStorage.getItem('roohira_user')) || null;
+let currentTheme = localStorage.getItem('roohira_theme') || 'light';
 
 // DOM Elements & Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     updateCartCount();
     updateUserUI();
 
@@ -117,6 +119,33 @@ document.addEventListener('DOMContentLoaded', () => {
         initChangePassword();
     }
 });
+
+// --- Theme Management ---
+
+function initTheme() {
+    const theme = localStorage.getItem('roohira_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    updateThemeIcon(theme);
+}
+
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const target = current === 'light' ? 'dark' : 'light';
+
+    document.documentElement.setAttribute('data-theme', target);
+    localStorage.setItem('roohira_theme', target);
+    updateThemeIcon(target);
+
+    showToast(`${target.charAt(0).toUpperCase() + target.slice(1)} mode enabled`, 'success');
+}
+
+function updateThemeIcon(theme) {
+    const icons = document.querySelectorAll('.theme-toggle i');
+    icons.forEach(icon => {
+        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    });
+}
+
 
 // --- UI Updates ---
 
