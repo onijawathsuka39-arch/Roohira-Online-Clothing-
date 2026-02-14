@@ -3,18 +3,18 @@
 const products = [
     {
         id: 1,
-        name: 'Bedsheet ',
-        description: 'Experience a comfortable sleep today.',
+        name: 'Desing Bedsheet Indego ',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
-        category: 'Printed Design Bedsheet',
+       category: ' Printed Design Bedsheet',
         images: [
-            'https://i.ibb.co/1tnLRyBh/Whats-App-Image-2026-02-14-at-8-16-24-PM.jpg',
+            'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
             'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
            
         ],
         stock: 5,
         variants: [
-            { size: 'King Size (110*90)', price: 2100 }
+            { size: 'King Size (110*90)', price: 1900 }
            
         ]
     },
@@ -33,12 +33,63 @@ const products = [
             'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
             'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
         ],
-        stock: 2,
+        stock: 0,
         variants: [
             { size: 'Singal(54*80)', price: 950 },
             { size: 'Double(60*90)', price: 1200 }
         ]
-    }
+    },
+     {
+        id: 3,
+        name: 'Desing Bedsheet Black and White Leaves',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/svdVSvxC/Chat-GPT-Image-Feb-14-2026-11-01-11-PM.png',
+            'https://i.ibb.co/h1hSLLR7/Chat-GPT-Image-Feb-14-2026-11-11-25-PM.png',
+            'https://i.ibb.co/dJ5QRNbz/image.jpg'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 1900 },
+            { size: 'Double(72*90)', price: 1800 }
+        ]
+    },
+     {
+        id: 4,
+        name: 'Desing Bedsheet with(Red rose follwers )',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/Pvc47470/Chat-GPT-Image-Feb-14-2026-11-51-26-PM.png',
+            'https://i.ibb.co/PzxbqJkG/Chat-GPT-Image-Feb-14-2026-11-56-18-PM.png',
+            'https://i.ibb.co/cK36KL4r/image-1.jpg'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 1900 },
+            { size: 'Double(72*90)', price: 1800 }
+        ]
+    },
+	 {
+        id: 5,
+        name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/VpScTGch/Chat-GPT-Image-Feb-15-2026-12-19-51-AM.png',
+            'https://i.ibb.co/pjtt0c0G/Chat-GPT-Image-Feb-15-2026-12-21-12-AM.png',
+            'https://i.ibb.co/tpLKzbHW/image-2.jpg'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 1900 },
+            { size: 'Double(72*90)', price: 1800 }
+        ]
+    },
 ];
 
 // State Management
@@ -707,6 +758,7 @@ function initForgotPassword() {
         }
     };
 }
+
 
 
 
