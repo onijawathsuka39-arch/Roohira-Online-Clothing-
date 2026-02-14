@@ -6,22 +6,22 @@ const products = [
         name: 'Desing Bedsheet Indego ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
-       category: ' Printed Design Bedsheet',
+        category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
             'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
-           
+
         ],
         stock: 5,
         variants: [
             { size: 'King Size (110*90)', price: 1900 }
-           
+
         ]
     },
-   
-       
-          
-       
+
+
+
+
     {
         id: 2,
         name: 'Handloom Bedsheets',
@@ -39,7 +39,7 @@ const products = [
             { size: 'Double(60*90)', price: 1200 }
         ]
     },
-     {
+    {
         id: 3,
         name: 'Desing Bedsheet Black and White Leaves',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -56,7 +56,7 @@ const products = [
             { size: 'Double(72*90)', price: 1800 }
         ]
     },
-     {
+    {
         id: 4,
         name: 'Desing Bedsheet with(Red rose follwers )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -73,7 +73,7 @@ const products = [
             { size: 'Double(72*90)', price: 1800 }
         ]
     },
-	 {
+    {
         id: 5,
         name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -653,9 +653,12 @@ function loadProfile() {
                     </div>
                 </div>
                 
-                <div class="border-t border-gray-50 pt-4">
+                <div class="border-t border-gray-50 pt-4 flex justify-between items-center">
                     <button onclick="toggleOrderDetails('${o.id}')" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
                         View Order Items <i class="fas fa-chevron-down text-xs transition-transform" id="icon-${o.id}"></i>
+                    </button>
+                    <button onclick="deleteOrder('${o.id}')" class="text-red-500 hover:text-red-700 text-sm font-semibold flex items-center gap-1" title="Delete Order">
+                        <i class="fas fa-trash"></i> Delete
                     </button>
                     
                     <div id="details-${o.id}" style="display: none;" class="mt-4 bg-gray-50 p-4 rounded-lg">
@@ -694,6 +697,31 @@ function toggleOrderDetails(id) {
         icon.style.transform = 'rotate(0deg)';
     }
 }
+
+function deleteOrder(orderId) {
+    if (!user) return;
+
+    // Confirm deletion
+    if (!confirm('Are you sure you want to delete this order from your history?')) {
+        return;
+    }
+
+    // Get orders from localStorage
+    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
+
+    // Filter out the order to delete
+    const updatedOrders = orders.filter(order => order.id !== orderId);
+
+    // Save updated orders back to localStorage
+    localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(updatedOrders));
+
+    // Show success message
+    showToast('Order deleted successfully', 'success');
+
+    // Reload the profile to update the display
+    loadProfile();
+}
+
 
 // --- Utilities ---
 
