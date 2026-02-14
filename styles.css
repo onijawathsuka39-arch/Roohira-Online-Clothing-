@@ -604,3 +604,54 @@ footer {
 .whatsapp-float {
     animation: pulse 2s infinite;
 }
+
+/* Floating Facebook Button */
+.facebook-float {
+    position: fixed;
+    bottom: 30px;
+    right: 110px;
+    /* Position to the left of WhatsApp button */
+    width: 60px;
+    height: 60px;
+    background-color: #1877F2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.4);
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.facebook-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(24, 119, 242, 0.6);
+    background-color: #0C5EC4;
+}
+
+.facebook-float i {
+    color: white;
+}
+
+/* Pulse animation for Facebook button */
+.facebook-float {
+    animation: pulse-fb 2s infinite;
+}
+
+@keyframes pulse-fb {
+    0% {
+        box-shadow: 0 0 0 0 rgba(24, 119, 242, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(24, 119, 242, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(24, 119, 242, 0);
+    }
+}
