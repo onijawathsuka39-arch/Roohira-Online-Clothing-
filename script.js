@@ -4,24 +4,25 @@ const products = [
     {
         id: 1,
         name: 'Silk Rose Luxury Sheet',
-        price: 1050,
         description: 'Experience the ultimate comfort with our premium silk rose bedsheet. Perfect for creating a romantic and elegant atmosphere in your bedroom.',
-        size: 'King',
-        material: '100% cotton',
+        material: '100% Silk',
         category: 'Luxury',
         images: [
-            'https://imgur.com/a/CeBAFrM',
+            'https://images.unsplash.com/photo-1522771753035-0a153950c6f2?q=80&w=2069&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?q=80&w=2070&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?q=80&w=2070&auto=format&fit=crop'
         ],
-        stock: 20
+        stock: 20,
+        variants: [
+            { size: 'King', price: 3500 },
+            { size: 'Queen', price: 2800 },
+            { size: 'Double', price: 2200 }
+        ]
     },
     {
         id: 2,
         name: 'Floral Dream Quilt Set',
-        price: 2800,
         description: 'A beautiful floral pattern quilt set that brings the freshness of spring into your home. Soft cotton material for a cozy sleep.',
-        size: 'Queen',
         material: 'Cotton Blend',
         category: 'Floral',
         images: [
@@ -29,63 +30,76 @@ const products = [
             'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=2070&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1635739066103-ba956461994a?q=80&w=2070&auto=format&fit=crop'
         ],
-        stock: 15
+        stock: 15,
+        variants: [
+            { size: 'Queen', price: 2800 },
+            { size: 'Double', price: 2400 },
+            { size: 'Single', price: 1800 }
+        ]
     },
     {
         id: 3,
         name: 'Classic White Cotton',
-        price: 1500,
         description: 'Timeless elegance with our classic white cotton bedsheet. High thread count for durability and softness.',
-        size: 'Double',
         material: 'Egyptian Cotton',
         category: 'Plain',
         images: [
-            'https://i.ibb.co/3yx5RkCV/353ecf8fad4daf78842901d62bfd42e0-jpg-720x720q80.jpg',
-            'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop'
+            'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1617325247661-675ab4b64ae8?q=80&w=2071&auto=format&fit=crop'
         ],
-        stock: 30
+        stock: 30,
+        variants: [
+            { size: 'Double', price: 1500 },
+            { size: 'Single', price: 1000 }
+        ]
     },
     {
         id: 4,
         name: 'Kids Adventure Theme',
-        price: 1800,
         description: 'Fun and adventurous theme for your little ones. Bright colors and durable fabric suitable for kids rooms.',
-        size: 'Single',
         material: 'Polyester Microfiber',
         category: 'Kids',
         images: [
             'https://images.unsplash.com/photo-1629949009765-4ef64b633a57?q=80&w=2059&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1632059032733-0c464402660d?q=80&w=2070&auto=format&fit=crop'
         ],
-        stock: 25
+        stock: 25,
+        variants: [
+            { size: 'Single', price: 1800 },
+            { size: 'Double', price: 2500 }
+        ]
     },
     {
         id: 5,
         name: 'Golden Elegance Duvet',
-        price: 4200,
         description: 'Add a touch of gold to your bedroom with this exquisite duvet cover. Matches perfectly with our luxury collection.',
-        size: 'King',
         material: 'Satin',
         category: 'Luxury',
         images: [
             'https://images.unsplash.com/photo-1616627547584-bf28cee262db?q=80&w=2070&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1618377382555-d3680e908646?q=80&w=2069&auto=format&fit=crop'
         ],
-        stock: 10
+        stock: 10,
+        variants: [
+            { size: 'King', price: 4200 },
+            { size: 'Queen', price: 3500 }
+        ]
     },
     {
         id: 6,
         name: 'Pastel Pink Delight',
-        price: 2200,
         description: 'Soft pastel pink sheets to create a serene and calming environment. Matches our brand colors perfectly.',
-        size: 'Queen',
         material: 'Bamboo Fiber',
         category: 'Plain',
         images: [
             'https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=1992&auto=format&fit=crop',
             'https://images.unsplash.com/photo-1510134446-3dc9a716eb3d?q=80&w=2070&auto=format&fit=crop'
         ],
-        stock: 18
+        stock: 18,
+        variants: [
+            { size: 'Queen', price: 2200 },
+            { size: 'Double', price: 1800 }
+        ]
     }
 ];
 
@@ -189,6 +203,7 @@ function renderProducts(items) {
 }
 
 function createProductCard(product) {
+    const defaultPrice = product.variants[0].price;
     return `
     <div class="product-card">
         <div class="product-image">
@@ -196,7 +211,7 @@ function createProductCard(product) {
                 <img src="${product.images[0]}" alt="${product.name}">
             </a>
             <div class="product-actions">
-                <button onclick="addToCart(${product.id})" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+                <button onclick="addToCartPreview(${product.id})" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
                 <a href="product.html?id=${product.id}" class="action-btn" title="View Details"><i class="fas fa-eye"></i></a>
             </div>
         </div>
@@ -204,7 +219,7 @@ function createProductCard(product) {
             <div class="product-category">${product.category}</div>
             <a href="product.html?id=${product.id}"><h3 class="product-title">${product.name}</h3></a>
             <div class="flex justify-between items-center mt-2">
-                <span class="product-price">Rs. ${product.price.toLocaleString()}</span>
+                <span class="product-price">Rs. ${defaultPrice.toLocaleString()}</span>
                 <div class="text-warning"><i class="fas fa-star text-gold"></i> 4.5</div>
             </div>
         </div>
@@ -212,12 +227,23 @@ function createProductCard(product) {
     `;
 }
 
+function addToCartPreview(id) {
+    const product = products.find(p => p.id === id);
+    if (product) {
+        // Add first variant as default from shop page
+        addToCart(id, 1, product.variants[0].size);
+    }
+}
+
 // --- Product Details ---
+
+let currentProduct = null;
 
 function loadProductDetails() {
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get('id'));
     const product = products.find(p => p.id === id);
+    currentProduct = product;
 
     if (!product) {
         document.getElementById('product-detail-container').innerHTML = '<div class="text-center p-10">Product not found</div>';
@@ -228,11 +254,16 @@ function loadProductDetails() {
     document.getElementById('detail-image').src = product.images[0];
     document.getElementById('detail-category').textContent = product.category;
     document.getElementById('detail-name').textContent = product.name;
-    document.getElementById('detail-price').textContent = `Rs. ${product.price.toLocaleString()}`;
     document.getElementById('detail-desc').textContent = product.description;
 
-    // New fields
-    document.getElementById('detail-size').textContent = product.size;
+    // Size Select
+    const sizeSelect = document.getElementById('size-select');
+    if (sizeSelect) {
+        sizeSelect.innerHTML = product.variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
+        // Set initial price
+        document.getElementById('detail-price').textContent = `Rs. ${product.variants[0].price.toLocaleString()}`;
+    }
+
     document.getElementById('detail-material').textContent = product.material;
 
     const stockStatus = document.getElementById('detail-stock');
@@ -259,8 +290,18 @@ function loadProductDetails() {
     const btn = document.getElementById('add-to-cart-btn');
     btn.onclick = () => {
         const qty = parseInt(document.getElementById('qty-input').value);
-        addToCart(product.id, qty);
+        const selectedSize = sizeSelect.value;
+        addToCart(product.id, qty, selectedSize);
     };
+}
+
+function updatePriceOnSizeChange() {
+    if (!currentProduct) return;
+    const selectedSize = document.getElementById('size-select').value;
+    const variant = currentProduct.variants.find(v => v.size === selectedSize);
+    if (variant) {
+        document.getElementById('detail-price').textContent = `Rs. ${variant.price.toLocaleString()}`;
+    }
 }
 
 function changeImage(src, element) {
@@ -273,16 +314,21 @@ function changeImage(src, element) {
 
 // --- Cart Logic ---
 
-function addToCart(id, qty = 1) {
+function addToCart(id, qty = 1, size = null) {
     const product = products.find(p => p.id === id);
-    // Use first image for cart display
+    const variant = size ? product.variants.find(v => v.size === size) : product.variants[0];
+    const finalSize = size || variant.size;
+    const finalPrice = variant.price;
+
     const cartItem = {
         ...product,
         image: product.images[0],
+        price: finalPrice,
+        size: finalSize,
         qty
     };
 
-    const existingItem = cart.find(x => x.id === id);
+    const existingItem = cart.find(x => x.id === id && x.size === finalSize);
 
     if (existingItem) {
         existingItem.qty += qty;
@@ -292,7 +338,7 @@ function addToCart(id, qty = 1) {
 
     localStorage.setItem('roohira_cart', JSON.stringify(cart));
     updateCartCount();
-    showToast(`${product.name} added to cart!`, 'success');
+    showToast(`${product.name} (${finalSize}) added to cart!`, 'success');
 }
 
 function loadCart() {
@@ -586,31 +632,71 @@ function loadProfile() {
         return;
     }
 
+    // Show full signup details in profile header
     document.getElementById('profile-name').textContent = user.name;
     document.getElementById('profile-email').textContent = user.email;
+
+    // Add phone to profile if element exists
+    const phoneEl = document.getElementById('profile-phone');
+    if (phoneEl) phoneEl.textContent = user.phone || 'N/A';
 
     const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
     const container = document.getElementById('order-history');
 
     if (orders.length === 0) {
-        container.innerHTML = '<p class="text-gray-500">No orders found.</p>';
+        container.innerHTML = '<div class="text-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200"><p class="text-gray-500">You haven\'t placed any orders yet.</p></div>';
     } else {
-        container.innerHTML = orders.map(o => `
-            <div class="border-b py-4">
-                <div class="flex justify-between font-semibold">
-                    <span>Order #${o.id.toString().slice(-6)}</span>
-                    <span>Rs. ${o.total.toLocaleString()}</span>
+        // Sort orders by newest first
+        const sortedOrders = orders.reverse();
+
+        container.innerHTML = sortedOrders.map(o => `
+            <div class="bg-white border border-gray-100 rounded-xl p-6 mb-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-sm text-gray-400 mb-1">Order #${o.id.split('-').pop()}</div>
+                        <div class="font-bold text-lg text-gray-900">${new Date(o.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-primary font-bold text-xl">Rs. ${o.total.toLocaleString()}</div>
+                        <div class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full inline-block mt-1">Confirmed</div>
+                    </div>
                 </div>
-                <div class="text-sm text-gray-500">${new Date(o.date).toLocaleDateString()}</div>
-                <div class="text-sm mt-1">${o.items.map(i => i.name).join(', ')}</div>
+                
+                <div class="border-t border-gray-50 pt-4">
+                    <button onclick="toggleOrderDetails('${o.id}')" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
+                        View Order Items <i class="fas fa-chevron-down text-xs transition-transform" id="icon-${o.id}"></i>
+                    </button>
+                    
+                    <div id="details-${o.id}" style="display: none;" class="mt-4 bg-gray-50 p-4 rounded-lg">
+                        ${o.items.map(item => `
+                            <div class="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
+                                <div class="flex items-center gap-3">
+                                    <img src="${item.image}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
+                                    <div>
+                                        <div class="text-sm font-semibold text-gray-800">${item.name}</div>
+                                        <div class="text-xs text-gray-500">Size: ${item.size} | Qty: ${item.qty}</div>
+                                    </div>
+                                </div>
+                                <div class="text-sm font-bold text-gray-700">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
             </div>
         `).join('');
     }
 }
 
-function logout() {
-    localStorage.removeItem('roohira_user');
-    window.location.href = 'index.html';
+function toggleOrderDetails(id) {
+    const el = document.getElementById(`details-${id}`);
+    const icon = document.getElementById(`icon-${id}`);
+    if (el.style.display === 'none') {
+        el.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
+    } else {
+        el.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+    }
 }
 
 // --- Utilities ---
@@ -676,6 +762,3 @@ function initForgotPassword() {
         }
     };
 }
-
-
-
