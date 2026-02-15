@@ -5,78 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details | Roohira Online</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header id="main-header">
+    <header>
         <div class="container flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2">
                 <span
-                    style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px;">
-                    Roohira<span style="color: var(--text-dark);">Online</span>
-                </span>
+                    style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary);">Roohira
+                    Online</span>
             </a>
-
             <nav class="flex gap-4 items-center">
-                <a href="index.html" class="nav-link">Home</a>
                 <a href="shop.html" class="nav-link">Shop</a>
-
-                <div class="flex items-center gap-4 ml-4 pl-4" style="border-left: 1px solid var(--glass-border);">
-                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <a href="cart.html" class="cart-icon">
-                        <i class="fas fa-shopping-bag"></i>
-                        <span id="cart-badge" class="cart-count">0</span>
-                    </a>
-
-                    <a href="login.html" id="login-link" class="btn btn-primary"
-                        style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Login</a>
-
-                    <div id="user-menu" style="display: none; position: relative;" class="group">
-                        <button class="flex items-center gap-2 nav-link"
-                            style="background:none; border:none; cursor:pointer;">
-                            <i class="fas fa-user-circle" style="font-size: 1.2rem;"></i>
-                            <span style="font-weight: 600;">Account</span>
-                        </button>
-
-                        <div style="position: absolute; right: 0; top: 120%; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 0.75rem; min-width: 180px; display: none; border: 1px solid var(--glass-border); z-index: 100;"
-                            id="user-dropdown">
-                            <a href="profile.html"
-                                style="display: block; padding: 0.75rem; color: var(--text-dark); border-radius: 8px; transition: 0.3s;"
-                                onmouseover="this.style.background='var(--secondary-light)'"
-                                onmouseout="this.style.background='none'">
-                                <i class="fas fa-user-edit" style="margin-right: 8px;"></i> My Profile
-                            </a>
-                            <button onclick="logout()"
-                                style="display: block; width: 100%; text-align: left; padding: 0.75rem; background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; border-radius: 8px; transition: 0.3s;"
-                                onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'"
-                                onmouseout="this.style.background='none'">
-                                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="cart.html" class="nav-link cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-badge" class="cart-count">0</span>
+                </a>
             </nav>
         </div>
     </header>
 
     <main class="py-10">
         <div class="container" id="product-detail-container">
-            <div
-                class="grid grid-cols-2 bg-white rounded-3xl shadow-soft overflow-hidden border border-glass-border reveal">
+            <div class="grid grid-cols-2 bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
 
                 <!-- Image Section -->
-                <div class="p-8 bg-light flex flex-col items-center justify-center">
-                    <div
-                        style="width: 100%; max-width: 500px; aspect-ratio: 1/1; position: relative; overflow: hidden; border-radius: 20px;">
+                <div class="p-8 bg-gray-50 flex flex-col items-center">
+                    <div style="width: 100%; max-width: 400px; aspect-ratio: 1/1; position: relative;">
                         <img id="detail-image" src="" alt="Product Image"
-                            style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease;">
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 1rem; box-shadow: var(--shadow-lg);">
                     </div>
                     <!-- Thumbnails -->
                     <div id="thumbnail-container" class="thumbnail-container">
@@ -86,60 +49,58 @@
 
                 <!-- Details Section -->
                 <div class="p-12 flex flex-col justify-center">
-                    <span id="detail-category" class="product-category">Category</span>
-                    <h1 id="detail-name" style="font-size: 3rem; margin-bottom: 1rem;">Product Name</h1>
+                    <span id="detail-category"
+                        class="text-xs uppercase tracking-wider text-primary font-semibold mb-2 bg-secondary/30 w-fit px-2 py-1 rounded">Category</span>
+                    <h1 id="detail-name" class="text-4xl font-bold mb-4 font-serif text-gray-900">Product Name</h1>
 
-                    <div class="flex items-center gap-4 mb-8">
-                        <span id="detail-price" class="product-price"
-                            style="font-size: 2rem; color: var(--primary);">Rs. 0</span>
-                        <div style="color: var(--accent); font-weight: 700;">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span id="detail-price" class="text-3xl font-bold text-primary">Rs. 0</span>
+                        <div class="text-yellow-400 text-sm">
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star"></i>
                             <i class="fas fa-star-half-alt"></i>
-                            <span style="color: var(--text-light); margin-left: 8px; font-weight: 500;">(4.8 /
-                                5.0)</span>
+                            <span class="text-gray-400 ml-1">(4.5)</span>
                         </div>
                     </div>
 
-                    <p id="detail-desc"
-                        style="font-size: 1.1rem; border-left: 4px solid var(--primary); padding-left: 1.5rem; margin-bottom: 2rem;">
-                        Description goes here...</p>
+                    <p id="detail-desc" class="text-gray-600 mb-6 leading-relaxed">Description goes here...</p>
 
                     <!-- Specifications Box -->
-                    <div class="spec-box mb-6">
-                        <div class="spec-item">
-                            <span class="spec-label">Select Variant</span>
+                    <div class="spec-box">
+                        <div class="spec-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                            <label for="size-select" class="label" style="margin-bottom: 0;">Select Size</label>
                             <select id="size-select" class="form-input"
-                                style="padding: 10px; border-radius: 10px; margin-top: 5px;"
+                                style="padding: 8px 12px; font-size: 14px; border-radius: 8px; width: 100%;"
                                 onchange="updatePriceOnSizeChange()">
                                 <!-- Injected by JS -->
                             </select>
                         </div>
                         <div class="spec-item">
-                            <span class="spec-label">Material Composition</span>
-                            <span id="detail-material" class="spec-value">Loading...</span>
+                            <span class="label">Material</span>
+                            <span id="detail-material" class="value">Loading...</span>
                         </div>
                     </div>
 
-                    <div class="mb-8 flex items-center gap-2">
-                        <div style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></div>
-                        <span id="detail-stock" style="font-weight: 600; color: #10b981;">In Stock</span>
+                    <div class="mb-8">
+                        <span id="detail-stock" class="font-medium text-green-600">In Stock</span>
                     </div>
 
-                    <div class="flex gap-4 items-center pt-8" style="border-top: 1px solid var(--glass-border);">
-                        <div class="qty-control">
-                            <button onclick="document.getElementById('qty-input').stepDown()" class="qty-btn"><i
-                                    class="fas fa-minus"></i></button>
-                            <input type="number" id="qty-input" value="1" min="1" max="100" class="qty-display"
-                                style="width: 50px; border: none; background: transparent; text-align: center; font-weight: 700;">
-                            <button onclick="document.getElementById('qty-input').stepUp()" class="qty-btn"><i
-                                    class="fas fa-plus"></i></button>
+                    <div class="flex gap-4 items-center pt-8 border-t border-gray-100">
+                        <div class="quantity-control px-4 py-2 bg-gray-100 border-none">
+                            <button onclick="document.getElementById('qty-input').stepDown()"
+                                class="qty-btn bg-transparent"><i class="fas fa-minus text-xs"></i></button>
+                            <input type="number" id="qty-input" value="1" min="1" max="10"
+                                class="qty-display bg-transparent border-none text-center focuses:ring-0"
+                                style="width: 40px;">
+                            <button onclick="document.getElementById('qty-input').stepUp()"
+                                class="qty-btn bg-transparent"><i class="fas fa-plus text-xs"></i></button>
                         </div>
 
-                        <button id="add-to-cart-btn" class="btn btn-primary" style="flex-grow: 1; padding: 1.25rem;">
-                            <i class="fas fa-cart-plus"></i> Add to Collection
+                        <button id="add-to-cart-btn"
+                            class="btn btn-primary flex-grow py-3 flex items-center justify-center gap-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
                         </button>
                     </div>
                 </div>
@@ -148,49 +109,6 @@
     </main>
 
     <script src="script.js"></script>
-    <script>
-        // Header Scroll Effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('main-header');
-            if (header && window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else if (header) {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Dropdown toggle enhancement
-        const userBtn = document.querySelector('#user-menu button');
-        const dropdown = document.getElementById('user-dropdown');
-        if (userBtn) {
-            userBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            });
-            document.addEventListener('click', () => {
-                dropdown.style.display = 'none';
-            });
-        }
-
-        // Intersection Observer for Reveal animations
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(40px)';
-            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(el);
-        });
-    </script>
 </body>
 
 </html>

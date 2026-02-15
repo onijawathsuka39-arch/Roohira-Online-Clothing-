@@ -5,145 +5,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Roohira Online</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body style="background: linear-gradient(135deg, var(--bg-light) 0%, var(--secondary-light) 100%); min-height: 100vh;">
-
-    <div style="position: fixed; top: 30px; left: 30px; z-index: 100;">
-        <a href="index.html" class="flex items-center gap-2" style="text-decoration: none;">
-            <i class="fas fa-arrow-left" style="color: var(--primary);"></i>
-            <span style="font-weight: 600; color: var(--text-dark);">Back to Home</span>
-        </a>
-    </div>
-
-    <div style="position: fixed; top: 30px; right: 30px; z-index: 100;">
+<body style="background-color: var(--bg-light);">
+    <div style="position: fixed; top: 20px; right: 20px;">
         <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
             <i class="fas fa-moon"></i>
         </button>
     </div>
-
-    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;">
-        <div class="auth-box reveal"
-            style="max-width: 450px; width: 100%; background: var(--white); padding: 3.5rem; border-radius: 2.5rem; border: 1px solid var(--glass-border); box-shadow: var(--shadow-lg);">
-            <div style="text-align: center; margin-bottom: 2.5rem;">
-                <h1
-                    style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary); margin-bottom: 0.5rem; letter-spacing: -1px;">
-                    Roohira<span style="color: var(--text-dark);">Online</span></h1>
-                <p style="color: var(--text-light); font-size: 0.95rem;">Enter your credentials to access your
-                    sanctuary.</p>
-            </div>
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="auth-box">
+            <h2
+                style="text-align: center; color: var(--primary); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; font-size: 2rem;">
+                Roohira Online</h2>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">Welcome back! Please enter
+                your details.</p>
 
             <form id="login-form">
-                <div class="form-group mb-4">
-                    <label for="email" class="form-label"
-                        style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Email Address</label>
-                    <input type="email" id="email" class="form-input" required placeholder="name@domain.com"
-                        style="padding: 1rem;">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" id="email" class="form-input" required placeholder="Enter your email">
                 </div>
 
-                <div class="form-group mb-4">
-                    <label for="password" class="form-label"
-                        style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Password</label>
-                    <input type="password" id="password" class="form-input" required placeholder="••••••••"
-                        style="padding: 1rem;">
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" id="password" class="form-input" required placeholder="Enter your password">
                 </div>
 
                 <div
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; font-size: 0.85rem;">
-                    <label
-                        style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-light);">
-                        <input type="checkbox"
-                            style="accent-color: var(--primary); width: 16px; height: 16px; border-radius: 4px;">
-                        Remember me
+                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.875rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="checkbox" style="accent-color: var(--primary);"> Remember me
                     </label>
-                    <a href="#" id="forgot-password-link"
-                        style="color: var(--primary); text-decoration: none; font-weight: 600;">Forgot password?</a>
+                    <a href="#" id="forgot-password-link" style="color: var(--primary);">Forgot password?</a>
                 </div>
 
-                <button type="submit" class="btn btn-primary"
-                    style="width: 100%; padding: 1.25rem; font-size: 1rem; border-radius: 12px;">Sign In to
-                    Account</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                <button type="button" class="btn btn-outline"
+                    style="width: 100%; margin-top: 1rem; border-color: #ddd; color: #555;">
+                    <i class="fab fa-google" style="color: #DB4437; margin-right: 8px;"></i> Sign in with Google
+                </button>
             </form>
 
             <form id="forgot-password-form" style="display: none;">
-                <div class="form-group mb-4">
+                <div class="form-group">
                     <label for="reset-email" class="form-label">Email address</label>
                     <input type="email" id="reset-email" class="form-input" required
                         placeholder="Enter registered email">
                 </div>
 
-                <div class="form-group mb-4">
+                <div class="form-group">
                     <label for="reset-phone" class="form-label">Phone Number</label>
                     <input type="tel" id="reset-phone" class="form-input" required
                         placeholder="Enter registered phone number">
                 </div>
 
-                <div class="form-group mb-6">
+                <div class="form-group">
                     <label for="reset-new-password" class="form-label">New Password</label>
                     <input type="password" id="reset-new-password" class="form-input" required
                         placeholder="Enter new password">
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.25rem;">Reset
-                    Credentials</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Reset Password</button>
                 <button type="button" id="back-to-login" class="btn btn-outline"
-                    style="width: 100%; margin-top: 1rem; padding: 1rem;">Back to Login</button>
+                    style="width: 100%; margin-top: 1rem; border-color: #ddd; color: #555;">
+                    Back to Login
+                </button>
             </form>
 
-            <div style="margin-top: 2.5rem; text-align: center; font-size: 0.9rem; color: var(--text-light);">
-                New to Roohira? <a href="signup.html"
-                    style="color: var(--primary); font-weight: 700; text-decoration: none;">Create an account</a>
-            </div>
+            <p id="signup-prompt" style="text-align: center; margin-top: 1.5rem; font-size: 0.875rem;">
+                Don't have an account? <a href="signup.html" style="color: var(--primary); font-weight: 600;">Sign up
+                    for free</a>
+            </p>
         </div>
     </div>
-
     <script src="script.js"></script>
-    <script>
-        // Intersection Observer for Reveal animations
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(40px)';
-            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(el);
-        });
-
-        // Handle forgotten password UI toggle
-        const forgotLink = document.getElementById('forgot-password-link');
-        const loginForm = document.getElementById('login-form');
-        const forgotForm = document.getElementById('forgot-password-form');
-        const backToLogin = document.getElementById('back-to-login');
-
-        if (forgotLink) {
-            forgotLink.onclick = (e) => {
-                e.preventDefault();
-                loginForm.style.display = 'none';
-                forgotForm.style.display = 'block';
-            };
-        }
-
-        if (backToLogin) {
-            backToLogin.onclick = () => {
-                loginForm.style.display = 'block';
-                forgotForm.style.display = 'none';
-            };
-        }
-    </script>
 </body>
 
 </html>
