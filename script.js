@@ -90,6 +90,57 @@ const products = [
             { size: 'Double(72*90)', price: 1800 }
         ]
     },
+	{
+        id: 6,
+        name: 'Desing Bedsheet with Dark Purple follwers',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/574XHb1/Chat-GPT-Image-Feb-15-2026-07-48-36-PM.png',
+            'https://i.ibb.co/ycPnjrKS/Chat-GPT-Image-Feb-15-2026-07-52-14-PM.png',
+            'https://i.ibb.co/kYXq5GM/Chat-GPT-Image-Feb-15-2026-08-09-43-PM.png'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 1900 },
+            { size: 'Double(72*90)', price: 1800 }
+        ]
+    },
+	{
+        id: 7,
+        name: 'Desing Bedsheet with  Purple Square',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '100% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/7JvnjgD0/Chat-GPT-Image-Feb-15-2026-04-24-39-PM.png',
+            'https://i.ibb.co/5h5bjny9/Chat-GPT-Image-Feb-15-2026-04-16-31-PM.png',
+            'https://i.ibb.co/PZ1ypzr4/Chat-GPT-Image-Feb-15-2026-04-18-25-PM.png'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 2100 },
+            { size: 'Double(72*90)', price: 1900 }
+        ]
+    },
+	{
+        id: 8,
+        name: 'Desing Bedsheet For Little Baby',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/v4pQ6PkY/Chat-GPT-Image-Feb-15-2026-07-50-28-PM.png',
+            'https://i.ibb.co/Psds60QD/Chat-GPT-Image-Feb-15-2026-08-18-06-PM.png',
+            'https://i.ibb.co/8gkhgXqt/Chat-GPT-Image-Feb-15-2026-08-17-38-PM.png'
+        ],
+        stock: 1,
+        variants: [
+            { size: 'King(110*90)', price: 1900 },
+            { size: 'Double(72*90)', price: 1800 }
+        ]
+    },
 ];
 
 // State Management
@@ -815,7 +866,6 @@ function initForgotPassword() {
         }
     };
 }
-
 
 
 
