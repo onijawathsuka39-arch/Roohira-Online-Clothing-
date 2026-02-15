@@ -222,7 +222,53 @@ function updateThemeIcon(theme) {
         icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
     });
 }
+// Banner Modal Functionality
+const banners = [
+    {
+        image: "https://i.ibb.co/TxXhVsCk/Chat-GPT-Image-Feb-16-2026-12-06-59-AM.png",
+        title: "Get Free Delivery Offer",
+        description: "Buy 2 or More Item"
+    },
+    {
+        image: "https://ml3q7m5dyiac.i.optimole.com/cb:NK5S.6b2/w:412/h:458/q:mauto/dpr:2.6/f:best/https://thebedsheetfactory.com/wp-content/uploads/2023/10/bedsheets-sets-sub-category.jpeg",
+        title: "Luxury Series",
+        description: "Smooth Finish for Royal Feel - Experience True Luxury"
+    }
+];
 
+function openBannerModal(index) {
+    const modal = document.getElementById('bannerModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    
+    modalImage.src = banners[index].image;
+    modalTitle.textContent = banners[index].title;
+    modalDesc.textContent = banners[index].description;
+    
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+function closeBannerModal() {
+    const modal = document.getElementById('bannerModal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+// Close modal when clicking outside the content
+document.getElementById('bannerModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeBannerModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeBannerModal();
+    }
+});
 
 // --- UI Updates ---
 
