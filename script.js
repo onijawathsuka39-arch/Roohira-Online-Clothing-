@@ -12,9 +12,9 @@ const products = [
             'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
 
         ],
-        stock: 5,
         variants: [
-            { size: 'King Size (110*90)', price: 1900 }
+            { size: 'King Size (110*90)', price: 1900, stock: 5 },
+			{ size: 'Double (72*90)', price: 1900, stock: 0 }
 
         ]
     },
@@ -33,10 +33,9 @@ const products = [
             'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
             'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
         ],
-        stock: 0,
         variants: [
-            { size: 'Singal(54*80)', price: 950 },
-            { size: 'Double(60*90)', price: 1200 }
+            { size: 'Singal(54*80)', price: 950, stock: 0 },
+            { size: 'Double(60*90)', price: 1200, stock: 0 }
         ]
     },
     {
@@ -50,10 +49,9 @@ const products = [
             'https://i.ibb.co/h1hSLLR7/Chat-GPT-Image-Feb-14-2026-11-11-25-PM.png',
             'https://i.ibb.co/dJ5QRNbz/image.jpg'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 1900 },
-            { size: 'Double(72*90)', price: 1800 }
+            { size: 'King(110*90)', price: 1900, stock: 3 },
+            { size: 'Double(72*90)', price: 1800, stock: 3 }
         ]
     },
     {
@@ -67,10 +65,9 @@ const products = [
             'https://i.ibb.co/PzxbqJkG/Chat-GPT-Image-Feb-14-2026-11-56-18-PM.png',
             'https://i.ibb.co/cK36KL4r/image-1.jpg'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 1900 },
-            { size: 'Double(72*90)', price: 1800 }
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 10 }
         ]
     },
     {
@@ -84,13 +81,12 @@ const products = [
             'https://i.ibb.co/pjtt0c0G/Chat-GPT-Image-Feb-15-2026-12-21-12-AM.png',
             'https://i.ibb.co/tpLKzbHW/image-2.jpg'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 1900 },
-            { size: 'Double(72*90)', price: 1800 }
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 10 }
         ]
     },
-	{
+    {
         id: 6,
         name: 'Desing Bedsheet with Dark Purple follwers',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -101,13 +97,12 @@ const products = [
             'https://i.ibb.co/ycPnjrKS/Chat-GPT-Image-Feb-15-2026-07-52-14-PM.png',
             'https://i.ibb.co/kYXq5GM/Chat-GPT-Image-Feb-15-2026-08-09-43-PM.png'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 1900 },
-            { size: 'Double(72*90)', price: 1800 }
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 10 }
         ]
     },
-	{
+    {
         id: 7,
         name: 'Desing Bedsheet with  Purple Square',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -118,13 +113,12 @@ const products = [
             'https://i.ibb.co/5h5bjny9/Chat-GPT-Image-Feb-15-2026-04-16-31-PM.png',
             'https://i.ibb.co/PZ1ypzr4/Chat-GPT-Image-Feb-15-2026-04-18-25-PM.png'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 2100 },
-            { size: 'Double(72*90)', price: 1900 }
+            { size: 'King(110*90)', price: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1900, stock: 19 }
         ]
     },
-	{
+    {
         id: 8,
         name: 'Desing Bedsheet For Little Baby',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -135,10 +129,9 @@ const products = [
             'https://i.ibb.co/Psds60QD/Chat-GPT-Image-Feb-15-2026-08-18-06-PM.png',
             'https://i.ibb.co/8gkhgXqt/Chat-GPT-Image-Feb-15-2026-08-17-38-PM.png'
         ],
-        stock: 1,
         variants: [
-            { size: 'King(110*90)', price: 1900 },
-            { size: 'Double(72*90)', price: 1800 }
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 4 }
         ]
     },
 ];
@@ -273,14 +266,17 @@ function renderProducts(items) {
 
 function createProductCard(product) {
     const defaultPrice = product.variants[0].price;
+    const isSoldOut = product.variants.every(v => v.stock <= 0);
+
     return `
-    <div class="product-card">
+    <div class="product-card ${isSoldOut ? 'sold-out' : ''}">
         <div class="product-image">
             <a href="product.html?id=${product.id}">
                 <img src="${product.images[0]}" alt="${product.name}">
+                ${isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
             </a>
             <div class="product-actions">
-                <button onclick="addToCartPreview(${product.id})" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>
+                ${!isSoldOut ? `<button onclick="addToCartPreview(${product.id})" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>` : ''}
                 <a href="product.html?id=${product.id}" class="action-btn" title="View Details"><i class="fas fa-eye"></i></a>
             </div>
         </div>
@@ -299,8 +295,13 @@ function createProductCard(product) {
 function addToCartPreview(id) {
     const product = products.find(p => p.id === id);
     if (product) {
-        // Add first variant as default from shop page
-        addToCart(id, 1, product.variants[0].size);
+        // Find first variant with stock
+        const availableVariant = product.variants.find(v => v.stock > 0);
+        if (availableVariant) {
+            addToCart(id, 1, availableVariant.size);
+        } else {
+            showToast('All sizes are out of stock!', 'error');
+        }
     }
 }
 
@@ -336,9 +337,11 @@ function loadProductDetails() {
     document.getElementById('detail-material').textContent = product.material;
 
     const stockStatus = document.getElementById('detail-stock');
-    if (product.stock > 0) {
-        stockStatus.textContent = 'In Stock';
+    const firstVariant = product.variants[0];
+    if (firstVariant && firstVariant.stock > 0) {
+        stockStatus.textContent = `In Stock (${firstVariant.stock})`;
         stockStatus.style.color = 'green';
+        document.getElementById('add-to-cart-btn').disabled = false;
     } else {
         stockStatus.textContent = 'Out of Stock';
         stockStatus.style.color = 'red';
@@ -370,6 +373,19 @@ function updatePriceOnSizeChange() {
     const variant = currentProduct.variants.find(v => v.size === selectedSize);
     if (variant) {
         document.getElementById('detail-price').textContent = `Rs. ${variant.price.toLocaleString()}`;
+
+        // Update Stock Status
+        const stockStatus = document.getElementById('detail-stock');
+        const btn = document.getElementById('add-to-cart-btn');
+        if (variant.stock > 0) {
+            stockStatus.textContent = `In Stock (${variant.stock})`;
+            stockStatus.style.color = 'green';
+            btn.disabled = false;
+        } else {
+            stockStatus.textContent = 'Out of Stock';
+            stockStatus.style.color = 'red';
+            btn.disabled = true;
+        }
     }
 }
 
@@ -388,6 +404,12 @@ function addToCart(id, qty = 1, size = null) {
     const variant = size ? product.variants.find(v => v.size === size) : product.variants[0];
     const finalSize = size || variant.size;
     const finalPrice = variant.price;
+
+    // Check Stock
+    if (variant.stock <= 0) {
+        showToast('Sorry, this size is out of stock!', 'error');
+        return;
+    }
 
     const cartItem = {
         ...product,
