@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout | Roohira Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
     <!-- Add html2pdf library -->
@@ -17,7 +19,6 @@
             left: -9999px;
             top: 0;
             width: 800px;
-            /* Layout width for PDF */
         }
 
         #invoice-template {
@@ -57,104 +58,156 @@
 </head>
 
 <body>
-    <header>
+    <header id="main-header">
         <div class="container flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2">
                 <span
-                    style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary);">Roohira
-                    Online</span>
+                    style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px;">
+                    Roohira<span style="color: var(--text-dark);">Online</span>
+                </span>
             </a>
+
             <nav class="flex gap-4 items-center">
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="cart.html" class="nav-link">Cart</a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="shop.html" class="nav-link">Shop</a>
+
+                <div class="flex items-center gap-4 ml-4 pl-4" style="border-left: 1px solid var(--glass-border);">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span id="cart-badge" class="cart-count">0</span>
+                    </a>
+
+                    <a href="login.html" id="login-link" class="btn btn-primary"
+                        style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Login</a>
+
+                    <div id="user-menu" style="display: none; position: relative;" class="group">
+                        <button class="flex items-center gap-2 nav-link"
+                            style="background:none; border:none; cursor:pointer;">
+                            <i class="fas fa-user-circle" style="font-size: 1.2rem;"></i>
+                            <span style="font-weight: 600;">Account</span>
+                        </button>
+
+                        <div style="position: absolute; right: 0; top: 120%; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 0.75rem; min-width: 180px; display: none; border: 1px solid var(--glass-border); z-index: 100;"
+                            id="user-dropdown">
+                            <a href="profile.html"
+                                style="display: block; padding: 0.75rem; color: var(--text-dark); border-radius: 8px; transition: 0.3s;"
+                                onmouseover="this.style.background='var(--secondary-light)'"
+                                onmouseout="this.style.background='none'">
+                                <i class="fas fa-user-edit" style="margin-right: 8px;"></i> My Profile
+                            </a>
+                            <button onclick="logout()"
+                                style="display: block; width: 100%; text-align: left; padding: 0.75rem; background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; border-radius: 8px; transition: 0.3s;"
+                                onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'"
+                                onmouseout="this.style.background='none'">
+                                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="py-10">
-        <div class="container grid grid-cols-2" id="checkout-container">
-            <div>
-                <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">Checkout</h1>
-
-                <form id="checkout-form" onsubmit="placeOrder(event)" class="bg-white p-8 rounded-lg shadow-sm">
-                    <h2 class="text-xl font-semibold mb-6">Shipping Details</h2>
-
-                    <div class="form-group">
-                        <label for="name" class="form-label">Full Name</label>
-                        <input type="text" id="name" class="form-input" required placeholder="John Doe">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone" class="form-label">Phone Number</label>
-                        <input type="tel" id="phone" class="form-input" required placeholder="07x xxx xxxx">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" id="address" class="form-input" required placeholder="No. 123, Street Name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" id="city" class="form-input" required placeholder="Colombo">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="note" class="form-label">Note (Optional)</label>
-                        <textarea id="note" class="form-input" rows="3" placeholder="Special instructions"></textarea>
-                    </div>
-
-                    <button type="submit" id="place-order-btn"
-                        class="btn btn-primary w-full flex items-center justify-center gap-2"
-                        style="width: 100%; margin-top: 2rem;">
-                        <i class="fab fa-whatsapp"></i> Download Invoice & Place Order
-                    </button>
-                    <p class="text-xs text-gray-500 mt-2 text-center">This will download an order PDF. Please attach it
-                        to the WhatsApp message.</p>
-                </form>
+        <div class="container" id="checkout-container">
+            <div class="text-center mb-6 reveal">
+                <h1 style="font-size: 3.5rem; margin-bottom: 2rem;">Secure Checkout</h1>
+                <div
+                    style="width: 80px; height: 4px; background: var(--primary); margin: 0 auto 3rem; border-radius: 2px;">
+                </div>
             </div>
 
-            <div style="padding-left: 2rem;">
-                <div class="bg-white p-8 rounded-lg shadow-sm sticky top-24">
-                    <h2 class="text-xl font-semibold mb-6">Order Summary</h2>
-                    <div id="summary-list" class="mb-4">
-                        <!-- Items injected by JS -->
-                    </div>
-                    <div class="border-t border-gray-100 pt-4 mt-4">
-                        <div class="flex justify-between font-bold text-lg">
-                            <span>Total</span>
-                            <span id="checkout-total" class="text-primary">Rs. 0</span>
+            <div class="grid grid-cols-2 gap-12 reveal" style="animation-delay: 0.2s;">
+                <div>
+                    <form id="checkout-form" onsubmit="placeOrder(event)"
+                        class="bg-white p-10 rounded-3xl shadow-soft border border-glass-border">
+                        <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                            <i class="fas fa-shipping-fast text-primary"></i> Shipping Details
+                        </h2>
+
+                        <div class="form-group mb-4">
+                            <label for="name" class="form-label">Full Recipient Name</label>
+                            <input type="text" id="name" class="form-input" required placeholder="Enter full name">
                         </div>
-                        <div class="text-sm text-gray-500 mt-2">Cash on Delivery</div>
+
+                        <div class="form-group mb-4">
+                            <label for="phone" class="form-label">WhatsApp Contact Number</label>
+                            <input type="tel" id="phone" class="form-input" required placeholder="07x xxx xxxx">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="address" class="form-label">Delivery Address</label>
+                            <input type="text" id="address" class="form-input" required
+                                placeholder="Street address, apartment, etc.">
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="city" class="form-label">City / Region</label>
+                            <input type="text" id="city" class="form-input" required placeholder="City name">
+                        </div>
+
+                        <div class="form-group mb-6">
+                            <label for="note" class="form-label">Order Instructions (Optional)</label>
+                            <textarea id="note" class="form-input" rows="3"
+                                placeholder="Any specific requirements..."></textarea>
+                        </div>
+
+                        <button type="submit" id="place-order-btn" class="btn btn-primary w-full"
+                            style="padding: 1.25rem;">
+                            <i class="fab fa-whatsapp"></i> Confirm & Proceed to WhatsApp
+                        </button>
+                        <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 1rem; text-align: center;">
+                            * An invoice PDF will be generated for your reference.
+                        </p>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="bg-white p-10 rounded-3xl shadow-soft border border-glass-border sticky top-24">
+                        <h2 class="text-2xl font-bold mb-8">Collection Summary</h2>
+                        <div id="summary-list" class="mb-6">
+                            <!-- Items injected by JS -->
+                        </div>
+                        <div class="pt-6" style="border-top: 1px solid var(--glass-border);">
+                            <div class="flex justify-between items-center mb-2">
+                                <span style="font-weight: 700; font-size: 1.2rem;">Total Investment</span>
+                                <span id="checkout-total"
+                                    style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">Rs. 0</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm" style="color: #10b981;">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Cash on Delivery - Verified</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Hidden Invoice Template -->
-        <!-- Hidden Invoice Template -->
         <div style="display: none;">
             <div id="invoice-template"
                 style="width: 700px; padding: 40px; background: white; color: #333; font-family: 'Inter', sans-serif; text-align: center;">
-                <div style="border-bottom: 2px solid #e91e63; padding-bottom: 20px; margin-bottom: 30px;">
+                <div style="border-bottom: 2px solid var(--primary); padding-bottom: 20px; margin-bottom: 30px;">
                     <h1
-                        style="color: #e91e63; font-size: 36px; margin: 0; font-family: 'Playfair Display', serif; font-weight: 700;">
+                        style="color: var(--primary); font-size: 36px; margin: 0; font-family: 'Playfair Display', serif; font-weight: 700;">
                         Roohira Online</h1>
-                    <p style="color: #666; margin: 5px 0 10px 0; font-size: 16px; font-weight: 500;">Your Trusted Online
-                        Fashion Partner</p>
+                    <p style="color: #666; margin: 5px 0 10px 0; font-size: 16px; font-weight: 500;">Premium Textile
+                        Collections</p>
                     <div style="display: flex; justify-content: center; gap: 30px; font-size: 14px; color: #888;">
                         <span id="inv-date">Date: </span>
-                        <span id="inv-id" style="font-weight: 700; color: #e91e63;">Order ID: </span>
+                        <span id="inv-id" style="font-weight: 700; color: var(--primary);">Order ID: </span>
                     </div>
                 </div>
 
-                <div style="text-align: left; margin-bottom: 40px; padding-left: 10px; border-left: 3px solid #e91e63;">
+                <div
+                    style="text-align: left; margin-bottom: 40px; padding-left: 10px; border-left: 4px solid var(--primary);">
                     <h3
-                        style="margin: 0 0 10px 0; font-size: 14px; color: #e91e63; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
-                        Customer Information</h3>
-                    <p style="margin: 0 0 5px 0;"><strong style="font-size: 11px; color: #999;">BILL TO:</strong></p>
+                        style="margin: 0 0 10px 0; font-size: 14px; color: var(--primary); text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                        Recipient Details</h3>
                     <p id="inv-name"
                         style="font-weight: 700; font-size: 20px; margin: 0 0 5px 0; color: #333; line-height: 1;"></p>
                     <p id="inv-phone" style="margin: 0 0 5px 0; font-size: 15px; color: #555;"></p>
@@ -164,15 +217,9 @@
                     </div>
                 </div>
 
-                <div style="margin-bottom: 25px;">
-                    <h2
-                        style="font-size: 18px; color: #333; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #eee; display: inline-block; padding-bottom: 5px;">
-                        Order Summary</h2>
-                </div>
-
                 <table style="width: 100%; border-collapse: collapse; margin-bottom: 35px; border: 1px solid #eee;">
                     <thead>
-                        <tr style="background: #e91e63; color: white;">
+                        <tr style="background: var(--primary); color: white;">
                             <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none;"
                                 width="100">Item</th>
                             <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none;">
@@ -185,35 +232,77 @@
                                 width="120">Total</th>
                         </tr>
                     </thead>
-                    <tbody id="inv-items">
-                        <!-- Items injected here -->
-                    </tbody>
+                    <tbody id="inv-items"></tbody>
                 </table>
 
                 <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px;">
                     <div
-                        style="padding: 20px 40px; border: 3px solid #e91e63; border-radius: 60px; background: white; box-shadow: 0 4px 10px rgba(233, 30, 99, 0.1);">
+                        style="padding: 20px 40px; border: 3px solid var(--primary); border-radius: 60px; background: white;">
                         <span style="font-size: 18px; color: #666; font-weight: 500;">Grand Total:</span>
                         <span id="inv-total"
-                            style="font-size: 32px; font-weight: 800; color: #e91e63; margin-left: 15px;">Rs. 0</span>
+                            style="font-size: 32px; font-weight: 800; color: var(--primary); margin-left: 15px;">Rs.
+                            0</span>
                     </div>
                     <p
-                        style="margin-top: 15px; font-weight: 600; color: #999; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                        style="margin-top: 15px; font-weight: 600; color: #999; font-size: 14px; text-transform: uppercase;">
                         Payment Mode: Cash on Delivery</p>
                 </div>
 
                 <div style="margin-top: 50px; padding-top: 25px; border-top: 1px solid #eee;">
-                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #666;">Contact: +94 71 443 3279 |
+                    <p style="margin: 0 0 8px 0; font-size: 14px; color: #666;">+94 71 443 3279 |
                         roohiraonline@gmail.com</p>
                     <p
-                        style="margin: 0; font-weight: 700; color: #e91e63; font-size: 18px; font-family: 'Playfair Display', serif;">
-                        Thank you for your valued order!</p>
+                        style="margin: 0; font-weight: 700; color: var(--primary); font-size: 18px; font-family: 'Playfair Display', serif;">
+                        Thank you for choosing Roohira Online!</p>
                 </div>
             </div>
         </div>
     </main>
 
     <script src="script.js"></script>
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (header && window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else if (header) {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Dropdown toggle enhancement
+        const userBtn = document.querySelector('#user-menu button');
+        const dropdown = document.getElementById('user-dropdown');
+        if (userBtn) {
+            userBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', () => {
+                dropdown.style.display = 'none';
+            });
+        }
+
+        // Intersection Observer for Reveal animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+    </script>
 </body>
 
 </html>

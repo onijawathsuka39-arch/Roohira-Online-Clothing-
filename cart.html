@@ -5,65 +5,148 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart | Roohira Online</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header>
+    <header id="main-header">
         <div class="container flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2">
                 <span
-                    style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary);">Roohira
-                    Online</span>
+                    style="font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px;">
+                    Roohira<span style="color: var(--text-dark);">Online</span>
+                </span>
             </a>
+
             <nav class="flex gap-4 items-center">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="shop.html" class="nav-link">Shop</a>
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="cart.html" class="nav-link cart-icon">
-                    <i class="fas fa-shopping-cart" style="color: var(--primary);"></i>
-                    <span id="cart-badge" class="cart-count">0</span>
-                </a>
+
+                <div class="flex items-center gap-4 ml-4 pl-4" style="border-left: 1px solid var(--glass-border);">
+                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-bag" style="color: var(--primary);"></i>
+                        <span id="cart-badge" class="cart-count">0</span>
+                    </a>
+
+                    <a href="login.html" id="login-link" class="btn btn-primary"
+                        style="padding: 0.6rem 1.5rem; font-size: 0.85rem;">Login</a>
+
+                    <div id="user-menu" style="display: none; position: relative;" class="group">
+                        <button class="flex items-center gap-2 nav-link"
+                            style="background:none; border:none; cursor:pointer;">
+                            <i class="fas fa-user-circle" style="font-size: 1.2rem;"></i>
+                            <span style="font-weight: 600;">Account</span>
+                        </button>
+
+                        <div style="position: absolute; right: 0; top: 120%; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 0.75rem; min-width: 180px; display: none; border: 1px solid var(--glass-border); z-index: 100;"
+                            id="user-dropdown">
+                            <a href="profile.html"
+                                style="display: block; padding: 0.75rem; color: var(--text-dark); border-radius: 8px; transition: 0.3s;"
+                                onmouseover="this.style.background='var(--secondary-light)'"
+                                onmouseout="this.style.background='none'">
+                                <i class="fas fa-user-edit" style="margin-right: 8px;"></i> My Profile
+                            </a>
+                            <button onclick="logout()"
+                                style="display: block; width: 100%; text-align: left; padding: 0.75rem; background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; border-radius: 8px; transition: 0.3s;"
+                                onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'"
+                                onmouseout="this.style.background='none'">
+                                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
     <main class="py-10">
         <div class="container" id="cart-container">
-            <h1 style="font-size: 2.5rem; margin-bottom: 2rem;">Your Cart</h1>
+            <div class="text-center mb-6 reveal">
+                <h1 style="font-size: 3.5rem; margin-bottom: 2rem;">Shoping Cart</h1>
+                <div
+                    style="width: 80px; height: 4px; background: var(--primary); margin: 0 auto 3rem; border-radius: 2px;">
+                </div>
+            </div>
 
-            <div class="grid grid-cols-3 gap-8">
+            <div class="grid grid-cols-3 gap-8 reveal" style="animation-delay: 0.2s;">
                 <div id="cart-items" style="grid-column: span 2;">
                     <!-- Cart items injected by JS -->
                 </div>
 
                 <div id="cart-summary"
-                    style="padding: 1.5rem; background: white; border-radius: 1rem; box-shadow: var(--shadow); height: fit-content;">
-                    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Order Summary</h2>
+                    class="bg-white p-8 rounded-3xl shadow-soft border border-glass-border height-fit">
+                    <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Collection Summary</h2>
                     <div
-                        style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #eee;">
-                        <span>Subtotal</span>
-                        <span id="cart-total">Rs. 0</span>
+                        style="display: flex; justify-content: space-between; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--glass-border);">
+                        <span style="color: var(--text-light);">Subtotal</span>
+                        <span id="cart-total" style="font-weight: 600;">Rs. 0</span>
                     </div>
-                    <div
-                        style="font-weight: bold; font-size: 1.25rem; display: flex; justify-content: space-between; margin-bottom: 1.5rem;">
-                        <span>Total</span>
-                        <span id="cart-grand-total">Rs. 0</span>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                        <span style="font-size: 1.25rem; font-weight: 700;">Total</span>
+                        <span id="cart-grand-total"
+                            style="font-size: 1.5rem; font-weight: 800; color: var(--primary);">Rs. 0</span>
                     </div>
                     <a href="checkout.html" class="btn btn-primary"
-                        style="width: 100%; display: block; text-align: center;">Proceed to Checkout</a>
+                        style="width: 100%; display: block; text-align: center; padding: 1.25rem;">Secure Checkout</a>
                     <a href="shop.html" class="btn btn-outline"
-                        style="width: 100%; display: block; text-align: center; margin-top: 1rem;">Continue Shopping</a>
+                        style="width: 100%; display: block; text-align: center; margin-top: 1rem; padding: 1rem;">Continue
+                        Browsing</a>
                 </div>
             </div>
         </div>
     </main>
 
     <script src="script.js"></script>
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (header && window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else if (header) {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Dropdown toggle enhancement
+        const userBtn = document.querySelector('#user-menu button');
+        const dropdown = document.getElementById('user-dropdown');
+        if (userBtn) {
+            userBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            });
+            document.addEventListener('click', () => {
+                dropdown.style.display = 'none';
+            });
+        }
+
+        // Intersection Observer for Reveal animations
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(40px)';
+            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+    </script>
 </body>
 
 </html>
