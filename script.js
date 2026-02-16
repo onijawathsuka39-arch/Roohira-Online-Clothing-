@@ -134,7 +134,7 @@ const products = [
             { size: 'Double(72*90)', price: 1800, stock: 4 }
         ]
     },
-	{
+    {
         id: 9,
         name: 'Orange Look Desing Bedsheet ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -150,7 +150,7 @@ const products = [
             { size: 'Double(72*90)', price: 1900, stock: 4 }
         ]
     },
-	{
+    {
         id: 10,
         name: ' Desing Bedsheet with Green Leaves ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -159,7 +159,7 @@ const products = [
         images: [
             'https://i.ibb.co/TBPLW68c/Chat-GPT-Image-Feb-16-2026-02-21-28-AM.png',
             'https://i.ibb.co/dT0kgXh/Chat-GPT-Image-Feb-16-2026-02-23-02-AM.png'
-            
+
         ],
         variants: [
             { size: 'King(110*90)', price: 1900, stock: 10 },
@@ -228,12 +228,24 @@ function updateThemeIcon(theme) {
 function updateCartCount() {
     const count = cart.reduce((acc, item) => acc + item.qty, 0);
     const badge = document.getElementById('cart-badge');
+    const sidebarBadge = document.getElementById('sidebar-cart-badge');
+
     if (badge) badge.textContent = count;
+    if (sidebarBadge) {
+        sidebarBadge.textContent = count;
+        sidebarBadge.style.display = count > 0 ? 'inline-block' : 'none';
+    }
 }
 
 function updateUserUI() {
     const loginLink = document.getElementById('login-link');
     const userMenu = document.getElementById('user-menu');
+
+    // New Elements
+    const headerLoginBtn = document.getElementById('header-login-btn');
+    const headerUserMenu = document.getElementById('header-user-menu');
+    const headerUsername = document.getElementById('header-username');
+    const sidebarUserSection = document.getElementById('sidebar-user-section');
 
     if (user) {
         if (loginLink) loginLink.style.display = 'none';
@@ -241,9 +253,31 @@ function updateUserUI() {
             userMenu.style.display = 'block';
             userMenu.querySelector('span').textContent = user.name.split(' ')[0];
         }
+
+        // New UI
+        if (headerLoginBtn) headerLoginBtn.style.display = 'none';
+        if (headerUserMenu) {
+            headerUserMenu.style.display = 'flex';
+            if (headerUsername) headerUsername.textContent = user.name.split(' ')[0];
+        }
+        if (sidebarUserSection) sidebarUserSection.style.display = 'block';
     } else {
         if (loginLink) loginLink.style.display = 'block';
         if (userMenu) userMenu.style.display = 'none';
+
+        // New UI
+        if (headerLoginBtn) headerLoginBtn.style.display = 'block';
+        if (headerUserMenu) headerUserMenu.style.display = 'none';
+        if (sidebarUserSection) sidebarUserSection.style.display = 'none';
+    }
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+    if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
     }
 }
 

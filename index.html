@@ -31,48 +31,61 @@
             </a>
 
             <nav class="flex gap-4 items-center">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="shop.html" class="nav-link">Shop</a>
+                <!-- Login Button (Visible when logged out) -->
+                <a href="login.html" id="header-login-btn" class="btn btn-primary"
+                    style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
 
-                <div class="flex items-center gap-4 ml-4 pl-4 border-l border-gray-200">
-                    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                    <a href="cart.html" class="nav-link cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span id="cart-badge" class="cart-count">0</span>
-                    </a>
-
-                    <a href="login.html" id="login-link" class="btn btn-primary"
-                        style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
-
-                    <div id="user-menu" style="display: none; position: relative;" class="group">
-                        <button class="flex items-center gap-2 nav-link"
-                            style="background:none; border:none; cursor:pointer;">
-                            <i class="fas fa-user"></i>
-                            <span style="font-weight: 500;">User</span>
-                        </button>
-
-                        <div style="position: absolute; right: 0; top: 120%; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); padding: 0.75rem; min-width: 180px; display: none; border: 1px solid var(--glass-border); z-index: 100;"
-                            id="user-dropdown">
-                            <a href="profile.html"
-                                style="display: block; padding: 0.75rem; color: var(--text-dark); border-radius: 8px; transition: 0.3s;"
-                                onmouseover="this.style.background='var(--secondary-light)'"
-                                onmouseout="this.style.background='none'">
-                                <i class="fas fa-user-edit" style="margin-right: 8px;"></i> My Profile
-                            </a>
-                            <button onclick="logout()"
-                                style="display: block; width: 100%; text-align: left; padding: 0.75rem; background: none; border: none; cursor: pointer; color: #ef4444; font-weight: 600; border-radius: 8px; transition: 0.3s;"
-                                onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'"
-                                onmouseout="this.style.background='none'">
-                                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i> Logout
-                            </button>
-                        </div>
-                    </div>
+                <!-- User Info (Visible when logged in) -->
+                <div id="header-user-menu" style="display: none; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-user-circle text-xl" style="color: var(--primary);"></i>
+                    <span id="header-username" style="font-weight: 600;">User</span>
                 </div>
+
+                <!-- Hamburger Menu -->
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </nav>
         </div>
     </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary);">Menu</h2>
+            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-nav">
+            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> Shop</a>
+            <a href="cart.html" class="sidebar-link">
+                <i class="fas fa-shopping-cart"></i> Cart
+                <span id="sidebar-cart-badge"
+                    style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
+            </a>
+            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> My Profile</a>
+
+            <!-- User Logout (Hidden by default, shown if logged in) -->
+            <div id="sidebar-user-section"
+                style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
+                <button onclick="logout()" class="sidebar-link"
+                    style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
+                        class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+
+            <!-- Theme Toggle -->
+            <div
+                style="margin-top: auto; padding-top: 1rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 500;">Dark Mode</span>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Hero Section -->
     <section class="hero">
         <div class="container reveal">
@@ -97,7 +110,7 @@
                 <!-- Banner 1 -->
                 <div class="offer-banner-container reveal" onclick="openBannerModal(0)"
                     style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; cursor: pointer;">
-                    <img src="https://i.ibb.co/CLXQW1K/Whats-App-Image-2026-02-16-at-5-52-38-AM.jpg"
+                    <img src="https://i.ibb.co/TxXhVsCk/Chat-GPT-Image-Feb-16-2026-12-06-59-AM.png"
                         alt="Premium Collection" class="offer-img"
                         style="width: 100%; height: 100%; object-fit: cover;">
                     <div
@@ -244,6 +257,5 @@
         </div>
     </div>
 </body>
-
 
 </html>
