@@ -14,7 +14,7 @@ const products = [
         ],
         variants: [
             { size: 'King Size (110*90)', price: 1900, stock: 5 },
-			{ size: 'Double (72*90)', price: 1900, stock: 0 }
+            { size: 'Double (72*90)', price: 1900, stock: 0 }
 
         ]
     },
@@ -890,3 +890,22 @@ function initForgotPassword() {
 }
 
 
+// --- Banner Modal ---
+function openBannerModal(index) {
+    const bannerContainers = document.querySelectorAll('.offer-banner-container');
+    if (bannerContainers[index]) {
+        const img = bannerContainers[index].querySelector('img');
+        if (img) {
+            const modal = document.getElementById('banner-modal');
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = img.src;
+            modal.style.display = "flex";
+        }
+    }
+}
+
+function closeBannerModal(event) {
+    // If event is provided, check if it's the background or close button
+    const modal = document.getElementById('banner-modal');
+    modal.style.display = "none";
+}
