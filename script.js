@@ -956,6 +956,7 @@ function initForgotPassword() {
 }
 
 
+
 // --- Banner Modal ---
 function openBannerModal(index) {
     const bannerContainers = document.querySelectorAll('.offer-banner-container');
@@ -975,3 +976,187 @@ function closeBannerModal(event) {
     const modal = document.getElementById('banner-modal');
     modal.style.display = "none";
 }
+
+// --- Customization Logic ---
+
+let customOrder = {
+    category: '',
+    designId: null,
+    designName: '',
+    designImage: '',
+    material: '',
+    size: '110*90',
+    width: '',
+    height: '',
+    note: ''
+};
+
+function selectCategory(category) {
+    customOrder.category = category;
+    goToStep('design');
+    loadCustomizeDesigns();
+}
+
+function loadCustomizeDesigns() {
+    const grid = document.getElementById('customize-design-grid');
+    if (!grid) return;
+
+    // Use existing products as designs
+    grid.innerHTML = products.map(p => `
+        <div class="design-card" onclick="selectDesign(${p.id}, '${p.name.replace(/'/g, "\\'")}', '${p.images[0]}', '${p.material}', '${p.category}')">
+            <img src="${p.images[0]}" alt="${p.name}">
+            <p class="text-center mt-2 text-sm font-semibold">${p.name}</p>
+        </div>
+    `).join('');
+}
+
+function selectDesign(id, name, image, material, category) {
+    customOrder.designId = id;
+    customOrder.designName = name;
+    customOrder.designImage = image;
+    customOrder.material = material;
+    customOrder.category = category;
+
+    // Highlight selected
+    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
+
+    // Attempt to find the clicked card to add active class
+    const event = window.event;
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
+
+    // Update Preview in the next step
+    const previewImg = document.getElementById('preview-image');
+    const previewName = document.getElementById('preview-name');
+    const previewMaterial = document.getElementById('preview-material');
+    const previewCategory = document.getElementById('preview-category');
+
+    if (previewImg) previewImg.src = image;
+    if (previewName) previewName.textContent = name;
+    if (previewMaterial) previewMaterial.textContent = material || '80% Cotton';
+    if (previewCategory) previewCategory.textContent = category || 'Printed Design';
+
+    // Smooth transition to next step
+    setTimeout(() => {
+        goToStep('options');
+    }, 200);
+}
+
+function toggleCustomSize(isCustom) {
+    const inputs = document.getElementById('custom-size-inputs');
+    if (isCustom) {
+        inputs.style.display = 'flex';
+        customOrder.size = 'Custom';
+    } else {
+        inputs.style.display = 'none';
+        const checked = document.querySelector('input[name="cust-size"]:checked');
+        if (checked) customOrder.size = checked.value;
+    }
+}
+
+function goToStep(stepName) {
+    // Validate before moving forward
+    if (stepName === 'details') {
+        const isCustom = document.querySelector('input[name="cust-size"]:checked').value === 'custom';
+        if (isCustom) {
+            const w = document.getElementById('cust-width').value;
+            const h = document.getElementById('cust-height').value;
+            if (!w || !h) {
+                showToast('Please enter width and height', 'error');
+                return;
+            }
+            customOrder.width = w;
+            customOrder.height = h;
+            customOrder.size = `Custom (${w}" x ${h}")`;
+        } else {
+            customOrder.size = document.querySelector('input[name="cust-size"]:checked').value;
+        }
+        customOrder.note = document.getElementById('cust-note').value;
+    }
+
+    // Hide all steps
+    ['category', 'design', 'options', 'details'].forEach(s => {
+        const el = document.getElementById(`step-${s}`);
+        if (el) el.style.display = 'none';
+
+        // Update Progress UI
+        const stepMap = { 'category': 1, 'design': 2, 'options': 3, 'details': 4 };
+        const stepNum = stepMap[s];
+        const progressItem = document.getElementById(`p-step-${stepNum}`);
+        if (progressItem) {
+            if (s === stepName) {
+                progressItem.classList.add('active');
+                const num = progressItem.querySelector('.step-num');
+                if (num) {
+                    num.style.background = 'var(--primary)';
+                    num.style.color = 'white';
+                }
+                const span = progressItem.querySelector('span');
+                if (span) {
+                    span.style.color = 'var(--text-dark)';
+                    span.style.fontWeight = '700';
+                }
+            } else if (stepMap[s] < stepMap[stepName]) {
+                // Completed steps
+                progressItem.classList.remove('active');
+                const num = progressItem.querySelector('.step-num');
+                if (num) {
+                    num.style.background = '#4ade80'; // Green
+                    num.style.color = 'white';
+                    num.innerHTML = '<i class="fas fa-check"></i>';
+                }
+            } else {
+                progressItem.classList.remove('active');
+                const num = progressItem.querySelector('.step-num');
+                if (num) {
+                    num.style.background = 'white';
+                    num.style.color = '#999';
+                    num.textContent = stepNum;
+                }
+                const span = progressItem.querySelector('span');
+                if (span) {
+                    span.style.color = '#999';
+                    span.style.fontWeight = '500';
+                }
+            }
+        }
+    });
+
+    // Show target step
+    const target = document.getElementById(`step-${stepName}`);
+    if (target) target.style.display = 'block';
+
+    // Scroll to top of wizard
+    document.getElementById('customize-wizard').scrollIntoView({ behavior: 'smooth' });
+}
+
+function placeCustomizeOrder() {
+    const name = document.getElementById('cust-name').value;
+    const phone = document.getElementById('cust-phone').value;
+    const address = document.getElementById('cust-address').value;
+
+    if (!name || !phone || !address) {
+        showToast('Please fill all details', 'error');
+        return;
+    }
+
+    // Populate PDF data
+    document.getElementById('pdf-date').textContent = new Date().toLocaleDateString();
+    document.getElementById('pdf-img').src = customOrder.designImage;
+    document.getElementById('pdf-design-name').textContent = customOrder.designName;
+    document.getElementById('pdf-size').textContent = customOrder.size;
+    const pdfMat = document.getElementById('pdf-material');
+    if (pdfMat) pdfMat.textContent = customOrder.material || '80% Cotton';
+    // WhatsApp Message
+    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${customOrder.material || ''}%0A*Size:* ${customOrder.size}%0A*Advance Required:* Rs. 500/=%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
+
+    // Directly open WhatsApp (PDF Download disabled as requested)
+    window.open(`https://wa.me/94714433279?text=${message}`, '_blank');
+    showToast('Order placed! Redirecting to WhatsApp...', 'success');
+
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 2000);
+}
+

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Your Bed Sheet | Roohira Online</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <span
+                    style="font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary);">Roohira
+                    Online</span>
+            </a>
+            <nav class="flex gap-4 items-center">
+                <!-- Login Button (Visible when logged out) -->
+                <a href="login.html" id="header-login-btn" class="btn btn-primary"
+                    style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
+
+                <!-- User Info (Visible when logged in) -->
+                <div id="header-user-menu" style="display: none; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-user-circle text-xl" style="color: var(--primary);"></i>
+                    <span id="header-username" style="font-weight: 600;">User</span>
+                </div>
+
+                <!-- Hamburger Menu -->
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary);">Menu</h2>
+            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-nav">
+            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
+            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> Shop</a>
+            <a href="customize.html" class="sidebar-link active"><i class="fas fa-palette"></i> Customize</a>
+            <a href="cart.html" class="sidebar-link">
+                <i class="fas fa-shopping-cart"></i> Cart
+                <span id="sidebar-cart-badge"
+                    style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
+            </a>
+            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> My Profile</a>
+
+            <div id="sidebar-user-section"
+                style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
+                <button onclick="logout()" class="sidebar-link"
+                    style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
+                        class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+
+            <div
+                style="margin-top: auto; padding-top: 1rem; border-top: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 500;">Dark Mode</span>
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main class="py-10">
+        <div class="container">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem; text-align: center;">Customize Your Product</h1>
+            <p style="text-align: center; color: var(--text-dark); opacity: 0.7; margin-bottom: 3rem;">Follow the steps
+                below to create your unique design.</p>
+
+            <div id="customize-wizard" class="customize-container">
+                <!-- Progress Indicator -->
+                <div class="progress-steps flex justify-between mb-10"
+                    style="position: relative; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    <div class="progress-line"
+                        style="position: absolute; top: 20px; left: 0; width: 100%; height: 2px; background: #eee; z-index: 1;">
+                    </div>
+                    <div class="step-item active" id="p-step-1" style="z-index: 2; text-align: center;">
+                        <div class="step-num"
+                            style="width: 40px; height: 40px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: 700; border: 4px solid white; box-shadow: 0 0 0 1px #eee;">
+                            1</div>
+                        <span style="font-size: 0.8rem; font-weight: 600;">Category</span>
+                    </div>
+                    <div class="step-item" id="p-step-2" style="z-index: 2; text-align: center;">
+                        <div class="step-num"
+                            style="width: 40px; height: 40px; background: white; color: #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: 700; border: 1px solid #eee;">
+                            2</div>
+                        <span style="font-size: 0.8rem; font-weight: 500; color: #999;">Design</span>
+                    </div>
+                    <div class="step-item" id="p-step-3" style="z-index: 2; text-align: center;">
+                        <div class="step-num"
+                            style="width: 40px; height: 40px; background: white; color: #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: 700; border: 1px solid #eee;">
+                            3</div>
+                        <span style="font-size: 0.8rem; font-weight: 500; color: #999;">Options</span>
+                    </div>
+                    <div class="step-item" id="p-step-4" style="z-index: 2; text-align: center;">
+                        <div class="step-num"
+                            style="width: 40px; height: 40px; background: white; color: #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: 700; border: 1px solid #eee;">
+                            4</div>
+                        <span style="font-size: 0.8rem; font-weight: 500; color: #999;">Details</span>
+                    </div>
+                </div>
+
+                <!-- Step 0: Category Selection -->
+                <div id="step-category" class="step-section">
+                    <h2 class="step-title"
+                        style="text-align: center; margin-bottom: 2rem; font-family: 'Playfair Display', serif;">Select
+                        Category</h2>
+                    <div class="category-grid">
+                        <button onclick="selectCategory('Bedsheet')" class="category-card" style="margin: 0 auto;">
+                            <div class="cat-icon"
+                                style="width: 80px; height: 80px; background: var(--secondary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--primary);">
+                                <i class="fas fa-bed fa-2x"></i>
+                            </div>
+                            <h3>Bedsheet</h3>
+                            <p>Premium quality fabrics customized for you</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 1: Design Selection -->
+                <div id="step-design" class="step-section" style="display: none;">
+                    <div class="flex items-center gap-4 mb-8">
+                        <button onclick="goToStep('category')" class="back-btn"
+                            style="background: none; border: 1px solid #eee; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i
+                                class="fas fa-arrow-left"></i> Back</button>
+                        <h2 class="step-title" style="margin: 0; font-family: 'Playfair Display', serif;">Select Your
+                            Design</h2>
+                    </div>
+                    <div id="customize-design-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Designs injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Customization Options -->
+                <div id="step-options" class="step-section" style="display: none;">
+                    <div class="flex items-center gap-4 mb-8">
+                        <button onclick="goToStep('design')" class="back-btn"
+                            style="background: none; border: 1px solid #eee; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.3s;"><i
+                                class="fas fa-arrow-left"></i> Back</button>
+                        <h2 class="step-title" style="margin: 0; font-family: 'Playfair Display', serif;">Customize
+                            Details</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                        <!-- Selected Design Preview (Mini Card Style) -->
+                        <div class="lg:col-span-4 flex justify-center">
+                            <div class="design-card active"
+                                style="cursor: default; background: white; pointer-events: none; padding: 0; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); width: 220px;">
+                                <img id="preview-image" src="" alt="Selected Design"
+                                    style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 15px 15px 0 0;">
+                                <div style="padding: 1rem; text-align: left;">
+                                    <div id="preview-category"
+                                        style="font-size: 0.65rem; text-transform: uppercase; color: var(--primary); font-weight: 700; margin-bottom: 2px;">
+                                        Printed Design</div>
+                                    <h3 id="preview-name"
+                                        style="font-weight: 700; margin: 0 0 5px 0; font-size: 0.95rem; color: var(--text-dark); line-height: 1.2;">
+                                    </h3>
+                                    <div
+                                        style="font-size: 0.75rem; color: #666; display: flex; align-items: center; gap: 5px;">
+                                        <i class="fas fa-layer-group" style="font-size: 0.7rem;"></i>
+                                        <span id="preview-material">80% Cotton</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Options -->
+                        <div class="lg:col-span-8">
+                            <div class="form-group mb-8">
+                                <label class="form-label"
+                                    style="display: block; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark);">Select
+                                    Size</label>
+                                <div class="size-options"
+                                    style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                    <label class="size-option"
+                                        style="background: #fdfdfd; border: 1px solid #eee; padding: 1rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: 0.3s;">
+                                        <input type="radio" name="cust-size" value="110*90"
+                                            onchange="toggleCustomSize(false)" checked>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-weight: 600; font-size: 0.9rem;">King Size</span>
+                                            <small style="color: #999;">110" x 90"</small>
+                                        </div>
+                                    </label>
+                                    <label class="size-option"
+                                        style="background: #fdfdfd; border: 1px solid #eee; padding: 1rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: 0.3s;">
+                                        <input type="radio" name="cust-size" value="72*90"
+                                            onchange="toggleCustomSize(false)">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-weight: 600; font-size: 0.9rem;">Double</span>
+                                            <small style="color: #999;">72" x 90"</small>
+                                        </div>
+                                    </label>
+                                    <label class="size-option"
+                                        style="background: #fdfdfd; border: 1px solid #eee; padding: 1rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: 0.3s;">
+                                        <input type="radio" name="cust-size" value="60*90"
+                                            onchange="toggleCustomSize(false)">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-weight: 600; font-size: 0.9rem;">Single</span>
+                                            <small style="color: #999;">60" x 90"</small>
+                                        </div>
+                                    </label>
+                                    <label class="size-option"
+                                        style="background: #fdfdfd; border: 1px solid #eee; padding: 1rem; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.75rem; transition: 0.3s;">
+                                        <input type="radio" name="cust-size" value="custom"
+                                            onchange="toggleCustomSize(true)">
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span style="font-weight: 600; font-size: 0.9rem;">Your Size</span>
+                                            <small style="color: #999;">Custom Inches</small>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="custom-size-inputs" class="form-group flex gap-4 mb-6" style="display: none;">
+                                <div class="w-1/2">
+                                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Width
+                                        (Inches)</label>
+                                    <input type="number" id="cust-width" class="form-input" placeholder="e.g. 100"
+                                        style="padding: 12px; border-radius: 10px;">
+                                </div>
+                                <div class="w-1/2">
+                                    <label class="form-label" style="font-size: 0.85rem; font-weight: 600;">Height
+                                        (Inches)</label>
+                                    <input type="number" id="cust-height" class="form-input" placeholder="e.g. 80"
+                                        style="padding: 12px; border-radius: 10px;">
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-8">
+                                <label class="form-label"
+                                    style="display: block; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark);">Additional
+                                    Note</label>
+                                <textarea id="cust-note" class="form-input" rows="3"
+                                    placeholder="Any specific requirements (e.g. pillow case alterations)..."
+                                    style="padding: 15px; border-radius: 12px;"></textarea>
+                            </div>
+
+                            <div class="alert-box" style="margin-bottom: 2rem;">
+                                <div style="display: flex; align-items: center; gap: 1rem;">
+                                    <i class="fas fa-info-circle fa-lg"></i>
+                                    <div>
+                                        <p style="font-weight: 700; font-size: 1rem; margin: 0;">Payment Notice</p>
+                                        <p style="margin: 0; font-size: 0.9rem;">We kindly require a Rs. 500 advance for
+                                            customized bedsheet orders.</p>
+                                        <p style="margin: 0; font-size: 0.7rem;"> ඔබගේ customized බෙඩ්ෂීට් ඇණවුම් සඳහා
+                                            රු. 500 ක අත්තිකාරම් මුදලක් ගෙවිය යුතු වේ..</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="goToStep('details')" class="btn btn-primary w-full"
+                                style="padding: 1.25rem; font-size: 1rem; border-radius: 15px; font-weight: 700;">
+                                Continue to Final Step <i class="fas fa-chevron-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Customer Details -->
+                <div id="step-details" class="step-section" style="display: none;">
+                    <div class="flex items-center gap-4 mb-6">
+                        <button onclick="goToStep('options')" class="back-btn"><i class="fas fa-arrow-left"></i>
+                            Back</button>
+                        <h2 class="step-title" style="margin: 0;">Finalize Order</h2>
+                    </div>
+
+                    <div style="max-width: 500px; margin: 0 auto;">
+                        <div class="form-group">
+                            <label class="form-label">Your Name</label>
+                            <input type="text" id="cust-name" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" id="cust-phone" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Delivery Address</label>
+                            <textarea id="cust-address" class="form-input" rows="3" required></textarea>
+                        </div>
+
+                        <button onclick="placeCustomizeOrder()" class="btn btn-primary w-full"
+                            style="padding: 1.25rem; font-size: 1.1rem; border-radius: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <i class="fab fa-whatsapp fa-lg"></i> Place Customize Order
+                        </button>
+                        <p class="text-sm text-center text-gray-500 mt-4">This will download a PDF and open WhatsApp
+                            message.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Hidden PDF Template -->
+    <!-- Hidden PDF Template (Exact Mirror of Order Invoice) -->
+    <div style="display: none;">
+        <div id="customize-pdf-template"
+            style="width: 700px; padding: 40px; background: white; color: #333; font-family: 'Inter', sans-serif; text-align: center;">
+
+            <!-- Header -->
+            <div style="border-bottom: 2px solid #e91e63; padding-bottom: 20px; margin-bottom: 30px;">
+                <h1
+                    style="color: #e91e63; font-size: 36px; margin: 0; font-family: 'Playfair Display', serif; font-weight: 700;">
+                    Roohira Online</h1>
+                <p style="color: #666; margin: 5px 0 10px 0; font-size: 16px; font-weight: 500;">Your Trusted Online
+                    Fashion Partner</p>
+                <div style="display: flex; justify-content: center; gap: 30px; font-size: 14px; color: #888;">
+                    <span>Date: <span id="pdf-date"></span></span>
+                    <span style="font-weight: 700; color: #e91e63;">CUSTOM ORDER INVOICE</span>
+                </div>
+            </div>
+
+            <!-- Customer Info -->
+            <div style="text-align: left; margin-bottom: 40px; padding-left: 10px; border-left: 3px solid #e91e63;">
+                <h3
+                    style="margin: 0 0 10px 0; font-size: 14px; color: #e91e63; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">
+                    Customer Information</h3>
+                <p style="margin: 0 0 5px 0;"><strong style="font-size: 11px; color: #999;">BILL TO:</strong></p>
+                <p id="pdf-cust-name"
+                    style="font-weight: 700; font-size: 20px; margin: 0 0 5px 0; color: #333; line-height: 1.2;"></p>
+                <p id="pdf-cust-phone" style="margin: 0 0 5px 0; font-size: 15px; color: #555;"></p>
+                <p id="pdf-cust-address" style="margin: 0; font-size: 15px; color: #555; line-height: 1.4;"></p>
+            </div>
+
+            <!-- Summary Title -->
+            <div style="margin-bottom: 25px;">
+                <h2
+                    style="font-size: 18px; color: #333; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #eee; display: inline-block; padding-bottom: 5px;">
+                    Customization Details</h2>
+            </div>
+
+            <!-- Items Table -->
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 35px; border: 1px solid #eee;">
+                <thead>
+                    <tr style="background: #e91e63; color: white;">
+                        <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none;"
+                            width="100">Item</th>
+                        <th
+                            style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none; text-align: left;">
+                            Description</th>
+                        <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none; text-align: center;"
+                            width="60">Qty</th>
+                        <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none; text-align: right;"
+                            width="110">Unit</th>
+                        <th style="padding: 15px; font-size: 13px; text-transform: uppercase; border: none; text-align: right;"
+                            width="120">Advance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; text-align: center; vertical-align: top;">
+                            <img id="pdf-img" src=""
+                                style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;">
+                        </td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; text-align: left; vertical-align: top;">
+                            <p id="pdf-design-name"
+                                style="font-weight: 700; font-size: 16px; margin: 0 0 5px 0; color: #333;"></p>
+                            <div style="font-size: 13px; color: #666;">
+                                <span><strong>Size:</strong> <span id="pdf-size"></span></span><br>
+                                <span><strong>Material:</strong> <span id="pdf-material"></span></span>
+                            </div>
+                            <div style="margin-top: 10px; border-top: 1px dashed #eee; padding-top: 8px;">
+                                <small
+                                    style="color: #999; font-weight: bold; text-transform: uppercase; font-size: 10px;">Note:</small>
+                                <p id="pdf-note"
+                                    style="margin: 2px 0 0 0; font-size: 12px; color: #777; font-style: italic; line-height: 1.4;">
+                                </p>
+                            </div>
+                        </td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; text-align: center; vertical-align: top;">
+                            1</td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; text-align: right; vertical-align: top;">
+                            Custom</td>
+                        <td
+                            style="padding: 15px; border-bottom: 1px solid #eee; text-align: right; vertical-align: top; font-weight: 700; color: #e91e63;">
+                            Rs. 500</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Grand Total Box (Matches Checkout) -->
+            <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 40px;">
+                <div
+                    style="padding: 15px 40px; border: 3px solid #e91e63; border-radius: 60px; background: white; box-shadow: 0 4px 10px rgba(233, 30, 99, 0.1);">
+                    <span style="font-size: 18px; color: #666; font-weight: 500;">Advance to Pay:</span>
+                    <span style="font-size: 32px; font-weight: 800; color: #e91e63; margin-left: 15px;">Rs. 500</span>
+                </div>
+                <p
+                    style="margin-top: 15px; font-weight: 600; color: #999; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">
+                    Order Verification Pending Advance Payment
+                </p>
+            </div>
+
+            <!-- Important Notice -->
+            <div
+                style="margin-bottom: 40px; padding: 20px; border: 2px dashed #dc2626; border-radius: 15px; background: #fff5f5;">
+                <h3 style="color: #dc2626; margin: 0 0 10px 0; font-size: 18px; font-weight: 800;">IMPORTANT ACTION
+                    REQUIRED</h3>
+                <p style="color: #333; font-weight: 600; font-size: 15px; margin: 0; line-height: 1.6;">
+                    Please pay the Rs. 500 advance to confirm your order.<br>
+                    ඔබේ ඇණවුම තහවුරු කිරීමට කරුණාකර රු. 500 ක අත්තිකාරම් මුදලක් ගෙවන්න.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div style="border-top: 1px solid #eee; padding-top: 25px; text-align: center;">
+                <p style="margin: 0 0 5px 0; color: #666; font-size: 14px; font-weight: 500;"><strong>Roohira
+                        Online</strong> | Your Trusted Online Fashion Partner</p>
+                <p style="margin: 0; color: #999; font-size: 13px;">Contact: +94 71 443 3279 | Email:
+                    roohiraonline@gmail.com</p>
+                <h4
+                    style="margin: 15px 0 0 0; color: #e91e63; font-family: 'Playfair Display', serif; font-style: italic;">
+                    Thank you for your trust!</h4>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container text-center text-gray-500 text-sm">
+            &copy; 2026 Roohira Online. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
