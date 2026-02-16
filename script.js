@@ -134,6 +134,38 @@ const products = [
             { size: 'Double(72*90)', price: 1800, stock: 4 }
         ]
     },
+	{
+        id: 9,
+        name: 'Orange Look Desing Bedsheet ',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '100% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/N2y8mYpz/Chat-GPT-Image-Feb-16-2026-02-06-56-AM.png',
+            'https://i.ibb.co/XZqJP6WX/Chat-GPT-Image-Feb-16-2026-02-11-52-AM.png',
+            'https://i.ibb.co/svq7HyP9/image-3.jpg'
+        ],
+        variants: [
+            { size: 'King(110*90)', price: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1900, stock: 4 }
+        ]
+    },
+	{
+        id: 10,
+        name: ' Desing Bedsheet with Green Leaves ',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/TBPLW68c/Chat-GPT-Image-Feb-16-2026-02-21-28-AM.png',
+            'https://i.ibb.co/dT0kgXh/Chat-GPT-Image-Feb-16-2026-02-23-02-AM.png'
+            
+        ],
+        variants: [
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 5 }
+        ]
+    },
 ];
 
 // State Management
