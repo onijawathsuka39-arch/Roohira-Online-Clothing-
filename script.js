@@ -3,19 +3,18 @@
 const products = [
     {
         id: 1,
-        name: 'Desing Bedsheet Indego ',
+        name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
-            'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
-            'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
-
+            'https://i.ibb.co/VpScTGch/Chat-GPT-Image-Feb-15-2026-12-19-51-AM.png',
+            'https://i.ibb.co/pjtt0c0G/Chat-GPT-Image-Feb-15-2026-12-21-12-AM.png',
+            'https://i.ibb.co/tpLKzbHW/image-2.jpg'
         ],
         variants: [
-            { size: 'King Size (110*90)', price: 1900, stock: 5 },
-            { size: 'Double (72*90)', price: 1900, stock: 0 }
-
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 10 }
         ]
     },
 
@@ -24,18 +23,18 @@ const products = [
 
     {
         id: 2,
-        name: 'Handloom Bedsheets',
-        description: 'Best Quality and 100% Handloom Products',
-        material: '100% Cotton',
-        category: 'Handloom Bedsheet',
+       name: 'Desing Bedsheet with(Red rose follwers )',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
         images: [
-            'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
-            'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
-            'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
+            'https://i.ibb.co/Pvc47470/Chat-GPT-Image-Feb-14-2026-11-51-26-PM.png',
+            'https://i.ibb.co/PzxbqJkG/Chat-GPT-Image-Feb-14-2026-11-56-18-PM.png',
+            'https://i.ibb.co/cK36KL4r/image-1.jpg'
         ],
         variants: [
-            { size: 'Singal(54*80)', price: 950, stock: 0 },
-            { size: 'Double(60*90)', price: 1200, stock: 0 }
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 10 }
         ]
     },
     {
@@ -56,34 +55,36 @@ const products = [
     },
     {
         id: 4,
-        name: 'Desing Bedsheet with(Red rose follwers )',
+       name: 'Desing Bedsheet Indego ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
-            'https://i.ibb.co/Pvc47470/Chat-GPT-Image-Feb-14-2026-11-51-26-PM.png',
-            'https://i.ibb.co/PzxbqJkG/Chat-GPT-Image-Feb-14-2026-11-56-18-PM.png',
-            'https://i.ibb.co/cK36KL4r/image-1.jpg'
+            'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
+            'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
+
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 10 }
+            { size: 'King Size (110*90)', price: 1900, stock: 5 },
+            { size: 'Double (72*90)', price: 1900, stock: 0 }
+
+
         ]
     },
     {
         id: 5,
-        name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Cotton',
-        category: ' Printed Design Bedsheet',
+       name: 'Handloom Bedsheets',
+        description: 'Best Quality and 100% Handloom Products',
+        material: '100% Cotton',
+        category: 'Handloom Bedsheet',
         images: [
-            'https://i.ibb.co/VpScTGch/Chat-GPT-Image-Feb-15-2026-12-19-51-AM.png',
-            'https://i.ibb.co/pjtt0c0G/Chat-GPT-Image-Feb-15-2026-12-21-12-AM.png',
-            'https://i.ibb.co/tpLKzbHW/image-2.jpg'
+            'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
+            'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
+            'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 10 }
+            { size: 'Singal(54*80)', price: 950, stock: 0 },
+            { size: 'Double(60*90)', price: 1200, stock: 0 }
         ]
     },
     {
@@ -1159,4 +1160,5 @@ function placeCustomizeOrder() {
         window.location.href = 'index.html';
     }, 2000);
 }
+
 
