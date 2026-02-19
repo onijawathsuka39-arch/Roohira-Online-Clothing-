@@ -87,7 +87,6 @@
             </div>
         </div>
     </div>
-
     <!-- Hero Section -->
     <section class="hero">
         <div class="container reveal">
@@ -105,62 +104,46 @@
         </div>
     </section>
 
-    <!-- AUTO-SCROLL BANNER SLIDER -->
-    <section style="padding: 4rem 0; background: var(--bg-light);">
+    <!-- OFFER BANNERS -->
+    <section style="padding: 5rem 0; background: var(--bg-light);">
         <div class="container">
-            <div class="text-center mb-6 reveal">
-                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Special Offers</h2>
-                <div style="width: 60px; height: 4px; background: var(--primary); margin: 0 auto; border-radius: 2px;">
-                </div>
-            </div>
-
-            <div class="banner-slider reveal" id="banner-slider">
-                <div class="banner-track" id="banner-track">
-                    <!-- Slide 1 -->
-                    <div class="banner-slide" onclick="openBannerModal(0)">
-                        <img src="https://i.ibb.co/TxXhVsCk/Chat-GPT-Image-Feb-16-2026-12-06-59-AM.png"
-                            alt="Free Delivery Offer">
-                        <div class="banner-overlay">
-                            <h3>🚚 Get Free Delivery</h3>
-                            <p>Buy 2 or more bedsheets and enjoy free island-wide delivery!</p>
-                        </div>
+            <div class="grid grid-cols-2">
+                <!-- Banner 1 -->
+                <div class="offer-banner-container reveal" onclick="openBannerModal(0)"
+                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; cursor: pointer;">
+                    <img src="https://i.ibb.co/TxXhVsCk/Chat-GPT-Image-Feb-16-2026-12-06-59-AM.png"
+                        alt="Premium Collection" class="offer-img"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
+                        <h3 style="font-size: 1.5rem; color: white;">🚚Get Free Delivery Offer</h3>
+                        <p style="color: rgba(255,255,255,0.8);">💯Buy 2 or More Item</p>
                     </div>
-
-                    <!-- Slide 2 -->
-                    <div class="banner-slide" onclick="openBannerModal(1)">
-                        <img src="https://i.ibb.co/BK2QBSXj/Chat-GPT-Image-Feb-17-2026-02-32-41-AM.png"
-                            alt="Customize Bedsheet">
-                        <div class="banner-overlay">
-                            <h3>🎨 Customize Your Bedsheet</h3>
-                            <p>Design your perfect bedsheet with our customization feature!</p>
-                        </div>
-                    </div>
-					
-					
-					  <!-- Slide 3 -->
-                    <div class="banner-slide" onclick="openBannerModal(2)">
-                        <img src="https://i.ibb.co/HpPVF5Sd/Chat-GPT-Image-Feb-20-2026-01-01-46-AM.png"
-                            alt="Different Design">
-                        <div class="banner-overlay">
-                            <h3>🖌️Different Design</h3>
-                            <p>THINK DIFFERENT – DESIGN DIFFERENT</p>
-                        </div>
-                    </div>
-
-
                 </div>
 
-                <!-- Navigation Arrows -->
-                <button class="banner-nav prev" onclick="event.stopPropagation(); slideBanner(-1)"><i
-                        class="fas fa-chevron-left"></i></button>
-                <button class="banner-nav next" onclick="event.stopPropagation(); slideBanner(1)"><i
-                        class="fas fa-chevron-right"></i></button>
-
-                <!-- Dots -->
-                <div class="banner-dots" id="banner-dots"></div>
-
-                <!-- Progress Bar -->
-                <div class="banner-progress" id="banner-progress"></div>
+                <!-- Banner 2 -->
+                <div class="offer-banner-container reveal" onclick="openBannerModal(1)"
+                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
+                    <img src="https://i.ibb.co/BK2QBSXj/Chat-GPT-Image-Feb-17-2026-02-32-41-AM.png"
+                        alt="Luxury Series" class="offer-img" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
+                        <h3 style="font-size: 1.5rem; color: white;">🎨CUSTOMIZE YOUR BEDSHEET NOW</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Order now and design your perfect bedsheet today.</p>
+                    </div>
+                </div>
+				
+				  <!-- Banner 3 -->
+                <div class="offer-banner-container reveal" onclick="openBannerModal(2)"
+                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
+                    <img src="https://i.ibb.co/yBkXfH9S/Chat-GPT-Image-Feb-20-2026-01-01-46-AM.png"
+                        alt="Luxury Series" class="offer-img" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
+                        <h3 style="font-size: 1.5rem; color: white;">🖌️DIFFERENT DESIGN</h3>
+                        <p style="color: rgba(255,255,255,0.8);">THINK DIFFERENT – DESIGN DIFFERENT</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -192,17 +175,17 @@
             <div class="grid grid-cols-3 text-center">
                 <div class="feature-card reveal">
                     <i class="fas fa-shipping-fast feature-icon"></i>
-                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Island-wide Delivery</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">🚚Island-wide Delivery</h3>
                     <p>Secured and tracked delivery within 3-5 business days to your doorstep.</p>
                 </div>
                 <div class="feature-card reveal" style="animation-delay: 0.2s;">
                     <i class="fas fa-undo-alt feature-icon"></i>
-                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Returns Policy</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">📦Returns Policy</h3>
                     <p>Hassle-free 7-day return policy if the quality doesn't meet your expectations.</p>
                 </div>
                 <div class="feature-card reveal" style="animation-delay: 0.4s;">
                     <i class="fas fa-award feature-icon"></i>
-                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Authentic Quality</h3>
+                    <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">💯Authentic Quality</h3>
                     <p>100% genuine materials sourced from the world's finest textile manufacturers.</p>
                 </div>
             </div>
@@ -277,121 +260,6 @@
             el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
             observer.observe(el);
         });
-
-        // ========== BANNER SLIDER AUTO-SCROLL ==========
-        (function () {
-            const track = document.getElementById('banner-track');
-            const dotsContainer = document.getElementById('banner-dots');
-            const progressBar = document.getElementById('banner-progress');
-            if (!track || !dotsContainer) return;
-
-            const slides = track.querySelectorAll('.banner-slide');
-            const totalSlides = slides.length;
-            let currentSlide = 0;
-            let autoPlayInterval;
-            let progressInterval;
-            const SLIDE_DURATION = 4000; // 4 seconds per slide
-            const PROGRESS_STEP = 50; // Update progress every 50ms
-
-            // Create dots
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'banner-dot' + (i === 0 ? ' active' : '');
-                dot.onclick = function (e) {
-                    e.stopPropagation();
-                    goToSlide(i);
-                    resetAutoPlay();
-                };
-                dotsContainer.appendChild(dot);
-            }
-
-            function goToSlide(index) {
-                currentSlide = index;
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-                // Update dots
-                dotsContainer.querySelectorAll('.banner-dot').forEach((dot, i) => {
-                    dot.classList.toggle('active', i === currentSlide);
-                });
-
-                // Reset progress
-                resetProgress();
-            }
-
-            // Make slideBanner global
-            window.slideBanner = function (direction) {
-                let next = currentSlide + direction;
-                if (next >= totalSlides) next = 0;
-                if (next < 0) next = totalSlides - 1;
-                goToSlide(next);
-                resetAutoPlay();
-            };
-
-            // Progress bar animation
-            function resetProgress() {
-                if (progressBar) {
-                    progressBar.style.transition = 'none';
-                    progressBar.style.width = '0%';
-                    // Force reflow
-                    progressBar.offsetHeight;
-                    progressBar.style.transition = `width ${SLIDE_DURATION}ms linear`;
-                    progressBar.style.width = '100%';
-                }
-            }
-
-            // Auto play
-            function startAutoPlay() {
-                resetProgress();
-                autoPlayInterval = setInterval(() => {
-                    let next = currentSlide + 1;
-                    if (next >= totalSlides) next = 0;
-                    goToSlide(next);
-                }, SLIDE_DURATION);
-            }
-
-            function resetAutoPlay() {
-                clearInterval(autoPlayInterval);
-                startAutoPlay();
-            }
-
-            // Touch/Swipe support for mobile
-            let touchStartX = 0;
-            let touchEndX = 0;
-
-            const slider = document.getElementById('banner-slider');
-            if (slider) {
-                slider.addEventListener('touchstart', (e) => {
-                    touchStartX = e.changedTouches[0].screenX;
-                }, { passive: true });
-
-                slider.addEventListener('touchend', (e) => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    const diff = touchStartX - touchEndX;
-                    if (Math.abs(diff) > 50) {
-                        if (diff > 0) {
-                            window.slideBanner(1); // Swipe left = next
-                        } else {
-                            window.slideBanner(-1); // Swipe right = prev
-                        }
-                    }
-                }, { passive: true });
-
-                // Pause on hover
-                slider.addEventListener('mouseenter', () => {
-                    clearInterval(autoPlayInterval);
-                    if (progressBar) {
-                        progressBar.style.transition = 'none';
-                    }
-                });
-
-                slider.addEventListener('mouseleave', () => {
-                    resetAutoPlay();
-                });
-            }
-
-            // Start!
-            startAutoPlay();
-        })();
     </script>
 
     <!-- Banner Modal -->
