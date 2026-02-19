@@ -23,7 +23,7 @@ const products = [
 
     {
         id: 2,
-       name: 'Desing Bedsheet with(Red rose follwers )',
+        name: 'Desing Bedsheet with(Red rose follwers )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
         category: ' Printed Design Bedsheet',
@@ -55,7 +55,7 @@ const products = [
     },
     {
         id: 4,
-       name: 'Desing Bedsheet Indego ',
+        name: 'Desing Bedsheet Indego ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
         material: '80% Cotton',
         category: ' Printed Design Bedsheet',
@@ -73,7 +73,7 @@ const products = [
     },
     {
         id: 5,
-       name: 'Handloom Bedsheets',
+        name: 'Handloom Bedsheets',
         description: 'Best Quality and 100% Handloom Products',
         material: '100% Cotton',
         category: 'Handloom Bedsheet',
@@ -406,7 +406,7 @@ function loadProductDetails() {
     const stockStatus = document.getElementById('detail-stock');
     const firstVariant = product.variants[0];
     if (firstVariant && firstVariant.stock > 0) {
-        stockStatus.textContent = `In Stock (${firstVariant.stock})`;
+        stockStatus.textContent = 'In Stock';
         stockStatus.style.color = 'green';
         document.getElementById('add-to-cart-btn').disabled = false;
     } else {
@@ -445,7 +445,7 @@ function updatePriceOnSizeChange() {
         const stockStatus = document.getElementById('detail-stock');
         const btn = document.getElementById('add-to-cart-btn');
         if (variant.stock > 0) {
-            stockStatus.textContent = `In Stock (${variant.stock})`;
+            stockStatus.textContent = 'In Stock';
             stockStatus.style.color = 'green';
             btn.disabled = false;
         } else {
