@@ -167,6 +167,40 @@ const products = [
             { size: 'Double(72*90)', price: 1800, stock: 5 }
         ]
     },
+	 {
+        id: 11,
+        name: ' Desing Bedsheet with Green Follwer Desing ',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '80% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/xqqFXfjn/Chat-GPT-Image-Feb-19-2026-09-01-37-PM.png',
+            'https://i.ibb.co/VpWQc8Pv/Chat-GPT-Image-Feb-19-2026-09-42-37-PM.png',
+			'https://i.ibb.co/r2y1sDvJ/image-4.jpg'
+
+        ],
+        variants: [
+            { size: 'King(110*90)', price: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1800, stock: 5 }
+        ]
+    },
+	{
+        id: 12,
+        name: ' Desing Bedsheet with Pink Follwer Desing ',
+        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
+        material: '100% Cotton',
+        category: ' Printed Design Bedsheet',
+        images: [
+            'https://i.ibb.co/9mx9KBPX/Chat-GPT-Image-Feb-19-2026-09-21-22-PM.png',
+            'https://i.ibb.co/99K6byvR/Chat-GPT-Image-Feb-19-2026-09-24-41-PM.png',
+			'https://i.ibb.co/BKBGMDWL/image-5.jpg'
+
+        ],
+        variants: [
+            { size: 'King(110*90)', price: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1900, stock: 5 }
+        ]
+    },
 ];
 
 // State Management
