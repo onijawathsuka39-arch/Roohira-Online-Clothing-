@@ -283,6 +283,144 @@ header {
     opacity: 0.9;
 }
 
+/* ========== Auto-Scroll Banner Slider ========== */
+.banner-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.banner-track {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+.banner-slide {
+    min-width: 100%;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.banner-slide img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.banner-slide:hover img {
+    transform: scale(1.03);
+}
+
+.banner-slide .banner-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+    color: white;
+}
+
+.banner-slide .banner-overlay h3 {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 0.5rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.banner-slide .banner-overlay p {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Banner Navigation Arrows */
+.banner-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.banner-slider:hover .banner-nav {
+    opacity: 1;
+}
+
+.banner-nav:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.banner-nav.prev {
+    left: 20px;
+}
+
+.banner-nav.next {
+    right: 20px;
+}
+
+/* Banner Dots */
+.banner-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.banner-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.banner-dot.active {
+    background: white;
+    width: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.4);
+}
+
+/* Banner progress bar */
+.banner-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    z-index: 10;
+    transition: width linear;
+}
+
 /* Product Card */
 .product-card {
     background: white;
@@ -1283,4 +1421,422 @@ footer {
 
 [data-theme='dark'] .back-btn:hover {
     background: #333;
+}
+
+/* Dark mode banner slider */
+[data-theme='dark'] .banner-slider {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme='dark'] .banner-dot {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme='dark'] .banner-dot.active {
+    background: var(--accent);
+    box-shadow: 0 2px 8px rgba(245, 213, 71, 0.4);
+}
+
+/* ============================
+   MOBILE RESPONSIVE STYLES 
+   ============================ */
+
+/* Tablets & small laptops */
+@media (max-width: 1024px) {
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .banner-slide img {
+        height: 320px;
+    }
+
+    .banner-slide .banner-overlay h3 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Phones landscape & small tablets */
+@media (max-width: 768px) {
+
+    /* Header */
+    header .container {
+        padding: 0 15px;
+    }
+
+    header .container span[style*="font-size"] {
+        font-size: 1.2rem !important;
+    }
+
+    /* Hero */
+    .hero {
+        height: 60vh;
+        min-height: 350px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+    .hero .flex {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .hero .btn {
+        width: 80%;
+        text-align: center;
+    }
+
+    /* Banner Slider */
+    .banner-slide img {
+        height: 250px;
+    }
+
+    .banner-slide .banner-overlay {
+        padding: 1.5rem;
+    }
+
+    .banner-slide .banner-overlay h3 {
+        font-size: 1.2rem;
+    }
+
+    .banner-slide .banner-overlay p {
+        font-size: 0.85rem;
+    }
+
+    .banner-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+        opacity: 1;
+    }
+
+    .banner-nav.prev {
+        left: 10px;
+    }
+
+    .banner-nav.next {
+        right: 10px;
+    }
+
+    /* Section Headings */
+    h1[style*="font-size: 2.5rem"] {
+        font-size: 1.8rem !important;
+    }
+
+    h2[style*="font-size: 2.5rem"] {
+        font-size: 1.8rem !important;
+    }
+
+    /* Product Detail Page */
+    .grid.grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    #product-detail-container .grid {
+        border-radius: 1rem;
+    }
+
+    #product-detail-container .p-8 {
+        padding: 1.5rem;
+    }
+
+    #product-detail-container .p-12 {
+        padding: 1.5rem;
+    }
+
+    #product-detail-container h1 {
+        font-size: 1.8rem !important;
+    }
+
+    #product-detail-container .text-3xl {
+        font-size: 1.8rem !important;
+    }
+
+    .spec-box {
+        grid-template-columns: 1fr;
+    }
+
+    /* Cart Page */
+    #cart-container .grid {
+        grid-template-columns: 1fr;
+    }
+
+    #cart-container [style*="grid-column: span 2"] {
+        grid-column: span 1;
+    }
+
+    .cart-item {
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .cart-item h3 {
+        font-size: 0.95rem;
+    }
+
+    /* Checkout */
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #checkout-container {
+        grid-template-columns: 1fr;
+    }
+
+    #checkout-container>div[style*="padding-left"] {
+        padding-left: 0 !important;
+    }
+
+    #checkout-container .sticky {
+        position: static;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-card h3 {
+        font-size: 1.2rem !important;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+    }
+
+    /* Footer */
+    footer .grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    footer [style*="grid-column: span 2"] {
+        grid-column: span 1;
+    }
+
+    footer p[style*="max-width"] {
+        max-width: 100% !important;
+        margin: 0 auto;
+    }
+
+    /* Auth Pages */
+    .auth-box {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    /* Customize Page */
+    .customize-container {
+        margin: 0 1rem;
+        padding: 1.5rem;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .category-card {
+        padding: 2rem 1rem;
+    }
+
+    /* Floating Buttons */
+    .whatsapp-float,
+    .facebook-float {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .whatsapp-float {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .facebook-float {
+        bottom: 20px;
+        right: 85px;
+    }
+
+    /* Offer Banners (static ones) */
+    .offer-banner-container {
+        height: 220px !important;
+    }
+
+    .offer-banner-container h3 {
+        font-size: 1.1rem !important;
+    }
+
+    /* Progress Steps in Customize */
+    .progress-steps {
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+
+    .step-num {
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+    }
+
+    .step-item span {
+        font-size: 0.65rem;
+    }
+}
+
+/* Phones portrait */
+@media (max-width: 480px) {
+    .hero {
+        height: 55vh;
+        min-height: 300px;
+    }
+
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .hero .btn {
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.9rem !important;
+        width: 90%;
+    }
+
+    /* Banner */
+    .banner-slide img {
+        height: 200px;
+    }
+
+    .banner-slide .banner-overlay {
+        padding: 1rem;
+    }
+
+    .banner-slide .banner-overlay h3 {
+        font-size: 1rem;
+    }
+
+    .banner-slide .banner-overlay p {
+        font-size: 0.75rem;
+    }
+
+    .banner-dots {
+        bottom: 12px;
+    }
+
+    .banner-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .banner-dot.active {
+        width: 22px;
+    }
+
+    /* Product Cards */
+    .product-info {
+        padding: 0.75rem;
+    }
+
+    .product-title {
+        font-size: 0.95rem;
+    }
+
+    .product-price {
+        font-size: 0.95rem;
+    }
+
+    /* Product Detail */
+    #product-detail-container h1 {
+        font-size: 1.4rem !important;
+    }
+
+    #product-detail-container .text-3xl {
+        font-size: 1.4rem !important;
+    }
+
+    .thumbnail {
+        width: 55px;
+        height: 55px;
+    }
+
+    /* Add to Cart button area */
+    #product-detail-container .flex.gap-4 {
+        flex-direction: column;
+    }
+
+    /* Section titles */
+    h1[style*="font-size: 2.5rem"] {
+        font-size: 1.5rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    h2[style*="font-size: 2.5rem"] {
+        font-size: 1.5rem !important;
+    }
+
+    /* Offer Banners */
+    .offer-banner-container {
+        height: 180px !important;
+    }
+
+    .offer-banner-container h3 {
+        font-size: 0.95rem !important;
+    }
+
+    .offer-banner-container p {
+        font-size: 0.75rem !important;
+    }
+
+    /* Category filters */
+    .filter-tabs {
+        gap: 0.4rem;
+    }
+
+    .filter-tab {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    /* Container padding */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* Customize page */
+    .category-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-card {
+        padding: 1.5rem 1rem;
+    }
+
+    /* Profile page */
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
 }
