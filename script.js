@@ -167,7 +167,7 @@ const products = [
             { size: 'Double(72*90)', price: 1800, stock: 5 }
         ]
     },
-	 {
+    {
         id: 11,
         name: ' Desing Bedsheet with Green Follwer Desing ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -176,7 +176,7 @@ const products = [
         images: [
             'https://i.ibb.co/xqqFXfjn/Chat-GPT-Image-Feb-19-2026-09-01-37-PM.png',
             'https://i.ibb.co/VpWQc8Pv/Chat-GPT-Image-Feb-19-2026-09-42-37-PM.png',
-			'https://i.ibb.co/r2y1sDvJ/image-4.jpg'
+            'https://i.ibb.co/r2y1sDvJ/image-4.jpg'
 
         ],
         variants: [
@@ -184,7 +184,7 @@ const products = [
             { size: 'Double(72*90)', price: 1800, stock: 5 }
         ]
     },
-	{
+    {
         id: 12,
         name: ' Desing Bedsheet with Pink Follwer Desing ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
@@ -193,7 +193,7 @@ const products = [
         images: [
             'https://i.ibb.co/9mx9KBPX/Chat-GPT-Image-Feb-19-2026-09-21-22-PM.png',
             'https://i.ibb.co/99K6byvR/Chat-GPT-Image-Feb-19-2026-09-24-41-PM.png',
-			'https://i.ibb.co/BKBGMDWL/image-5.jpg'
+            'https://i.ibb.co/BKBGMDWL/image-5.jpg'
 
         ],
         variants: [
@@ -552,16 +552,17 @@ function renderCartItems() {
     container.innerHTML = cart.map(item => `
         <div class="cart-item">
             <img src="${item.image}" alt="${item.name}">
-            <div style="flex-grow: 1;">
+            <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                <p class="text-gray-500">Rs. ${item.price.toLocaleString()}</p>
+                <p class="cart-item-price">Rs. ${item.price.toLocaleString()}</p>
+                ${item.size ? `<p class="cart-item-meta">Size: ${item.size}</p>` : ''}
             </div>
             <div class="quantity-control">
                 <button onclick="updateQty(${item.id}, ${item.qty - 1})" class="qty-btn">-</button>
                 <span class="qty-display">${item.qty}</span>
                 <button onclick="updateQty(${item.id}, ${item.qty + 1})" class="qty-btn">+</button>
             </div>
-            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700" title="Remove"><i class="fas fa-trash"></i></button>
+            <button onclick="removeFromCart(${item.id})" class="remove-btn" title="Remove"><i class="fas fa-trash"></i></button>
         </div>
     `).join('');
 }
