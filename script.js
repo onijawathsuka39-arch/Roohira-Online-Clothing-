@@ -1037,13 +1037,8 @@ function loadCustomizeDesigns() {
     const grid = document.getElementById('customize-design-grid');
     if (!grid) return;
 
-    // Use existing products as designs
-    grid.innerHTML = products.map(p => `
-        <div class="design-card" onclick="selectDesign(${p.id}, '${p.name.replace(/'/g, "\\'")}', '${p.images[0]}', '${p.material}', '${p.category}')">
-            <img src="${p.images[0]}" alt="${p.name}">
-            <p class="text-center mt-2 text-sm font-semibold">${p.name}</p>
-        </div>
-    `).join('');
+    // Designs are now added manually in the customize.html file.
+    // Auto-adding from the products array has been disabled.
 }
 
 function selectDesign(id, name, image, material, category) {
