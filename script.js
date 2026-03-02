@@ -13,8 +13,8 @@ const products = [
             'https://i.ibb.co/tpLKzbHW/image-2.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 10 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
 
@@ -33,8 +33,8 @@ const products = [
             'https://i.ibb.co/cK36KL4r/image-1.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 10 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
     {
@@ -49,8 +49,8 @@ const products = [
             'https://i.ibb.co/dJ5QRNbz/image.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 3 },
-            { size: 'Double(72*90)', price: 1800, stock: 3 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 3 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 3 }
         ]
     },
     {
@@ -65,10 +65,8 @@ const products = [
 
         ],
         variants: [
-            { size: 'King Size (110*90)', price: 1900, stock: 5 },
-            { size: 'Double (72*90)', price: 1900, stock: 0 }
-
-
+            { size: 'King Size (110*90)', price: 1750, oldPrice: 1900, stock: 5 },
+            { size: 'Double (72*90)', price: 1500, oldPrice: 1900, stock: 0 }
         ]
     },
     {
@@ -99,8 +97,8 @@ const products = [
             'https://i.ibb.co/kYXq5GM/Chat-GPT-Image-Feb-15-2026-08-09-43-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 10 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
     {
@@ -115,8 +113,8 @@ const products = [
             'https://i.ibb.co/PZ1ypzr4/Chat-GPT-Image-Feb-15-2026-04-18-25-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1900, stock: 19 }
+            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 19 }
         ]
     },
     {
@@ -131,8 +129,8 @@ const products = [
             'https://i.ibb.co/8gkhgXqt/Chat-GPT-Image-Feb-15-2026-08-17-38-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 4 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 4 }
         ]
     },
     {
@@ -147,8 +145,8 @@ const products = [
             'https://i.ibb.co/svq7HyP9/image-3.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1900, stock: 4 }
+            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 4 }
         ]
     },
     {
@@ -163,8 +161,8 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 5 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 5 }
         ]
     },
     {
@@ -180,8 +178,8 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1800, stock: 5 }
+            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 5 }
         ]
     },
     {
@@ -197,8 +195,8 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1900, stock: 5 }
+            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 5 }
         ]
     },
 ];
@@ -385,7 +383,10 @@ function createProductCard(product) {
             <div class="product-category">${product.category}</div>
             <a href="product.html?id=${product.id}"><h3 class="product-title">${product.name}</h3></a>
             <div class="flex justify-between items-center mt-2">
-                <span class="product-price">Rs. ${defaultPrice.toLocaleString()}</span>
+                <div class="price-tag-container">
+                    ${product.variants[0].oldPrice ? `<span class="old-price">Rs. ${product.variants[0].oldPrice.toLocaleString()}</span>` : ''}
+                    <span class="new-price">Rs. ${product.variants[0].price.toLocaleString()}</span>
+                </div>
                 <div class="text-warning"><i class="fas fa-star text-gold"></i> 4.5</div>
             </div>
         </div>
@@ -432,7 +433,15 @@ function loadProductDetails() {
     if (sizeSelect) {
         sizeSelect.innerHTML = product.variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
         // Set initial price
-        document.getElementById('detail-price').textContent = `Rs. ${product.variants[0].price.toLocaleString()}`;
+        const initialVariant = product.variants[0];
+        const priceHTML = `
+            <div class="price-box">
+                ${initialVariant.oldPrice ? `<span class="old-price">Was: Rs. ${initialVariant.oldPrice.toLocaleString()}</span>` : ''}
+                <span class="new-price" style="font-size: 1.8rem;">Rs. ${initialVariant.price.toLocaleString()}</span>
+                ${initialVariant.oldPrice ? `<span style="color: #4ade80; font-size: 0.8rem; font-weight: bold; margin-top: 4px;">Exclusive Discount!</span>` : ''}
+            </div>
+        `;
+        document.getElementById('detail-price').innerHTML = priceHTML;
     }
 
     document.getElementById('detail-material').textContent = product.material;
@@ -473,7 +482,14 @@ function updatePriceOnSizeChange() {
     const selectedSize = document.getElementById('size-select').value;
     const variant = currentProduct.variants.find(v => v.size === selectedSize);
     if (variant) {
-        document.getElementById('detail-price').textContent = `Rs. ${variant.price.toLocaleString()}`;
+        const priceHTML = `
+            <div class="price-box">
+                ${variant.oldPrice ? `<span class="old-price">Was: Rs. ${variant.oldPrice.toLocaleString()}</span>` : ''}
+                <span class="new-price" style="font-size: 1.8rem;">Rs. ${variant.price.toLocaleString()}</span>
+                ${variant.oldPrice ? `<span style="color: #4ade80; font-size: 0.8rem; font-weight: bold; margin-top: 4px;">Exclusive Discount!</span>` : ''}
+            </div>
+        `;
+        document.getElementById('detail-price').innerHTML = priceHTML;
 
         // Update Stock Status
         const stockStatus = document.getElementById('detail-stock');
