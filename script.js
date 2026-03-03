@@ -532,6 +532,7 @@ function addToCart(id, qty = 1, size = null) {
         ...product,
         image: product.images[0],
         price: finalPrice,
+        oldPrice: variant.oldPrice,
         size: finalSize,
         qty
     };
@@ -570,8 +571,11 @@ function renderCartItems() {
             <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-info">
                 <h3>${item.name}</h3>
-                <p class="cart-item-price">Rs. ${item.price.toLocaleString()}</p>
-                ${item.size ? `<p class="cart-item-meta">Size: ${item.size}</p>` : ''}
+                <div class="price-tag-container" style="margin-bottom: 5px;">
+                    ${item.oldPrice ? `<span class="old-price" style="font-size: 0.7rem;">Rs. ${item.oldPrice.toLocaleString()}</span>` : ''}
+                    <span class="new-price" style="font-size: 1rem;">Rs. ${item.price.toLocaleString()}</span>
+                </div>
+                ${item.size ? `<p class="cart-item-meta" style="font-size: 0.8rem; opacity: 0.7;">Size: ${item.size}</p>` : ''}
             </div>
             <div class="quantity-control">
                 <button onclick="updateQty(${item.id}, ${item.qty - 1})" class="qty-btn">-</button>
@@ -1083,7 +1087,7 @@ function selectDesign(id, name, image, material, category) {
         event.currentTarget.classList.add('active');
     }
 
-    // Update Preview in the next step
+    // Update Preview and Price in the next step
     const previewImg = document.getElementById('preview-image');
     const previewName = document.getElementById('preview-name');
     const previewMaterial = document.getElementById('preview-material');
@@ -1093,6 +1097,8 @@ function selectDesign(id, name, image, material, category) {
     if (previewName) previewName.textContent = name;
     if (previewMaterial) previewMaterial.textContent = material || '80% Cotton';
     if (previewCategory) previewCategory.textContent = category || 'Printed Design';
+
+    updateCustomPriceDisplay();
 
     // Smooth transition to next step
     setTimeout(() => {
@@ -1104,11 +1110,57 @@ function toggleCustomSize(isCustom) {
     const inputs = document.getElementById('custom-size-inputs');
     if (isCustom) {
         inputs.style.display = 'flex';
-        customOrder.size = 'Custom';
+        customOrder.size = 'custom';
     } else {
         inputs.style.display = 'none';
         const checked = document.querySelector('input[name="cust-size"]:checked');
         if (checked) customOrder.size = checked.value;
+    }
+    updateCustomPriceDisplay();
+}
+
+function updateCustomPriceDisplay() {
+    const pricePreview = document.getElementById('custom-price-preview');
+    if (!pricePreview) return;
+
+    let price = 0;
+    let oldPrice = 0;
+
+    const material = customOrder.material || '80% Cotton';
+    const size = customOrder.size;
+
+    if (material.includes('100%')) {
+        if (size === '110*90') {
+            price = 1900;
+            oldPrice = 2100;
+        } else if (size === '72*90') {
+            price = 1750;
+            oldPrice = 1900;
+        } else if (size === '60*90') {
+            price = 1200;
+        }
+    } else {
+        // 80% Cotton
+        if (size === '110*90') {
+            price = 1750;
+            oldPrice = 1900;
+        } else if (size === '72*90') {
+            price = 1500;
+            oldPrice = 1800;
+        } else if (size === '60*90') {
+            price = 1000;
+        }
+    }
+
+    if (price > 0) {
+        pricePreview.innerHTML = `
+            ${oldPrice ? `<span class="old-price">Rs. ${oldPrice.toLocaleString()}</span>` : ''}
+            <span class="new-price">Rs. ${price.toLocaleString()}</span>
+        `;
+    } else if (size === 'custom') {
+        pricePreview.innerHTML = `<span class="new-price" style="font-size: 0.8rem; color: #666;">Price on calculation</span>`;
+    } else {
+        pricePreview.innerHTML = `<span class="new-price">Contact for Price</span>`;
     }
 }
 
@@ -1205,8 +1257,20 @@ function placeCustomizeOrder() {
     document.getElementById('pdf-size').textContent = customOrder.size;
     const pdfMat = document.getElementById('pdf-material');
     if (pdfMat) pdfMat.textContent = customOrder.material || '80% Cotton';
+    // Calculate price for WhatsApp message
+    let estPrice = "On Calculation";
+    const mat = customOrder.material || '80% Cotton';
+    const sz = customOrder.size;
+    if (mat.includes('100%')) {
+        if (sz.includes('110*90')) estPrice = "Rs. 1,900/=";
+        else if (sz.includes('72*90')) estPrice = "Rs. 1,750/=";
+    } else {
+        if (sz.includes('110*90')) estPrice = "Rs. 1,750/=";
+        else if (sz.includes('72*90')) estPrice = "Rs. 1,500/=";
+    }
+
     // WhatsApp Message
-    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${customOrder.material || ''}%0A*Size:* ${customOrder.size}%0A*Advance Required:* Rs. 500/=%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
+    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${mat}%0A*Size:* ${sz}%0A*Estimated Total:* ${estPrice}%0A*Advance Required:* Rs. 500/=%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
 
     // Directly open WhatsApp (PDF Download disabled as requested)
     window.open(`https://wa.me/94714433279?text=${message}`, '_blank');
@@ -1216,5 +1280,4 @@ function placeCustomizeOrder() {
         window.location.href = 'index.html';
     }, 2000);
 }
-
 
