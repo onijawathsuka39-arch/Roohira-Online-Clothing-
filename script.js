@@ -1024,9 +1024,19 @@ function openBannerModal(index) {
 }
 
 function closeBannerModal(event) {
-    // If event is provided, check if it's the background or close button
     const modal = document.getElementById('banner-modal');
     modal.style.display = "none";
+}
+
+function toggleOffersModal() {
+    const modal = document.getElementById('offers-modal');
+    if (modal) {
+        const isVisible = modal.style.display === "flex";
+        modal.style.display = isVisible ? "none" : "flex";
+
+        // Disable body scroll when modal is open
+        document.body.style.overflow = isVisible ? "auto" : "hidden";
+    }
 }
 
 // --- Customization Logic ---
