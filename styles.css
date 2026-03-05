@@ -206,10 +206,20 @@ a {
 
     .product-price {
         font-size: 0.9rem;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
     }
 
     .new-price {
         font-size: 1rem;
+        background: linear-gradient(to right, var(--primary), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
     }
 
     .old-price {
@@ -815,9 +825,13 @@ header {
 }
 
 .product-price {
-    color: var(--primary);
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: 700;
     font-size: 1rem;
+    display: inline-block;
 }
 
 /* Creative Pricing Styles */
@@ -836,9 +850,13 @@ header {
 }
 
 .new-price {
-    color: var(--primary);
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-weight: 800;
     font-size: 1.1rem;
+    display: inline-block;
 }
 
 .price-box {
