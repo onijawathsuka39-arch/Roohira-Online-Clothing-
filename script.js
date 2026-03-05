@@ -318,6 +318,46 @@ function initHeroTyping() {
     setTimeout(type, 500);
 }
 
+// --- Looping Product Typing Effect ---
+function initProductTyping() {
+    const titles = document.querySelectorAll('.typing-title');
+    titles.forEach(title => {
+        // Prevent multiple initializations
+        if (title.getAttribute('data-typing-active')) return;
+        title.setAttribute('data-typing-active', 'true');
+
+        const fullText = title.getAttribute('data-full-text');
+        let charIndex = 0;
+        let isTyping = true;
+
+        title.innerHTML = "";
+
+        function typeLoop() {
+            if (isTyping) {
+                if (charIndex < fullText.length) {
+                    title.innerHTML += fullText.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeLoop, 50); // Faster typing for short product names
+                } else {
+                    isTyping = false;
+                    setTimeout(typeLoop, 2000); // Pause while full text is shown
+                }
+            } else {
+                if (charIndex > 0) {
+                    title.innerHTML = fullText.substring(0, charIndex - 1);
+                    charIndex--;
+                    setTimeout(typeLoop, 30); // Quick erase
+                } else {
+                    isTyping = true;
+                    setTimeout(typeLoop, 500); // Small pause before restarting
+                }
+            }
+        }
+
+        typeLoop();
+    });
+}
+
 function updateUserUI() {
     const loginLink = document.getElementById('login-link');
     const userMenu = document.getElementById('user-menu');
@@ -370,6 +410,7 @@ function loadFeatured() {
 
     const featured = products.slice(0, 3);
     container.innerHTML = featured.map(p => createProductCard(p)).join('');
+    initProductTyping();
 }
 
 function loadShop() {
@@ -409,6 +450,7 @@ function renderProducts(items) {
         return;
     }
     container.innerHTML = items.map(p => createProductCard(p)).join('');
+    initProductTyping();
 }
 
 function createProductCard(product) {
@@ -429,7 +471,11 @@ function createProductCard(product) {
         </div>
         <div class="product-info">
             <div class="product-category">${product.category}</div>
-            <a href="product.html?id=${product.id}"><h3 class="product-title">${product.name}</h3></a>
+            <a href="product.html?id=${product.id}">
+                <h3 class="product-title typing-title" data-full-text="${product.name}">
+                    ${product.name}
+                </h3>
+            </a>
             <div class="flex justify-between items-center mt-2">
                 <div class="price-tag-container">
                     ${product.variants[0].oldPrice ? `<span class="old-price">Rs. ${product.variants[0].oldPrice.toLocaleString()}</span>` : ''}
