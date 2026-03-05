@@ -227,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadProfile();
         initChangePassword();
     }
+    if (document.getElementById('hero-typing-title')) initHeroTyping();
 });
 
 // --- Theme Management ---
@@ -268,6 +269,53 @@ function updateCartCount() {
         sidebarBadge.textContent = count;
         sidebarBadge.style.display = count > 0 ? 'inline-block' : 'none';
     }
+}
+
+// --- Typing Effect ---
+function initHeroTyping() {
+    const title = document.getElementById('hero-typing-title');
+    if (!title) return;
+
+    const line1 = "Luxury Sleep ";
+    const line2 = "Redefined";
+    let charIndex = 0;
+    let isLine2 = false;
+
+    title.innerHTML = "";
+
+    function type() {
+        if (!isLine2) {
+            if (charIndex < line1.length) {
+                title.innerHTML += line1.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                title.innerHTML += "<br>";
+                charIndex = 0;
+                isLine2 = true;
+
+                // Create the span for the second line with gradient styling
+                const span = document.createElement('span');
+                span.id = "hero-typing-accent";
+                span.style.background = "linear-gradient(to right, var(--primary), var(--accent))";
+                span.style.webkitBackgroundClip = "text";
+                span.style.backgroundClip = "text";
+                span.style.webkitTextFillColor = "transparent";
+                title.appendChild(span);
+
+                setTimeout(type, 300);
+            }
+        } else {
+            const span = document.getElementById('hero-typing-accent');
+            if (charIndex < line2.length) {
+                span.innerHTML += line2.charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 150);
+            }
+        }
+    }
+
+    setTimeout(type, 500);
 }
 
 function updateUserUI() {
