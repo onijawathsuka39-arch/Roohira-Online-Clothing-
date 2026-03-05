@@ -115,9 +115,89 @@ a {
 
 @media (max-width: 640px) {
 
+    /* Auto resizing & horizontal scroll fix */
+    html,
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+    }
+
     .grid-cols-3,
     .grid-cols-4 {
         grid-template-columns: 1fr;
+    }
+
+    /* Force product grid to 2 columns on mobile and make cards smaller */
+    #product-grid,
+    #featured-products {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem;
+    }
+
+    .product-info {
+        padding: 0.75rem;
+    }
+
+    .product-title {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+        white-space: normal;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 2.5rem;
+        line-height: 1.25rem;
+    }
+
+    .product-price {
+        font-size: 0.9rem;
+    }
+
+    .new-price {
+        font-size: 1rem;
+    }
+
+    .old-price {
+        font-size: 0.7rem;
+    }
+
+    .sold-out-badge {
+        font-size: 0.6rem;
+        padding: 4px 8px;
+        top: 8px;
+        left: 8px;
+    }
+
+    .product-actions {
+        bottom: 0;
+        padding: 5px;
+        gap: 5px;
+        opacity: 0.9;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    .price-box {
+        padding: 0.5rem;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+    }
+
+    .offer-banner-container {
+        height: 200px !important;
     }
 }
 
@@ -381,21 +461,21 @@ header {
 }
 
 .product-info {
-    padding: 1.25rem;
+    padding: 1rem;
 }
 
 .product-category {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
     color: var(--text-light);
-    letter-spacing: 1px;
-    margin-bottom: 0.25rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
 }
 
 .product-title {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.4rem;
     color: var(--text-dark);
     white-space: nowrap;
     overflow: hidden;
@@ -405,7 +485,7 @@ header {
 .product-price {
     color: var(--primary);
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 /* Creative Pricing Styles */
@@ -418,7 +498,7 @@ header {
 .old-price {
     text-decoration: line-through !important;
     color: #999;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     margin-bottom: -2px;
     opacity: 0.8;
 }
@@ -426,16 +506,16 @@ header {
 .new-price {
     color: var(--primary);
     font-weight: 800;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .price-box {
     background: var(--secondary-light);
-    padding: 1rem;
-    border-radius: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
     display: inline-flex;
     flex-direction: column;
-    border-left: 4px solid var(--primary);
+    border-left: 3px solid var(--primary);
 }
 
 /* Product Details Thumbnails */

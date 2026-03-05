@@ -5,7 +5,7 @@ const products = [
         id: 1,
         name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/VpScTGch/Chat-GPT-Image-Feb-15-2026-12-19-51-AM.png',
@@ -25,7 +25,7 @@ const products = [
         id: 2,
         name: 'Desing Bedsheet with(Red rose follwers )',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/Pvc47470/Chat-GPT-Image-Feb-14-2026-11-51-26-PM.png',
@@ -41,7 +41,7 @@ const products = [
         id: 3,
         name: 'Desing Bedsheet Black and White Leaves',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/svdVSvxC/Chat-GPT-Image-Feb-14-2026-11-01-11-PM.png',
@@ -57,7 +57,7 @@ const products = [
         id: 4,
         name: 'Desing Bedsheet Indego ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
@@ -73,7 +73,7 @@ const products = [
         id: 5,
         name: 'Handloom Bedsheets',
         description: 'Best Quality and 100% Handloom Products',
-        material: '100% Chinese Cotton',
+        material: '100% Cotton',
         category: 'Handloom Bedsheet',
         images: [
             'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
@@ -89,7 +89,7 @@ const products = [
         id: 6,
         name: 'Desing Bedsheet with Dark Purple follwers',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/574XHb1/Chat-GPT-Image-Feb-15-2026-07-48-36-PM.png',
@@ -105,7 +105,7 @@ const products = [
         id: 7,
         name: 'Desing Bedsheet with  Purple Square',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
+        material: '100% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/7JvnjgD0/Chat-GPT-Image-Feb-15-2026-04-24-39-PM.png',
@@ -121,7 +121,7 @@ const products = [
         id: 8,
         name: 'Desing Bedsheet For Little Baby',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/v4pQ6PkY/Chat-GPT-Image-Feb-15-2026-07-50-28-PM.png',
@@ -137,7 +137,7 @@ const products = [
         id: 9,
         name: 'Orange Look Desing Bedsheet ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
+        material: '100% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/N2y8mYpz/Chat-GPT-Image-Feb-16-2026-02-06-56-AM.png',
@@ -153,7 +153,7 @@ const products = [
         id: 10,
         name: ' Desing Bedsheet with Green Leaves ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/TBPLW68c/Chat-GPT-Image-Feb-16-2026-02-21-28-AM.png',
@@ -169,7 +169,7 @@ const products = [
         id: 11,
         name: ' Desing Bedsheet with Green Follwer Desing ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
+        material: '80% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/xqqFXfjn/Chat-GPT-Image-Feb-19-2026-09-01-37-PM.png',
@@ -186,7 +186,7 @@ const products = [
         id: 12,
         name: ' Desing Bedsheet with Pink Follwer Desing ',
         description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
+        material: '100% Cotton',
         category: ' Printed Design Bedsheet',
         images: [
             'https://i.ibb.co/9mx9KBPX/Chat-GPT-Image-Feb-19-2026-09-21-22-PM.png',
@@ -1095,7 +1095,7 @@ function selectDesign(id, name, image, material, category) {
 
     if (previewImg) previewImg.src = image;
     if (previewName) previewName.textContent = name;
-    if (previewMaterial) previewMaterial.textContent = material || '80% Chinese Cotton';
+    if (previewMaterial) previewMaterial.textContent = material || '80% Cotton';
     if (previewCategory) previewCategory.textContent = category || 'Printed Design';
 
     updateCustomPriceDisplay();
@@ -1126,7 +1126,7 @@ function updateCustomPriceDisplay() {
     let price = 0;
     let oldPrice = 0;
 
-    const material = customOrder.material || '80% Chinese Cotton';
+    const material = customOrder.material || '80% Cotton';
     const size = customOrder.size;
 
     if (material.includes('100%')) {
@@ -1140,7 +1140,7 @@ function updateCustomPriceDisplay() {
             price = 1200;
         }
     } else {
-        // 80% Chinese Cotton
+        // 80% Cotton
         if (size === '110*90') {
             price = 1750;
             oldPrice = 1900;
@@ -1256,10 +1256,10 @@ function placeCustomizeOrder() {
     document.getElementById('pdf-design-name').textContent = customOrder.designName;
     document.getElementById('pdf-size').textContent = customOrder.size;
     const pdfMat = document.getElementById('pdf-material');
-    if (pdfMat) pdfMat.textContent = customOrder.material || '80% Chinese Cotton';
+    if (pdfMat) pdfMat.textContent = customOrder.material || '80% Cotton';
     // Calculate price for WhatsApp message
     let estPrice = "On Calculation";
-    const mat = customOrder.material || '80% Chinese Cotton';
+    const mat = customOrder.material || '80% Cotton';
     const sz = customOrder.size;
     if (mat.includes('100%')) {
         if (sz.includes('110*90')) estPrice = "Rs. 1,900/=";
