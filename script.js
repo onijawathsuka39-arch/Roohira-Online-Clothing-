@@ -13,7 +13,7 @@ const products = [
             'https://i.ibb.co/tpLKzbHW/image-2.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
@@ -33,7 +33,7 @@ const products = [
             'https://i.ibb.co/cK36KL4r/image-1.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
@@ -49,7 +49,7 @@ const products = [
             'https://i.ibb.co/dJ5QRNbz/image.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 3 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 3 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 3 }
         ]
     },
@@ -65,7 +65,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'King Size (110*90)', price: 1750, oldPrice: 1900, stock: 5 },
+            { size: 'King Size (100*90)', price: 1750, oldPrice: 1900, stock: 5 },
             { size: 'Double (72*90)', price: 1500, oldPrice: 1900, stock: 0 }
         ]
     },
@@ -97,7 +97,7 @@ const products = [
             'https://i.ibb.co/kYXq5GM/Chat-GPT-Image-Feb-15-2026-08-09-43-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 10 }
         ]
     },
@@ -113,7 +113,7 @@ const products = [
             'https://i.ibb.co/PZ1ypzr4/Chat-GPT-Image-Feb-15-2026-04-18-25-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'King(100*90)', price: 1900, oldPrice: 2100, stock: 10 },
             { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 19 }
         ]
     },
@@ -129,7 +129,7 @@ const products = [
             'https://i.ibb.co/8gkhgXqt/Chat-GPT-Image-Feb-15-2026-08-17-38-PM.png'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 4 }
         ]
     },
@@ -145,7 +145,7 @@ const products = [
             'https://i.ibb.co/svq7HyP9/image-3.jpg'
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'King(100*90)', price: 1900, oldPrice: 2100, stock: 10 },
             { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 4 }
         ]
     },
@@ -161,7 +161,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 5 }
         ]
     },
@@ -178,7 +178,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 1750, oldPrice: 1900, stock: 10 },
+            { size: 'King(100*90)', price: 1750, oldPrice: 1900, stock: 10 },
             { size: 'Double(72*90)', price: 1500, oldPrice: 1800, stock: 5 }
         ]
     },
@@ -195,7 +195,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'King(110*90)', price: 1900, oldPrice: 2100, stock: 10 },
+            { size: 'King(100*90)', price: 1900, oldPrice: 2100, stock: 10 },
             { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 5 }
         ]
     },
@@ -1145,7 +1145,7 @@ let customOrder = {
     designName: '',
     designImage: '',
     material: '',
-    size: '110*90',
+    size: '100*90',
     width: '',
     height: '',
     note: ''
@@ -1214,7 +1214,48 @@ function toggleCustomSize(isCustom) {
 }
 
 function updateCustomPriceDisplay() {
-    // Price display removed as requested
+    const pricePreview = document.getElementById('custom-price-preview');
+    if (!pricePreview) return;
+
+    let price = 0;
+    let oldPrice = 0;
+
+    const material = customOrder.material || '80% Chinese Cotton';
+    const size = customOrder.size;
+
+    if (material.includes('100%')) {
+        if (size === '100*90') {
+            price = 1900;
+            oldPrice = 2100;
+        } else if (size === '72*90') {
+            price = 1750;
+            oldPrice = 1900;
+        } else if (size === '60*90') {
+            price = 1200;
+        }
+    } else {
+        // 80% Chinese Cotton
+        if (size === '100*90') {
+            price = 1750;
+            oldPrice = 1900;
+        } else if (size === '72*90') {
+            price = 1500;
+            oldPrice = 1800;
+        } else if (size === '60*90') {
+            price = 1000;
+        }
+    }
+
+    if (price > 0) {
+        pricePreview.innerHTML = `
+            ${oldPrice ? `<span class="old-price">Rs. ${oldPrice.toLocaleString()}</span>` : ''}
+            <span class="new-price">Rs. ${price.toLocaleString()}</span>
+        `;
+    } else if (size === 'custom') {
+        pricePreview.innerHTML = `<span class="new-price" style="font-size: 0.8rem; color: #666;">Price on calculation</span>`;
+    } else {
+        pricePreview.innerHTML = `<span class="new-price">Contact for Price</span>`;
+    }
 }
 
 function goToStep(stepName) {
@@ -1308,10 +1349,22 @@ function placeCustomizeOrder() {
     document.getElementById('pdf-img').src = customOrder.designImage;
     document.getElementById('pdf-design-name').textContent = customOrder.designName;
     document.getElementById('pdf-size').textContent = customOrder.size;
-    // WhatsApp Message
+    const pdfMat = document.getElementById('pdf-material');
+    if (pdfMat) pdfMat.textContent = customOrder.material || '80% Chinese Cotton';
+    // Calculate price for WhatsApp message
+    let estPrice = "On Calculation";
     const mat = customOrder.material || '80% Chinese Cotton';
     const sz = customOrder.size;
-    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${mat}%0A*Size:* ${sz}%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
+    if (mat.includes('100%')) {
+        if (sz.includes('100*90')) estPrice = "Rs. 1,900/=";
+        else if (sz.includes('72*90')) estPrice = "Rs. 1,750/=";
+    } else {
+        if (sz.includes('100*90')) estPrice = "Rs. 1,750/=";
+        else if (sz.includes('72*90')) estPrice = "Rs. 1,500/=";
+    }
+
+    // WhatsApp Message
+    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${mat}%0A*Size:* ${sz}%0A*Estimated Total:* ${estPrice}%0A*Advance Required:* Rs. 500/=%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
 
     // Directly open WhatsApp (PDF Download disabled as requested)
     window.open(`https://wa.me/94714433279?text=${message}`, '_blank');
