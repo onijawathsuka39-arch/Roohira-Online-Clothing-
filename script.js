@@ -276,8 +276,8 @@ function initHeroTyping() {
     const title = document.getElementById('hero-typing-title');
     if (!title) return;
 
-    const line1 = "Luxury Sleep ";
-    const line2 = "Redefined";
+    const line1 = "Style Comfort & Quality ";
+    const line2 = "Only at Roohira Online";
     let charIndex = 0;
     let isLine2 = false;
 
