@@ -199,6 +199,51 @@ const products = [
             { size: 'Double(72*90)', price: 1750, oldPrice: 1900, stock: 5 }
         ]
     },
+    {
+        id: 13,
+        name: 'Premium Blank Classic T-Shirt',
+        description: 'High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.',
+        material: '100% Cotton (Bio-washed)',
+        category: 'T-Shirts',
+        images: [
+            'tshirt-black.png',
+            'https://images.squarespace-cdn.com/content/v1/66ca9c04515d3e283aef44a6/26429219-3b39-4300-b6a1-dad190dc191f/20.png?format=1500w',
+            'tshirt-red.png'
+        ],
+        colors: [
+            { name: 'Black', image: 'tshirt-black.png', hex: '#111111' },
+            { name: 'White', image: 'https://images.squarespace-cdn.com/content/v1/66ca9c04515d3e283aef44a6/26429219-3b39-4300-b6a1-dad190dc191f/20.png?format=1500w', hex: '#f9f9f9' },
+            { name: 'Red', image: 'tshirt-red.png', hex: '#dc2626' }
+        ],
+        gsms: ['450 GSM', '220 GSM'],
+        variants: [
+            { size: 'S', price: 1200, oldPrice: 0, stock: 20 },
+            { size: 'M', price: 1000, oldPrice: 0, stock: 25 },
+            { size: 'L', price: 1200, oldPrice: 0, stock: 30 },
+            { size: 'XL', price: 1300, oldPrice: 0, stock: 15 }
+        ]
+    },
+    {
+        id: 14,
+        name: 'Premium Soft Bath Towel',
+        description: 'Super soft, highly absorbent long-lasting bath towel. Choose your preferred size and color.',
+        material: '100% Cotton',
+        category: 'Towels',
+        images: [
+            'https://images.unsplash.com/photo-1616628188550-808682f3fb15?w=500&q=80',
+            'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?w=500&q=80',
+            'https://images.unsplash.com/photo-1606900609378-01e4ec970c79?w=500&q=80'
+        ],
+        colors: [
+            { name: 'Blue', image: 'https://images.unsplash.com/photo-1616628188550-808682f3fb15?w=500&q=80', hex: '#60a5fa' },
+            { name: 'White', image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?w=500&q=80', hex: '#f9f9f9' },
+            { name: 'Pink', image: 'https://images.unsplash.com/photo-1606900609378-01e4ec970c79?w=500&q=80', hex: '#f472b6' }
+        ],
+        variants: [
+            { size: 'Medium (27x54)', price: 1500, oldPrice: 1800, stock: 20 },
+            { size: 'Large (30x60)', price: 2000, oldPrice: 2400, stock: 15 }
+        ]
+    }
 ];
 
 // State Management
@@ -494,7 +539,13 @@ function addToCartPreview(id) {
         // Find first variant with stock
         const availableVariant = product.variants.find(v => v.stock > 0);
         if (availableVariant) {
-            addToCart(id, 1, availableVariant.size);
+            let finalSize = availableVariant.size;
+            if (product.category === 'T-Shirts') {
+                finalSize = `${finalSize} | ${product.gsms[0]} | ${product.colors[0].name}`;
+            } else if (product.category === 'Towels') {
+                finalSize = `${finalSize} | ${product.colors[0].name}`;
+            }
+            addToCart(id, 1, finalSize);
         } else {
             showToast('All sizes are out of stock!', 'error');
         }
@@ -540,6 +591,48 @@ function loadProductDetails() {
 
     document.getElementById('detail-material').textContent = product.material;
 
+    // Handle T-shirt specific options
+    const specBox = document.querySelector('.spec-box');
+
+    // Remove old injected options if any
+    const oldExtra = document.getElementById('extra-options');
+    if (oldExtra) oldExtra.remove();
+    const oldColors = document.getElementById('color-options');
+    if (oldColors) oldColors.remove();
+
+    if (product.category === 'T-Shirts' || product.category === 'Towels') {
+        let extraHtml = '';
+        if (product.category === 'T-Shirts') {
+            const gsmValue = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
+            extraHtml = `
+                <div class="spec-item" id="extra-options" style="margin-top: 10px;">
+                    <span class="label">GSM</span>
+                    <span class="value">${gsmValue}</span>
+                </div>
+            `;
+        }
+
+        // Color Selection (Visual Swatches)
+        const colorsHtml = `
+            <div class="spec-item" id="color-options" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 10px;">
+                <label class="label" style="margin-bottom: 0;">Select Color: <span id="color-label" style="font-weight: 600; color: var(--text-dark);">${product.colors[0].name}</span></label>
+                <div style="display: flex; gap: 10px; margin-top: 5px;" id="color-swatch-container">
+                    ${product.colors.map((c, i) => `
+                        <button onclick="selectProductColor('${c.name}', '${c.image}')" class="color-swatch ${i === 0 ? 'active' : ''}" style="width: 35px; height: 35px; border-radius: 50%; border: ${i === 0 ? '2px solid var(--primary)' : '2px solid #ddd'}; background-color: ${c.hex}; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-color="${c.name}"></button>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        // Hide Material if needed or just append
+        if (extraHtml) specBox.insertAdjacentHTML('beforeend', extraHtml);
+        specBox.insertAdjacentHTML('beforeend', colorsHtml);
+
+        window.selectedColor = product.colors[0].name; // Default color
+    } else {
+        window.selectedColor = null;
+    }
+
     const stockStatus = document.getElementById('detail-stock');
     const firstVariant = product.variants[0];
     if (firstVariant && firstVariant.stock > 0) {
@@ -564,11 +657,74 @@ function loadProductDetails() {
 
     // Add event listener to Add Cart button
     const btn = document.getElementById('add-to-cart-btn');
-    btn.onclick = () => {
+    // Important: clear old event listeners if any
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    newBtn.onclick = () => {
         const qty = parseInt(document.getElementById('qty-input').value);
-        const selectedSize = sizeSelect.value;
+        let selectedSize = sizeSelect ? sizeSelect.value : '';
+
+        if (product.category === 'T-Shirts') {
+            const gsm = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
+            const color = window.selectedColor || 'Black';
+            selectedSize = `${selectedSize} | ${gsm} | ${color}`;
+        } else if (product.category === 'Towels') {
+            const color = window.selectedColor || product.colors[0].name;
+            selectedSize = `${selectedSize} | ${color}`;
+        }
+
         addToCart(product.id, qty, selectedSize);
     };
+}
+
+function updateMainImageAnimated(newSrc) {
+    const img = document.getElementById('detail-image');
+    if (img.src.includes(newSrc)) return;
+
+    img.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
+    img.style.opacity = 0;
+    img.style.transform = 'scale(0.96)';
+
+    setTimeout(() => {
+        img.onload = () => {
+            img.style.opacity = 1;
+            img.style.transform = 'scale(1)';
+        };
+        img.src = newSrc;
+
+        // Fallback in case of quick load or cache
+        setTimeout(() => {
+            img.style.opacity = 1;
+            img.style.transform = 'scale(1)';
+        }, 50);
+    }, 250);
+}
+
+function selectProductColor(colorName, imageSrc) {
+    window.selectedColor = colorName;
+    updateMainImageAnimated(imageSrc);
+    document.getElementById('color-label').textContent = colorName;
+
+    // Update active swatch border
+    const swatches = document.querySelectorAll('.color-swatch');
+    swatches.forEach(swatch => {
+        if (swatch.getAttribute('data-color') === colorName) {
+            swatch.style.border = '2px solid var(--primary)';
+        } else {
+            swatch.style.border = '2px solid #ddd';
+        }
+    });
+
+    // Update thumbnail active states if they exist
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(t => {
+        if (t.src.includes(imageSrc)) {
+            t.classList.add('active');
+        } else {
+            t.classList.remove('active');
+        }
+    });
 }
 
 function updatePriceOnSizeChange() {
@@ -584,6 +740,9 @@ function updatePriceOnSizeChange() {
             </div>
         `;
         document.getElementById('detail-price').innerHTML = priceHTML;
+
+        // Check if T-shirt to update price slightly based on GSM? (Assuming price is same for now, or could depend on GSM)
+        // If GSM changes, we can add a listener to gsm-select.
 
         // Update Stock Status
         const stockStatus = document.getElementById('detail-stock');
@@ -601,7 +760,7 @@ function updatePriceOnSizeChange() {
 }
 
 function changeImage(src, element) {
-    document.getElementById('detail-image').src = src;
+    updateMainImageAnimated(src);
 
     // Toggle active class
     document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
@@ -612,7 +771,8 @@ function changeImage(src, element) {
 
 function addToCart(id, qty = 1, size = null) {
     const product = products.find(p => p.id === id);
-    const variant = size ? product.variants.find(v => v.size === size) : product.variants[0];
+    const baseSize = size ? size.split(' | ')[0] : null;
+    const variant = baseSize ? product.variants.find(v => v.size === baseSize) : product.variants[0];
     const finalSize = size || variant.size;
     const finalPrice = variant.price;
 
@@ -622,9 +782,19 @@ function addToCart(id, qty = 1, size = null) {
         return;
     }
 
+    let defaultImage = product.images[0];
+    if ((product.category === 'T-Shirts' || product.category === 'Towels') && size && size.includes(' | ')) {
+        const parts = size.split(' | ');
+        const colorName = parts[parts.length - 1].trim(); // last part is color
+        if (product.colors) {
+            const colorObj = product.colors.find(c => c.name === colorName);
+            if (colorObj) defaultImage = colorObj.image;
+        }
+    }
+
     const cartItem = {
         ...product,
-        image: product.images[0],
+        image: defaultImage,
         price: finalPrice,
         oldPrice: variant.oldPrice,
         size: finalSize,
