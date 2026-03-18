@@ -209,13 +209,13 @@ const products = [
             'tshirt-black.png',
             'https://cdn.aboutstatic.com/file/images/121c86326dd8f74c7b0e1ac7b92f7938.jpg?quality=75',
             'tshirt-red.png'
-         
+
         ],
         colors: [
             { name: 'Black', image: 'tshirt-black.png', hex: '#111111' },
             { name: 'White', image: 'https://cdn.aboutstatic.com/file/images/121c86326dd8f74c7b0e1ac7b92f7938.jpg?quality=75', hex: '#f9f9f9' },
             { name: 'Red', image: 'tshirt-red.png', hex: '#dc2626' }
-          
+
         ],
         gsms: ['220 GSM', '220 GSM'],
         variants: [
@@ -239,7 +239,7 @@ const products = [
             'https://i.ibb.co/Jw6MPjYc/t4.png',
             'https://i.ibb.co/cKp1fv6W/t5.png ',
             'https://i.ibb.co/FLcSZjdk/t6.png'
-       
+
         ],
         colors: [
             { name: 'Red', image: 'https://i.ibb.co/Sk7p2xr/t1.png ', hex: '#ff0202' },
@@ -248,10 +248,39 @@ const products = [
             { name: 'Blue', image: 'https://i.ibb.co/Jw6MPjYc/t4.png', hex: '#014ef5' },
             { name: 'Grey', image: 'https://i.ibb.co/cKp1fv6W/t5.png ', hex: '#d2cfcb' },
             { name: 'Dark Brown', image: 'https://i.ibb.co/FLcSZjdk/t6.png', hex: '#572a07' }
-         
+
         ],
         variants: [
             { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 15 }
+        ]
+    },
+    {
+        id: 15,
+        name: 'Cotton සරම්',
+        description: '100% Cotton and Good Quality.',
+        material: '100% Cotton',
+        category: 'Cotton සරම්',
+        images: [
+            'https://i.ibb.co/LzbfmwpB/b123456.png',
+            'https://i.ibb.co/KpgcTZpS/b6.png',
+            'https://i.ibb.co/tTP9Vk5m/b5.png ',
+            'https://i.ibb.co/ns05Pnjn/b4.png',
+            'https://i.ibb.co/qY9WFhvz/b3.png',
+            'https://i.ibb.co/Qjrx01Cm/b2.png',
+            'https://i.ibb.co/2myVP4Y/b1.png'
+
+        ],
+        colors: [
+            { name: 'Light Green', image: 'https://i.ibb.co/KpgcTZpS/b6.png', hex: '#0aff02ff' },
+            { name: 'Purple', image: 'https://i.ibb.co/tTP9Vk5m/b5.png ', hex: '#45033bff' },
+            { name: 'Blue and Red', image: 'https://i.ibb.co/ns05Pnjn/b4.png', hex: '#fc0000ff' },
+            { name: 'Dark Green', image: 'https://i.ibb.co/qY9WFhvz/b3.png', hex: '#1e5a04ff' },
+            { name: 'Yellow', image: 'https://i.ibb.co/Qjrx01Cm/b2.png', hex: '#fffb01ff' },
+            { name: 'Black', image: 'https://i.ibb.co/2myVP4Y/b1.png', hex: '#000000ff' }
+
+        ],
+        variants: [
+            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 6 }
         ]
     }
 ];
@@ -552,7 +581,7 @@ function addToCartPreview(id) {
             let finalSize = availableVariant.size;
             if (product.category === 'T-Shirts') {
                 finalSize = `${finalSize} | ${product.gsms[0]} | ${product.colors[0].name}`;
-            } else if (product.category === 'Towels') {
+            } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
                 finalSize = `${finalSize} | ${product.colors[0].name}`;
             }
             addToCart(id, 1, finalSize);
@@ -610,7 +639,7 @@ function loadProductDetails() {
     const oldColors = document.getElementById('color-options');
     if (oldColors) oldColors.remove();
 
-    if (product.category === 'T-Shirts' || product.category === 'Towels') {
+    if (product.category === 'T-Shirts' || product.category === 'Towels' || product.category === 'Cotton සරම්') {
         let extraHtml = '';
         if (product.category === 'T-Shirts') {
             const gsmValue = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
@@ -680,7 +709,7 @@ function loadProductDetails() {
             const gsm = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
             const color = window.selectedColor || 'Black';
             selectedSize = `${selectedSize} | ${gsm} | ${color}`;
-        } else if (product.category === 'Towels') {
+        } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
             const color = window.selectedColor || product.colors[0].name;
             selectedSize = `${selectedSize} | ${color}`;
         }
@@ -794,7 +823,7 @@ function addToCart(id, qty = 1, size = null) {
     }
 
     let defaultImage = product.images[0];
-    if ((product.category === 'T-Shirts' || product.category === 'Towels') && size && size.includes(' | ')) {
+    if ((product.category === 'T-Shirts' || product.category === 'Towels' || product.category === 'Cotton සරම්') && size && size.includes(' | ')) {
         const parts = size.split(' | ');
         const colorName = parts[parts.length - 1].trim(); // last part is color
         if (product.colors) {
