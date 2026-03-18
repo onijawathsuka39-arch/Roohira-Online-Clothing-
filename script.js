@@ -207,20 +207,22 @@ const products = [
         category: 'T-Shirts',
         images: [
             'tshirt-black.png',
-            'https://images.squarespace-cdn.com/content/v1/66ca9c04515d3e283aef44a6/26429219-3b39-4300-b6a1-dad190dc191f/20.png?format=1500w',
+            'https://cdn.aboutstatic.com/file/images/121c86326dd8f74c7b0e1ac7b92f7938.jpg?quality=75',
             'tshirt-red.png'
+         
         ],
         colors: [
             { name: 'Black', image: 'tshirt-black.png', hex: '#111111' },
-            { name: 'White', image: 'https://images.squarespace-cdn.com/content/v1/66ca9c04515d3e283aef44a6/26429219-3b39-4300-b6a1-dad190dc191f/20.png?format=1500w', hex: '#f9f9f9' },
+            { name: 'White', image: 'https://cdn.aboutstatic.com/file/images/121c86326dd8f74c7b0e1ac7b92f7938.jpg?quality=75', hex: '#f9f9f9' },
             { name: 'Red', image: 'tshirt-red.png', hex: '#dc2626' }
+          
         ],
-        gsms: ['450 GSM', '220 GSM'],
+        gsms: ['220 GSM', '220 GSM'],
         variants: [
-            { size: 'S', price: 1200, oldPrice: 0, stock: 20 },
-            { size: 'M', price: 1000, oldPrice: 0, stock: 25 },
-            { size: 'L', price: 1200, oldPrice: 0, stock: 30 },
-            { size: 'XL', price: 1300, oldPrice: 0, stock: 15 }
+            { size: 'S', price: 1200, oldPrice: 0, stock: 0 },
+            { size: 'M', price: 1000, oldPrice: 0, stock: 0 },
+            { size: 'L', price: 1200, oldPrice: 0, stock: 0 },
+            { size: 'XL', price: 1300, oldPrice: 0, stock: 0 }
         ]
     },
     {
@@ -230,18 +232,26 @@ const products = [
         material: '100% Cotton',
         category: 'Towels',
         images: [
-            'https://images.unsplash.com/photo-1616628188550-808682f3fb15?w=500&q=80',
-            'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?w=500&q=80',
-            'https://images.unsplash.com/photo-1606900609378-01e4ec970c79?w=500&q=80'
+            'https://i.ibb.co/rGzxnC46/t123456.png',
+            'https://i.ibb.co/Sk7p2xr/t1.png',
+            'https://i.ibb.co/v4353wyN/t2.png',
+            'https://i.ibb.co/cc2m1xt4/t3.png',
+            'https://i.ibb.co/Jw6MPjYc/t4.png',
+            'https://i.ibb.co/cKp1fv6W/t5.png ',
+            'https://i.ibb.co/FLcSZjdk/t6.png'
+       
         ],
         colors: [
-            { name: 'Blue', image: 'https://images.unsplash.com/photo-1616628188550-808682f3fb15?w=500&q=80', hex: '#60a5fa' },
-            { name: 'White', image: 'https://images.unsplash.com/photo-1584346133934-a3afd2a33c4c?w=500&q=80', hex: '#f9f9f9' },
-            { name: 'Pink', image: 'https://images.unsplash.com/photo-1606900609378-01e4ec970c79?w=500&q=80', hex: '#f472b6' }
+            { name: 'Red', image: 'https://i.ibb.co/Sk7p2xr/t1.png ', hex: '#ff0202' },
+            { name: 'Brown', image: 'https://i.ibb.co/v4353wyN/t2.png', hex: '#c49704' },
+            { name: 'Dark Green', image: 'https://i.ibb.co/cc2m1xt4/t3.png', hex: '#296c10' },
+            { name: 'Blue', image: 'https://i.ibb.co/Jw6MPjYc/t4.png', hex: '#014ef5' },
+            { name: 'Grey', image: 'https://i.ibb.co/cKp1fv6W/t5.png ', hex: '#d2cfcb' },
+            { name: 'Dark Brown', image: 'https://i.ibb.co/FLcSZjdk/t6.png', hex: '#572a07' }
+         
         ],
         variants: [
-            { size: 'Medium (27x54)', price: 1500, oldPrice: 1800, stock: 20 },
-            { size: 'Large (30x60)', price: 2000, oldPrice: 2400, stock: 15 }
+            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 15 }
         ]
     }
 ];
@@ -616,7 +626,7 @@ function loadProductDetails() {
         const colorsHtml = `
             <div class="spec-item" id="color-options" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 10px;">
                 <label class="label" style="margin-bottom: 0;">Select Color: <span id="color-label" style="font-weight: 600; color: var(--text-dark);">${product.colors[0].name}</span></label>
-                <div style="display: flex; gap: 10px; margin-top: 5px;" id="color-swatch-container">
+                <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;" id="color-swatch-container">
                     ${product.colors.map((c, i) => `
                         <button onclick="selectProductColor('${c.name}', '${c.image}')" class="color-swatch ${i === 0 ? 'active' : ''}" style="width: 35px; height: 35px; border-radius: 50%; border: ${i === 0 ? '2px solid var(--primary)' : '2px solid #ddd'}; background-color: ${c.hex}; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-color="${c.name}"></button>
                     `).join('')}
@@ -648,9 +658,10 @@ function loadProductDetails() {
     // Render Thumbnails
     const thumbContainer = document.getElementById('thumbnail-container');
     if (product.images.length > 1) {
-        thumbContainer.innerHTML = product.images.slice(0, 3).map((img, index) => `
+        thumbContainer.innerHTML = product.images.map((img, index) => `
             <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
         `).join('');
+        thumbContainer.style.display = 'flex';
     } else {
         thumbContainer.style.display = 'none';
     }
@@ -706,13 +717,13 @@ function selectProductColor(colorName, imageSrc) {
     updateMainImageAnimated(imageSrc);
     document.getElementById('color-label').textContent = colorName;
 
-    // Update active swatch border
+    // Update active swatch class
     const swatches = document.querySelectorAll('.color-swatch');
     swatches.forEach(swatch => {
         if (swatch.getAttribute('data-color') === colorName) {
-            swatch.style.border = '2px solid var(--primary)';
+            swatch.classList.add('active');
         } else {
-            swatch.style.border = '2px solid #ddd';
+            swatch.classList.remove('active');
         }
     });
 
