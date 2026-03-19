@@ -282,7 +282,22 @@ const products = [
         variants: [
             { size: 'Large ', price: 1100, oldPrice: 1200, stock: 6 }
         ]
-    }
+    },
+	{
+        id: 16,
+        name: 'Fabric Pillow ',
+        description: 'Good Quality and Soft  )',
+        material: 'Fabric Pillow',
+        category: ' Pillow',
+        images: [
+          'https://i.ibb.co/7M3RYwp/2.png',
+            'https://i.ibb.co/rBt8FD3/pillows-png-28.png'
+        ],
+        variants: [
+          
+            { size: '18 * 27', price: 1200, oldPrice: 0, stock: 10 }
+        ]
+    },
 ];
 
 // State Management
