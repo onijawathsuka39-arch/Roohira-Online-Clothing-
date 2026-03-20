@@ -129,17 +129,15 @@
                             <h3>Bedsheet</h3>
                             <p>Premium quality fabrics customized for you</p>
                         </button>
-                        <button class="category-card"
-                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; opacity: 0.6; cursor: not-allowed; position: relative;">
-                            <div
-                                style="position: absolute; top: 10px; right: 10px; background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: bold;">
-                                Coming Soon</div>
+                        <button class="category-card disabled" title="Temporarily Unavailable"
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; position: relative; opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
                             <div class="cat-icon"
-                                style="width: 80px; height: 80px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #888;">
+                                style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #999;">
                                 <i class="fas fa-tshirt fa-2x"></i>
                             </div>
                             <h3>T-Shirts</h3>
-                            <p>Custom printed t-shirts and apparel</p>
+                            <p>Custom printed t-shirts and apparel with stickers</p>
+                            <div style="position: absolute; top: 10px; right: 10px; background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase;">Held / Coming Soon</div>
                         </button>
                     </div>
                 </div>
@@ -221,6 +219,120 @@
                                 alt=" Desing Bedsheet with Pink Follwer Desing ">
                             <p class="text-center mt-2 text-sm font-semibold"> Desing Bedsheet with Pink Follwer Desing
                             </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step: T-Shirt Base Selection -->
+                <div id="step-tshirt-base" class="step-section" style="display: none;">
+                    <div class="flex items-center gap-4 mb-8">
+                        <button onclick="goToStep('category')" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                        <h2 class="step-title" style="margin: 0; font-family: 'Playfair Display', serif;">Select T-Shirt Options</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <div class="flex justify-center">
+                            <div class="product-preview-container" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; width: 100%; max-width: 400px; position: relative;">
+                                <img id="tshirt-base-preview" src="tshirt-white.png" alt="T-Shirt Preview" style="width: 100%; max-height: 400px; object-fit: contain;">
+                                <div id="tshirt-sticker-overlays" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; align-content: center; gap: 10px; padding: 100px 50px;">
+                                    <!-- Sticker previews will be injected here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-6">
+                            <div>
+                                <label class="form-label" style="font-weight: 700;">Select T-Shirt Color</label>
+                                <div class="flex gap-4 mt-2">
+                                    <button onclick="selectTshirtColor('White', 'tshirt-white.png')" class="color-swatch-btn tshirt-swatch active" style="background: #ffffff; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                                    <button onclick="selectTshirtColor('Black', 'tshirt-black.png')" class="color-swatch-btn tshirt-swatch" style="background: #111111; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                                    <button onclick="selectTshirtColor('Red', 'tshirt-red.png')" class="color-swatch-btn tshirt-swatch" style="background: #dc2626; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="form-label" style="font-weight: 700;">Select T-Shirt Size</label>
+                                <select id="tshirt-size-select" class="form-input" onchange="updateCustomTshirtState()" style="padding: 12px; border-radius: 10px; margin-top: 8px; width: 100%;">
+                                    <option value="S">Small (S)</option>
+                                    <option value="M" selected>Medium (M)</option>
+                                    <option value="L">Large (L)</option>
+                                    <option value="XL">Extra Large (XL)</option>
+                                </select>
+                            </div>
+
+                            <div style="background: var(--secondary-light); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary);">
+                                <h4 style="margin: 0; color: var(--primary);"><i class="fas fa-magic"></i> Add Stickers to your T-Shirt</h4>
+                                <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">First sticker is FREE. Each additional sticker is just Rs. 100.<br>(පළමු ස්ටිකරය නොමිලේ! අමතර සෑම ස්ටිකරයක් සඳහාම රු. 100 බැගින් එකතු වේ.)</p>
+                                <button onclick="goToStickersStep()" class="btn btn-primary w-full mt-4" style="background: var(--text-dark); border: none; padding: 12px; border-radius: 10px; color: white; cursor: pointer;">
+                                    <i class="fas fa-plus"></i> Add Sticker
+                                </button>
+                            </div>
+
+                            <div id="added-stickers-list" class="mt-4" style="display: none;">
+                                <label class="form-label" style="font-weight: 700;">Added Stickers</label>
+                                <div id="stickers-container" class="flex flex-wrap gap-2 mt-2"></div>
+                            </div>
+
+                            <div class="price-display mt-4" style="text-align: right;">
+                                <span style="font-size: 1rem; color: #999;">Current Total:</span>
+                                <span id="tshirt-custom-price" style="font-size: 1.8rem; font-weight: 800; color: var(--primary); display: block;">Rs. 1,200</span>
+                            </div>
+
+                            <button onclick="finishTshirtCustomization()" class="btn btn-primary w-full" style="padding: 1.25rem; font-size: 1.1rem; border-radius: 15px; font-weight: 700;">
+                                <i class="fas fa-shopping-cart"></i> Finish & Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step: Sticker Selection -->
+                <div id="step-stickers" class="step-section" style="display: none;">
+                    <div class="flex items-center gap-4 mb-8">
+                        <button onclick="goToStep('tshirt-base')" class="back-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                        <h2 class="step-title" style="margin: 0; font-family: 'Playfair Display', serif;">Select Sticker</h2>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="sticker-grid">
+                        <!-- Stickers will be injected here -->
+                    </div>
+
+                    <div id="no-sticker-option" class="mt-10 text-center">
+                        <button onclick="goToStep('tshirt-base')" class="btn" style="border: 2px dashed #ddd; background: #fafafa; padding: 15px 40px; color: #888; border-radius: 10px; cursor: pointer;">
+                            <i class="fas fa-times"></i> Back to Options
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Modal: Sticker Customization Details -->
+                <div id="sticker-detail-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 20px;">
+                    <div style="background: white; max-width: 500px; width: 100%; padding: 30px; border-radius: 20px; position: relative;">
+                        <span onclick="closeStickerModal()" style="position: absolute; top: 15px; right: 20px; font-size: 2rem; cursor: pointer; color: #999;">&times;</span>
+                        <div id="sticker-detail-body" class="text-center">
+                            <img id="modal-sticker-img" src="" alt="Sticker" style="width: 120px; margin: 0 auto 20px; display: block;">
+                            <h3 id="modal-sticker-name" style="margin-bottom: 20px; font-family: 'Playfair Display', serif;">Sticker Name</h3>
+                            
+                            <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+                                <label class="form-label" style="font-weight: 700; display: block; margin-bottom: 5px;">Sticker Size</label>
+                                <select id="sticker-size" class="form-input" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                                    <option value="Small">Small (3x3 inch)</option>
+                                    <option value="Medium" selected>Medium (5x5 inch)</option>
+                                    <option value="Large">Large (8x8 inch)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="text-align: left; margin-top: 20px;">
+                                <label class="form-label" style="font-weight: 700; display: block; margin-bottom: 5px;">Printing Side</label>
+                                <div class="flex gap-6 mt-2">
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="radio" name="sticker-side" value="Front" checked> Front
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="radio" name="sticker-side" value="Back"> Back
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button onclick="addStickerToOrder()" class="btn btn-primary w-full mt-8" style="padding: 15px; border-radius: 12px; font-weight: 700;">Confirm Sticker</button>
                         </div>
                     </div>
                 </div>
