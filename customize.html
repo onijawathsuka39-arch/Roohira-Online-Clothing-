@@ -129,14 +129,25 @@
                             <h3>Bedsheet</h3>
                             <p>Premium quality fabrics customized for you</p>
                         </button>
-                        <button class="category-card disabled" title="Temporarily Unavailable"
-                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; position: relative; opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
+                        <button onclick="selectCategory('T-Shirts')" class="category-card"
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%;">
                             <div class="cat-icon"
                                 style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #999;">
                                 <i class="fas fa-tshirt fa-2x"></i>
                             </div>
                             <h3>T-Shirts</h3>
-                            <p>Custom printed t-shirts and apparel with stickers</p>
+                            <p>Custom printed t-shirts with stickers</p>
+                        </button>
+                        <button class="category-card disabled" title="Temporarily Unavailable"
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; position: relative; opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
+                            <div class="cat-icon"
+                                style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #999; overflow: hidden; position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: #ff0000;"></div>
+                                <div style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #000000;"></div>
+                                <i class="fas fa-child fa-2x" style="position: relative; z-index: 1; color: white;"></i>
+                            </div>
+                            <h3>Kids Two Tone T-shirt</h3>
+                            <p>Stylish two-tone t-shirts for kids</p>
                             <div style="position: absolute; top: 10px; right: 10px; background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase;">Held / Coming Soon</div>
                         </button>
                     </div>
@@ -243,7 +254,7 @@
                         <div class="flex flex-col gap-6">
                             <div>
                                 <label class="form-label" style="font-weight: 700;">Select T-Shirt Color</label>
-                                <div class="flex gap-4 mt-2">
+                                <div class="flex gap-4 mt-2" id="tshirt-color-options">
                                     <button onclick="selectTshirtColor('White', 'tshirt-white.png')" class="color-swatch-btn tshirt-swatch active" style="background: #ffffff; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
                                     <button onclick="selectTshirtColor('Black', 'tshirt-black.png')" class="color-swatch-btn tshirt-swatch" style="background: #111111; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
                                     <button onclick="selectTshirtColor('Red', 'tshirt-red.png')" class="color-swatch-btn tshirt-swatch" style="background: #dc2626; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
@@ -262,7 +273,7 @@
 
                             <div style="background: var(--secondary-light); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary);">
                                 <h4 style="margin: 0; color: var(--primary);"><i class="fas fa-magic"></i> Add Stickers to your T-Shirt</h4>
-                                <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">First sticker is FREE. Each additional sticker is just Rs. 100.<br>(පළමු ස්ටිකරය නොමිලේ! අමතර සෑම ස්ටිකරයක් සඳහාම රු. 100 බැගින් එකතු වේ.)</p>
+                                <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">First sticker is FREE. Each additional sticker is just Rs. 100.<br>(පළමු ස්ටිකරය නොමිලේ! අමතර ස්ටිකරයක් රු. 100 බැගින්.)</p>
                                 <button onclick="goToStickersStep()" class="btn btn-primary w-full mt-4" style="background: var(--text-dark); border: none; padding: 12px; border-radius: 10px; color: white; cursor: pointer;">
                                     <i class="fas fa-plus"></i> Add Sticker
                                 </button>

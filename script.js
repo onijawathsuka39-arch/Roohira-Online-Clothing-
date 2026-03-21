@@ -205,27 +205,55 @@ const products = [
         description: 'High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.',
         material: '-',
         category: 'T-Shirts',
-        images: [
-            'https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png',
-            'https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png',
-            'https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png',
-            'https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png'
-
-        ],
+        material: '-',
+        category: 'T-Shirts',
         colors: [
-            { name: 'Green', image: 'https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png', hex: '#74c306ff' },
-            { name: 'Black', image: 'https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png', hex: '#030202ff' },
-            { name: 'Light Blue', image: 'https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png', hex: '#00f2ffff' },
-            { name: 'Pink', image: 'https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png', hex: '#d13ea5ff' }
-
+            {
+                name: 'Green',
+                image: 'https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png',
+                hex: '#74c306ff',
+                variants: [
+                    { size: 'S', price: 1100, oldPrice: 0, stock: 10 },
+                    { size: 'M', price: 1100, oldPrice: 0, stock: 10 },
+                    { size: 'L', price: 1100, oldPrice: 0, stock: 5 },
+                    { size: 'XL', price: 1100, oldPrice: 0, stock: 1 }
+                ]
+            },
+            {
+                name: 'Black',
+                image: 'https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png',
+                hex: '#030202ff',
+                variants: [
+                    { size: 'S', price: 1100, oldPrice: 0, stock: 15 },
+                    { size: 'M', price: 1100, oldPrice: 0, stock: 12 },
+                    { size: 'L', price: 1100, oldPrice: 0, stock: 8 },
+                    { size: 'XL', price: 1100, oldPrice: 0, stock: 4 }
+                ]
+            },
+            {
+                name: 'Light Blue',
+                image: 'https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png',
+                hex: '#00f2ffff',
+                variants: [
+                    { size: 'S', price: 1100, oldPrice: 0, stock: 10 },
+                    { size: 'M', price: 1100, oldPrice: 0, stock: 10 },
+                    { size: 'L', price: 1100, oldPrice: 0, stock: 10 },
+                    { size: 'XL', price: 1100, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: 'Pink',
+                image: 'https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png',
+                hex: '#d13ea5ff',
+                variants: [
+                    { size: 'S', price: 1100, oldPrice: 0, stock: 5 },
+                    { size: 'M', price: 1100, oldPrice: 0, stock: 5 },
+                    { size: 'L', price: 1100, oldPrice: 0, stock: 5 },
+                    { size: 'XL', price: 1100, oldPrice: 0, stock: 5 }
+                ]
+            }
         ],
-        gsms: ['220 GSM', '220 GSM'],
-        variants: [
-            { size: 'S', price: 1100, oldPrice: 0, stock: 10 },
-            { size: 'M', price: 1100, oldPrice: 0, stock: 10 },
-            { size: 'L', price: 1100, oldPrice: 0, stock: 10 },
-            { size: 'XL', price: 1100, oldPrice: 0, stock: 10 }
-        ]
+        gsms: ['220 GSM', '220 GSM']
     },
     {
         id: 14,
@@ -298,6 +326,76 @@ const products = [
         variants: [
             { size: '18 * 27', price: 1200, oldPrice: 0, stock: 10 }
         ]
+    },
+    {
+        id: 17,
+        name: 'Kids Two Tone Premium T-Shirt',
+        description: 'Stylish and comfortable two-tone t-shirt for kids. Perfect for daily wear and special occasions.',
+        material: '-',
+        category: 'Kids Two Tone T-shirt',
+        colors: [
+            {
+                name: 'White & Yellow',
+                image: 'https://i.ibb.co/4R7m3NBD/Whats-App-Image-2026-03-21-at-4-52-40-PM-1.jpg',
+                hex: ['#ffffffff', '#ffe600ff'],
+                variants: [
+                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'M (8-10 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                ]
+            },
+            {
+                name: 'White & Black',
+                image: 'https://i.ibb.co/JRwBq8FR/Whats-App-Image-2026-03-21-at-4-52-40-PM.jpg',
+                hex: ['#ffffffff', '#000000ff'],
+                variants: [
+                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'M (8-10 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                ]
+            },
+            {
+                name: 'White & Purple',
+                image: 'https://i.ibb.co/MyD4cmC5/Whats-App-Image-2026-03-21-at-4-52-39-PM.jpg',
+                hex: ['#ffffffff', '#740880ff'],
+                variants: [
+                    { size: 'S (3-5 Years)', price: 900, oldPrice: 950, stock: 0 },
+                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 10 },
+                    { size: 'L (9-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                ]
+            },
+            {
+                name: 'Purple & White',
+                image: 'https://i.ibb.co/FLTWMdJk/Whats-App-Image-2026-03-21-at-4-52-39-PM-1.jpg',
+                hex: ['#e205ffff', '#feffffff'],
+                variants: [
+                    { size: 'S (3-5 Years)', price: 900, oldPrice: 950, stock: 0 },
+                    { size: 'M (8-9 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                ]
+            },
+            {
+                name: 'Red & Light Pink',
+                image: 'https://i.ibb.co/yFYBqCDD/Whats-App-Image-2026-03-21-at-4-52-38-PM.jpg',
+                hex: ['#ff002bff', '#fe8bd8ff'],
+                variants: [
+                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 0 },
+                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 0 },
+                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                ]
+            },
+            {
+                name: 'Light Blue Green & Light Yellow',
+                image: 'https://i.ibb.co/FLVXBDXN/Whats-App-Image-2026-03-21-at-4-52-38-PM-1.jpg',
+                hex: ['#00fff2ff', '#f3e678ff'],
+                variants: [
+                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
+                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 0 },
+                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                ]
+            }
+        ],
+        gsms: ['220 GSM', '220 GSM']
     },
 ];
 
@@ -586,14 +684,23 @@ function renderProducts(items) {
 }
 
 function createProductCard(product) {
-    const defaultPrice = product.variants[0].price;
-    const isSoldOut = product.variants.every(v => v.stock <= 0);
+    const defaultVariants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
+    const defaultVariant = defaultVariants ? defaultVariants[0] : { price: 0, oldPrice: 0, stock: 0 };
+    const defaultImage = (product.images && product.images.length > 0) ? product.images[0] : (product.colors ? product.colors[0].image : '');
+
+    // Check if any variant has stock across any color
+    let isSoldOut = true;
+    if (product.colors && product.colors[0].variants) {
+        isSoldOut = product.colors.every(c => c.variants.every(v => v.stock <= 0));
+    } else if (product.variants) {
+        isSoldOut = product.variants.every(v => v.stock <= 0);
+    }
 
     return `
     <div class="product-card ${isSoldOut ? 'sold-out' : ''}">
         <div class="product-image">
             <a href="product.html?id=${product.id}">
-                <img src="${product.images[0]}" alt="${product.name}">
+                <img src="${defaultImage}" alt="${product.name}">
                 ${isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
             </a>
             <div class="product-actions">
@@ -610,8 +717,8 @@ function createProductCard(product) {
             </a>
             <div class="flex justify-between items-center mt-2">
                 <div class="price-tag-container">
-                    ${product.variants[0].oldPrice ? `<span class="old-price">Rs. ${product.variants[0].oldPrice.toLocaleString()}</span>` : ''}
-                    <span class="new-price">Rs. ${product.variants[0].price.toLocaleString()}</span>
+                    ${defaultVariant.oldPrice ? `<span class="old-price">Rs. ${defaultVariant.oldPrice.toLocaleString()}</span>` : ''}
+                    <span class="new-price">Rs. ${defaultVariant.price.toLocaleString()}</span>
                 </div>
                 <div class="text-warning"><i class="fas fa-star text-gold"></i> 4.5</div>
             </div>
@@ -624,13 +731,28 @@ function addToCartPreview(id) {
     const product = products.find(p => p.id === id);
     if (product) {
         // Find first variant with stock
-        const availableVariant = product.variants.find(v => v.stock > 0);
+        let availableVariant = null;
+        let selectedColorName = '';
+
+        if (product.colors && product.colors[0].variants) {
+            // Find first color that has an available variant
+            const colorObj = product.colors.find(c => c.variants.some(v => v.stock > 0));
+            if (colorObj) {
+                availableVariant = colorObj.variants.find(v => v.stock > 0);
+                selectedColorName = colorObj.name;
+            }
+        } else if (product.variants) {
+            availableVariant = product.variants.find(v => v.stock > 0);
+            selectedColorName = (product.colors && product.colors.length > 0) ? product.colors[0].name : '';
+        }
+
         if (availableVariant) {
             let finalSize = availableVariant.size;
-            if (product.category === 'T-Shirts') {
-                finalSize = `${finalSize} | ${product.gsms[0]} | ${product.colors[0].name}`;
+            if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+                const gsm = product.gsms ? product.gsms[0] : '180 GSM';
+                finalSize = `${finalSize} | ${gsm} | ${selectedColorName}`;
             } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
-                finalSize = `${finalSize} | ${product.colors[0].name}`;
+                finalSize = `${finalSize} | ${selectedColorName}`;
             }
             addToCart(id, 1, finalSize);
         } else {
@@ -655,7 +777,7 @@ function loadProductDetails() {
     }
 
     // Populate Details
-    document.getElementById('detail-image').src = product.images[0];
+    document.getElementById('detail-image').src = (product.images && product.images.length > 0) ? product.images[0] : (product.colors ? product.colors[0].image : '');
     document.getElementById('detail-category').textContent = product.category;
     document.getElementById('detail-name').textContent = product.name;
     document.getElementById('detail-desc').textContent = product.description;
@@ -663,9 +785,10 @@ function loadProductDetails() {
     // Size Select
     const sizeSelect = document.getElementById('size-select');
     if (sizeSelect) {
-        sizeSelect.innerHTML = product.variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
+        const variants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
+        sizeSelect.innerHTML = variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
         // Set initial price
-        const initialVariant = product.variants[0];
+        const initialVariant = variants[0];
         const priceHTML = `
             <div class="price-box">
                 ${initialVariant.oldPrice ? `<span class="old-price">Was: Rs. ${initialVariant.oldPrice.toLocaleString()}</span>` : ''}
@@ -687,9 +810,9 @@ function loadProductDetails() {
     const oldColors = document.getElementById('color-options');
     if (oldColors) oldColors.remove();
 
-    if (product.category === 'T-Shirts' || product.category === 'Towels' || product.category === 'Cotton සරම්') {
+    if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Towels' || product.category === 'Cotton සරම්') {
         let extraHtml = '';
-        if (product.category === 'T-Shirts') {
+        if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
             const gsmValue = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
             extraHtml = `
                 <div class="spec-item" id="extra-options" style="margin-top: 10px;">
@@ -704,9 +827,19 @@ function loadProductDetails() {
             <div class="spec-item" id="color-options" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 10px;">
                 <label class="label" style="margin-bottom: 0;">Select Color: <span id="color-label" style="font-weight: 600; color: var(--text-dark);">${product.colors[0].name}</span></label>
                 <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;" id="color-swatch-container">
-                    ${product.colors.map((c, i) => `
-                        <button onclick="selectProductColor('${c.name}', '${c.image}')" class="color-swatch ${i === 0 ? 'active' : ''}" style="width: 35px; height: 35px; border-radius: 50%; border: ${i === 0 ? '2px solid var(--primary)' : '2px solid #ddd'}; background-color: ${c.hex}; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-color="${c.name}"></button>
-                    `).join('')}
+                    ${product.colors.map((c, i) => {
+            let bgStyle;
+            if (Array.isArray(c.hex)) {
+                bgStyle = `linear-gradient(135deg, ${c.hex[0]} 50%, ${c.hex[1]} 50%)`;
+            } else if (typeof c.hex === 'string' && c.hex.includes(',')) {
+                bgStyle = `linear-gradient(135deg, ${c.hex.split(',')[0]} 50%, ${c.hex.split(',')[1]} 50%)`;
+            } else {
+                bgStyle = c.hex;
+            }
+            return `
+                            <button onclick="selectProductColor('${c.name}', '${c.image}')" class="color-swatch ${i === 0 ? 'active' : ''}" style="width: 35px; height: 35px; border-radius: 50%; border: ${i === 0 ? '2px solid var(--primary)' : '2px solid #ddd'}; background: ${bgStyle}; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-color="${c.name}"></button>
+                        `;
+        }).join('')}
                 </div>
             </div>
         `;
@@ -720,7 +853,7 @@ function loadProductDetails() {
         // Show Sticker Section ONLY for T-Shirts
         const stickerSec = document.getElementById('product-sticker-section');
         if (stickerSec) {
-            if (product.category === 'T-Shirts') {
+            if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
                 stickerSec.style.display = 'block';
                 window.productStickers = []; // Reset for this product view
                 renderShopStickers();
@@ -736,7 +869,8 @@ function loadProductDetails() {
     }
 
     const stockStatus = document.getElementById('detail-stock');
-    const firstVariant = product.variants[0];
+    const displayVariants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
+    const firstVariant = displayVariants ? displayVariants[0] : null;
     if (firstVariant && firstVariant.stock > 0) {
         stockStatus.textContent = 'In Stock';
         stockStatus.style.color = 'green';
@@ -749,8 +883,9 @@ function loadProductDetails() {
 
     // Render Thumbnails
     const thumbContainer = document.getElementById('thumbnail-container');
-    if (product.images.length > 1) {
-        thumbContainer.innerHTML = product.images.map((img, index) => `
+    const imagesToThumb = (product.images && product.images.length > 0) ? product.images : (product.colors ? product.colors.map(c => c.image) : []);
+    if (imagesToThumb && imagesToThumb.length > 1) {
+        thumbContainer.innerHTML = imagesToThumb.map((img, index) => `
             <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
         `).join('');
         thumbContainer.style.display = 'flex';
@@ -764,65 +899,68 @@ function loadProductDetails() {
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
 
-        newBtn.onclick = () => {
-            const qtyInput = document.getElementById('qty-input');
-            const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-            
-            const sizeSelectEl = document.getElementById('size-select');
-            let selectedSize = sizeSelectEl ? sizeSelectEl.value : '';
-            const variant = currentProduct.variants.find(v => v.size === selectedSize);
+    newBtn.onclick = () => {
+        const qtyInput = document.getElementById('qty-input');
+        const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
 
-            if (product.category === 'T-Shirts') {
-                const gsm = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
-                const color = window.selectedColor || 'Black';
+        const sizeSelectEl = document.getElementById('size-select');
+        let selectedSize = sizeSelectEl ? sizeSelectEl.value : '';
 
-                // Collect stickers if any
-                const stickerCount = (window.productStickers || []).length;
-                const extraPrice = Math.max(0, stickerCount - 1) * 100;
-                const stickerDetails = (window.productStickers || []).map(s => `${s.name} (Side: ${s.side}, Size: ${s.size}, ID: ${s.id})`).join(' | ');
+        const currentColorObj = product.colors ? product.colors.find(c => c.name === window.selectedColor) : null;
+        const variantsToSearch = currentColorObj ? currentColorObj.variants : product.variants;
+        const variant = variantsToSearch.find(v => v.size === selectedSize);
 
-                const fullSizeLabel = `${selectedSize} | ${gsm} | ${color}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
+        if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+            const gsm = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
+            const color = window.selectedColor || 'Black';
 
-                // Add as a custom item to cart
-                const customCartItem = {
-                    ...product,
-                    cartItemId: `custom-${Date.now()}-${Math.random()}`,
-                    customMapping: JSON.stringify(window.productStickers || []), // unique key for this sticker set
-                    image: document.getElementById('detail-image').src,
-                    price: variant ? (variant.price + extraPrice) : (1100 + extraPrice),
-                    size: fullSizeLabel,
-                    qty: qty,
-                    stickers: window.productStickers || []
-                };
+            // Collect stickers if any
+            const stickerCount = (window.productStickers || []).length;
+            const extraPrice = Math.max(0, stickerCount - 1) * 100;
+            const stickerDetails = (window.productStickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
 
-                // Check if identical custom item already exists
-                const existing = cart.find(x => 
-                    x.id === product.id && 
-                    x.size === fullSizeLabel && 
-                    x.customMapping === customCartItem.customMapping
-                );
+            const fullSizeLabel = `${selectedSize} | ${gsm} | ${color}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
 
-                if (existing) {
-                    existing.qty += qty;
-                } else {
-                    cart.push(customCartItem);
-                }
+            // Add as a custom item to cart
+            const customCartItem = {
+                ...product,
+                cartItemId: `custom-${Date.now()}-${Math.random()}`,
+                customMapping: JSON.stringify(window.productStickers || []), // unique key for this sticker set
+                image: document.getElementById('detail-image').src,
+                price: variant ? (variant.price + extraPrice) : (1100 + extraPrice),
+                size: fullSizeLabel,
+                qty: qty,
+                stickers: window.productStickers || []
+            };
 
-                localStorage.setItem('roohira_cart', JSON.stringify(cart));
-                updateCartCount();
-                showToast(`${product.name} design saved to cart!`, 'success');
+            // Check if identical custom item already exists
+            const existing = cart.find(x =>
+                x.id === product.id &&
+                x.size === fullSizeLabel &&
+                x.customMapping === customCartItem.customMapping
+            );
 
-                // Reset for next design
-                window.productStickers = [];
-                renderShopStickers();
-                return;
-            } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
-                const color = window.selectedColor || (product.colors && product.colors.length > 0 ? product.colors[0].name : '');
-                selectedSize = `${selectedSize} | ${color}`;
+            if (existing) {
+                existing.qty += qty;
+            } else {
+                cart.push(customCartItem);
             }
 
-            addToCart(product.id, qty, selectedSize);
-        };
+            localStorage.setItem('roohira_cart', JSON.stringify(cart));
+            updateCartCount();
+            showToast(`${product.name} design saved to cart!`, 'success');
+
+            // Reset for next design
+            window.productStickers = [];
+            renderShopStickers();
+            return;
+        } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
+            const color = window.selectedColor || (product.colors && product.colors.length > 0 ? product.colors[0].name : '');
+            selectedSize = `${selectedSize} | ${color}`;
+        }
+
+        addToCart(product.id, qty, selectedSize);
+    };
 }
 
 function updateMainImageAnimated(newSrc) {
@@ -851,33 +989,67 @@ function updateMainImageAnimated(newSrc) {
 function selectProductColor(colorName, imageSrc) {
     window.selectedColor = colorName;
     updateMainImageAnimated(imageSrc);
-    document.getElementById('color-label').textContent = colorName;
+    const labelEl = document.getElementById('color-label');
+    if (labelEl) labelEl.textContent = colorName;
+
+    // Refresh size list for this specific color if product has color-specific variants
+    const sizeSelect = document.getElementById('size-select');
+    if (sizeSelect && currentProduct.colors) {
+        const colorObj = currentProduct.colors.find(c => c.name === colorName);
+        if (colorObj && colorObj.variants) {
+            sizeSelect.innerHTML = colorObj.variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
+        }
+    }
 
     // Update active swatch class
     const swatches = document.querySelectorAll('.color-swatch');
-    swatches.forEach(swatch => {
-        if (swatch.getAttribute('data-color') === colorName) {
-            swatch.classList.add('active');
-        } else {
-            swatch.classList.remove('active');
-        }
-    });
+    if (swatches) {
+        swatches.forEach(swatch => {
+            if (swatch.getAttribute('data-color') === colorName) {
+                swatch.classList.add('active');
+                swatch.style.border = '2px solid var(--primary)';
+            } else {
+                swatch.classList.remove('active');
+                swatch.style.border = '2px solid #ddd';
+            }
+        });
+    }
 
     // Update thumbnail active states if they exist
     const thumbnails = document.querySelectorAll('.thumbnail');
-    thumbnails.forEach(t => {
-        if (t.src.includes(imageSrc)) {
-            t.classList.add('active');
-        } else {
-            t.classList.remove('active');
-        }
-    });
+    if (thumbnails) {
+        thumbnails.forEach(t => {
+            if (t.src.includes(imageSrc)) {
+                t.classList.add('active');
+            } else {
+                t.classList.remove('active');
+            }
+        });
+    }
+
+    // Refresh Price/Stock for currently selected size under this color
+    updatePriceOnSizeChange();
 }
 
 function updatePriceOnSizeChange() {
     if (!currentProduct) return;
-    const selectedSize = document.getElementById('size-select').value;
-    const variant = currentProduct.variants.find(v => v.size === selectedSize);
+    const sizeSelect = document.getElementById('size-select');
+    if (!sizeSelect) return;
+
+    const selectedSize = sizeSelect.value;
+
+    // Determine which variants list to use (Color-scoped vs Product-scoped)
+    let variants;
+    if (currentProduct.colors) {
+        const colorObj = currentProduct.colors.find(c => c.name === window.selectedColor);
+        variants = (colorObj && colorObj.variants) ? colorObj.variants : currentProduct.variants;
+    } else {
+        variants = currentProduct.variants;
+    }
+
+    if (!variants) return;
+    const variant = variants.find(v => v.size === selectedSize);
+
     if (variant) {
         const priceHTML = `
             <div class="price-box">
@@ -887,9 +1059,6 @@ function updatePriceOnSizeChange() {
             </div>
         `;
         document.getElementById('detail-price').innerHTML = priceHTML;
-
-        // Check if T-shirt to update price slightly based on GSM? (Assuming price is same for now, or could depend on GSM)
-        // If GSM changes, we can add a listener to gsm-select.
 
         // Update Stock Status
         const stockStatus = document.getElementById('detail-stock');
@@ -907,6 +1076,15 @@ function updatePriceOnSizeChange() {
 }
 
 function changeImage(src, element) {
+    // If the product has colors linked to images, auto-select the color
+    if (currentProduct && currentProduct.colors) {
+        const colorObj = currentProduct.colors.find(c => src.includes(c.image) || c.image.includes(src));
+        if (colorObj) {
+            selectProductColor(colorObj.name, src);
+            return;
+        }
+    }
+
     updateMainImageAnimated(src);
 
     // Toggle active class
@@ -949,7 +1127,7 @@ function addToCart(id, qty = 1, size = null) {
         qty: parseInt(qty) || 1
     };
 
-    const existingItem = cart.find(x => 
+    const existingItem = cart.find(x =>
         x.id === id && x.size === finalSize && !x.customMapping
     );
 
@@ -1239,7 +1417,7 @@ function placeOrder(e) {
             </body>
             </html>
         `;
-        
+
         const blob = new Blob([fullInvoiceHtml], { type: 'text/html' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -1290,7 +1468,7 @@ function placeOrder(e) {
             finishOrder(orderId, subtotal, encodedMsg, messageBody);
         }).catch(err => {
             console.error('PDF Error:', err);
-            finishOrder(orderId, subtotal, encodedMsg, messageBody); 
+            finishOrder(orderId, subtotal, encodedMsg, messageBody);
         });
     } else {
         finishOrder(orderId, subtotal, encodedMsg, messageBody);
@@ -1618,10 +1796,38 @@ let customOrder = {
 
 function selectCategory(category) {
     customOrder.category = category;
-    if (category === 'T-Shirts') {
+    if (category === 'T-Shirts' || category === 'Kids Two Tone T-shirt') {
         customOrder.stickers = []; // Reset stickers when starting fresh
         goToStep('tshirt-base');
         updateCustomTshirtState();
+
+        // Update color swatches in wizard based on category
+        const colorContainer = document.getElementById('tshirt-color-options');
+        if (colorContainer) {
+            const p = products.find(prod => prod.category === category);
+            if (p && p.colors) {
+                colorContainer.innerHTML = p.colors.map((c, i) => {
+                    let bgStyle;
+                    if (Array.isArray(c.hex)) {
+                        bgStyle = `linear-gradient(135deg, ${c.hex[0]} 50%, ${c.hex[1]} 50%)`;
+                    } else if (typeof c.hex === 'string' && c.hex.includes(',')) {
+                        bgStyle = `linear-gradient(135deg, ${c.hex.split(',')[0]} 50%, ${c.hex.split(',')[1]} 50%)`;
+                    } else {
+                        bgStyle = c.hex;
+                    }
+                    return `<button onclick="selectTshirtColor('${c.name}', '${c.image}')" class="color-swatch-btn tshirt-swatch ${i === 0 ? 'active' : ''}" style="background: ${bgStyle}; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;" data-color="${c.name}"></button>`;
+                }).join('');
+                selectTshirtColor(p.colors[0].name, p.colors[0].image);
+            } else if (category === 'T-Shirts') {
+                // Fallback for custom T-shirts if not found in products
+                colorContainer.innerHTML = `
+                    <button onclick="selectTshirtColor('White', 'tshirt-white.png')" class="color-swatch-btn tshirt-swatch active" style="background: #ffffff; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                    <button onclick="selectTshirtColor('Black', 'tshirt-black.png')" class="color-swatch-btn tshirt-swatch" style="background: #111111; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                    <button onclick="selectTshirtColor('Red', 'tshirt-red.png')" class="color-swatch-btn tshirt-swatch" style="background: #dc2626; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
+                `;
+                selectTshirtColor('White', 'tshirt-white.png');
+            }
+        }
     } else {
         goToStep('design');
         loadCustomizeDesigns();
@@ -1854,16 +2060,15 @@ function selectTshirtColor(color, image) {
 
     // Update swatches
     document.querySelectorAll('.tshirt-swatch').forEach(s => {
-        const bg = s.style.backgroundColor;
-        // Simple way to match
-        if ((color === 'White' && s.style.background.includes('ffffff')) ||
-            (color === 'Black' && s.style.background.includes('111111')) ||
-            (color === 'Red' && s.style.background.includes('dc2626'))) {
+        const onclickAttr = s.getAttribute('onclick');
+        if (onclickAttr && onclickAttr.includes(`'${color}'`)) {
             s.classList.add('active');
             s.style.borderColor = 'var(--primary)';
+            s.style.borderWidth = '3px';
         } else {
             s.classList.remove('active');
             s.style.borderColor = '#ddd';
+            s.style.borderWidth = '2px';
         }
     });
 
@@ -1900,9 +2105,8 @@ function loadStickers() {
 
     grid.innerHTML = STICKERS.map(s => `
         <div class="design-card" onclick="openStickerModal('${s.id}')">
-            <img src="${s.image}" alt="${s.name}" style="width: 100%; border-radius: 10px;">
-            <p class="text-center mt-2 text-sm font-semibold">${s.name}</p>
-            <p class="text-center text-xs text-gray-500">ID: ${s.id}</p>
+            <img src="${s.image}" alt="${s.id}" style="width: 100%; border-radius: 10px;">
+            <p class="text-center mt-2 text-sm font-semibold">ID: ${s.id}</p>
         </div>
     `).join('');
 }
@@ -1915,7 +2119,7 @@ function openStickerModal(id) {
     activeStickerId = id;
 
     document.getElementById('modal-sticker-img').src = sticker.image;
-    document.getElementById('modal-sticker-name').textContent = sticker.name;
+    document.getElementById('modal-sticker-name').textContent = 'ID: ' + sticker.id;
 
     // Populate sizes
     const sizeSelect = document.getElementById('sticker-size');
@@ -1970,7 +2174,7 @@ function renderStickerList() {
     listParent.style.display = 'block';
     container.innerHTML = customOrder.stickers.map((s, index) => `
         <div class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-            <span class="text-xs font-semibold">${s.name} (${s.side} - ${s.size})</span>
+            <span class="text-xs font-semibold">ID: ${s.id} (${s.side} - ${s.size})</span>
             <button onclick="removeSticker(${index})" class="text-red-500 hover:text-red-700" style="background: none; border: none; padding: 0; cursor: pointer;">
                 <i class="fas fa-times-circle"></i>
             </button>
@@ -2011,7 +2215,7 @@ function finishTshirtCustomization() {
     const totalPrice = customOrder.basePrice + (additionalStickers * 100);
 
     // Create a special cart item
-    const stickerDetails = customOrder.stickers.map(s => `${s.name} (Side: ${s.side}, Size: ${s.size}, ID: ${s.id}, Pos: ${s.x ? s.x.toFixed(0) + ',' + s.y.toFixed(0) : 'N/A'}, Rot: ${s.rotation || 0}deg)`).join(' | ');
+    const stickerDetails = customOrder.stickers.map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size}, Pos: ${s.x ? s.x.toFixed(0) + ',' + s.y.toFixed(0) : 'N/A'}, Rot: ${s.rotation || 0}deg)`).join(' | ');
     const finalSizeLabel = `${customOrder.size} | Color: ${customOrder.color}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
 
     const cartItem = {
@@ -2056,8 +2260,14 @@ function loadShopStickers() {
     if (!grid) return;
 
     grid.innerHTML = STICKERS.map(s => `
-        <div class="shop-sticker-item" onclick="openShopStickerModal('${s.id}')" style="cursor: pointer; border: 1px solid #eee; border-radius: 8px; padding: 5px; transition: 0.3s; background: #fff;">
-            <img src="${s.image}" alt="${s.name}" style="width: 100%; height: 100%; object-fit: contain;">
+        <div class="shop-sticker-item" onclick="openShopStickerModal('${s.id}')" 
+             style="cursor: pointer; border: 1px solid #eee; border-radius: 12px; padding: 12px; transition: 0.3s; background: #fff; display: flex; flex-direction: column; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); height: 100%; justify-content: space-between;">
+            <div style="width: 100%; height: 80px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                <img src="${s.image}" alt="${s.id}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+            </div>
+            <div style="text-align: center; width: 100%;">
+                <p style="font-size: 0.7rem; font-weight: 700; margin: 0; color: var(--primary); font-weight: 600;">ID: ${s.id}</p>
+            </div>
         </div>
     `).join('');
 }
@@ -2070,7 +2280,7 @@ function openShopStickerModal(id) {
     activeShopStickerId = id;
 
     document.getElementById('shop-modal-sticker-img').src = sticker.image;
-    document.getElementById('shop-modal-sticker-name').textContent = sticker.name;
+    document.getElementById('shop-modal-sticker-name').textContent = 'ID: ' + sticker.id;
 
     // Populate sizes
     const shopSizeSelect = document.getElementById('shop-sticker-size');
@@ -2128,7 +2338,7 @@ function renderShopStickers() {
 
     container.innerHTML = window.productStickers.map((s, index) => `
         <div class="sticker-tag">
-            <span>${s.name} (Side: ${s.side}, Size: ${s.size})</span>
+            <span>ID: ${s.id} (${s.side}, ${s.size})</span>
             <i class="fas fa-times-circle cursor-pointer" onclick="removeShopSticker(${index})"></i>
         </div>
     `).join('');
