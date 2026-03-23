@@ -782,7 +782,7 @@ function createProductCard(product) {
 
     // Check if any variant has stock across any color
     let isSoldOut = true;
-    if (product.colors && product.colors[0].variants) {
+    if (product.colors && product.colors[0] && product.colors[0].variants) {
         isSoldOut = product.colors.every(c => c.variants.every(v => v.stock <= 0));
     } else if (product.variants) {
         isSoldOut = product.variants.every(v => v.stock <= 0);
@@ -832,9 +832,9 @@ function addToCartPreview(id) {
         let availableVariant = null;
         let selectedColorName = '';
 
-        if (product.colors && product.colors[0].variants) {
+        if (product.colors && product.colors[0] && product.colors[0].variants) {
             // Find first color that has an available variant
-            const colorObj = product.colors.find(c => c.variants.some(v => v.stock > 0));
+            const colorObj = product.colors.find(c => c.variants && c.variants.some(v => v.stock > 0));
             if (colorObj) {
                 availableVariant = colorObj.variants.find(v => v.stock > 0);
                 selectedColorName = colorObj.name;
@@ -849,12 +849,12 @@ function addToCartPreview(id) {
             if (product.category.toLowerCase().includes('t-shirt')) {
                 const gsm = product.gsms ? product.gsms[0] : '180 GSM';
                 finalSize = `${finalSize} | ${gsm} | ${selectedColorName}`;
-            } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
+            } else if (product.category === 'Towels' || product.category === 'Cotton සරම්' || product.category.includes('සරම්')) {
                 finalSize = `${finalSize} | ${selectedColorName}`;
             }
             addToCart(id, 1, finalSize);
         } else {
-            showToast('All sizes are out of stock!', 'error');
+            showToast('Sorry, this product is currently out of stock!', 'error');
         }
     }
 }
@@ -967,15 +967,20 @@ function loadProductDetails() {
     }
 
     const stockStatus = document.getElementById('detail-stock');
-    const displayVariants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
+    const displayVariants = (product.colors && product.colors[0] && product.colors[0].variants) ? product.colors[0].variants : product.variants;
     const firstVariant = displayVariants ? displayVariants[0] : null;
+    
     if (firstVariant && firstVariant.stock > 0) {
-        stockStatus.textContent = 'In Stock';
-        stockStatus.style.color = 'green';
+        if (stockStatus) {
+            stockStatus.textContent = 'In Stock';
+            stockStatus.style.color = 'green';
+        }
         document.getElementById('add-to-cart-btn').disabled = false;
     } else {
-        stockStatus.textContent = 'Out of Stock';
-        stockStatus.style.color = 'red';
+        if (stockStatus) {
+            stockStatus.textContent = 'Not Available';
+            stockStatus.style.color = 'red';
+        }
         document.getElementById('add-to-cart-btn').disabled = true;
     }
 
@@ -1162,13 +1167,17 @@ function updatePriceOnSizeChange() {
         const stockStatus = document.getElementById('detail-stock');
         const btn = document.getElementById('add-to-cart-btn');
         if (variant.stock > 0) {
-            stockStatus.textContent = 'In Stock';
-            stockStatus.style.color = 'green';
-            btn.disabled = false;
+            if (stockStatus) {
+                stockStatus.textContent = 'In Stock';
+                stockStatus.style.color = 'green';
+            }
+            if (btn) btn.disabled = false;
         } else {
-            stockStatus.textContent = 'Out of Stock';
-            stockStatus.style.color = 'red';
-            btn.disabled = true;
+            if (stockStatus) {
+                stockStatus.textContent = 'Not Available';
+                stockStatus.style.color = 'red';
+            }
+            if (btn) btn.disabled = true;
         }
     }
 }
@@ -1196,14 +1205,14 @@ function addToCart(id, qty = 1, size = null) {
     const product = products.find(p => p.id === id);
     const baseSize = size ? size.split(' | ')[0] : null;
     const variant = baseSize ? product.variants.find(v => v.size === baseSize) : product.variants[0];
-    const finalSize = size || variant.size;
-    const finalPrice = variant.price;
 
     // Check Stock
-    if (variant.stock <= 0) {
-        showToast('Sorry, this size is out of stock!', 'error');
+    if (variant && variant.stock <= 0) {
+        showToast('Sorry, this size is Not Available!', 'error');
         return;
     }
+    const finalSize = size || variant.size;
+    const finalPrice = variant.price;
 
     let defaultImage = product.images[0];
     if ((product.category === 'T-Shirts' || product.category === 'Towels' || product.category === 'Cotton සරම්') && size && size.includes(' | ')) {
@@ -1551,38 +1560,58 @@ function placeOrder(e) {
     }
 
 
-    // PDF Options
 
-    // PDF Options
-    const opt = {
-        margin: 5,
-        filename: `Invoice-${orderId}.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { scale: 3, useCORS: true, logging: false, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    // Construct WhatsApp Message (Plain text with real newlines for encoding)
+    // Construct Comprehensive WhatsApp Message
     const orderItemsText = cart.map(item => {
-        let text = `• *${item.name}* (${item.size})\n  Qty: ${item.qty} x Rs. ${item.price.toLocaleString()}`;
+        let details = `• *${item.name}* (${item.qty}x)\n`;
+        
+        // Extract size and color from item.size string which usually looks like "Size | GSM | Color"
+        const parts = item.size.split(' | ');
+        const size = parts[0] || 'N/A';
+        const gsm = parts[1] || '';
+        const color = parts[2] || '';
+        
+        details += `  Size: ${size}${gsm ? ' (' + gsm + ')' : ''}${color ? ' | Col: ' + color : ''}\n`;
+        details += `  Price: Rs. ${(item.price * item.qty).toLocaleString()}\n`;
+
         if (item.stickers && item.stickers.length > 0) {
-            text += `\n  _Custom Stickers:_`;
+            details += `  _Stickers:_\n`;
             item.stickers.forEach(s => {
-                text += `\n  - ${s.name} (ID: ${s.id}, ${s.size})`;
+                details += `  - ID: ${s.id} [${s.side}] (${s.size})\n`;
             });
         }
-        return text;
-    }).join('\n\n');
+        return details;
+    }).join('\n');
+
     const customerNote = document.getElementById('note').value;
-    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *Design Preview HTML File Downloaded!*\n(Please attach the downloaded 'roohira_full_invoice_${orderId}.html' file to this chat for our reference)\n\nThank you for ordering from Roohira Online!`;
+    const messageBody = `*New Order: ${orderId}*\n\n*Customer Info:*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}, ${city}\n${customerNote ? '*Note:* ' + customerNote + '\n' : ''}\n*Order Items:*\n${orderItemsText}\n\n*TOTAL: Rs. ${subtotal.toLocaleString()}*\n\n✅ *Design & Invoice Downloaded!*\nPlease attach the HTML file to this chat.`;
     const encodedMsg = encodeURIComponent(messageBody);
 
     // Process PDF Download and then WhatsApp
     const btn = document.querySelector('button[type="submit"]');
-    if (btn) btn.disabled = true;
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Order...';
+    }
+
+    // PDF Options - Mobile Optimized
+    const isMobile = window.innerWidth <= 768;
+    const pdfOptions = {
+        margin: [5, 5],
+        filename: `Invoice-${orderId}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { 
+            scale: isMobile ? 1.5 : 2.5, 
+            useCORS: true, 
+            logging: false, 
+            letterRendering: true,
+            windowWidth: 800 
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
     if (element && typeof html2pdf !== 'undefined') {
-        html2pdf().set(opt).from(element).save().then(() => {
+        html2pdf().set(pdfOptions).from(element).save().then(() => {
             finishOrder(orderId, subtotal, encodedMsg, messageBody);
         }).catch(err => {
             console.error('PDF Error:', err);
@@ -1604,12 +1633,54 @@ function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
     // Clear cart
     cart = [];
     localStorage.removeItem('roohira_cart');
+    updateCartCount();
 
-    const waUrl = `https://wa.me/94714433279?text=${encodedMsg}`;
+    const waUrl = `https://api.whatsapp.com/send?phone=94714433279&text=${encodedMsg}`;
 
-    // INSTANT REDIRECT (This opens the specific number and message immediately)
-    // The File Download has already been triggered in placeOrder()
-    window.location.href = waUrl;
+    // Show Success Modal instead of pure redirect
+    // This solves the problem of mobile browsers blocking redirects after async operations
+    showOrderSuccessModal(orderId, waUrl);
+}
+
+function showOrderSuccessModal(orderId, waUrl) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('success-modal-overlay');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'success-modal-overlay';
+        modal.className = 'success-overlay';
+        document.body.appendChild(modal);
+    }
+
+    modal.innerHTML = `
+        <div class="success-card">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h2>Order Placed!</h2>
+            <p>Your order <strong>${orderId}</strong> has been received. <br>Your invoice and design file have been downloaded.</p>
+            
+            <div class="success-actions">
+                <button onclick="window.location.href='${waUrl}'" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Send to WhatsApp
+                </button>
+                <div class="secondary-actions">
+                    <a href="index.html" class="btn btn-outline">Back to Home</a>
+                    <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+            <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">
+                Note: Standard WhatsApp redirect may be blocked on some mobile phones. If nothing happens, please click the green button.
+            </p>
+        </div>
+    `;
+
+    modal.classList.add('active');
+
+    // Auto-redirect attempt (may be blocked, but user has the button)
+    setTimeout(() => {
+        window.location.href = waUrl;
+    }, 2000);
 }
 
 // --- Auth ---
