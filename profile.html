@@ -93,22 +93,30 @@
                     <p id="profile-phone"
                         style="font-size: 0.875rem; color: var(--primary); font-weight: 600; margin-bottom: 1.5rem;">
                         000-0000000</p>
-                    <button onclick="logout()" class="btn btn-outline" style="width: 100%;">Logout</button>
+                    <button onclick="logout()" class="btn btn-outline" style="width: 100%; margin-bottom: 3rem;">Logout</button>
+                    
+                    <div style="border-top: 1px solid #fee2e2; padding-top: 1.5rem; margin-top: 1rem;">
+                        <p style="font-size: 0.75rem; color: #ef4444; margin-bottom: 0.75rem; font-weight: 500;">Danger Zone (අන්තරාදායකයි)</p>
+                        <button onclick="factoryReset()" class="btn" style="width: 100%; background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.85rem; font-weight: 700; transition: 0.3s;" onmouseover="this.style.background='#fecaca'" onmouseout="this.style.background='#fee2e2'">
+                            <i class="fas fa-sync-alt mr-2"></i> Factory Reset
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Content -->
                 <div style="grid-column: span 3;">
-                    <div
-                        style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow); margin-bottom: 2rem;">
-                        <h2
-                            style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee;">
-                            Order History</h2>
-                        <div id="order-history">
-                            <!-- Orders injected by JS -->
+                    <div style="background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: var(--shadow); margin-bottom: 2rem; display: flex; align-items: center; justify-content: justify-between; gap: 2rem;">
+                        <div style="width: 60px; height: 60px; background: #e0f2fe; color: #0369a1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            <i class="fas fa-shopping-bag"></i>
                         </div>
+                        <div style="flex-grow: 1;">
+                            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.25rem;">My Orders</h2>
+                            <p style="color: grey; font-size: 0.9rem;">View your past orders, designs, and order history.</p>
+                        </div>
+                        <a href="orders.html" class="btn btn-primary" style="padding: 0.75rem 1.5rem; border-radius: 1rem;">View All Orders <i class="fas fa-chevron-right ml-2"></i></a>
                     </div>
 
-                    <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow);">
+                    <div style="background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: var(--shadow);">
                         <h2
                             style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee;">
                             Change Password</h2>

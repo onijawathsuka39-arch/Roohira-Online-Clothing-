@@ -274,9 +274,20 @@
                             <div style="background: var(--secondary-light); padding: 20px; border-radius: 15px; border-left: 5px solid var(--primary);">
                                 <h4 style="margin: 0; color: var(--primary);"><i class="fas fa-magic"></i> Add Stickers to your T-Shirt</h4>
                                 <p style="font-size: 0.85rem; color: #666; margin-top: 5px;">First sticker is FREE. Each additional sticker is just Rs. 100.<br>(පළමු ස්ටිකරය නොමිලේ! අමතර ස්ටිකරයක් රු. 100 බැගින්.)</p>
-                                <button onclick="goToStickersStep()" class="btn btn-primary w-full mt-4" style="background: var(--text-dark); border: none; padding: 12px; border-radius: 10px; color: white; cursor: pointer;">
-                                    <i class="fas fa-plus"></i> Add Sticker
-                                </button>
+                                
+                                <div class="flex flex-col gap-2 mt-4">
+                                    <button onclick="goToStickersStep()" class="btn btn-primary w-full" style="background: var(--text-dark); border: none; padding: 12px; border-radius: 10px; color: white; cursor: pointer;">
+                                        <i class="fas fa-search-plus"></i> Browse Our Stickers
+                                    </button>
+                                    
+                                    <div style="text-align: center; margin: 5px 0; color: #999; font-size: 0.8rem; font-weight: 700;">OR</div>
+                                    
+                                    <label for="user-sticker-upload" class="btn btn-outline w-full" style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border: 2px dashed var(--primary); color: var(--primary); background: white; border-radius: 10px; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white';" onmouseout="this.style.background='white'; this.style.color='var(--primary)';">
+                                        <i class="fas fa-upload"></i> Upload Your Own Design
+                                        <input type="file" id="user-sticker-upload" accept="image/*" style="display: none;" onchange="handleUserStickerUpload(event)">
+                                    </label>
+                                    <p style="font-size: 0.7rem; color: #888; text-align: center; margin-top: 4px;">PNG/JPG - Best quality images recommended</p>
+                                </div>
                             </div>
 
                             <div id="added-stickers-list" class="mt-4" style="display: none;">

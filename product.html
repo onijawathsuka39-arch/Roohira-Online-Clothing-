@@ -168,10 +168,21 @@
                             <!-- Selected stickers tags -->
                         </div>
 
-                        <button onclick="toggleStickerGrid()" class="btn btn-outline w-full"
-                            style="font-size: 0.85rem; padding: 12px; border-style: dashed; border-width: 2px;">
-                            <i class="fas fa-puzzle-piece"></i> Choose Stickers & Design
-                        </button>
+                        <div class="flex flex-col gap-2">
+                            <button onclick="toggleStickerGrid()" class="btn btn-outline w-full"
+                                style="font-size: 0.85rem; padding: 12px; border-style: dashed; border-width: 2px;">
+                                <i class="fas fa-search-plus"></i> Browse Our Stickers
+                            </button>
+                            
+                            <div style="text-align: center; margin: 2px 0; color: #999; font-size: 0.75rem; font-weight: 700;">OR</div>
+                            
+                            <label for="shop-user-sticker-upload" class="btn btn-outline w-full" 
+                                style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; border: 2px dashed var(--primary); color: var(--primary); background: #fdf2f8; border-radius: 10px; cursor: pointer; font-size: 0.85rem;">
+                                <i class="fas fa-upload"></i> Upload Your Own Design
+                                <input type="file" id="shop-user-sticker-upload" accept="image/*" style="display: none;" onchange="handleShopUserStickerUpload(event)">
+                            </label>
+                             <p style="font-size: 0.65rem; color: #888; text-align: center; margin-top: 4px;">PNG/JPG - Best quality images recommended</p>
+                        </div>
                     </div>
 
                     <!-- New Dedicated Sticker Selection Modal -->

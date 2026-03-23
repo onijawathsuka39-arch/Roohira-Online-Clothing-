@@ -1405,14 +1405,20 @@ function placeOrder(e) {
         let customizationHtml = '';
         cart.forEach((item, index) => {
             if (item.stickers && item.stickers.length > 0) {
-                const stickerListHtml = item.stickers.map(s => `
-                    <div style="flex: 0 0 calc(33.3% - 10px); border: 1px solid #f0f0f0; padding: 8px; background: #fafafa; border-radius: 8px; text-align: left;">
-                        <img src="${s.image}" style="width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; display: block;">
-                        <div style="font-weight: 700; font-size: 11px; color: #e91e63;">ID: ${s.id}</div>
-                        <div style="font-size: 9px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.name}</div>
-                        <div style="font-size: 9px; color: #888; margin-top: 2px;">Side: ${s.side} | Size: ${s.size}</div>
-                    </div>
-                `).join('');
+                const stickerListHtml = item.stickers.map(s => {
+                    const isUpload = s.type === 'UPLOAD';
+                    const downloadBtn = isUpload ? `<a href="${s.image}" download="${s.id}_design.png" style="display: block; margin-top: 5px; background: #e91e63; color: white; text-align: center; padding: 4px; border-radius: 4px; font-size: 10px; text-decoration: none; font-weight: 700;">DOWNLOAD DESIGN</a>` : '';
+                    
+                    return `
+                        <div style="flex: 0 0 calc(33.3% - 10px); border: 1px solid #f0f0f0; padding: 8px; background: #fafafa; border-radius: 8px; text-align: left;">
+                            <img src="${s.image}" style="width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; display: block;">
+                            <div style="font-weight: 700; font-size: 11px; color: #e91e63;">ID: ${s.id}</div>
+                            <div style="font-size: 9px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.name}</div>
+                            <div style="font-size: 9px; color: #888; margin-top: 2px;">Side: ${s.side} | Size: ${s.size}</div>
+                            ${downloadBtn}
+                        </div>
+                    `;
+                }).join('');
 
                 const overlaysHtml = item.stickers.map(s => {
                     // Match shop sizes: 3"->30px, 5"->50px, 8"->70px
@@ -1518,16 +1524,7 @@ function placeOrder(e) {
     }
 
 
-    // PDF Options
-
-    // PDF Options
-    const opt = {
-        margin: 5,
-        filename: `Invoice-${orderId}.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { scale: 3, useCORS: true, logging: false, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    // HTML Download is already triggered above in the "Generate standalone FULL INVOICE HTML" section.
 
     // Construct WhatsApp Message (Plain text with real newlines for encoding)
     const orderItemsText = cart.map(item => {
@@ -1540,24 +1537,15 @@ function placeOrder(e) {
         }
         return text;
     }).join('\n\n');
-    const customerNote = document.getElementById('note').value;
+    
+    const noteEl = document.getElementById('note');
+    const customerNote = noteEl ? noteEl.value : '';
+    
     const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *Design Preview HTML File Downloaded!*\n(Please attach the downloaded 'roohira_full_invoice_${orderId}.html' file to this chat for our reference)\n\nThank you for ordering from Roohira Online!`;
     const encodedMsg = encodeURIComponent(messageBody);
 
-    // Process PDF Download and then WhatsApp
-    const btn = document.querySelector('button[type="submit"]');
-    if (btn) btn.disabled = true;
-
-    if (element && typeof html2pdf !== 'undefined') {
-        html2pdf().set(opt).from(element).save().then(() => {
-            finishOrder(orderId, subtotal, encodedMsg, messageBody);
-        }).catch(err => {
-            console.error('PDF Error:', err);
-            finishOrder(orderId, subtotal, encodedMsg, messageBody);
-        });
-    } else {
-        finishOrder(orderId, subtotal, encodedMsg, messageBody);
-    }
+    // Trigger immediate order finishing
+    finishOrder(orderId, subtotal, encodedMsg, messageBody);
 }
 
 function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
@@ -1568,14 +1556,29 @@ function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
         localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(orders));
     }
 
+    // Capture for sharing
+    window.lastOrderMessage = encodedMsg;
+
     // Clear cart
     cart = [];
     localStorage.removeItem('roohira_cart');
+    updateCartCount();
 
-    const waUrl = `https://wa.me/94714433279?text=${encodedMsg}`;
+    // Instant Redirect to WhatsApp as requested with a tiny delay to ensure download starts first
+    const waUrl = `https://api.whatsapp.com/send?phone=94714433279&text=${encodedMsg}`;
+    
+    setTimeout(() => {
+        window.location.href = waUrl;
+    }, 300);
+}
 
-    // INSTANT REDIRECT (This opens the specific number and message immediately)
-    // The File Download has already been triggered in placeOrder()
+function shareToWhatsApp() {
+    const msg = window.lastOrderMessage || "";
+    // Target the specific Roohira WhatsApp number directly with the full encoded order message
+    const waUrl = `https://wa.me/94714433279?text=${msg}`;
+
+    // We open the specific number immediately as requested.
+    // This ensures the order details are sent to the correct WhatsApp chat.
     window.location.href = waUrl;
 }
 
@@ -1656,6 +1659,131 @@ function initChangePassword() {
         showToast('Password updated successfully!', 'success');
         form.reset();
     };
+}
+
+function showOrders() {
+    const container = document.getElementById('order-history');
+    if (!container || !user) return;
+
+    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
+
+    if (orders.length === 0) {
+        container.innerHTML = '<p style="color: grey; text-align: center; padding: 2rem;">No orders found.</p>';
+        return;
+    }
+
+    container.innerHTML = orders.reverse().map(order => `
+        <div style="border: 1px solid #efefef; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: justify-between; margin-bottom: 0.5rem;">
+                <span style="font-weight: bold; color: var(--primary);">#${order.id}</span>
+                <span style="font-size: 0.8rem; color: grey;">${new Date(order.date).toLocaleDateString()}</span>
+            </div>
+            <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+                ${order.items.map(item => `${item.qty}x ${item.name}`).join(', ')}
+            </div>
+            <div style="font-weight: bold; text-align: right;">Total: Rs. ${order.total.toLocaleString()}</div>
+        </div>
+    `).join('');
+}
+
+function initOrdersPage() {
+    const container = document.getElementById('order-history-page-content');
+    if (!container) return;
+
+    if (!user) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
+
+    if (orders.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 4rem 2rem;">
+                <div style="font-size: 4rem; color: #e2e8f0; margin-bottom: 1.5rem;"><i class="fas fa-box-open"></i></div>
+                <h2 style="font-size: 1.5rem; color: #475569; margin-bottom: 0.5rem;">No Orders Yet</h2>
+                <p style="color: #94a3b8; margin-bottom: 2rem;">When you place an order, it will appear here.</p>
+                <a href="shop.html" class="btn btn-primary">Start Shopping</a>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            ${orders.reverse().map(order => {
+                const date = new Date(order.date).toLocaleDateString();
+                const time = new Date(order.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                return `
+                <div style="border: 1px solid #f1f5f9; border-radius: 1.5rem; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <div style="background: #f8fafc; padding: 1.25rem 2rem; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <span style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; display: block;">Order Reference</span>
+                            <span style="font-weight: 800; color: var(--primary); font-size: 1.1rem;">#${order.id}</span>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; display: block;">Date & Time</span>
+                            <span style="font-weight: 600; color: #475569;">${date} at ${time}</span>
+                        </div>
+                        <div style="background: #dcfce7; color: #166534; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="fas fa-check-circle"></i> Placed
+                        </div>
+                        <button onclick="deleteOrder('${order.id}')" style="background: #fee2e2; color: #ef4444; border: none; padding: 0.5rem 1rem; border-radius: 1rem; cursor: pointer; font-weight: 700; font-size: 0.8rem; transition: 0.3s; display: flex; align-items: center; gap: 0.5rem;" onmouseover="this.style.background='#fecaca'" onmouseout="this.style.background='#fee2e2'">
+                            <i class="fas fa-trash-alt"></i> Delete Order
+                        </button>
+                    </div>
+                    
+                    <div style="padding: 2rem;">
+                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                            ${order.items.map(item => `
+                                <div style="display: flex; align-items: center; gap: 1.25rem;">
+                                    <img src="${item.image}" style="width: 60px; height: 60px; border-radius: 1rem; object-fit: cover; background: #f8fafc; border: 1px solid #f1f5f9;">
+                                    <div style="flex-grow: 1;">
+                                        <h4 style="font-weight: 700; color: #1e293b; margin: 0; font-size: 1rem;">${item.name}</h4>
+                                        <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0;">Size: ${item.size} | Qty: ${item.qty}</p>
+                                    </div>
+                                    <div style="font-weight: 700; color: #1e293b; font-size: 1rem;">Rs. ${(item.price * item.qty).toLocaleString()}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div style="border-top: 1px dashed #e2e8f0; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+                            <div style="color: #64748b; font-size: 0.9rem;">
+                                <strong>${order.items.length}</strong> ${order.items.length === 1 ? 'item' : 'items'} in total
+                            </div>
+                            <div style="text-align: right;">
+                                <span style="display: block; color: #94a3b8; font-size: 0.8rem; font-weight: 700;">Grand Total</span>
+                                <span style="font-size: 1.5rem; font-weight: 900; color: #1e293b;">Rs. ${order.total.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function deleteOrder(orderId) {
+    if (!user || !confirm(`Are you sure you want to delete order #${orderId}? SI: ඔබට මෙම ඇණවුම ඉවත් කිරීමට අවශ්‍ය බව සහතිකද?`)) return;
+
+    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
+    const updatedOrders = orders.filter(o => o.id !== orderId);
+    
+    localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(updatedOrders));
+    initOrdersPage(); // Refresh
+    showToast('Order deleted successfully!', 'success');
+}
+
+function factoryReset() {
+    if (!confirm('WARNING: This will permanently delete ALL your data, cart, and account settings. SI: අවවාදයයි: මෙයින් ඔබගේ සියලු දත්ත, cart සහ ගිණුම් තොරතුරු සදහටම මැකී යනු ඇත. Proceed?')) return;
+    
+    localStorage.clear();
+    showToast('System reset complete. Redirecting...', 'info');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1500);
 }
 
 function loadProfile() {
@@ -2203,11 +2331,14 @@ let activeStickerId = null;
 function openStickerModal(id) {
     const sticker = STICKERS.find(s => s.id === id);
     if (!sticker) return;
+    
     activeStickerId = id;
-
+    currentSticker = null; // Clear uploaded sticker state
+    
     document.getElementById('modal-sticker-img').src = sticker.image;
-    document.getElementById('modal-sticker-name').textContent = 'ID: ' + sticker.id;
-
+    document.getElementById('modal-sticker-img').alt = sticker.id; // Set alt for later retrieval
+    document.getElementById('modal-sticker-name').textContent = sticker.name; // Display sticker name
+    
     // Populate sizes
     const sizeSelect = document.getElementById('sticker-size');
     if (sizeSelect && sticker.sizes) {
@@ -2222,27 +2353,38 @@ function closeStickerModal() {
 }
 
 function addStickerToOrder() {
-    const sticker = STICKERS.find(s => s.id === activeStickerId);
+    let sticker = currentSticker; // Prioritize uploaded sticker
+    if (!sticker) { // If no uploaded sticker, use the selected system sticker
+        sticker = STICKERS.find(s => s.id === activeStickerId);
+    }
+    
     if (!sticker) return;
 
     const size = document.getElementById('sticker-size').value;
     const side = document.querySelector('input[name="sticker-side"]:checked').value;
 
     customOrder.stickers.push({
-        id: sticker.id,
+        id: sticker.id, // Use sticker.id from the resolved sticker
         name: sticker.name,
         image: sticker.image,
+        type: sticker.type || 'STANDARD',
         size: size,
         side: side,
-        x: 50, // Default X position (center)
-        y: 50, // Default Y position (center)
-        rotation: 0 // Default rotation (degrees)
+        x: 50,
+        y: 50,
+        rotation: 0
     });
 
     closeStickerModal();
     goToStep('tshirt-base');
-    updateCustomTshirtState();
-    showToast(`${sticker.name} sticker added!`, 'success');
+    updateCustomTshirtState(); // This function calls renderStickerList()
+    showToast(`${sticker.name} added!`, 'success');
+    
+    // Clear upload state and active system sticker ID
+    currentSticker = null;
+    activeStickerId = null;
+    const input = document.getElementById('user-sticker-upload');
+    if (input) input.value = '';
 }
 
 function renderStickerList() {
@@ -2363,17 +2505,20 @@ function openShopStickerModal(id) {
     const sticker = STICKERS.find(s => s.id === id);
     if (!sticker) return;
     activeShopStickerId = id;
+    currentSticker = null; // Clear uploaded sticker state
 
-    document.getElementById('shop-modal-sticker-img').src = sticker.image;
-    document.getElementById('shop-modal-sticker-name').textContent = 'ID: ' + sticker.id;
-
-    // Populate sizes
-    const shopSizeSelect = document.getElementById('shop-sticker-size');
-    if (shopSizeSelect && sticker.sizes) {
-        shopSizeSelect.innerHTML = sticker.sizes.map(s => `<option value="${s}">${s} inch</option>`).join('');
+    const modal = document.getElementById('shop-sticker-modal');
+    if (modal) {
+        const imgEl = document.getElementById('shop-modal-sticker-img');
+        const nameEl = document.getElementById('shop-modal-sticker-name');
+        if (imgEl) {
+            imgEl.src = sticker.image;
+            imgEl.alt = sticker.id;
+        }
+        if (nameEl) nameEl.textContent = sticker.name;
+        modal.style.display = 'flex';
     }
 
-    document.getElementById('shop-sticker-modal').style.display = 'flex';
     const gridModal = document.getElementById('product-sticker-selection-modal');
     if (gridModal) gridModal.style.display = 'none';
 }
@@ -2383,8 +2528,19 @@ function closeShopStickerModal() {
 }
 
 function addStickerToShopOrder() {
-    const sticker = STICKERS.find(s => s.id === activeShopStickerId);
-    if (!sticker) return;
+    let sticker = null;
+    
+    // Check if it's a user upload or a standard sticker
+    if (currentSticker && currentSticker.type === 'UPLOAD') {
+        sticker = currentSticker;
+    } else {
+        sticker = STICKERS.find(s => s.id === activeShopStickerId);
+    }
+    
+    if (!sticker) {
+        showToast('Please select a sticker first', 'error');
+        return;
+    }
 
     const size = document.getElementById('shop-sticker-size').value;
     const side = document.querySelector('input[name="shop-sticker-side"]:checked').value;
@@ -2395,18 +2551,24 @@ function addStickerToShopOrder() {
         id: sticker.id,
         name: sticker.name,
         image: sticker.image,
+        type: sticker.type || 'STANDARD',
         size: size,
         side: side,
-        x: 50, // Default X position (center)
-        y: 50, // Default Y position (center)
-        rotation: 0 // Default rotation
+        x: 50,
+        y: 50,
+        rotation: 0
     });
 
     closeShopStickerModal();
     const gridModal = document.getElementById('product-sticker-selection-modal');
     if (gridModal) gridModal.style.display = 'none';
     renderShopStickers();
-    showToast(`${sticker.name} sticker added!`, 'success');
+    showToast(`${sticker.name} added!`, 'success');
+    
+    // Clear upload state after success
+    currentSticker = null;
+    const input = document.getElementById('shop-user-sticker-upload');
+    if (input) input.value = '';
 }
 
 function renderShopStickers() {
@@ -2429,7 +2591,7 @@ function renderShopStickers() {
     `).join('');
 
     // Update Overlays with Drag & Drop and Rotation
-    overlays.innerHTML = window.productStickers.map((s, index) => {
+    overlays.innerHTML = (window.productStickers || []).map((s, index) => {
         const sizePx = s.size.includes('3') ? '30px' : (s.size.includes('5') ? '50px' : '70px');
         const posLine = s.x ? `left: ${s.x}%; top: ${s.y}%; transform: translate(-50%, -50%) rotate(${s.rotation || 0}deg);` : `position: relative;`;
         return `
@@ -2438,7 +2600,7 @@ function renderShopStickers() {
                      id="shop-sticker-${index}"
                      onmousedown="startMovingSticker(event, ${index}, 'shop')"
                      ontouchstart="startMovingSticker(event, ${index}, 'shop')"
-                     style="width: ${sizePx}; height: auto; display: block; opacity: 0.85;">
+                     style="width: ${sizePx}; height: auto; display: block; opacity: 0.85; ${s.type === 'UPLOAD' ? 'border: 1px dashed var(--primary); padding: 2px;' : ''}">
                 <div class="rotate-handle" 
                      onmousedown="startRotatingSticker(event, ${index}, 'shop')"
                      ontouchstart="startRotatingSticker(event, ${index}, 'shop')"
@@ -2609,3 +2771,77 @@ function stopRotatingSticker() {
     document.removeEventListener('touchmove', rotateSticker);
     document.removeEventListener('touchend', stopRotatingSticker);
 }
+
+// --- User Uploaded Sticker Logic ---
+
+let currentUserUploadedFile = null;
+let currentUploadContext = null; // 'shop' or 'customize'
+
+function handleShopUserStickerUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+        showToast('Please upload an image file.', 'error');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        currentUserUploadedFile = e.target.result;
+        currentUploadContext = 'shop';
+        openUserStickerModal(currentUserUploadedFile, 'Uploaded Design');
+    };
+    reader.readAsDataURL(file);
+}
+
+function handleUserStickerUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        currentUserUploadedFile = e.target.result;
+        currentUploadContext = 'customize';
+        openUserStickerModal(currentUserUploadedFile, 'Uploaded Design');
+    };
+    reader.readAsDataURL(file);
+}
+
+function openUserStickerModal(imageSrc, name) {
+    // We use the existing sticker modal but adapt it
+    const modalId = currentUploadContext === 'shop' ? 'shop-sticker-modal' : 'sticker-detail-modal';
+    const imgId = currentUploadContext === 'shop' ? 'shop-modal-sticker-img' : 'modal-sticker-img';
+    const nameId = currentUploadContext === 'shop' ? 'shop-modal-sticker-name' : 'modal-sticker-name';
+    
+    const modal = document.getElementById(modalId);
+    if (!modal) {
+        console.error("Modal not found:", modalId);
+        return;
+    }
+    
+    const imgEl = document.getElementById(imgId);
+    const nameEl = document.getElementById(nameId);
+    
+    if (imgEl) {
+        imgEl.src = imageSrc;
+        imgEl.alt = "UPLOADED";
+    }
+    if (nameEl) nameEl.textContent = name;
+    
+    modal.style.display = 'flex';
+    
+    // Clear the standard sticker ID when an upload is shown
+    activeShopStickerId = null;
+    activeStickerId = null;
+
+    // Set currentSticker global for adding
+    currentSticker = {
+        id: `UPL-${Math.floor(Math.random() * 9000) + 1000}`,
+        name: name,
+        image: imageSrc,
+        type: 'UPLOAD'
+    };
+}
+
+
