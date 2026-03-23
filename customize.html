@@ -121,35 +121,34 @@
                     <div class="category-grid"
                         style="display: flex; flex-direction: column; align-items: center; gap: 2rem; justify-content: center;">
                         <button onclick="selectCategory('Bedsheet')" class="category-card"
-                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; border: 2px solid #3b82f6; border-radius: 20px; transition: 0.3s; padding: 25px; background: white; box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05); transform: scale(1.02);">
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%;">
                             <div class="cat-icon"
-                                style="width: 80px; height: 80px; background: linear-gradient(135deg, #dbeafe 0%, #eff6ff 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #1d4ed8; border: 2px solid #bfdbfe;">
+                                style="width: 80px; height: 80px; background: var(--secondary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: var(--primary);">
                                 <i class="fas fa-bed fa-2x"></i>
                             </div>
-                            <h3 style="color: #1e293b; font-weight: 800; font-size: 1.35rem; margin-bottom: 0.5rem;">Bedsheet</h3>
-                            <p style="color: #64748b; font-size: 0.95rem; font-weight: 500;">Premium quality fabrics <span style="display: inline-block; background: #3b82f6; color: white; border-radius: 4px; padding: 1px 6px; font-size: 0.6rem; vertical-align: middle; margin-left: 5px;">ACTIVE</span></p>
+                            <h3>Bedsheet</h3>
+                            <p>Premium quality fabrics customized for you</p>
                         </button>
-
-                        <button class="category-card" title="Coming Soon"
-                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; border: 1px solid #f1f5f9; border-radius: 20px; padding: 25px; background: white; opacity: 0.6; filter: grayscale(1); cursor: not-allowed; position: relative;">
+                        <button onclick="selectCategory('T-Shirts')" class="category-card"
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%;">
                             <div class="cat-icon"
-                                style="width: 80px; height: 80px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #94a3b8;">
+                                style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #999;">
                                 <i class="fas fa-tshirt fa-2x"></i>
                             </div>
-                            <h3 style="color: #64748b; font-weight: 700; font-size: 1.25rem; margin-bottom: 0.5rem;">T-Shirts</h3>
-                            <p style="color: #94a3b8; font-size: 0.9rem;">Custom printed t-shirts with stickers</p>
-                            <div style="position: absolute; top: 15px; right: 15px; background: #64748b; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">ON HOLD</div>
+                            <h3>T-Shirts</h3>
+                            <p>Custom printed t-shirts with stickers</p>
                         </button>
-
-                        <button class="category-card" title="Coming Soon"
-                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; border: 1px solid #f1f5f9; border-radius: 20px; padding: 25px; background: white; opacity: 0.6; filter: grayscale(1); cursor: not-allowed; position: relative;">
+                        <button class="category-card disabled" title="Temporarily Unavailable"
+                            style="margin: 0; min-width: 250px; max-width: 400px; width: 100%; position: relative; opacity: 0.6; cursor: not-allowed; filter: grayscale(1);">
                             <div class="cat-icon"
-                                style="width: 80px; height: 80px; background: #f8fafc; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #94a3b8;">
-                                <i class="fas fa-child fa-2x"></i>
+                                style="width: 80px; height: 80px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #999; overflow: hidden; position: relative;">
+                                <div style="position: absolute; top: 0; left: 0; width: 50%; height: 100%; background: #ff0000;"></div>
+                                <div style="position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: #000000;"></div>
+                                <i class="fas fa-child fa-2x" style="position: relative; z-index: 1; color: white;"></i>
                             </div>
-                            <h3 style="color: #64748b; font-weight: 700; font-size: 1.25rem; margin-bottom: 0.5rem;">Kids Two Tone</h3>
-                            <p style="color: #94a3b8; font-size: 0.9rem;">Stylish two-tone shirts for kids</p>
-                            <div style="position: absolute; top: 15px; right: 15px; background: #64748b; color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">ON HOLD</div>
+                            <h3>Kids Two Tone T-shirt</h3>
+                            <p>Stylish two-tone t-shirts for kids</p>
+                            <div style="position: absolute; top: 10px; right: 10px; background: #ff9800; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 700; text-transform: uppercase;">Held / Coming Soon</div>
                         </button>
                     </div>
                 </div>
@@ -285,22 +284,12 @@
                                 <div id="stickers-container" class="flex flex-wrap gap-2 mt-2"></div>
                             </div>
 
-                            <div class="price-display mt-4" style="text-align: right; background: #fdf2f8; padding: 15px; border-radius: 12px; border: 1px solid #fee2e2;">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem; color: #666;">
-                                    <span>Base T-Shirt Price:</span>
-                                    <span id="tshirt-base-price-val">Rs. 1,200</span>
-                                </div>
-                                <div id="sticker-charge-row" style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: #e91e63; font-weight: 600;">
-                                    <span>Extra Sticker Charges:</span>
-                                    <span id="tshirt-sticker-price-val">Rs. 0</span>
-                                </div>
-                                <div style="border-top: 1px dashed #fcd34d; margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 1rem; font-weight: 700; color: #333;">Total Amount:</span>
-                                    <span id="tshirt-custom-price" style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">Rs. 1,200</span>
-                                </div>
+                            <div class="price-display mt-4" style="text-align: right;">
+                                <span style="font-size: 1rem; color: #999;">Current Total:</span>
+                                <span id="tshirt-custom-price" style="font-size: 1.8rem; font-weight: 800; color: var(--primary); display: block;">Rs. 1,200</span>
                             </div>
 
-                            <button onclick="finishTshirtCustomization()" class="btn btn-primary w-full" style="padding: 1.25rem; font-size: 1.1rem; border-radius: 15px; font-weight: 700; margin-top: 20px;">
+                            <button onclick="finishTshirtCustomization()" class="btn btn-primary w-full" style="padding: 1.25rem; font-size: 1.1rem; border-radius: 15px; font-weight: 700;">
                                 <i class="fas fa-shopping-cart"></i> Finish & Add to Cart
                             </button>
                         </div>
@@ -314,22 +303,13 @@
                         <h2 class="step-title" style="margin: 0; font-family: 'Playfair Display', serif;">Select Sticker</h2>
                     </div>
 
-                    <div style="background: #fdf2f8; padding: 15px; border-radius: 12px; border: 2px dashed var(--primary); margin-bottom: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: 0.3s;" onclick="document.getElementById('custom-sticker-upload').click()">
-                        <i class="fas fa-cloud-upload-alt text-xl" style="color: var(--primary);"></i>
-                        <div style="text-align: left;">
-                            <h4 style="margin: 0; font-size: 0.9rem; color: #333;">Upload Your Own Design</h4>
-                            <p style="font-size: 0.7rem; color: #666; margin: 0;">Upload PNG/JPG (Clear background recommended)</p>
-                        </div>
-                        <input type="file" id="custom-sticker-upload" style="display: none;" accept="image/*" onchange="handleCustomStickerUpload(event)">
-                    </div>
-
-                    <div class="grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-10 gap-2" id="sticker-grid" style="padding: 10px;">
+                    <div class="grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 gap-2" id="sticker-grid" style="padding: 10px;">
                         <!-- Stickers will be injected here -->
                     </div>
 
-                    <div id="no-sticker-option" class="mt-8 text-center">
-                        <button onclick="goToStep('tshirt-base')" class="btn" style="border: 2px dashed #ddd; background: #fafafa; padding: 12px 30px; color: #888; border-radius: 10px; cursor: pointer;">
-                            <i class="fas fa-arrow-left"></i> Back to Options
+                    <div id="no-sticker-option" class="mt-10 text-center">
+                        <button onclick="goToStep('tshirt-base')" class="btn" style="border: 2px dashed #ddd; background: #fafafa; padding: 15px 40px; color: #888; border-radius: 10px; cursor: pointer;">
+                            <i class="fas fa-times"></i> Back to Options
                         </button>
                     </div>
                 </div>
