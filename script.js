@@ -520,10 +520,153 @@ function safeParse(item, defaultVal) {
 let cart = safeParse('roohira_cart', []);
 let user = safeParse('roohira_user', null);
 let currentTheme = localStorage.getItem('roohira_theme') || 'light';
+let currentLang = localStorage.getItem('roohira_lang') || 'en';
+
+const TRANSLATIONS = {
+    en: {
+        home: "Home",
+        shop: "Shop",
+        customize: "Customize",
+        cart: "Cart",
+        profile: "My Profile",
+        login: "Login",
+        logout: "Logout",
+        explore: "Explore Collection",
+        customize_now: "Customize Now",
+        featured: "Featured Collections",
+        view_all: "View All Products",
+        delivery: "Island-wide Delivery",
+        returns: "Returns Policy",
+        quality: "Authentic Quality",
+        add_to_cart: "Add to Cart",
+        buy_now: "Buy Now",
+        order_history: "Order History",
+        settings: "Profile Settings",
+        factory_reset: "Factory Reset",
+        danger_zone: "Danger Zone",
+        confirmed: "Order Confirmed!",
+        redirecting: "Redirecting to WhatsApp...",
+        copy_invoice: "Download Invoice",
+        attach_whatsapp: "Please attach the downloaded invoice in WhatsApp.",
+        confirm_delete: "Are you sure you want to delete this order?",
+        confirm_reset: "WARNING: This will delete ALL your data and orders. Continue?",
+        in_stock: "In Stock",
+        out_of_stock: "Out of Stock",
+        category: "Category",
+        size: "Select Size",
+        material: "Material",
+        qty: "Quantity",
+        total: "Total",
+        search: "Search Products...",
+        all: "All",
+        quick_links: "Quick Links",
+        contact: "Contact",
+        shop_coll: "Shop Collection",
+        your_cart: "Your Cart",
+        checkout_title: "Checkout",
+        profile_title: "My Profile",
+        orders_title: "Order History",
+        empty_cart: "Your cart is empty",
+        continue_shopping: "Continue Shopping"
+    },
+    si: {
+        home: "මුල් පිටුව",
+        shop: "සාප්පුව",
+        customize: "අභිරුචිය",
+        cart: "කරත්තය",
+        profile: "ගිණුම",
+        login: "ඇතුල් වන්න",
+        logout: "පිටවන්න",
+        explore: "දැන් බලන්න",
+        customize_now: "නිර්මාණය කරන්න",
+        featured: "විශේෂ එකතුව",
+        view_all: "සියල්ල බලන්න",
+        delivery: "මුළු දිවයිනටම බෙදා හැරීම",
+        returns: "ආපසු ලබාගැනීමේ ප්‍රතිපත්තිය",
+        quality: "උසස් තත්ත්වයේ නිෂ්පාදන",
+        add_to_cart: "කරත්තයට එක් කරන්න",
+        buy_now: "දැන් මිලදී ගන්න",
+        order_history: "ඇණවුම් ලැයිස්තුව",
+        settings: "ගිණුමේ සැකසුම්",
+        factory_reset: "පද්ධතිය යථා තත්ත්වයට පත් කිරීම",
+        danger_zone: "අවදානම් කලාපය",
+        confirmed: "ඇණවුම සාර්ථකයි!",
+        redirecting: "WhatsApp වෙත යොමු කෙරේ...",
+        copy_invoice: "බිල්පත බාගත කරන්න",
+        attach_whatsapp: "කරුණාකර බාගත කළ බිල්පත WhatsApp පණිවිඩයට අමුණන්න.",
+        confirm_delete: "මෙම ඇණවුම ඉවත් කිරීමට ඔබට විශ්වාසද?",
+        confirm_reset: "අවවාදයයි: මෙහිදී ඔබගේ සියලුම දත්ත මැකී යනු ඇත. දිගටම කරගෙන යනවාද?",
+        in_stock: "තිබේ",
+        out_of_stock: "අවසන් වී ඇත",
+        category: "වර්ගය",
+        size: "ප්‍රමාණය තෝරන්න",
+        material: "අමුද්‍රව්‍ය",
+        qty: "ප්‍රමාණය",
+        total: "එකතුව",
+        search: "සොයන්න...",
+        all: "සියල්ල",
+        quick_links: "ප්‍රධාන සබැඳි",
+        contact: "සම්බන්ධ වන්න",
+        shop_coll: "විශේෂ එකතුව",
+        your_cart: "ඔබේ කරත්තය",
+        checkout_title: "ගෙවීම් පිටුව",
+        profile_title: "මගේ ගිණුම",
+        orders_title: "පසුගිය ඇණවුම්",
+        empty_cart: "ඔබේ කරත්තය හිස්",
+        continue_shopping: "සාප්පු සවාරි යන්න"
+    },
+    ta: {
+        home: "முகப்பு",
+        shop: "கடை",
+        customize: "தனிப்பயனாக்கு",
+        cart: "வண்டி",
+        profile: "சுயவிவரம்",
+        login: "உள்நுழைக",
+        logout: "வெளியேறு",
+        explore: "ஆராய்ந்து பாருங்கள்",
+        customize_now: "இப்போது வடிவமைக்கவும்",
+        featured: "சிறப்பு சேகரிப்புகள்",
+        view_all: "அனைத்தையும் காண்க",
+        delivery: "நாடளாவிய விநியோகம்",
+        returns: "திரும்பப் பெறும் கொள்கை",
+        quality: "உண்மையான தரம்",
+        add_to_cart: "வண்டியில் சேர்க்கவும்",
+        buy_now: "இப்போது வாங்கவும்",
+        order_history: "ஆர்டர் வரலாறு",
+        settings: "சுயவிவர அமைப்புகள்",
+        factory_reset: "தொழிற்சாலை மீட்டமைப்பு",
+        danger_zone: "ஆபத்தான மண்டலம்",
+        confirmed: "ஆர்டர் உறுதி செய்யப்பட்டது!",
+        redirecting: "வாட்ஸ்அப்பிற்கு திருப்பி விடப்படுகிறது...",
+        copy_invoice: "விலைப்பட்டியலை பதிவிறக்கவும்",
+        attach_whatsapp: "வாட்ஸ்அப்பில் பதிவிறக்கம் செய்யப்பட்ட விலைப்பட்டியலை இணைக்கவும்.",
+        confirm_delete: "இந்த ஆர்டரை நீக்க விரும்புகிறீர்களா?",
+        confirm_reset: "எச்சரிக்கை: இது உங்கள் எல்லா தரவையும் ஆர்டர்களையும் நீக்கும். தொடரவா?",
+        in_stock: "கையில் உள்ளது",
+        out_of_stock: "கையிருப்பில் இல்லை",
+        category: "வகை",
+        size: "அளவைத் தேர்ந்தெடுக்கவும்",
+        material: "பொருள்",
+        qty: "அளவு",
+        total: "மொத்தம்",
+        search: "தேடுக...",
+        all: "அனைத்தும்",
+        quick_links: "விரைவான இணைப்புகள்",
+        contact: "தொடர்பு கொள்ள",
+        shop_coll: "கடை சேகரிப்பு",
+        your_cart: "உங்கள் வண்டி",
+        checkout_title: "செக்அவுட்",
+        profile_title: "எனது சுயவிவரம்",
+        orders_title: "ஆர்டர் வரலாறு",
+        empty_cart: "உங்கள் வண்டி காலியாக உள்ளது",
+        continue_shopping: "தொடர்ந்து ஷாப்பிங் செய்யுங்கள்"
+    }
+};
 
 // DOM Elements & Initialization
 document.addEventListener('DOMContentLoaded', () => {
     initTheme();
+    initLanguage();
     updateCartCount();
     updateUserUI();
 
@@ -570,6 +713,64 @@ function updateThemeIcon(theme) {
         icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
     });
 }
+
+// --- Language Management ---
+
+function initLanguage() {
+    const lang = localStorage.getItem('roohira_lang') || 'en';
+    currentLang = lang;
+    applyLanguage(lang);
+}
+
+function toggleLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('roohira_lang', lang);
+    applyLanguage(lang);
+    showToast(`Language changed to ${lang === 'en' ? 'English' : lang === 'si' ? 'Sinhala' : 'Tamil'}`, 'success');
+}
+
+function applyLanguage(lang) {
+    const texts = TRANSLATIONS[lang];
+    if (!texts) return;
+
+    // Direct data-i18n attributes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (texts[key]) {
+            if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'search')) {
+                el.placeholder = texts[key];
+            } else {
+                el.textContent = texts[key];
+            }
+        }
+    });
+
+    // Update active state of language buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+
+    // Update current lang label if it exists
+    const label = document.getElementById('current-lang-label');
+    if (label) {
+        label.textContent = lang.toUpperCase();
+    }
+}
+
+function toggleLanguageDropdown() {
+    const dropdown = document.getElementById('lang-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('active');
+    }
+}
+
+// Close dropdowns if clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.lang-selector')) {
+        const dropdown = document.getElementById('lang-dropdown');
+        if (dropdown) dropdown.classList.remove('active');
+    }
+});
 
 
 // --- UI Updates ---

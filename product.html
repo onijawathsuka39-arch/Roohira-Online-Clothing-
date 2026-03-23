@@ -19,13 +19,32 @@
             </a>
             <nav class="flex gap-4 items-center">
                 <!-- Login Button (Visible when logged out) -->
-                <a href="login.html" id="header-login-btn" class="btn btn-primary"
+                <a href="login.html" id="header-login-btn" class="btn btn-primary" data-i18n="login"
                     style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
 
                 <!-- User Info (Visible when logged in) -->
                 <div id="header-user-menu" style="display: none; align-items: center; gap: 0.5rem;">
                     <i class="fas fa-user-circle text-xl" style="color: var(--primary);"></i>
                     <span id="header-username" style="font-weight: 600;">User</span>
+                </div>
+
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-toggle-btn" onclick="toggleLanguageDropdown()">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang-label">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-btn" data-lang="en" onclick="toggleLanguage('en')">
+                            <span class="lang-name">English</span>
+                        </button>
+                        <button class="lang-btn" data-lang="si" onclick="toggleLanguage('si')">
+                            <span class="lang-name">සිංහල</span>
+                        </button>
+                        <button class="lang-btn" data-lang="ta" onclick="toggleLanguage('ta')">
+                            <span class="lang-name">தமிழ்</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Theme Toggle -->
@@ -52,24 +71,23 @@
             <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
         </div>
         <div class="sidebar-nav">
-            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> Home</a>
-            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> Shop</a>
-            <a href="customize.html" class="sidebar-link"><i class="fas fa-palette"></i> Customize</a>
+            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
+            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
+            <a href="customize.html" class="sidebar-link"><i class="fas fa-palette"></i> <span data-i18n="customize">Customize</span></a>
             <a href="cart.html" class="sidebar-link">
-                <i class="fas fa-shopping-cart"></i> Cart
+                <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
                 <span id="sidebar-cart-badge"
                     style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
             </a>
-            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> My Profile</a>
+            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My Profile</span></a>
 
             <!-- User Logout -->
             <div id="sidebar-user-section"
                 style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
-                <button onclick="logout()" class="sidebar-link"
+                <button onclick="logout()" class="sidebar-link" data-i18n="logout"
                     style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
                         class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
-
         </div>
     </div>
 
@@ -117,7 +135,7 @@
                     <!-- Specifications Box -->
                     <div class="spec-box">
                         <div class="spec-item" style="flex-direction: column; align-items: flex-start; gap: 8px;">
-                            <label for="size-select" class="label" style="margin-bottom: 0;">Select Size</label>
+                            <label for="size-select" class="label" style="margin-bottom: 0;" data-i18n="size">Select Size</label>
                             <select id="size-select" class="form-input"
                                 style="padding: 8px 12px; font-size: 14px; border-radius: 8px; width: 100%;"
                                 onchange="updatePriceOnSizeChange()">
@@ -125,13 +143,13 @@
                             </select>
                         </div>
                         <div class="spec-item">
-                            <span class="label">Material</span>
+                            <span class="label" data-i18n="material">Material</span>
                             <span id="detail-material" class="value">Loading...</span>
                         </div>
                     </div>
 
                     <div class="mb-8">
-                        <span id="detail-stock" class="font-medium text-green-600">In Stock</span>
+                        <span id="detail-stock" class="font-medium text-green-600" data-i18n="in_stock">In Stock</span>
                     </div>
 
                     <div class="flex gap-4 items-center pt-8 border-t border-gray-100">
@@ -147,7 +165,7 @@
 
                         <button id="add-to-cart-btn"
                             class="btn btn-primary flex-grow py-3 flex items-center justify-center gap-2 text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all">
-                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                            <i class="fas fa-shopping-cart"></i> <span data-i18n="add_to_cart">Add to Cart</span>
                         </button>
                     </div>
 
