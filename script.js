@@ -281,7 +281,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 15 }
+            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 50 }
         ]
     },
     {
@@ -310,7 +310,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 6 }
+            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 50 }
         ]
     },
     {
@@ -775,10 +775,12 @@ function createProductCard(product) {
 
     // Check if any variant has stock across any color
     let isSoldOut = true;
-    if (product.colors && product.colors[0].variants) {
-        isSoldOut = product.colors.every(c => c.variants.every(v => v.stock <= 0));
+    if (product.colors && product.colors.some(c => c.variants && c.variants.length > 0)) {
+        isSoldOut = product.colors.every(c => !c.variants || c.variants.every(v => v.stock <= 0));
     } else if (product.variants) {
         isSoldOut = product.variants.every(v => v.stock <= 0);
+    } else {
+        isSoldOut = false; // Default to available if data is missing
     }
 
     return `
@@ -813,37 +815,8 @@ function createProductCard(product) {
 }
 
 function addToCartPreview(id) {
-    const product = products.find(p => p.id === id);
-    if (product) {
-        // Find first variant with stock
-        let availableVariant = null;
-        let selectedColorName = '';
-
-        if (product.colors && product.colors[0].variants) {
-            // Find first color that has an available variant
-            const colorObj = product.colors.find(c => c.variants.some(v => v.stock > 0));
-            if (colorObj) {
-                availableVariant = colorObj.variants.find(v => v.stock > 0);
-                selectedColorName = colorObj.name;
-            }
-        } else if (product.variants) {
-            availableVariant = product.variants.find(v => v.stock > 0);
-            selectedColorName = (product.colors && product.colors.length > 0) ? product.colors[0].name : '';
-        }
-
-        if (availableVariant) {
-            let finalSize = availableVariant.size;
-            if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
-                const gsm = product.gsms ? product.gsms[0] : '180 GSM';
-                finalSize = `${finalSize} | ${gsm} | ${selectedColorName}`;
-            } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
-                finalSize = `${finalSize} | ${selectedColorName}`;
-            }
-            addToCart(id, 1, finalSize);
-        } else {
-            showToast('All sizes are out of stock!', 'error');
-        }
-    }
+    // Just delegating everything to simplified unified logic
+    addToCart(id, 1);
 }
 
 // --- Product Details ---
@@ -954,8 +927,9 @@ function loadProductDetails() {
     }
 
     const stockStatus = document.getElementById('detail-stock');
-    const displayVariants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
-    const firstVariant = displayVariants ? displayVariants[0] : null;
+    const displayVariants = (product.colors && product.colors[0] && product.colors[0].variants) ? product.colors[0].variants : product.variants;
+    const firstVariant = (displayVariants && displayVariants.length > 0) ? displayVariants[0] : null;
+    
     if (firstVariant && firstVariant.stock > 0) {
         stockStatus.textContent = 'In Stock';
         stockStatus.style.color = 'green';
@@ -977,9 +951,7 @@ function loadProductDetails() {
     } else {
         thumbContainer.style.display = 'none';
     }
-
-    // Add event listener to Add Cart button
-    const btn = document.getElementById('add-to-cart-btn');
+        const btn = document.getElementById('add-to-cart-btn');
     // Important: clear old event listeners if any
     const newBtn = btn.cloneNode(true);
     btn.parentNode.replaceChild(newBtn, btn);
@@ -991,60 +963,16 @@ function loadProductDetails() {
         const sizeSelectEl = document.getElementById('size-select');
         let selectedSize = sizeSelectEl ? sizeSelectEl.value : '';
 
-        const currentColorObj = product.colors ? product.colors.find(c => c.name === window.selectedColor) : null;
-        const variantsToSearch = currentColorObj ? currentColorObj.variants : product.variants;
-        const variant = variantsToSearch.find(v => v.size === selectedSize);
-
-        if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
-            const gsm = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
-            const color = window.selectedColor || 'Black';
-
-            // Collect stickers if any
-            const stickerCount = (window.productStickers || []).length;
-            const extraPrice = Math.max(0, stickerCount - 1) * 100;
-            const stickerDetails = (window.productStickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
-
-            const fullSizeLabel = `${selectedSize} | ${gsm} | ${color}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
-
-            // Add as a custom item to cart
-            const customCartItem = {
-                ...product,
-                cartItemId: `custom-${Date.now()}-${Math.random()}`,
-                customMapping: JSON.stringify(window.productStickers || []), // unique key for this sticker set
-                image: document.getElementById('detail-image').src,
-                price: variant ? (variant.price + extraPrice) : (1100 + extraPrice),
-                size: fullSizeLabel,
-                qty: qty,
-                stickers: window.productStickers || []
-            };
-
-            // Check if identical custom item already exists
-            const existing = cart.find(x =>
-                x.id === product.id &&
-                x.size === fullSizeLabel &&
-                x.customMapping === customCartItem.customMapping
-            );
-
-            if (existing) {
-                existing.qty += qty;
-            } else {
-                cart.push(customCartItem);
-            }
-
-            localStorage.setItem('roohira_cart', JSON.stringify(cart));
-            updateCartCount();
-            showToast(`${product.name} design saved to cart!`, 'success');
-
-            // Reset for next design
-            window.productStickers = [];
-            renderShopStickers();
-            return;
-        } else if (product.category === 'Towels' || product.category === 'Cotton සරම්') {
-            const color = window.selectedColor || (product.colors && product.colors.length > 0 ? product.colors[0].name : '');
-            selectedSize = `${selectedSize} | ${color}`;
-        }
-
-        addToCart(product.id, qty, selectedSize);
+        // Unified Call
+        addToCart(
+            product.id,
+            qty,
+            selectedSize,
+            window.productStickers || [],
+            window.selectedColor,
+            (product.gsms && product.gsms[0]),
+            document.getElementById('detail-image').src
+        );
     };
 }
 
@@ -1179,42 +1107,84 @@ function changeImage(src, element) {
 
 // --- Cart Logic ---
 
-function addToCart(id, qty = 1, size = null) {
+function addToCart(id, qty = 1, size = null, stickers = [], color = null, gsm = null, customImage = null) {
     const product = products.find(p => p.id === id);
-    const baseSize = size ? size.split(' | ')[0] : null;
-    const variant = baseSize ? product.variants.find(v => v.size === baseSize) : product.variants[0];
-    const finalSize = size || variant.size;
-    const finalPrice = variant.price;
+    if (!product) return;
 
-    // Check Stock
+    // Resolve size/variant
+    let baseSizeLabel = size ? size.split(' | ')[0].trim() : null;
+    let currentColor = color;
+    let currentGsm = gsm;
+
+    // Handle Quick Add cases (from Shop page) where color/size aren't provided
+    if (!size) {
+        let availableVariant = null;
+        if (product.colors && product.colors[0].variants) {
+            const colorObj = product.colors.find(c => c.variants.some(v => v.stock > 0)) || product.colors[0];
+            availableVariant = colorObj.variants.find(v => v.stock > 0) || colorObj.variants[0];
+            currentColor = colorObj.name;
+        } else if (product.variants) {
+            availableVariant = product.variants.find(v => v.stock > 0) || product.variants[0];
+            currentColor = (product.colors && product.colors.length > 0) ? product.colors[0].name : null;
+        }
+        baseSizeLabel = availableVariant ? availableVariant.size : 'M';
+        if (!currentGsm && product.gsms) currentGsm = product.gsms[0];
+    }
+
+    // Determine variant for price/stock
+    let variantsToSearch = product.variants;
+    if (product.colors && currentColor) {
+        const colorObj = product.colors.find(c => c.name === currentColor);
+        // Only override variantsToSearch if the specific color has its own variants list
+        if (colorObj && colorObj.variants) {
+            variantsToSearch = colorObj.variants;
+        }
+    }
+    const variant = (variantsToSearch && variantsToSearch.find(v => v.size === baseSizeLabel)) || (variantsToSearch ? variantsToSearch[0] : { price: 0, stock: 0 });
+
     if (variant.stock <= 0) {
-        showToast('Sorry, this size is out of stock!', 'error');
+        showToast('Sorry, this item/size is out of stock!', 'error');
         return;
     }
 
-    let defaultImage = product.images[0];
-    if ((product.category === 'T-Shirts' || product.category === 'Towels' || product.category === 'Cotton සරම්') && size && size.includes(' | ')) {
-        const parts = size.split(' | ');
-        const colorName = parts[parts.length - 1].trim(); // last part is color
-        if (product.colors) {
-            const colorObj = product.colors.find(c => c.name === colorName);
-            if (colorObj) defaultImage = colorObj.image;
-        }
+    // Pricing
+    const stickerCount = (stickers || []).length;
+    const extraPrice = Math.max(0, stickerCount - 1) * 100;
+    const finalPrice = variant.price + extraPrice;
+
+    // Label Construction (Consistent!)
+    let fullSizeLabel = baseSizeLabel;
+    if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+        const gsmLabel = currentGsm || (product.gsms ? product.gsms[0] : '180 GSM');
+        const colorLabel = currentColor || (product.colors ? product.colors[0].name : 'Black');
+        const stickerDetails = (stickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
+        fullSizeLabel = `${baseSizeLabel} | ${gsmLabel} | ${colorLabel}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
+    } else if ((product.category === 'Towels' || product.category === 'Cotton සරම්' || product.category === ' Printed Design Bedsheet') && currentColor) {
+        fullSizeLabel = `${baseSizeLabel} | ${currentColor}`;
     }
+
+    // Image Priority
+    let finalImage = customImage || (product.colors && currentColor ? product.colors.find(c => c.name === currentColor).image : product.images[0]);
+
+    const cartItemId = stickers.length > 0 
+        ? `custom-${id}-${Date.now()}-${Math.random()}` 
+        : `item-${id}-${fullSizeLabel}`;
 
     const cartItem = {
         ...product,
-        cartItemId: `item-${id}-${finalSize}`,
-        image: defaultImage,
+        cartItemId: cartItemId,
+        image: finalImage,
         price: finalPrice,
         oldPrice: variant.oldPrice,
-        size: finalSize,
-        qty: parseInt(qty) || 1
+        size: fullSizeLabel,
+        qty: parseInt(qty) || 1,
+        stickers: stickers,
+        customMapping: stickers.length > 0 ? JSON.stringify(stickers) : null
     };
 
-    const existingItem = cart.find(x =>
-        x.id === id && x.size === finalSize && !x.customMapping
-    );
+    const existingItem = stickers.length === 0 ? cart.find(x =>
+        x.id === id && x.size === fullSizeLabel && !x.customMapping
+    ) : null;
 
     if (existingItem) {
         existingItem.qty += parseInt(qty) || 1;
@@ -1224,7 +1194,7 @@ function addToCart(id, qty = 1, size = null) {
 
     localStorage.setItem('roohira_cart', JSON.stringify(cart));
     updateCartCount();
-    showToast(`${product.name} (${finalSize}) added to cart!`, 'success');
+    showToast(`${product.name} Added to cart!`, 'success');
 }
 
 function loadCart() {
