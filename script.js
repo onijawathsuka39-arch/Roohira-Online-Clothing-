@@ -893,10 +893,7 @@ function updateUserUI() {
 
         // New UI
         if (headerLoginBtn) headerLoginBtn.style.display = 'none';
-        if (headerUserMenu) {
-            headerUserMenu.style.display = 'flex';
-            if (headerUsername) headerUsername.textContent = user.name.split(' ')[0];
-        }
+        if (headerUserMenu) headerUserMenu.style.display = 'none'; // Hidden in Header per request
         if (sidebarUserSection) sidebarUserSection.style.display = 'block';
     } else {
         if (loginLink) loginLink.style.display = 'block';
