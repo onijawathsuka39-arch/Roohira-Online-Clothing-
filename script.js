@@ -253,7 +253,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 15 }
+            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 0 }
         ]
     },
     {
@@ -282,7 +282,7 @@ const products = [
 
         ],
         variants: [
-            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 6 }
+            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 0 }
         ]
     },
     {
