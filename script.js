@@ -2,401 +2,129 @@
 
 const products = [
     {
-        id: 1,
-        name: 'Desing Bedsheet with(Yellow and Green Half Circels )',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/VpScTGch/Chat-GPT-Image-Feb-15-2026-12-19-51-AM.png',
-            'https://i.ibb.co/pjtt0c0G/Chat-GPT-Image-Feb-15-2026-12-21-12-AM.png',
-            'https://i.ibb.co/tpLKzbHW/image-2.jpg'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 10 }
-        ]
-    },
-
-
-
-
-    {
-        id: 2,
-        name: 'Desing Bedsheet with(Red rose follwers )',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/Pvc47470/Chat-GPT-Image-Feb-14-2026-11-51-26-PM.png',
-            'https://i.ibb.co/PzxbqJkG/Chat-GPT-Image-Feb-14-2026-11-56-18-PM.png',
-            'https://i.ibb.co/cK36KL4r/image-1.jpg'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 10 }
-        ]
-    },
-    {
-        id: 3,
-        name: 'Desing Bedsheet Black and White Leaves',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/svdVSvxC/Chat-GPT-Image-Feb-14-2026-11-01-11-PM.png',
-            'https://i.ibb.co/h1hSLLR7/Chat-GPT-Image-Feb-14-2026-11-11-25-PM.png',
-            'https://i.ibb.co/dJ5QRNbz/image.jpg'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 3 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 3 }
-        ]
-    },
-    {
-        id: 4,
-        name: 'Desing Bedsheet Indego ',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/ZpQrQd0b/Chat-GPT-Image-Feb-15-2026-12-34-32-AM.png',
-            'https://i.ibb.co/HfWjh7Rm/Whats-App-Image-2026-02-14-at-8-16-23-PM.jpg'
-
-        ],
-        variants: [
-            { size: 'King Size (100*90)', price: 1500, oldPrice: 1900, stock: 5 },
-            { size: 'Double (72*90)', price: 1300, oldPrice: 1900, stock: 0 }
-        ]
-    },
-    {
-        id: 5,
-        name: 'Handloom Bedsheets',
-        description: 'Best Quality and 100% Handloom Products',
-        material: '100% Chinese Cotton',
-        category: 'Handloom Bedsheet',
-        images: [
-            'https://i.ibb.co/jPHx1jk8/600508769-122095705677186228-5305927897494757706-n.jpg',
-            'https://i.ibb.co/pvND7yjf/pink-printed-cotton-two-pilow-cover-double-handloom-bed-sheet-033.jpg',
-            'https://i.ibb.co/6c4jB4P2/stripe-printed-handloom-bed-cover-179.jpg'
-        ],
-        variants: [
-            { size: 'Singal(54*80)', price: 950, stock: 0 },
-            { size: 'Double(60*90)', price: 1200, stock: 0 }
-        ]
-    },
-    {
-        id: 6,
-        name: 'Desing Bedsheet with Dark Purple follwers',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/574XHb1/Chat-GPT-Image-Feb-15-2026-07-48-36-PM.png',
-            'https://i.ibb.co/ycPnjrKS/Chat-GPT-Image-Feb-15-2026-07-52-14-PM.png',
-            'https://i.ibb.co/kYXq5GM/Chat-GPT-Image-Feb-15-2026-08-09-43-PM.png'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 10 }
-        ]
-    },
-    {
-        id: 7,
-        name: 'Desing Bedsheet with  Purple Square',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/7JvnjgD0/Chat-GPT-Image-Feb-15-2026-04-24-39-PM.png',
-            'https://i.ibb.co/5h5bjny9/Chat-GPT-Image-Feb-15-2026-04-16-31-PM.png',
-            'https://i.ibb.co/PZ1ypzr4/Chat-GPT-Image-Feb-15-2026-04-18-25-PM.png'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1600, oldPrice: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1400, oldPrice: 1900, stock: 19 }
-        ]
-    },
-    {
-        id: 8,
-        name: 'Desing Bedsheet For Little Baby',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/v4pQ6PkY/Chat-GPT-Image-Feb-15-2026-07-50-28-PM.png',
-            'https://i.ibb.co/Psds60QD/Chat-GPT-Image-Feb-15-2026-08-18-06-PM.png',
-            'https://i.ibb.co/8gkhgXqt/Chat-GPT-Image-Feb-15-2026-08-17-38-PM.png'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 4 }
-        ]
-    },
-    {
-        id: 9,
-        name: 'Orange Look Desing Bedsheet ',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/N2y8mYpz/Chat-GPT-Image-Feb-16-2026-02-06-56-AM.png',
-            'https://i.ibb.co/XZqJP6WX/Chat-GPT-Image-Feb-16-2026-02-11-52-AM.png',
-            'https://i.ibb.co/svq7HyP9/image-3.jpg'
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1600, oldPrice: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1400, oldPrice: 1900, stock: 4 }
-        ]
-    },
-    {
-        id: 10,
-        name: ' Desing Bedsheet with Green Leaves ',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/TBPLW68c/Chat-GPT-Image-Feb-16-2026-02-21-28-AM.png',
-            'https://i.ibb.co/dT0kgXh/Chat-GPT-Image-Feb-16-2026-02-23-02-AM.png'
-
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 5 }
-        ]
-    },
-    {
-        id: 11,
-        name: ' Desing Bedsheet with Green Follwer Desing ',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '80% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/xqqFXfjn/Chat-GPT-Image-Feb-19-2026-09-01-37-PM.png',
-            'https://i.ibb.co/VpWQc8Pv/Chat-GPT-Image-Feb-19-2026-09-42-37-PM.png',
-            'https://i.ibb.co/r2y1sDvJ/image-4.jpg'
-
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1500, oldPrice: 1900, stock: 10 },
-            { size: 'Double(72*90)', price: 1300, oldPrice: 1800, stock: 5 }
-        ]
-    },
-    {
-        id: 12,
-        name: ' Desing Bedsheet with Pink Follwer Desing ',
-        description: 'Best Quality With 2 pillow Covers.Delivery-350/=(Free delivery when you purchase two or more bed sheets)',
-        material: '100% Chinese Cotton',
-        category: ' Printed Design Bedsheet',
-        images: [
-            'https://i.ibb.co/9mx9KBPX/Chat-GPT-Image-Feb-19-2026-09-21-22-PM.png',
-            'https://i.ibb.co/99K6byvR/Chat-GPT-Image-Feb-19-2026-09-24-41-PM.png',
-            'https://i.ibb.co/BKBGMDWL/image-5.jpg'
-
-        ],
-        variants: [
-            { size: 'King(100*90)', price: 1600, oldPrice: 2100, stock: 10 },
-            { size: 'Double(72*90)', price: 1400, oldPrice: 1900, stock: 5 }
-        ]
-    },
-    {
         id: 13,
-        name: 'Premium Blank Classic T-Shirt',
-        description: 'High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.',
-        material: '-',
-        category: 'T-Shirts',
-        material: '-',
-        category: 'T-Shirts',
+        name: "Premium Blank Classic T-Shirt",
+        description: "High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.",
+        material: "-",
+        category: "T-Shirts",
         colors: [
             {
-                name: 'Green',
-                image: 'https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png',
-                hex: '#74c306ff',
+                name: "Green",
+                image: "https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png",
+                hex: "#74c306ff",
                 variants: [
-                    { size: 'S', price: 1100, oldPrice: 0, stock: 10 },
-                    { size: 'M', price: 1100, oldPrice: 0, stock: 10 },
-                    { size: 'L', price: 1100, oldPrice: 0, stock: 5 },
-                    { size: 'XL', price: 1100, oldPrice: 0, stock: 1 }
+                    { size: "S", price: 1300, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1300, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1300, oldPrice: 0, stock: 5 },
+                    { size: "XL", price: 1300, oldPrice: 0, stock: 1 }
                 ]
             },
             {
-                name: 'Black',
-                image: 'https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png',
-                hex: '#030202ff',
+                name: "Black",
+                image: "https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png",
+                hex: "#030202ff",
                 variants: [
-                    { size: 'S', price: 1100, oldPrice: 0, stock: 15 },
-                    { size: 'M', price: 1100, oldPrice: 0, stock: 12 },
-                    { size: 'L', price: 1100, oldPrice: 0, stock: 8 },
-                    { size: 'XL', price: 1100, oldPrice: 0, stock: 4 }
+                    { size: "S", price: 1300, oldPrice: 0, stock: 15 },
+                    { size: "M", price: 1300, oldPrice: 0, stock: 12 },
+                    { size: "L", price: 1300, oldPrice: 0, stock: 8 },
+                    { size: "XL", price: 1300, oldPrice: 0, stock: 4 }
                 ]
             },
             {
-                name: 'Light Blue',
-                image: 'https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png',
-                hex: '#00f2ffff',
+                name: "Light Blue",
+                image: "https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png",
+                hex: "#00f2ffff",
                 variants: [
-                    { size: 'S', price: 1100, oldPrice: 0, stock: 10 },
-                    { size: 'M', price: 1100, oldPrice: 0, stock: 10 },
-                    { size: 'L', price: 1100, oldPrice: 0, stock: 10 },
-                    { size: 'XL', price: 1100, oldPrice: 0, stock: 10 }
+                    { size: "S", price: 1300, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1300, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1300, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1300, oldPrice: 0, stock: 10 }
                 ]
             },
             {
-                name: 'Pink',
-                image: 'https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png',
-                hex: '#d13ea5ff',
+                name: "Pink",
+                image: "https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png",
+                hex: "#d13ea5ff",
                 variants: [
-                    { size: 'S', price: 1100, oldPrice: 0, stock: 5 },
-                    { size: 'M', price: 1100, oldPrice: 0, stock: 5 },
-                    { size: 'L', price: 1100, oldPrice: 0, stock: 5 },
-                    { size: 'XL', price: 1100, oldPrice: 0, stock: 5 }
+                    { size: "S", price: 1300, oldPrice: 0, stock: 5 },
+                    { size: "M", price: 1300, oldPrice: 0, stock: 5 },
+                    { size: "L", price: 1300, oldPrice: 0, stock: 5 },
+                    { size: "XL", price: 1300, oldPrice: 0, stock: 5 }
                 ]
             }
         ],
-        gsms: ['220 GSM', '220 GSM']
-    },
-    {
-        id: 14,
-        name: 'Premium Soft Bath Towel',
-        description: 'Super soft, highly absorbent long-lasting bath towel. Choose your preferred size and color.',
-        material: '100% Cotton',
-        category: 'Towels',
-        images: [
-            'https://i.ibb.co/rGzxnC46/t123456.png',
-            'https://i.ibb.co/Sk7p2xr/t1.png',
-            'https://i.ibb.co/v4353wyN/t2.png',
-            'https://i.ibb.co/cc2m1xt4/t3.png',
-            'https://i.ibb.co/Jw6MPjYc/t4.png',
-            'https://i.ibb.co/cKp1fv6W/t5.png ',
-            'https://i.ibb.co/FLcSZjdk/t6.png'
-
-        ],
-        colors: [
-            { name: 'Red', image: 'https://i.ibb.co/Sk7p2xr/t1.png ', hex: '#ff0202' },
-            { name: 'Brown', image: 'https://i.ibb.co/v4353wyN/t2.png', hex: '#c49704' },
-            { name: 'Dark Green', image: 'https://i.ibb.co/cc2m1xt4/t3.png', hex: '#296c10' },
-            { name: 'Blue', image: 'https://i.ibb.co/Jw6MPjYc/t4.png', hex: '#014ef5' },
-            { name: 'Grey', image: 'https://i.ibb.co/cKp1fv6W/t5.png ', hex: '#d2cfcb' },
-            { name: 'Dark Brown', image: 'https://i.ibb.co/FLcSZjdk/t6.png', hex: '#572a07' }
-
-        ],
-        variants: [
-            { size: 'Large (30x60)', price: 1300, oldPrice: 1500, stock: 0 }
-        ]
-    },
-    {
-        id: 15,
-        name: 'Cotton සරම්',
-        description: '100% Cotton and Good Quality.',
-        material: '100% Cotton',
-        category: 'Cotton සරම්',
-        images: [
-            'https://i.ibb.co/LzbfmwpB/b123456.png',
-            'https://i.ibb.co/KpgcTZpS/b6.png',
-            'https://i.ibb.co/tTP9Vk5m/b5.png ',
-            'https://i.ibb.co/ns05Pnjn/b4.png',
-            'https://i.ibb.co/qY9WFhvz/b3.png',
-            'https://i.ibb.co/Qjrx01Cm/b2.png',
-            'https://i.ibb.co/2myVP4Y/b1.png'
-
-        ],
-        colors: [
-            { name: 'Light Green', image: 'https://i.ibb.co/KpgcTZpS/b6.png', hex: '#0aff02ff' },
-            { name: 'Purple', image: 'https://i.ibb.co/tTP9Vk5m/b5.png ', hex: '#45033bff' },
-            { name: 'Blue and Red', image: 'https://i.ibb.co/ns05Pnjn/b4.png', hex: '#fc0000ff' },
-            { name: 'Dark Green', image: 'https://i.ibb.co/qY9WFhvz/b3.png', hex: '#1e5a04ff' },
-            { name: 'Yellow', image: 'https://i.ibb.co/Qjrx01Cm/b2.png', hex: '#fffb01ff' },
-            { name: 'Black', image: 'https://i.ibb.co/2myVP4Y/b1.png', hex: '#000000ff' }
-
-        ],
-        variants: [
-            { size: 'Large ', price: 1100, oldPrice: 1200, stock: 0 }
-        ]
-    },
-    {
-        id: 16,
-        name: 'Fabric Pillow ',
-        description: 'Good Quality and Soft',
-        material: 'Fabric Pillow',
-        category: ' Pillow',
-        images: [
-            'https://i.ibb.co/7M3RYwp/2.png',
-            'https://i.ibb.co/rBt8FD3/pillows-png-28.png'
-        ],
-        variants: [
-            { size: '18 * 27', price: 1200, oldPrice: 0, stock: 10 }
-        ]
+        gsms: ["220 GSM", "220 GSM"]
     },
     {
         id: 17,
-        name: 'Kids Two Tone Premium T-Shirt',
-        description: 'Stylish and comfortable two-tone t-shirt for kids. Perfect for daily wear and special occasions.',
-        material: '-',
-        category: 'Kids Two Tone T-shirt',
+        name: "Kids Two Tone Premium T-Shirt",
+        description: "Stylish and comfortable two-tone t-shirt for kids. Perfect for daily wear and special occasions.",
+        material: "-",
+        category: "Kids Two Tone T-shirt",
         colors: [
             {
-                name: 'White & Yellow',
-                image: 'https://i.ibb.co/4R7m3NBD/Whats-App-Image-2026-03-21-at-4-52-40-PM-1.jpg',
-                hex: ['#ffffffff', '#ffe600ff'],
+                name: "White & Yellow",
+                image: "https://i.ibb.co/4R7m3NBD/Whats-App-Image-2026-03-21-at-4-52-40-PM-1.jpg",
+                hex: ["#ffffffff", "#ffe600ff"],
                 variants: [
-                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'M (8-10 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "M (8-10 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 0 }
                 ]
             },
             {
-                name: 'White & Black',
-                image: 'https://i.ibb.co/JRwBq8FR/Whats-App-Image-2026-03-21-at-4-52-40-PM.jpg',
-                hex: ['#ffffffff', '#000000ff'],
+                name: "White & Black",
+                image: "https://i.ibb.co/JRwBq8FR/Whats-App-Image-2026-03-21-at-4-52-40-PM.jpg",
+                hex: ["#ffffffff", "#000000ff"],
                 variants: [
-                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'M (8-10 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "M (8-10 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 0 }
                 ]
             },
             {
-                name: 'White & Purple',
-                image: 'https://i.ibb.co/MyD4cmC5/Whats-App-Image-2026-03-21-at-4-52-39-PM.jpg',
-                hex: ['#ffffffff', '#740880ff'],
+                name: "White & Purple",
+                image: "https://i.ibb.co/MyD4cmC5/Whats-App-Image-2026-03-21-at-4-52-39-PM.jpg",
+                hex: ["#ffffffff", "#740880ff"],
                 variants: [
-                    { size: 'S (3-5 Years)', price: 900, oldPrice: 950, stock: 0 },
-                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 10 },
-                    { size: 'L (9-12 Years)', price: 900, oldPrice: 950, stock: 0 }
+                    { size: "S (3-5 Years)", price: 900, oldPrice: 950, stock: 0 },
+                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 10 },
+                    { size: "L (9-12 Years)", price: 900, oldPrice: 950, stock: 0 }
                 ]
             },
             {
-                name: 'Purple & White',
-                image: 'https://i.ibb.co/FLTWMdJk/Whats-App-Image-2026-03-21-at-4-52-39-PM-1.jpg',
-                hex: ['#e205ffff', '#feffffff'],
+                name: "Purple & White",
+                image: "https://i.ibb.co/FLTWMdJk/Whats-App-Image-2026-03-21-at-4-52-39-PM-1.jpg",
+                hex: ["#e205ffff", "#feffffff"],
                 variants: [
-                    { size: 'S (3-5 Years)', price: 900, oldPrice: 950, stock: 0 },
-                    { size: 'M (8-9 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                    { size: "S (3-5 Years)", price: 900, oldPrice: 950, stock: 0 },
+                    { size: "M (8-9 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
                 ]
             },
             {
-                name: 'Red & Light Pink',
-                image: 'https://i.ibb.co/yFYBqCDD/Whats-App-Image-2026-03-21-at-4-52-38-PM.jpg',
-                hex: ['#ff002bff', '#fe8bd8ff'],
+                name: "Red & Light Pink",
+                image: "https://i.ibb.co/yFYBqCDD/Whats-App-Image-2026-03-21-at-4-52-38-PM.jpg",
+                hex: ["#ff002bff", "#fe8bd8ff"],
                 variants: [
-                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 0 },
-                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 0 },
-                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 0 },
+                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 0 },
+                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
                 ]
             },
             {
-                name: 'Light Blue Green & Light Yellow',
-                image: 'https://i.ibb.co/FLVXBDXN/Whats-App-Image-2026-03-21-at-4-52-38-PM-1.jpg',
-                hex: ['#00fff2ff', '#f3e678ff'],
+                name: "Light Blue Green & Light Yellow",
+                image: "https://i.ibb.co/FLVXBDXN/Whats-App-Image-2026-03-21-at-4-52-38-PM-1.jpg",
+                hex: ["#00fff2ff", "#f3e678ff"],
                 variants: [
-                    { size: 'S (7-8 Years)', price: 900, oldPrice: 950, stock: 1 },
-                    { size: 'M (9-10 Years)', price: 900, oldPrice: 950, stock: 0 },
-                    { size: 'L (10-12 Years)', price: 900, oldPrice: 950, stock: 1 }
+                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
+                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 0 },
+                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
                 ]
             }
         ],
-        gsms: ['220 GSM', '220 GSM']
-    },
+        gsms: ["220 GSM", "220 GSM"]
+    }
 ];
 
 const STICKERS = [
@@ -567,7 +295,9 @@ const TRANSLATIONS = {
         profile_title: "My Profile",
         orders_title: "Order History",
         empty_cart: "Your cart is empty",
-        continue_shopping: "Continue Shopping"
+        continue_shopping: "Continue Shopping",
+        hero_title: "<span class='h-line-1'>Designed for</span> <span class='h-line-2'>Everyday Confidence</span>",
+        hero_desc: "Experience the perfect fusion of luxury and comfort. <br>Crafted for those who demand excellence."
     },
     si: {
         home: "මුල් පිටුව",
@@ -613,7 +343,9 @@ const TRANSLATIONS = {
         profile_title: "මගේ ගිණුම",
         orders_title: "පසුගිය ඇණවුම්",
         empty_cart: "ඔබේ කරත්තය හිස්",
-        continue_shopping: "සාප්පු සවාරි යන්න"
+        continue_shopping: "සාප්පු සවාරි යන්න",
+        hero_title: "<span class='h-line-1'>නිර්මාණය කර ඇත්තේ</span> <span class='h-line-2'>සෑම දිනකම විශ්වාසය වෙනුවෙන්</span>",
+        hero_desc: "සුඛෝපභෝගී සහ සුවපහසුවෙහි පරිපූර්ණ එකතුව. <br>උසස්ම ප්‍රමිතියෙන් යුක්තව නිර්මාණය කර ඇත."
     },
     ta: {
         home: "முகப்பு",
@@ -659,7 +391,9 @@ const TRANSLATIONS = {
         profile_title: "எனது சுயவிவரம்",
         orders_title: "ஆர்டர் வரலாறு",
         empty_cart: "உங்கள் வண்டி காலியாக உள்ளது",
-        continue_shopping: "தொடர்ந்து ஷாப்பிங் செய்யுங்கள்"
+        continue_shopping: "தொடர்ந்து ஷாப்பிங் செய்யுங்கள்",
+        hero_title: "<span class='h-line-1'>நவீன</span> <span class='h-line-2'>பிரீமியம் தெரு உடைகள்</span>",
+        hero_desc: "சொகுசு மற்றும் வசதியின் சரியான கலவை. <br>சிறந்த விபரங்களுடன் வடிவமைக்கப்பட்டுள்ளது."
     }
 };
 
@@ -669,6 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguage();
     updateCartCount();
     updateUserUI();
+    initScrollReveal();
 
     // Page specific logic
     if (document.getElementById('product-grid')) loadShop();
@@ -685,7 +420,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loadProfile();
         initChangePassword();
     }
-    if (document.getElementById('hero-typing-title')) initHeroTyping();
 });
 
 // --- Theme Management ---
@@ -740,7 +474,7 @@ function applyLanguage(lang) {
             if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'search')) {
                 el.placeholder = texts[key];
             } else {
-                el.textContent = texts[key];
+                el.innerHTML = texts[key];
             }
         }
     });
@@ -1356,10 +1090,7 @@ function addToCart(id, qty = 1, size = null, stickers = [], color = null, gsm = 
         const gsmLabel = currentGsm || (product.gsms ? product.gsms[0] : '180 GSM');
         const colorLabel = currentColor || (product.colors ? product.colors[0].name : 'Black');
         const stickerDetails = (stickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
-        fullSizeLabel = `${baseSizeLabel} | ${gsmLabel} | ${colorLabel}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
-    } else if ((product.category === 'Towels' || product.category === 'Cotton සරම්' || product.category === ' Printed Design Bedsheet') && currentColor) {
-        fullSizeLabel = `${baseSizeLabel} | ${currentColor}`;
-    }
+        fullSizeLabel = `${baseSizeLabel} | ${gsmLabel} | ${colorLabel}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;}
 
     // Image Priority
     let finalImage = customImage || (product.colors && currentColor ? product.colors.find(c => c.name === currentColor).image : product.images[0]);
@@ -1709,7 +1440,7 @@ function placeOrder(e) {
     const noteEl = document.getElementById('note');
     const customerNote = noteEl ? noteEl.value : '';
     
-    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *Design Preview HTML File Downloaded!*\n(Please attach the downloaded 'roohira_full_invoice_${orderId}.html' file to this chat for our reference)\n\nThank you for ordering from Roohira Online!`;
+    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *Design Preview HTML File Downloaded!*\n(Please attach the downloaded 'roohira_full_invoice_${orderId}.html' file to this chat for our reference)\n\nThank you for ordering from Roohira Collection!`;
     const encodedMsg = encodeURIComponent(messageBody);
 
     // Trigger immediate order finishing
@@ -1733,7 +1464,7 @@ function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
     updateCartCount();
 
     // Instant Redirect to WhatsApp as requested with a tiny delay to ensure download starts first
-    const waUrl = `https://api.whatsapp.com/send?phone=94714433279&text=${encodedMsg}`;
+    const waUrl = `https://api.whatsapp.com/send?phone=94757218786&text=${encodedMsg}`;
     
     setTimeout(() => {
         window.location.href = waUrl;
@@ -1743,7 +1474,7 @@ function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
 function shareToWhatsApp() {
     const msg = window.lastOrderMessage || "";
     // Target the specific Roohira WhatsApp number directly with the full encoded order message
-    const waUrl = `https://wa.me/94714433279?text=${msg}`;
+    const waUrl = `https://wa.me/94757218786?text=${msg}`;
 
     // We open the specific number immediately as requested.
     // This ensures the order details are sent to the correct WhatsApp chat.
@@ -2209,132 +1940,20 @@ function selectCategory(category) {
                 selectTshirtColor('White', 'tshirt-white.png');
             }
         }
-    } else {
-        goToStep('design');
-        loadCustomizeDesigns();
     }
 }
 
-function loadCustomizeDesigns() {
-    const grid = document.getElementById('customize-design-grid');
-    if (!grid) return;
 
-    // Designs are now added manually in the customize.html file.
-    // Auto-adding from the products array has been disabled.
-}
 
-function selectDesign(id, name, image, material, category) {
-    customOrder.designId = id;
-    customOrder.designName = name;
-    customOrder.designImage = image;
-    customOrder.material = material;
-    customOrder.category = category;
 
-    // Highlight selected
-    document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
 
-    // Attempt to find the clicked card to add active class
-    const event = window.event;
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-    }
 
-    // Update Preview and Price in the next step
-    const previewImg = document.getElementById('preview-image');
-    const previewName = document.getElementById('preview-name');
-    const previewMaterial = document.getElementById('preview-material');
-    const previewCategory = document.getElementById('preview-category');
 
-    if (previewImg) previewImg.src = image;
-    if (previewName) previewName.textContent = name;
-    if (previewMaterial) previewMaterial.textContent = material || '80% Chinese Cotton';
-    if (previewCategory) previewCategory.textContent = category || 'Printed Design';
 
-    updateCustomPriceDisplay();
-
-    // Smooth transition to next step
-    setTimeout(() => {
-        goToStep('options');
-    }, 200);
-}
-
-function toggleCustomSize(isCustom) {
-    const inputs = document.getElementById('custom-size-inputs');
-    if (isCustom) {
-        inputs.style.display = 'flex';
-        customOrder.size = 'custom';
-    } else {
-        inputs.style.display = 'none';
-        const checked = document.querySelector('input[name="cust-size"]:checked');
-        if (checked) customOrder.size = checked.value;
-    }
-    updateCustomPriceDisplay();
-}
-
-function updateCustomPriceDisplay() {
-    const pricePreview = document.getElementById('custom-price-preview');
-    if (!pricePreview) return;
-
-    let price = 0;
-    let oldPrice = 0;
-
-    const material = customOrder.material || '80% Chinese Cotton';
-    const size = customOrder.size;
-
-    if (material.includes('100%')) {
-        if (size === '100*90') {
-            price = 1900;
-            oldPrice = 2100;
-        } else if (size === '72*90') {
-            price = 1750;
-            oldPrice = 1900;
-        } else if (size === '60*90') {
-            price = 1200;
-        }
-    } else {
-        // 80% Chinese Cotton
-        if (size === '100*90') {
-            price = 1750;
-            oldPrice = 1900;
-        } else if (size === '72*90') {
-            price = 1500;
-            oldPrice = 1800;
-        } else if (size === '60*90') {
-            price = 1000;
-        }
-    }
-
-    if (price > 0) {
-        pricePreview.innerHTML = `
-            ${oldPrice ? `<span class="old-price">Rs. ${oldPrice.toLocaleString()}</span>` : ''}
-            <span class="new-price">Rs. ${price.toLocaleString()}</span>
-        `;
-    } else if (size === 'custom') {
-        pricePreview.innerHTML = `<span class="new-price" style="font-size: 0.8rem; color: #666;">Price on calculation</span>`;
-    } else {
-        pricePreview.innerHTML = `<span class="new-price">Contact for Price</span>`;
-    }
-}
 
 function goToStep(stepName) {
     // Validate before moving forward
-    if (stepName === 'details') {
-        const isCustom = document.querySelector('input[name="cust-size"]:checked').value === 'custom';
-        if (isCustom) {
-            const w = document.getElementById('cust-width').value;
-            const h = document.getElementById('cust-height').value;
-            if (!w || !h) {
-                showToast('Please enter width and height', 'error');
-                return;
-            }
-            customOrder.width = w;
-            customOrder.height = h;
-            customOrder.size = `Custom (${w}" x ${h}")`;
-        } else {
-            customOrder.size = document.querySelector('input[name="cust-size"]:checked').value;
-        }
-        customOrder.note = document.getElementById('cust-note').value;
-    }
+    
 
     // Hide all steps
     ['category', 'design', 'options', 'details'].forEach(s => {
@@ -2392,46 +2011,7 @@ function goToStep(stepName) {
     document.getElementById('customize-wizard').scrollIntoView({ behavior: 'smooth' });
 }
 
-function placeCustomizeOrder() {
-    const name = document.getElementById('cust-name').value;
-    const phone = document.getElementById('cust-phone').value;
-    const address = document.getElementById('cust-address').value;
 
-    if (!name || !phone || !address) {
-        showToast('Please fill all details', 'error');
-        return;
-    }
-
-    // Populate PDF data
-    document.getElementById('pdf-date').textContent = new Date().toLocaleDateString();
-    document.getElementById('pdf-img').src = customOrder.designImage;
-    document.getElementById('pdf-design-name').textContent = customOrder.designName;
-    document.getElementById('pdf-size').textContent = customOrder.size;
-    const pdfMat = document.getElementById('pdf-material');
-    if (pdfMat) pdfMat.textContent = customOrder.material || '80% Chinese Cotton';
-    // Calculate price for WhatsApp message
-    let estPrice = "On Calculation";
-    const mat = customOrder.material || '80% Chinese Cotton';
-    const sz = customOrder.size;
-    if (mat.includes('100%')) {
-        if (sz.includes('100*90')) estPrice = "Rs. 1,900/=";
-        else if (sz.includes('72*90')) estPrice = "Rs. 1,750/=";
-    } else {
-        if (sz.includes('100*90')) estPrice = "Rs. 1,750/=";
-        else if (sz.includes('72*90')) estPrice = "Rs. 1,500/=";
-    }
-
-    // WhatsApp Message
-    const message = `*Customize Order Request*%0A%0A*Design:* ${customOrder.designName}%0A*Category:* ${customOrder.category || ''}%0A*Material:* ${mat}%0A*Size:* ${sz}%0A*Estimated Total:* ${estPrice}%0A*Advance Required:* Rs. 500/=%0A%0A*Customer Details:*%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0A%0A*Note:* ${customOrder.note || ''}`;
-
-    // Directly open WhatsApp (PDF Download disabled as requested)
-    window.open(`https://wa.me/94714433279?text=${message}`, '_blank');
-    showToast('Order placed! Redirecting to WhatsApp...', 'success');
-
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 2000);
-}
 
 // --- T-Shirt Specific Customization ---
 
@@ -3011,5 +2591,43 @@ function openUserStickerModal(imageSrc, name) {
         type: 'UPLOAD'
     };
 }
+
+// --- Scroll Reveal Logic ---
+function initScrollReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: stop observing after reveal
+                // revealObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    reveals.forEach(el => {
+        revealObserver.observe(el);
+    });
+}
+
+// Ensure reveal logic runs on load
+document.addEventListener('DOMContentLoaded', () => {
+    // ... existing init calls ...
+    initScrollReveal();
+});
+
+// Adding styles for .reveal.active if they are missing
+const revealStyles = document.createElement('style');
+revealStyles.innerHTML = `
+    .reveal.active {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+`;
+document.head.appendChild(revealStyles);
 
 

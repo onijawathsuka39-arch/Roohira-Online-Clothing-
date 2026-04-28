@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Roohira Online</title>
+    <title>Shop | Roohira Collection</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,10 +15,11 @@
     <header>
         <div class="container flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 branding">
-                <span class="logo-text">Roohira Online</span>
+                <span class="logo-text">Roohira Collection</span>
             </a>
             <nav class="flex gap-4 items-center">
                 <!-- Login Button (Visible when logged out) -->
+
                 <a href="login.html" id="header-login-btn" class="btn btn-primary" data-i18n="login"
                     style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
 
@@ -32,6 +33,7 @@
                         <span id="current-lang-label">EN</span>
                     </button>
                     <div class="lang-dropdown" id="lang-dropdown">
+
                         <button class="lang-btn" data-lang="en" onclick="toggleLanguage('en')">
                             <span class="lang-name">English</span>
                         </button>
@@ -64,13 +66,13 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h2 style="font-family: 'Playfair Display', serif; color: var(--primary);">Menu</h2>
+            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary);">Menu</h2>
             <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
         </div>
         <div class="sidebar-nav">
             <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
             <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
-            <a href="customize.html" class="sidebar-link"><i class="fas fa-palette"></i> <span data-i18n="customize">Customize</span></a>
+            <a href="#" class="sidebar-link" style="opacity: 0.6; cursor: not-allowed; display: flex; align-items: center;"><i class="fas fa-palette"></i> <span>Customize (Coming Soon)</span> <i class="fas fa-lock" style="font-size: 0.8rem; margin-left: auto;"></i></a>
             <a href="cart.html" class="sidebar-link">
                 <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
                 <span id="sidebar-cart-badge"
@@ -102,13 +104,58 @@
         </div>
     </main>
 
+        <!-- Footer -->
     <footer>
-        <div class="container text-center text-gray-500 text-sm">
-            &copy; 2026 Roohira Online. All rights reserved.
+        <div class="container grid grid-cols-4">
+            <div style="grid-column: span 2;">
+                <h2 style="color: var(--primary); margin-bottom: 1rem; font-weight: 800;">Roohira Collection</h2>
+                <p style="color: grey; max-width: 300px;" data-i18n="footer_tagline">Your Trusted Online Fashion Partner.</p>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1rem;" data-i18n="quick_links">Quick Links</h3>
+                <ul style="list-style: none; color: grey; line-height: 2;">
+                    <li><a href="index.html" data-i18n="home">Home</a></li>
+                    <li><a href="shop.html" data-i18n="shop">Shop</a></li>
+                    <li><a href="cart.html" data-i18n="cart">Cart</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 style="margin-bottom: 1rem;" data-i18n="contact">Contact</h3>
+                <ul style="list-style: none; color: grey; line-height: 2;">
+                    <li><i class="fas fa-phone"></i> +94 75 721 8786</li>
+                    <li><i class="fas fa-envelope"></i> roohiraonline@gmail.com</li>
+                    <li style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank"
+                            style="font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA=="
+                            target="_blank" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="container text-center" style="margin-top: 3rem; color: grey; font-size: 0.9rem;">
+            &copy; 2026 Roohira Collection. All rights reserved.
         </div>
     </footer>
+
+    <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA==" target="_blank" class="instagram-float">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank" class="facebook-float">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://wa.me/94757218786" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script src="script.js"></script>
 </body>
 
 </html>
+
+
+
+
+

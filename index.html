@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roohira Online | Your Trusted Online Fashion Partner. </title>
+    <title>Roohira Collection | Your Trusted Online Fashion Partner.</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://i.ibb.co/s9GqWjLf/Chat-GPT-Image-Dec-28-2025-09-36-49-PM.png">
@@ -24,7 +24,7 @@
     <header>
         <div class="container flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-2 branding">
-                <span class="logo-text">Roohira Online</span>
+                <span class="logo-text">Roohira Collection</span>
             </a>
 
             <nav class="flex gap-4 items-center">
@@ -80,13 +80,14 @@
         <div class="sidebar-nav">
             <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
             <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
-            <a href="customize.html" class="sidebar-link"><i class="fas fa-palette"></i> <span data-i18n="customize">Customize</span></a>
+            <a href="#" class="sidebar-link" style="opacity: 0.6; cursor: not-allowed; display: flex; align-items: center;"><i class="fas fa-palette"></i> <span>Customize (Coming Soon)</span> <i class="fas fa-lock" style="font-size: 0.8rem; margin-left: auto;"></i></a>
             <a href="cart.html" class="sidebar-link">
                 <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
                 <span id="sidebar-cart-badge"
                     style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
             </a>
-            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My Profile</span></a>
+            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My
+                    Profile</span></a>
 
             <!-- User Logout (Hidden by default, shown if logged in) -->
             <div id="sidebar-user-section"
@@ -98,26 +99,18 @@
         </div>
     </div>
     <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container" style="position: relative; z-index: 10;">
+        <div class="container">
             <div class="hero-card reveal">
-                <div class="hero-content text-left">
-                    <h1 id="hero-typing-title">
-                        <!-- Typed by JS -->
-                    </h1>
-                    <p>Discover the perfect harmony of premium aesthetics and long-lasting durability.
-                        Our curated collection is designed to bring elegance and unmatched comfort to your home.</p>
+                <div class="hero-content">
+                    <h1 data-i18n="hero_title"><span class="h-line-1">Designed for</span> <span class="h-line-2">Everyday Confidence</span></h1>
+                    <p data-i18n="hero_desc">Experience the perfect fusion of luxury and comfort. <br>Crafted for those who demand excellence.</p>
                     <div class="flex gap-4 mt-10 hero-buttons">
-                        <a href="shop.html" class="btn btn-primary" data-i18n="explore">Explore Collection</a>
-                        <a href="customize.html" class="btn btn-secondary" data-i18n="customize_now">Customize Now</a>
+                        <a href="shop.html" class="btn btn-primary" data-i18n="explore">View Collection</a>
+                        <button class="btn btn-secondary" style="opacity: 0.7; cursor: not-allowed; display: flex; align-items: center; gap: 8px;" disabled><i class="fas fa-lock"></i> Coming Soon</button>
                     </div>
                 </div>
-
                 <div class="hero-visual">
-                    <div class="floating-3d-wrapper">
-                        <img src="https://pngimg.com/d/bed_PNG17418.png" alt="Premium Blue Bedsheet"
-                            class="hero-3d-img">
-                    </div>
+                    <img src="https://i.ibb.co/zWGcRKqG/Untitled-2.png" alt="Ferrari Collection" class="hero-img">
                 </div>
             </div>
         </div>
@@ -127,42 +120,31 @@
     <section style="padding: 5rem 0; background: var(--bg-light);">
         <div class="container">
             <div class="grid grid-cols-2">
-                <!-- Banner 1 -->
-                <div class="offer-banner-container reveal" onclick="openBannerModal(0)"
-                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; cursor: pointer;">
-                    <img src="https://i.ibb.co/TxXhVsCk/Chat-GPT-Image-Feb-16-2026-12-06-59-AM.png"
-                        alt="Premium Collection" class="offer-img"
+                <div class="offer-banner-container" onclick="openBannerModal(0)"
+                    style="position: relative; border-radius: 16px; overflow: hidden; height: 320px; cursor: pointer;">
+                    <img src="https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png"
+                        alt="Streetwear Collection" class="offer-img"
                         style="width: 100%; height: 100%; object-fit: cover;">
                     <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: white;">🚚Get Free Delivery Offer</h3>
-                        <p style="color: rgba(255,255,255,0.8);">💯Buy 2 or More Item</p>
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white;">
+                        <h3 style="font-size: 1.5rem; color: var(--primary);">🔥 NEW SEASON DROP</h3>
+                        <p>Exclusive Streetwear Designs</p>
                     </div>
                 </div>
 
                 <!-- Banner 2 -->
                 <div class="offer-banner-container reveal" onclick="openBannerModal(1)"
                     style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
-                    <img src="https://i.ibb.co/BK2QBSXj/Chat-GPT-Image-Feb-17-2026-02-32-41-AM.png" alt="Luxury Series"
-                        class="offer-img" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="C:\Users\User\.gemini\antigravity\brain\620b0d3e-45d5-485a-8196-88d12f1a298f\streetwear_tshirt_banner_2_1777382768165.png"
+                        alt="Luxury Series" class="offer-img" style="width: 100%; height: 100%; object-fit: cover;">
                     <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: white;">🎨CUSTOMIZE YOUR BEDSHEET NOW</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Order now and design your perfect bedsheet today.</p>
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white;">
+                        <h3 style="font-size: 1.5rem; color: var(--secondary);">🎨 CUSTOMIZE YOUR FIT</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Design your perfect tee today.</p>
                     </div>
                 </div>
 
-                <!-- Banner 3 -->
-                <div class="offer-banner-container reveal" onclick="openBannerModal(2)"
-                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
-                    <img src="https://i.ibb.co/8nBqHQgV/Bedsheet-post-3-01.jpg" alt="Luxury Series" class="offer-img"
-                        style="width: 100%; height: 100%; object-fit: cover;">
-                    <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: white;">📢EXCLUSIVE DISCOUNT</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Up To 10% Discount Fot Any Bedsheets</p>
-                    </div>
-                </div>
+
                 <!-- Banner 4 -->
                 <div class="offer-banner-container reveal" onclick="openBannerModal(3)"
                     style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
@@ -183,8 +165,8 @@
     <section class="py-10">
         <div class="container">
             <div class="text-center mb-12">
-                <h2 style="font-size: 3rem; margin-bottom: 1rem;" data-i18n="featured">Featured Collections</h2>
-                <p class="text-muted">Handpicked favorites crafted for luxury and comfort.</p>
+                <h2 class="featured-title reveal">COLLECTION <span>SPOTLIGHT</span></h2>
+                <p class="text-muted">High-performance streetwear for the modern explorer.</p>
             </div>
 
             <div id="featured-products" class="grid grid-cols-4">
@@ -198,20 +180,20 @@
     </section>
 
     <!-- Features -->
-    <section class="py-10" style="background-color: var(--white); position: relative;">
+    <section class="py-10" style="background-color: var(--bg-alt); position: relative;">
         <div class="container">
             <div class="grid grid-cols-3 text-center">
-                <div class="feature-card reveal">
+                <div class="feature-card">
                     <i class="fas fa-shipping-fast feature-icon"></i>
                     <h3 data-i18n="delivery">Island-wide Delivery</h3>
                     <p>Secured and tracked delivery within 3-5 business days to your doorstep.</p>
                 </div>
-                <div class="feature-card reveal">
+                <div class="feature-card">
                     <i class="fas fa-undo-alt feature-icon"></i>
                     <h3 data-i18n="returns">Returns Policy</h3>
                     <p>Hassle-free 7-day return policy if the quality doesn't meet your expectations.</p>
                 </div>
-                <div class="feature-card reveal">
+                <div class="feature-card">
                     <i class="fas fa-award feature-icon"></i>
                     <h3 data-i18n="quality">Authentic Quality</h3>
                     <p>100% genuine materials sourced from the world's finest textile manufacturers.</p>
@@ -224,7 +206,7 @@
     <footer>
         <div class="container grid grid-cols-4">
             <div style="grid-column: span 2;">
-                <h2 style="color: var(--primary); margin-bottom: 1rem;">Roohira Online</h2>
+                <h2 style="color: var(--primary); margin-bottom: 1rem; font-weight: 800;">Roohira Collection</h2>
                 <p style="color: grey; max-width: 300px;">Your Trusted Online Fashion Partner.</p>
             </div>
             <div>
@@ -238,22 +220,33 @@
             <div>
                 <h3 style="margin-bottom: 1rem;" data-i18n="contact">Contact</h3>
                 <ul style="list-style: none; color: grey; line-height: 2;">
-                    <li><i class="fas fa-phone"></i> +94 71 443 3279</li>
+                    <li><i class="fas fa-phone"></i> +94 75 721 8786</li>
                     <li><i class="fas fa-envelope"></i> roohiraonline@gmail.com</li>
+                    <li style="margin-top: 1rem; display: flex; gap: 1rem;">
+                        <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank"
+                            style="font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA=="
+                            target="_blank" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                    </li>
                 </ul>
             </div>
         </div>
         <div class="container text-center" style="margin-top: 3rem; color: grey; font-size: 0.9rem;">
-            &copy; 2026 Roohira Online. All rights reserved.
+            &copy; 2026 Roohira Collection. All rights reserved.
         </div>
     </footer>
 
     <!-- Floating Buttons -->
+    <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA==" target="_blank"
+        class="instagram-float">
+        <i class="fab fa-instagram"></i>
+    </a>
+
     <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank" class="facebook-float">
         <i class="fab fa-facebook-f"></i>
     </a>
 
-    <a href="https://wa.me/94714433279" target="_blank" class="whatsapp-float">
+    <a href="https://wa.me/94757218786" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -267,27 +260,6 @@
                 dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
             });
         }
-        // Intersection Observer for Reveal animations
-        const observerOptions = {
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(40px)';
-            el.style.transition = 'all 1s cubic-bezier(0.4, 0, 0.2, 1)';
-            observer.observe(el);
-        });
     </script>
 
     <!-- Banner Modal -->
@@ -301,3 +273,7 @@
 
 
 </html>
+
+
+
+
