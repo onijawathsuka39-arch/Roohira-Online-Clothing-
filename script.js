@@ -2,6 +2,38 @@
 
 const products = [
     {
+        id: 25,
+        name: "Screen Printed T-shirt",
+        description: "Premium Quality. Vibrant colors and a professional, high-end finish. Long-Lasting: Highly durable designs that won't fade or crack easily.",
+        material: "100% Premium Cotton",
+        category: "Printed T shirt",
+        colors: [
+            {
+                name: "Green",
+                image: "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png",
+                hex: "#006400ff",
+                variants: [
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Yellow",
+                image: "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png",
+                hex: "#ffff00ff",
+                variants: [
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            }
+        ],
+        images: [
+            "https://i.ibb.co/JF83TpXc/RR-Printed-T-shirts-01.jpg",
+            "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png"
+        ],
+        gsms: ["-"]
+    },
+    {
         id: 13,
         name: "Premium Blank Classic T-Shirt",
         description: "High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.",
@@ -1978,7 +2010,7 @@ let customOrder = {
 
 function selectCategory(category) {
     customOrder.category = category;
-    if (category === 'Reguler T shirt' || category === 'Kids Two Tone T-shirt') {
+    if (category === 'Reguler T shirt' || category === 'Kids Two Tone T-shirt' || category === 'Printed T shirt') {
         customOrder.stickers = []; // Reset stickers when starting fresh
         goToStep('tshirt-base');
         updateCustomTshirtState();
