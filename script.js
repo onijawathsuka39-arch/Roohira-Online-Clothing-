@@ -212,9 +212,137 @@ const products = [
         ],
         images: [
             "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-            "https://i.ibb.co/Hf7GMMck/Whats-App-Image-2026-04-15-at-20-01-08.png"
+            "https://i.ibb.co/PG42KNq8/Whats-App-Image-2026-04-29-at-19-19-38-1.jpg",
+            "https://i.ibb.co/35pg73yJ/Whats-App-Image-2026-04-29-at-19-19-38.jpg",
+            "https://i.ibb.co/mFvfdwh0/Whats-App-Image-2026-04-29-at-19-19-39.jpg"
         ],
         gsms: ["220 GSM"]
+    },
+    {
+        id: 26,
+        name: "Raglen Oversized T shirts",
+        description: "An oversized raglan t-shirt combines the baggy, relaxed silhouette of 'oversized' fashion with a specific 'raglan' sleeve construction. Customize your oversized raglan with any DTF sticker of your choice. As a special offer, your first sticker is printed absolutely free!",
+        material: "Premium Quality Fabric",
+        category: "Oversized T shirt",
+        colors: [
+            {
+                name: "Mustard & Maroon",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#E09A14", "#3D1B1A"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "White & Black",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#FFFFFF", "#000000"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Teal & Navy",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#259ABD", "#0C0F20"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Maroon & Mustard",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#250F11", "#DC941C"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Grey & Green",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#818286", "#006130"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Olive & White",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#525737", "#FFFFFF"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Sky Blue & Navy",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#2CC5FF", "#121526"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Grey & Black",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#818286", "#231F20"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "White & Olive",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#FFFFFF", "#525737"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "White & Bright Green",
+                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+                hex: ["#FFFFFF", "#009241"],
+                variants: [
+                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
+                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
+                ]
+            }
+        ],
+        images: [
+            "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
+            "https://i.ibb.co/B5xJG13Q/Whats-App-Image-2026-04-29-at-18-36-12.jpg",
+            "https://i.ibb.co/QFxGmGNk/Whats-App-Image-2026-04-29-at-18-36-13-Copy.jpg",
+            "https://i.ibb.co/DgDrJ9rc/Whats-App-Image-2026-04-29-at-18-36-14.jpg"
+        ],
+        gsms: ["-"]
     }
 ];
 
