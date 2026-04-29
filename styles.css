@@ -404,6 +404,16 @@ header {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--border-soft);
+    transition: var(--transition);
+}
+
+.header-home {
+    position: absolute;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-bottom: none;
+    box-shadow: none;
 }
 
 .nav-link {
@@ -580,16 +590,15 @@ header {
 /* Hero Section - Professional Compact Card */
 /* Hero Section - Professional Compact Card */
 .hero {
-    height: 60vh;
-    /* Smaller height */
-    min-height: 400px;
+    height: auto;
+    min-height: 80vh;
     background: var(--bg-alt);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    overflow: hidden;
+    padding: 100px 0 60px 0; /* Padding to account for absolute header */
+    overflow: visible; /* Prevent clipping of floating elements */
 }
 
 .hero-overlay {
@@ -660,8 +669,7 @@ header {
     justify-content: center;
     align-items: center;
     perspective: 1000px;
-    margin-top: -150px;
-    /* Moved even further upwards as requested */
+    margin-top: 0; /* Removed negative margin to prevent cutting */
 }
 
 .hero-img {
@@ -725,7 +733,7 @@ header {
 
 @media (max-width: 992px) {
     .hero {
-        padding: 40px 0;
+        padding: 80px 0 40px 0; /* Space for transparent header on mobile */
         min-height: auto;
     }
 
@@ -760,7 +768,7 @@ header {
 
 @media (max-width: 640px) {
     .hero {
-        padding: 40px 0 20px 0; /* Increased top padding to avoid header overlap */
+        padding: 80px 0 20px 0; /* Space for transparent header on mobile */
     }
 
     .hero h1 {
