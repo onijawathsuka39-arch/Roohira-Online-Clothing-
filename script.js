@@ -6,7 +6,7 @@ const products = [
         name: "Premium Blank Classic T-Shirt",
         description: "High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.",
         material: "-",
-        category: "T-Shirts",
+        category: "Reguler T shirt",
         colors: [
             {
                 name: "Green",
@@ -124,6 +124,65 @@ const products = [
             }
         ],
         gsms: ["220 GSM", "220 GSM"]
+    },
+    {
+        id: 21,
+        name: "220 GSM Oversized T-shirt",
+        description: "Experience ultimate comfort and style with our 220 GSM Oversized T-shirt. Crafted from high-quality fabric, it offers a relaxed fit perfect for everyday wear. Available in multiple premium colors.",
+        material: "100% Premium Cotton",
+        category: "Oversized T shirt",
+        colors: [
+            {
+                name: "Light Blue",
+                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+                hex: "#add8e6ff",
+                variants: [
+                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "White",
+                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+                hex: "#ffffffff",
+                variants: [
+                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Pink",
+                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+                hex: "#ffc0cbff",
+                variants: [
+                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Dark Pink",
+                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+                hex: "#ff1493ff",
+                variants: [
+                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            },
+            {
+                name: "Salmon Pink",
+                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+                hex: "#fa8072ff",
+                variants: [
+                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
+                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
+                ]
+            }
+        ],
+        images: [
+            "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
+            "https://i.ibb.co/Hf7GMMck/Whats-App-Image-2026-04-15-at-20-01-08.png"
+        ],
+        gsms: ["220 GSM"]
     }
 ];
 
@@ -800,9 +859,9 @@ function loadProductDetails() {
     const oldColors = document.getElementById('color-options');
     if (oldColors) oldColors.remove();
 
-    if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Towels' || product.category === 'Cotton සරම්') {
+    if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Towels' || product.category === 'Cotton සරම්') {
         let extraHtml = '';
-        if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+        if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt') {
             const gsmValue = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
             extraHtml = `
                 <div class="spec-item" id="extra-options" style="margin-top: 10px;">
@@ -843,11 +902,22 @@ function loadProductDetails() {
         // Show Sticker Section ONLY for T-Shirts
         const stickerSec = document.getElementById('product-sticker-section');
         if (stickerSec) {
-            if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+            if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt') {
                 stickerSec.style.display = 'block';
-                window.productStickers = []; // Reset for this product view
-                renderShopStickers();
-                loadShopStickers();
+                // Lock and show Available Soon message
+                stickerSec.innerHTML = `
+                    <div style="text-align: center; padding: 20px; border: 2px dashed #ff4d4d; border-radius: 12px; background: #fff5f5; margin-bottom: 1rem;">
+                        <h4 style="color: #ff4d4d; font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-lock"></i> Sticker Customization
+                        </h4>
+                        <p style="color: #ff4d4d; font-weight: 800; font-size: 1.2rem; margin: 0; text-transform: uppercase; letter-spacing: 1px;">
+                            Available Soon
+                        </p>
+                        <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">
+                            (ස්ටිකර් ඇලවීමේ පහසුකම ළඟදීම බලාපොරොත්තු වන්න)
+                        </p>
+                    </div>
+                `;
             } else {
                 stickerSec.style.display = 'none';
             }
@@ -1086,7 +1156,7 @@ function addToCart(id, qty = 1, size = null, stickers = [], color = null, gsm = 
 
     // Label Construction (Consistent!)
     let fullSizeLabel = baseSizeLabel;
-    if (product.category === 'T-Shirts' || product.category === 'Kids Two Tone T-shirt') {
+    if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt') {
         const gsmLabel = currentGsm || (product.gsms ? product.gsms[0] : '180 GSM');
         const colorLabel = currentColor || (product.colors ? product.colors[0].name : 'Black');
         const stickerDetails = (stickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
@@ -1868,14 +1938,14 @@ function openBannerModal(index) {
             const modal = document.getElementById('banner-modal');
             const modalImg = document.getElementById('modal-img');
             modalImg.src = img.src;
-            modal.style.display = "flex";
+            modal.classList.add('active');
         }
     }
 }
 
 function closeBannerModal(event) {
     const modal = document.getElementById('banner-modal');
-    modal.style.display = "none";
+    modal.classList.remove('active');
 }
 
 function toggleOffersModal() {
@@ -1908,7 +1978,7 @@ let customOrder = {
 
 function selectCategory(category) {
     customOrder.category = category;
-    if (category === 'T-Shirts' || category === 'Kids Two Tone T-shirt') {
+    if (category === 'Reguler T shirt' || category === 'Kids Two Tone T-shirt') {
         customOrder.stickers = []; // Reset stickers when starting fresh
         goToStep('tshirt-base');
         updateCustomTshirtState();
@@ -1930,7 +2000,7 @@ function selectCategory(category) {
                     return `<button onclick="selectTshirtColor('${c.name}', '${c.image}')" class="color-swatch-btn tshirt-swatch ${i === 0 ? 'active' : ''}" style="background: ${bgStyle}; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;" data-color="${c.name}"></button>`;
                 }).join('');
                 selectTshirtColor(p.colors[0].name, p.colors[0].image);
-            } else if (category === 'T-Shirts') {
+            } else if (category === 'Reguler T shirt') {
                 // Fallback for custom T-shirts if not found in products
                 colorContainer.innerHTML = `
                     <button onclick="selectTshirtColor('White', 'tshirt-white.png')" class="color-swatch-btn tshirt-swatch active" style="background: #ffffff; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>

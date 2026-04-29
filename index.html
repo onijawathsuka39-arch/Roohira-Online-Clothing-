@@ -80,7 +80,10 @@
         <div class="sidebar-nav">
             <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
             <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
-            <a href="#" class="sidebar-link" style="opacity: 0.6; cursor: not-allowed; display: flex; align-items: center;"><i class="fas fa-palette"></i> <span>Customize (Coming Soon)</span> <i class="fas fa-lock" style="font-size: 0.8rem; margin-left: auto;"></i></a>
+            <a href="#" class="sidebar-link"
+                style="opacity: 0.6; cursor: not-allowed; display: flex; align-items: center;"><i
+                    class="fas fa-palette"></i> <span>Customize (Coming Soon)</span> <i class="fas fa-lock"
+                    style="font-size: 0.8rem; margin-left: auto;"></i></a>
             <a href="cart.html" class="sidebar-link">
                 <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
                 <span id="sidebar-cart-badge"
@@ -102,15 +105,19 @@
         <div class="container">
             <div class="hero-card reveal">
                 <div class="hero-content">
-                    <h1 data-i18n="hero_title"><span class="h-line-1">Designed for</span> <span class="h-line-2">Everyday Confidence</span></h1>
-                    <p data-i18n="hero_desc">Experience the perfect fusion of luxury and comfort. <br>Crafted for those who demand excellence.</p>
+                    <h1 data-i18n="hero_title"><span class="h-line-1">Designed for</span> <span
+                            class="h-line-2">Everyday Confidence</span></h1>
+                    <p data-i18n="hero_desc">Experience the perfect fusion of luxury and comfort. <br>Crafted for those
+                        who demand excellence.</p>
                     <div class="flex gap-4 mt-10 hero-buttons">
                         <a href="shop.html" class="btn btn-primary" data-i18n="explore">View Collection</a>
-                        <button class="btn btn-secondary" style="opacity: 0.7; cursor: not-allowed; display: flex; align-items: center; gap: 8px;" disabled><i class="fas fa-lock"></i> Coming Soon</button>
+                        <button class="btn btn-secondary"
+                            style="opacity: 0.7; cursor: not-allowed; display: flex; align-items: center; gap: 8px;"
+                            disabled><i class="fas fa-lock"></i> Coming Soon</button>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <img src="https://i.ibb.co/zWGcRKqG/Untitled-2.png" alt="Ferrari Collection" class="hero-img">
+                    <img src="https://i.ibb.co/zWGcRKqG/Untitled-2.png" alt="Roohira Collection" class="hero-img">
                 </div>
             </div>
         </div>
@@ -119,41 +126,28 @@
     <!-- OFFER BANNERS -->
     <section style="padding: 5rem 0; background: var(--bg-light);">
         <div class="container">
-            <div class="grid grid-cols-2">
-                <div class="offer-banner-container" onclick="openBannerModal(0)"
-                    style="position: relative; border-radius: 16px; overflow: hidden; height: 320px; cursor: pointer;">
-                    <img src="https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png"
-                        alt="Streetwear Collection" class="offer-img"
+            <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem; justify-items: center;">
+                <!-- Banner 1: Oversized Collection -->
+                <div class="offer-banner-container reveal" onclick="openBannerModal(0)"
+                    style="position: relative; border-radius: 24px; overflow: hidden; width: 320px; height: 320px; cursor: pointer; box-shadow: var(--shadow-lg); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                    <img src="https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg" alt="Oversized Series" class="offer-img"
                         style="width: 100%; height: 100%; object-fit: cover;">
                     <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: var(--primary);">🔥 NEW SEASON DROP</h3>
-                        <p>Exclusive Streetwear Designs</p>
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; text-align: center;">
+                        <h3 style="font-size: 1.3rem; color: var(--secondary); margin-bottom: 5px; font-family: 'Playfair Display', serif;">👑 OVERSIZED SERIES</h3>
+                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">220 GSM Premium Comfort</p>
                     </div>
                 </div>
 
-                <!-- Banner 2 -->
+                <!-- Banner 2: New Series Coming Soon -->
                 <div class="offer-banner-container reveal" onclick="openBannerModal(1)"
-                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
-                    <img src="C:\Users\User\.gemini\antigravity\brain\620b0d3e-45d5-485a-8196-88d12f1a298f\streetwear_tshirt_banner_2_1777382768165.png"
-                        alt="Luxury Series" class="offer-img" style="width: 100%; height: 100%; object-fit: cover;">
-                    <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: var(--secondary);">🎨 CUSTOMIZE YOUR FIT</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Design your perfect tee today.</p>
-                    </div>
-                </div>
-
-
-                <!-- Banner 4 -->
-                <div class="offer-banner-container reveal" onclick="openBannerModal(3)"
-                    style="position: relative; border-radius: 24px; overflow: hidden; height: 320px; animation-delay: 0.2s; cursor: pointer;">
-                    <img src="https://i.ibb.co/bjv57fmJ/Roohira-Banner-new-01.jpg" alt="Luxury Series" class="offer-img"
+                    style="position: relative; border-radius: 24px; overflow: hidden; width: 320px; height: 320px; cursor: pointer; box-shadow: var(--shadow-lg); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); animation-delay: 0.2s;">
+                    <img src="https://i.ibb.co/zWGcRKqG/Untitled-2.png" alt="New Series" class="offer-img"
                         style="width: 100%; height: 100%; object-fit: cover;">
                     <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white;">
-                        <h3 style="font-size: 1.5rem; color: white;">🛍️ PLACE YOUR ORDER NOW</h3>
-                        <p style="color: rgba(255,255,255,0.8);">Style, Comfort & Quality — Only at Roohira Online</p>
+                        style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; text-align: center;">
+                        <h3 style="font-size: 1.3rem; color: white; margin-bottom: 5px; font-family: 'Playfair Display', serif;">✨ NEW SERIES</h3>
+                        <p style="font-size: 0.9rem; color: rgba(255,255,255,0.8);">Available Soon</p>
                     </div>
                 </div>
             </div>
@@ -206,7 +200,9 @@
     <footer>
         <div class="container grid grid-cols-4">
             <div style="grid-column: span 2;">
-                <h2 style="color: var(--primary); margin-bottom: 1rem; font-weight: 800;">Roohira Collection</h2>
+                <h2
+                    style="color: var(--text-main); margin-bottom: 1rem; font-weight: 800; font-family: 'Playfair Display', serif; font-size: 1.4rem;">
+                    Roohira Collection</h2>
                 <p style="color: grey; max-width: 300px;">Your Trusted Online Fashion Partner.</p>
             </div>
             <div>
@@ -273,7 +269,3 @@
 
 
 </html>
-
-
-
-
