@@ -414,6 +414,7 @@ header {
     -webkit-backdrop-filter: none;
     border-bottom: none;
     box-shadow: none;
+    width: 100%;
 }
 
 .nav-link {
@@ -590,15 +591,14 @@ header {
 /* Hero Section - Professional Compact Card */
 /* Hero Section - Professional Compact Card */
 .hero {
-    height: auto;
-    min-height: 80vh;
+    min-height: 500px;
     background: var(--bg-alt);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 0 60px 0; /* Padding to account for absolute header */
-    overflow: visible; /* Prevent clipping of floating elements */
+    padding: 80px 0 40px 0;
+    overflow: visible;
 }
 
 .hero-overlay {
@@ -733,18 +733,20 @@ header {
 
 @media (max-width: 992px) {
     .hero {
-        padding: 80px 0 40px 0; /* Space for transparent header on mobile */
+        padding: 100px 15px 40px 15px; /* Added side padding for 'card' feel */
         min-height: auto;
     }
 
     .hero-card {
         flex-direction: column;
-        padding: 60px 40px;
+        padding: 40px 20px;
         text-align: center;
-        gap: 50px;
-        border-radius: 40px;
+        gap: 30px;
+        border-radius: 24px;
         display: flex;
-        /* Override grid for mobile column */
+        background: var(--white); /* White card background on mobile */
+        box-shadow: var(--shadow-md);
+        width: 100%;
     }
 
     .hero-content {
@@ -777,12 +779,10 @@ header {
     }
 
     .hero-card {
-        padding: 40px 20px;
+        padding: 30px 15px;
         gap: 20px;
-        border-radius: 0;
-        background: transparent;
+        border-radius: 20px;
         width: 100%;
-        text-align: center;
     }
 
     .hero-buttons {
