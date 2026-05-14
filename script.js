@@ -1739,10 +1739,12 @@ function placeOrder(e) {
         ])
     ];
 
-    // Robust Base64 Encoding for Unicode (Sinhala characters, etc.)
+    // Robust URL-Safe Base64 Encoding
     const jsonStr = JSON.stringify(minOrderDataArr);
-    const base64Str = btoa(unescape(encodeURIComponent(jsonStr)));
-    const encodedData = encodeURIComponent(base64Str);
+    let base64Str = btoa(unescape(encodeURIComponent(jsonStr)));
+    // Make it URL-safe: replace + with -, / with _, and remove =
+    const safeBase64 = base64Str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const encodedData = encodeURIComponent(safeBase64);
 
     // SMART LINK GENERATION
     // This logic automatically detects if you are on GitHub or Local, and creates the best link.
