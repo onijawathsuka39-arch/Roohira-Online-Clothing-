@@ -1251,9 +1251,20 @@ function loadProductDetails() {
         if (stickerSec) {
             if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Printed T shirt') {
                 stickerSec.style.display = 'block';
-                // Reset stickers for new product load
-                window.productStickers = [];
-                renderShopStickers();
+                // Lock and show Available Soon message
+                stickerSec.innerHTML = `
+                    <div style="text-align: center; padding: 20px; border: 2px dashed #ff4d4d; border-radius: 12px; background: #fff5f5; margin-bottom: 1rem;">
+                        <h4 style="color: #ff4d4d; font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <i class="fas fa-lock"></i> Sticker Customization
+                        </h4>
+                        <p style="color: #ff4d4d; font-weight: 800; font-size: 1.2rem; margin: 0; text-transform: uppercase; letter-spacing: 1px;">
+                            Available Soon
+                        </p>
+                        <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">
+                            (ස්ටිකර් ඇලවීමේ පහසුකම ළඟදීම බලාපොරොත්තු වන්න)
+                        </p>
+                    </div>
+                `;
             } else {
                 stickerSec.style.display = 'none';
             }
