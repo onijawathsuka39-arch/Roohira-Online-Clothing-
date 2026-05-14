@@ -58,10 +58,10 @@
             try {
                 let decoded;
                 if (direct) {
-                    // Handle Direct JSON link
-                    decoded = JSON.parse(decodeURIComponent(direct));
+                    // Handle Direct JSON link (direct is already decoded by URLSearchParams)
+                    decoded = JSON.parse(direct);
                 } else {
-                    // Decode URL-Safe Base64
+                    // Decode URL-Safe Base64 (data is already decoded by URLSearchParams)
                     let base64 = data.replace(/-/g, '+').replace(/_/g, '/');
                     while (base64.length % 4) base64 += '=';
                     const decodedStr = decodeURIComponent(escape(atob(base64)));
