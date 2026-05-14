@@ -40,8 +40,9 @@
         (function() {
             const urlParams = new URLSearchParams(window.location.search);
             const data = urlParams.get('data');
+            const direct = urlParams.get('direct');
 
-            if (!data) {
+            if (!data && !direct) {
                 document.getElementById('main-content').innerHTML = "<h2>No invoice data found.</h2>";
                 return;
             }
@@ -55,12 +56,17 @@
             }
 
             try {
-                // Decode URL-Safe Base64
-                let base64 = data.replace(/-/g, '+').replace(/_/g, '/');
-                while (base64.length % 4) base64 += '=';
-                
-                const decodedStr = decodeURIComponent(escape(atob(base64)));
-                const decoded = JSON.parse(decodedStr);
+                let decoded;
+                if (direct) {
+                    // Handle Direct JSON link
+                    decoded = JSON.parse(decodeURIComponent(direct));
+                } else {
+                    // Decode URL-Safe Base64
+                    let base64 = data.replace(/-/g, '+').replace(/_/g, '/');
+                    while (base64.length % 4) base64 += '=';
+                    const decodedStr = decodeURIComponent(escape(atob(base64)));
+                    decoded = JSON.parse(decodedStr);
+                }
                 
                 const order = {
                     id: "ORD-RO-" + (decoded[0] || "XXXX"),

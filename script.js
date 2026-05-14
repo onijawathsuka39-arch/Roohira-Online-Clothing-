@@ -1765,19 +1765,21 @@ function placeOrder(e) {
         linkNote = `(View order details online)`;
     }
 
-    // Construct WhatsApp Message (Plain text with real newlines for encoding)
+    // Construct WhatsApp Message Items
     const orderItemsText = cart.map(item => {
-        let text = `• *${item.name}* (${item.size})\n  Qty: ${item.qty} x Rs. ${item.price.toLocaleString()}`;
-        if (item.stickers && item.stickers.length > 0) {
-            text += `\n  _Custom Stickers:_`;
-            item.stickers.forEach(s => {
-                text += `\n  - ${s.name} (ID: ${s.id}, ${s.size})`;
-            });
-        }
-        return text;
+        return `• *${item.name}* (${item.size})\n  Qty: ${item.qty} x Rs. ${item.price.toLocaleString()}`;
     }).join('\n\n');
 
-    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *Invoice View Link:*\n${finalInvoiceLink}\n\n${linkNote}`;
+    // LINK 2: DIRECT JSON LINK (Backup - extremely reliable)
+    const directEncodedData = encodeURIComponent(jsonStr);
+    let directLink = "";
+    if (window.location.protocol === 'file:') {
+        directLink = `${GITHUB_BASE}invoice.html?direct=${directEncodedData}`;
+    } else {
+        directLink = `${currentUrl}invoice.html?direct=${directEncodedData}`;
+    }
+
+    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *VIEW YOUR INVOICE:*\n1. Official Link: ${finalInvoiceLink}\n2. Direct Link (Backup): ${directLink}\n\nThank you for shopping with us!`;
     const encodedMsg = encodeURIComponent(messageBody);
 
     // Trigger immediate order finishing
