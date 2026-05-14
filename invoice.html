@@ -83,6 +83,7 @@
                 let grandTotal = 0;
 
                 order.items.forEach(item => {
+                    if (!item) return;
                     const productId = item[0];
                     const price = item[3] || 0;
                     const qty = item[2] || 1;
@@ -90,12 +91,12 @@
                     grandTotal += subtotal;
 
                     const p = getProduct(productId);
-                    const pName = p ? p.name : "Product #" + productId;
-                    const pImg = p ? p.images[0] : "https://via.placeholder.com/60?text=Item";
+                    const pName = p ? (p.name || "Product #" + productId) : "Product #" + productId;
+                    const pImg = (p && p.images && p.images[0]) ? p.images[0] : "https://via.placeholder.com/60?text=Item";
 
                     itemsHtml += `
                         <tr>
-                            <td style="width: 70px;"><img src="${pImg}" class="product-img"></td>
+                            <td style="width: 70px;"><img src="${pImg}" class="product-img" onerror="this.src='https://via.placeholder.com/60?text=No+Img'"></td>
                             <td>
                                 <div style="font-weight: bold; font-size: 15px;">${pName}</div>
                                 <div style="font-size: 12px; color: #666;">Size: ${item[1] || 'N/A'}</div>
