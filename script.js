@@ -533,111 +533,7 @@ const products = [
     }
 ];
 
-const STICKERS = [
-    { id: 'S001', name: 'Sticker', image: 'https://i.ibb.co/Fqm78KfT/1.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S002', name: 'Sticker', image: 'https://i.ibb.co/v6X8z2pj/2.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S004', name: 'Sticker', image: 'https://i.ibb.co/JWNb1fcG/4.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S005', name: 'Sticker', image: 'https://i.ibb.co/1YrnTdQL/5.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S006', name: 'Sticker', image: 'https://i.ibb.co/Sw49KSCx/6.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S008', name: 'Sticker', image: 'https://i.ibb.co/DPnF9Fvk/8.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S010', name: 'Sticker', image: 'https://i.ibb.co/YFpTchT3/10.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S011', name: 'Sticker', image: 'https://i.ibb.co/3mwGFBvB/11.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S013', name: 'Sticker', image: 'https://i.ibb.co/6RfVLb5X/13.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S014', name: 'Sticker', image: 'https://i.ibb.co/Mx2wsmVL/14.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S015', name: 'Sticker', image: 'https://i.ibb.co/x8jVdQ7j/15.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S016', name: 'Sticker', image: 'https://i.ibb.co/8nG9xPtC/16.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S017', name: 'Sticker', image: 'https://i.ibb.co/jkTn1Pvr/17.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S018', name: 'Sticker', image: 'https://i.ibb.co/HfPZzfYT/18.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S020', name: 'Sticker', image: 'https://i.ibb.co/5xk6NCBD/20.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S021', name: 'Sticker', image: 'https://i.ibb.co/cSX7sMWL/21.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S022', name: 'Sticker', image: 'https://i.ibb.co/jZgTkbHH/22.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S024', name: 'Sticker', image: 'https://i.ibb.co/v4wD5Sc0/24.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S025', name: 'Sticker', image: 'https://i.ibb.co/DDts7xYx/25.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S026', name: 'Sticker', image: 'https://i.ibb.co/whVrMx60/26.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S027', name: 'Sticker', image: 'https://i.ibb.co/B2pZYH0T/27.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S028', name: 'Sticker', image: 'https://i.ibb.co/Y44bKX0T/28.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S029', name: 'Sticker', image: 'https://i.ibb.co/Jw57bFCZ/29.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S030', name: 'Sticker', image: 'https://i.ibb.co/h1TM4qhq/30.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S031', name: 'Sticker', image: 'https://i.ibb.co/hRmSPDHS/31.png', sizes: ['3x4', '5x6', '8x10'] },
-    { id: 'S032', name: 'Sticker', image: 'https://i.ibb.co/ycHgVCn9/32.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S033', name: 'Sticker', image: 'https://i.ibb.co/5hVhDVxJ/33.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S034', name: 'Sticker', image: 'https://i.ibb.co/3m6mK1D2/34.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S035', name: 'Sticker', image: 'https://i.ibb.co/3mtskMXd/35.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S036', name: 'Sticker', image: 'https://i.ibb.co/Mk1YYSnq/36.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S037', name: 'Sticker', image: 'https://i.ibb.co/mCNK5yPS/37.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S038', name: 'Sticker', image: 'https://i.ibb.co/PvfcbFdn/38.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S039', name: 'Sticker', image: 'https://i.ibb.co/PswxYcVn/39.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S040', name: 'Sticker', image: 'https://i.ibb.co/CKKxCgFb/40.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S041', name: 'Sticker', image: 'https://i.ibb.co/4n1VLZSN/41.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S042', name: 'Sticker', image: 'https://i.ibb.co/rf76Nzm1/42.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S043', name: 'Sticker', image: 'https://i.ibb.co/tw1pMhGQ/43.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S044', name: 'Sticker', image: 'https://i.ibb.co/zVKRtkj3/44.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S045', name: 'Sticker', image: 'https://i.ibb.co/zWDwkxg1/45.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S046', name: 'Sticker', image: 'https://i.ibb.co/ymv5SKzm/46.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S047', name: 'Sticker', image: 'https://i.ibb.co/5WP6GM0f/47.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S048', name: 'Sticker', image: 'https://i.ibb.co/LDqRwzhd/48.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S049', name: 'Sticker', image: 'https://i.ibb.co/8nkYTBCr/49.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S050', name: 'Sticker', image: 'https://i.ibb.co/FLFsxQS8/50.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S051', name: 'Sticker', image: 'https://i.ibb.co/F4nYJwV0/51.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S052', name: 'Sticker', image: 'https://i.ibb.co/xqX3mGM9/52.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S053', name: 'Sticker', image: 'https://i.ibb.co/9HPgYb3P/53.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S054', name: 'Sticker', image: 'https://i.ibb.co/prQ9nYWb/54.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S055', name: 'Sticker', image: 'https://i.ibb.co/wh1fbpzQ/55.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S056', name: 'Sticker', image: 'https://i.ibb.co/60FnThm8/56.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S057', name: 'Sticker', image: 'https://i.ibb.co/Z98bdK5/57.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S058', name: 'Sticker', image: 'https://i.ibb.co/jkcpTXn4/58.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S059', name: 'Sticker', image: 'https://i.ibb.co/HTJbpqTv/59.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S060', name: 'Sticker', image: 'https://i.ibb.co/xt8TTd5s/60.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S061', name: 'Sticker', image: 'https://i.ibb.co/5WyKJ27t/61.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S062', name: 'Sticker', image: 'https://i.ibb.co/LdnjmzP1/62.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S063', name: 'Sticker', image: 'https://i.ibb.co/nTkQbr2/63.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S064', name: 'Sticker', image: 'https://i.ibb.co/mVwvzNB9/64.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S066', name: 'Sticker', image: 'https://i.ibb.co/hRN9zJ3C/66.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S067', name: 'Sticker', image: 'https://i.ibb.co/xqG2wgjK/67.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S068', name: 'Sticker', image: 'https://i.ibb.co/h1BSrfSM/68.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S069', name: 'Sticker', image: 'https://i.ibb.co/YFLT0WDc/69.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S070', name: 'Sticker', image: 'https://i.ibb.co/TDGhCLYT/70.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S071', name: 'Sticker', image: 'https://i.ibb.co/TxqMkZNw/71.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S072', name: 'Sticker', image: 'https://i.ibb.co/XxSj1Nzx/72.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S073', name: 'Sticker', image: 'https://i.ibb.co/F4zM78zt/73.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S074', name: 'Sticker', image: 'https://i.ibb.co/8LfXrzFk/74.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S075', name: 'Sticker', image: 'https://i.ibb.co/Zp6bkcPn/75.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S076', name: 'Sticker', image: 'https://i.ibb.co/Myfmsshv/76.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S077', name: 'Sticker', image: 'https://i.ibb.co/Cs17g0L2/77.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S078', name: 'Sticker', image: 'https://i.ibb.co/RpTPbBvH/78.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S079', name: 'Sticker', image: 'https://i.ibb.co/JwbKFv8m/79.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S080', name: 'Sticker', image: 'https://i.ibb.co/Gvfhz9KB/80.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S081', name: 'Sticker', image: 'https://i.ibb.co/SXg6Dkdb/81.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S082', name: 'Sticker', image: 'https://i.ibb.co/wfYHtHp/82.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S083', name: 'Sticker', image: 'https://i.ibb.co/yBm5WRYD/83.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S084', name: 'Sticker', image: 'https://i.ibb.co/N6dnksqT/84.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S085', name: 'Sticker', image: 'https://i.ibb.co/PZpY1gbC/85.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S086', name: 'Sticker', image: 'https://i.ibb.co/qMGhCJgb/86.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S087', name: 'Sticker', image: 'https://i.ibb.co/1GDTHDt4/87.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S088', name: 'Sticker', image: 'https://i.ibb.co/k2TVGhvV/88.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S089', name: 'Sticker', image: 'https://i.ibb.co/XxH7RRcb/89.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S090', name: 'Sticker', image: 'https://i.ibb.co/qLf7jp4t/90.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S091', name: 'Sticker', image: 'https://i.ibb.co/FLc2skfn/91.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S092', name: 'Sticker', image: 'https://i.ibb.co/YT4174qw/92.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S093', name: 'Sticker', image: 'https://i.ibb.co/PsK59TgM/93.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S094', name: 'Sticker', image: 'https://i.ibb.co/zymjzG1/94.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S095', name: 'Sticker', image: 'https://i.ibb.co/dsnGqfjv/95.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S096', name: 'Sticker', image: 'https://i.ibb.co/CpsWY0Pt/96.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S097', name: 'Sticker', image: 'https://i.ibb.co/bRDQCg9P/97.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S098', name: 'Sticker', image: 'https://i.ibb.co/k2StYmDt/98.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S099', name: 'Sticker', image: 'https://i.ibb.co/9m7YQSYH/99.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S100', name: 'Sticker', image: 'https://i.ibb.co/bgb1KNZv/100.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S101', name: 'Sticker', image: 'https://i.ibb.co/M5nzFxy7/101.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S102', name: 'Sticker', image: 'https://i.ibb.co/JFjH9cmt/102.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S103', name: 'Sticker', image: 'https://i.ibb.co/5XMm7r8Z/103.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S104', name: 'Sticker', image: 'https://i.ibb.co/cK27zFY4/104.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S105', name: 'Sticker', image: 'https://i.ibb.co/YBNVm6dj/105.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S106', name: 'Sticker', image: 'https://i.ibb.co/MxXwGxCn/106.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S107', name: 'Sticker', image: 'https://i.ibb.co/B5ptH4BZ/107.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S108', name: 'Sticker', image: 'https://i.ibb.co/Kz9XC5yR/108.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S109', name: 'Sticker', image: 'https://i.ibb.co/6Jnmg9h3/109.png', sizes: ['3x3', '5x5', '8x8'] },
-    { id: 'S110', name: 'Sticker', image: 'https://i.ibb.co/vK14vpS/110.png', sizes: ['3x3', '5x5', '8x8'] }
-];
+const STICKERS = []; // Stickers disabled
 
 // State Management
 function safeParse(item, defaultVal) {
@@ -1246,29 +1142,9 @@ function loadProductDetails() {
 
         window.selectedColor = product.colors[0].name; // Default color
 
-        // Show Sticker Section ONLY for T-Shirts
+        // Sticker Customization Logic Removed
         const stickerSec = document.getElementById('product-sticker-section');
-        if (stickerSec) {
-            if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Printed T shirt') {
-                stickerSec.style.display = 'block';
-                // Lock and show Available Soon message
-                stickerSec.innerHTML = `
-                    <div style="text-align: center; padding: 20px; border: 2px dashed #ff4d4d; border-radius: 12px; background: #fff5f5; margin-bottom: 1rem;">
-                        <h4 style="color: #ff4d4d; font-family: 'Outfit', sans-serif; font-weight: 700; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                            <i class="fas fa-lock"></i> Sticker Customization
-                        </h4>
-                        <p style="color: #ff4d4d; font-weight: 800; font-size: 1.2rem; margin: 0; text-transform: uppercase; letter-spacing: 1px;">
-                            Available Soon
-                        </p>
-                        <p style="color: #ff4d4d; font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">
-                            (ස්ටිකර් ඇලවීමේ පහසුකම ළඟදීම බලාපොරොත්තු වන්න)
-                        </p>
-                    </div>
-                `;
-            } else {
-                stickerSec.style.display = 'none';
-            }
-        }
+        if (stickerSec) stickerSec.style.display = 'none';
     } else {
         window.selectedColor = null;
         const stickerSec = document.getElementById('product-sticker-section');
@@ -1859,9 +1735,7 @@ function placeOrder(e) {
             item.size,
             item.qty,
             item.price,
-            item.stickers ? item.stickers.map(s => [
-                s.id, s.x, s.y, parseInt(s.size) || 3, s.rotation || 0, s.side || 'Front', '' // Exclude large image data to keep URL short
-            ]) : []
+            [] // No stickers
         ])
     ];
 
