@@ -43,28 +43,32 @@
 
             try {
                 console.log("Decoding data parameter:", dataParam);
-                // Decode heavily minified array-based data
+                
+                // Decode from Base64 with better Unicode support
                 const decodedStr = decodeURIComponent(atob(dataParam));
                 console.log("Decoded string:", decodedStr);
+                
                 const d = JSON.parse(decodedStr);
                 console.log("Parsed data:", d);
                 
-                // Reconstruct full order object
+                // Safety check: ensure d is an array and has items
+                if (!Array.isArray(d)) throw new Error("Decoded data is not an array.");
+
+                // Reconstruct full order object from minified array
                 const orderData = {
-                    id: "ORD-RO-" + d[0],
-                    date: new Date().toISOString(), // Using current date as fallback
-                    name: d[1],
-                    phone: d[2],
-                    address: d[3],
-                    city: d[4],
-                    note: d[5],
-                    items: d[6].map(itemArr => {
+                    id: "ORD-RO-" + (d[0] || "XXXX"),
+                    date: new Date().toISOString(),
+                    name: d[1] || "Guest",
+                    phone: d[2] || "-",
+                    address: d[3] || "-",
+                    city: d[4] || "-",
+                    note: d[5] || "",
+                    items: (d[6] || []).map(itemArr => {
                         const product = typeof products !== 'undefined' ? products.find(p => p.id === itemArr[0]) : null;
                         
-                        // Extract color to find the right image
                         let colorName = "";
                         if (itemArr[1] && itemArr[1].includes('|')) {
-                            colorName = itemArr[1].split('|')[1].trim();
+                            colorName = itemArr[1].split('|')[1].split(':')[1]?.trim() || "";
                         }
                         
                         let image = "";
@@ -78,7 +82,7 @@
 
                         return {
                             id: itemArr[0],
-                            name: product ? product.name : "Unknown Product",
+                            name: product ? product.name : "Product #" + itemArr[0],
                             size: itemArr[1] || "N/A",
                             qty: itemArr[2] || 0,
                             price: itemArr[3] || 0,
@@ -87,29 +91,31 @@
                                 const sObj = typeof STICKERS !== 'undefined' ? STICKERS.find(s => s.id === sArr[0]) : null;
                                 return {
                                     id: sArr[0],
-                                    name: sObj ? sObj.name : (sArr[6] ? "Uploaded Design" : "Unknown Sticker"),
+                                    name: sObj ? sObj.name : "Custom Design",
                                     x: sArr[1],
                                     y: sArr[2],
                                     size: (sArr[3] || 3) + 'x' + (sArr[3] || 3),
                                     rotation: sArr[4] || 0,
                                     side: sArr[5] || 'Front',
-                                    type: sArr[6] ? 'UPLOAD' : 'STOCK',
-                                    image: sArr[6] || (sObj ? sObj.image : '')
+                                    image: sObj ? sObj.image : ''
                                 };
                             })
                         };
                     }),
-                    total: d[6].reduce((acc, itemArr) => acc + ((itemArr[2] || 0) * (itemArr[3] || 0)), 0)
+                    total: (d[6] || []).reduce((acc, itemArr) => acc + ((itemArr[2] || 0) * (itemArr[3] || 0)), 0)
                 };
                 
                 renderInvoice(orderData);
             } catch (e) {
-                console.error("Invoice error:", e);
+                console.error("Invoice Error Details:", e);
                 document.getElementById('invoice-container').innerHTML = `
-                    <div style="text-align:center; padding: 20px;">
-                        <h2 style="color: red;">Error: Invalid invoice data.</h2>
-                        <p style="color: #666; font-size: 0.9rem;">${e.message}</p>
-                        <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">If you just uploaded the site to GitHub, please wait a minute and try again.</p>
+                    <div style="text-align:center; padding: 40px; border: 2px dashed #eee; border-radius: 20px;">
+                        <h2 style="color: #e91e63;">Oops! Unable to load Bill</h2>
+                        <p style="color: #666; margin-bottom: 20px;">The link might be incomplete or the data is still syncing.</p>
+                        <div style="background: #f9f9f9; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 0.8rem; text-align: left; color: #888;">
+                            Error Info: ${e.message}
+                        </div>
+                        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #e91e63; color: white; border: none; border-radius: 8px; cursor: pointer;">Try Refreshing</button>
                     </div>
                 `;
             }
