@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Roohira Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="container flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 branding">
+                <span class="logo-text">Roohira Collection</span>
+            </a>
+            <nav class="flex gap-4 items-center">
+                <!-- Login Button (Visible when logged out) -->
+                <a href="login.html" id="header-login-btn" class="btn btn-primary" data-i18n="login"
+                    style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
+
+                <!-- User Info (Hidden in Header) -->
+                <div id="header-user-menu" style="display: none;"></div>
+
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <button class="lang-toggle-btn" onclick="toggleLanguageDropdown()">
+                        <i class="fas fa-globe"></i>
+                        <span id="current-lang-label">EN</span>
+                    </button>
+                    <div class="lang-dropdown" id="lang-dropdown">
+                        <button class="lang-btn" data-lang="en" onclick="toggleLanguage('en')">
+                            <span class="lang-name">English</span>
+                        </button>
+                        <button class="lang-btn" data-lang="si" onclick="toggleLanguage('si')">
+                            <span class="lang-name">සිංහල</span>
+                        </button>
+                        <button class="lang-btn" data-lang="ta" onclick="toggleLanguage('ta')">
+                            <span class="lang-name">தமிழ்</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle -->
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"
+                    style="margin-right: 0.5rem;">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <!-- Hamburger Menu -->
+                <button class="hamburger-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary);">Menu</h2>
+            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <div class="sidebar-nav">
+            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
+            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
+            <a href="#" class="sidebar-link" style="opacity: 0.6; cursor: not-allowed; display: flex; align-items: center;"><i class="fas fa-palette"></i> <span>Customize (Coming Soon)</span> <i class="fas fa-lock" style="font-size: 0.8rem; margin-left: auto;"></i></a>
+            <a href="cart.html" class="sidebar-link">
+                <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
+                <span id="sidebar-cart-badge"
+                    style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
+            </a>
+            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My Profile</span></a>
+
+            <!-- User Logout (Hidden by default, shown if logged in) -->
+            <div id="sidebar-user-section"
+                style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
+                <button onclick="logout()" class="sidebar-link" data-i18n="logout"
+                    style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
+                        class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="py-10">
+        <div class="container" id="profile-container">
+            <h1 style="font-size: 2.5rem; margin-bottom: 2rem;" data-i18n="profile_title">My Profile</h1>
+
+            <div class="grid grid-cols-4 gap-8">
+                <!-- Sidebar -->
+                <div
+                    style="background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: var(--shadow); text-align: center; height: fit-content;">
+                    <div
+                        style="width: 80px; height: 80px; background: var(--secondary); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary);">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h2 id="profile-name" style="font-weight: bold; font-size: 1.25rem; margin-bottom: 0.25rem;">User
+                        Name</h2>
+                    <p id="profile-email" style="font-size: 0.875rem; color: grey; margin-bottom: 0.25rem;">
+                        email@example.com</p>
+                    <p id="profile-phone"
+                        style="font-size: 0.875rem; color: var(--primary); font-weight: 600; margin-bottom: 1.5rem;">
+                        000-0000000</p>
+                    <button onclick="logout()" class="btn btn-outline" style="width: 100%; margin-bottom: 3rem;" data-i18n="logout">Logout</button>
+                    
+                    <div style="border-top: 1px solid #fee2e2; padding-top: 1.5rem; margin-top: 1rem;">
+                        <p style="font-size: 0.75rem; color: #ef4444; margin-bottom: 0.75rem; font-weight: 500;" data-i18n="danger_zone">Danger Zone (අන්තරාදායකයි)</p>
+                        <button onclick="factoryReset()" class="btn" style="width: 100%; background: #fee2e2; color: #ef4444; border: 1px solid #fecaca; padding: 0.75rem; border-radius: 0.75rem; font-size: 0.85rem; font-weight: 700; transition: 0.3s;" onmouseover="this.style.background='#fecaca'" onmouseout="this.style.background='#fee2e2'" data-i18n="factory_reset">
+                            <i class="fas fa-sync-alt mr-2"></i> Factory Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div style="grid-column: span 3;">
+                    <div style="background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: var(--shadow); margin-bottom: 2rem; display: flex; align-items: center; justify-content: justify-between; gap: 2rem;">
+                        <div style="width: 60px; height: 60px; background: #e0f2fe; color: #0369a1; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.25rem;" data-i18n="orders_title">My Orders</h2>
+                            <p style="color: grey; font-size: 0.9rem;">View your past orders, designs, and order history.</p>
+                        </div>
+                        <a href="orders.html" class="btn btn-primary" style="padding: 0.75rem 1.5rem; border-radius: 1rem;" data-i18n="view_all">View All Orders <i class="fas fa-chevron-right ml-2"></i></a>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 1.5rem; box-shadow: var(--shadow);">
+                        <h2
+                            style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee;">
+                            Change Password</h2>
+                        <form id="change-password-form">
+                            <div class="form-group">
+                                <label for="current-password" class="form-label">Current Password</label>
+                                <input type="password" id="current-password" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="new-password" class="form-label">New Password</label>
+                                <input type="password" id="new-password" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password" class="form-label">Confirm New Password</label>
+                                <input type="password" id="confirm-password" class="form-input" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <!-- Floating Buttons -->
+    <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA==" target="_blank"
+        class="instagram-float">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank" class="facebook-float">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://wa.me/94757218786" target="_blank" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</body>
+
+</html>
+
+
+
+

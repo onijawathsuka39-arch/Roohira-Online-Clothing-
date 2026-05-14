@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Invoice | Roohira Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 20px; background: #fdfdfd; color: #333; font-family: 'Inter', sans-serif; }
+        .invoice-wrapper { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+        .page-break { page-break-before: always; border-top: 2px dashed #eee; margin-top: 50px; padding-top: 50px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; background: #f9fafb; padding: 12px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #e5e7eb; }
+        td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
+        .master-header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #e91e63; padding-bottom: 20px; }
+        .master-header h1 { color: #e91e63; font-family: 'Playfair Display', serif; margin: 0; font-size: 32px; }
+        
+        .print-btn { display: block; width: 200px; margin: 20px auto; padding: 10px; background: #e91e63; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; text-align: center; font-size: 16px; }
+        @media print { .print-btn { display: none; } }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+    <div id="invoice-container">
+        <div style="text-align: center; padding: 50px;">
+            <p>Loading invoice...</p>
+        </div>
+    </div>
+
+    <!-- Load script.js to access products and STICKERS arrays -->
+    <script src="script.js"></script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const dataParam = urlParams.get('data');
+            
+            if (!dataParam) {
+                document.getElementById('invoice-container').innerHTML = '<h2 style="text-align:center; color: red;">Error: No invoice data found in URL.</h2>';
+                return;
+            }
+
+            try {
+                console.log("Decoding data parameter:", dataParam);
+                // Decode heavily minified array-based data
+                const decodedStr = decodeURIComponent(atob(dataParam));
+                console.log("Decoded string:", decodedStr);
+                const d = JSON.parse(decodedStr);
+                console.log("Parsed data:", d);
+                
+                // Reconstruct full order object
+                const orderData = {
+                    id: "ORD-RO-" + d[0],
+                    date: new Date().toISOString(), // Using current date as fallback
+                    name: d[1],
+                    phone: d[2],
+                    address: d[3],
+                    city: d[4],
+                    note: d[5],
+                    items: d[6].map(itemArr => {
+                        const product = typeof products !== 'undefined' ? products.find(p => p.id === itemArr[0]) : null;
+                        
+                        // Extract color to find the right image
+                        let colorName = "";
+                        if (itemArr[1] && itemArr[1].includes('|')) {
+                            colorName = itemArr[1].split('|')[1].trim();
+                        }
+                        
+                        let image = "";
+                        if (product && product.colors) {
+                            const c = product.colors.find(c => c.name === colorName);
+                            if (c) image = c.image;
+                            else image = product.images[0];
+                        } else if (product) {
+                            image = product.images[0];
+                        }
+
+                        return {
+                            id: itemArr[0],
+                            name: product ? product.name : "Unknown Product",
+                            size: itemArr[1] || "N/A",
+                            qty: itemArr[2] || 0,
+                            price: itemArr[3] || 0,
+                            image: image,
+                            stickers: (itemArr[4] || []).map(sArr => {
+                                const sObj = typeof STICKERS !== 'undefined' ? STICKERS.find(s => s.id === sArr[0]) : null;
+                                return {
+                                    id: sArr[0],
+                                    name: sObj ? sObj.name : (sArr[6] ? "Uploaded Design" : "Unknown Sticker"),
+                                    x: sArr[1],
+                                    y: sArr[2],
+                                    size: (sArr[3] || 3) + 'x' + (sArr[3] || 3),
+                                    rotation: sArr[4] || 0,
+                                    side: sArr[5] || 'Front',
+                                    type: sArr[6] ? 'UPLOAD' : 'STOCK',
+                                    image: sArr[6] || (sObj ? sObj.image : '')
+                                };
+                            })
+                        };
+                    }),
+                    total: d[6].reduce((acc, itemArr) => acc + ((itemArr[2] || 0) * (itemArr[3] || 0)), 0)
+                };
+                
+                renderInvoice(orderData);
+            } catch (e) {
+                console.error("Invoice error:", e);
+                document.getElementById('invoice-container').innerHTML = `
+                    <div style="text-align:center; padding: 20px;">
+                        <h2 style="color: red;">Error: Invalid invoice data.</h2>
+                        <p style="color: #666; font-size: 0.9rem;">${e.message}</p>
+                        <p style="margin-top: 20px; font-size: 0.8rem; color: #999;">If you just uploaded the site to GitHub, please wait a minute and try again.</p>
+                    </div>
+                `;
+            }
+        });
+
+        function renderInvoice(order) {
+            const dateStr = new Date(order.date).toLocaleDateString();
+            
+            let itemsHtml = '';
+            order.items.forEach(item => {
+                let stickerTableHtml = '';
+                if (item.stickers && item.stickers.length > 0) {
+                    stickerTableHtml = `
+                        <div style="margin-top: 8px; font-size: 7.5pt; color: #555;">
+                            <strong>Includes:</strong> ${item.stickers.map(s => `${s.name} (ID: ${s.id})`).join(', ')}
+                        </div>
+                    `;
+                }
+
+                itemsHtml += `
+                <tr>
+                    <td style="padding: 12px; border-bottom: 1px solid #eee;">
+                        <img src="${item.image}" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;" onerror="this.src='https://via.placeholder.com/60?text=No+Image'">
+                    </td>
+                    <td style="padding: 12px; border-bottom: 1px solid #eee;">
+                        <div style="font-weight: 700; font-size: 10pt; margin-bottom: 4px;">${item.name}</div>
+                        <div style="font-size: 8pt; color: #777; line-height: 1.4;">Size: ${item.size}</div>
+                        ${stickerTableHtml}
+                    </td>
+                    <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center; font-size: 10pt;">${item.qty}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 10pt;">Rs. ${item.price.toLocaleString()}</td>
+                    <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 10pt; font-weight: 700;">Rs. ${(item.price * item.qty).toLocaleString()}</td>
+                </tr>
+                `;
+            });
+
+            // Reconstruct the customizations
+            let customizationHtml = '';
+            order.items.forEach((item, index) => {
+                if (item.stickers && item.stickers.length > 0) {
+                    const stickerListHtml = item.stickers.map(s => {
+                        const isUpload = s.type === 'UPLOAD';
+                        const downloadBtn = isUpload ? `<a href="${s.image}" download="${s.id}_design.png" style="display: block; margin-top: 5px; background: #e91e63; color: white; text-align: center; padding: 4px; border-radius: 4px; font-size: 10px; text-decoration: none; font-weight: 700;">DOWNLOAD DESIGN</a>` : '';
+
+                        return `
+                            <div style="flex: 0 0 calc(33.3% - 10px); border: 1px solid #f0f0f0; padding: 8px; background: #fafafa; border-radius: 8px; text-align: left;">
+                                <img src="${s.image}" style="width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; display: block;" onerror="this.src='https://via.placeholder.com/35?text=Img'">
+                                <div style="font-weight: 700; font-size: 11px; color: #e91e63;">ID: ${s.id}</div>
+                                <div style="font-size: 9px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.name}</div>
+                                <div style="font-size: 9px; color: #888; margin-top: 2px;">Side: ${s.side} | Size: ${s.size}</div>
+                                ${downloadBtn}
+                            </div>
+                        `;
+                    }).join('');
+
+                    const overlaysHtml = item.stickers.map(s => {
+                        const sizePx = s.size.includes('3') ? '30px' : (s.size.includes('5') ? '50px' : '70px');
+                        const posLine = `left: ${s.x || 50}%; top: ${s.y || 50}%; transform: translate(-50%, -50%) rotate(${s.rotation || 0}deg);`;
+                        return `<img src="${s.image}" style="position: absolute; width: ${sizePx}; height: auto; ${posLine} pointer-events: none; opacity: 0.95;">`;
+                    }).join('');
+
+                    customizationHtml += `
+                        <div style="page-break-before: always; padding: 25px; background: white; border-bottom: 2px dashed #eee; min-height: 800px; font-family: 'Inter', sans-serif;">
+                            <div style="text-align: center; margin-bottom: 20px;">
+                                <h2 style="color: #e91e63; font-size: 20px; font-family: 'Playfair Display', serif; margin: 0;">Shop-Scale Design Blueprint - Item #${index + 1}</h2>
+                                <p style="color: #bbb; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 3px;">Design scale matches product page view</p>
+                            </div>
+                            
+                            <div style="background: #fdf2f8; padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #e91e63; text-align: left;">
+                                <h3 style="font-size: 12px; margin: 0 0 4px 0; color: #e91e63; text-transform: uppercase; font-weight: 700;">Product:</h3>
+                                <p style="margin: 0; font-weight: 700; font-size: 15px; color: #333;">${item.name} <span style="font-weight: 400; color: #666; font-size: 13px;">(${item.size})</span></p>
+                            </div>
+
+                            <div style="width: 100%; text-align: center; margin-bottom: 25px;">
+                                <div style="position: relative; width: 400px; height: 400px; background: #fff; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                                    <img src="${item.image}" style="width: 100%; height: 100%; object-fit: contain;">
+                                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">${overlaysHtml}</div>
+                                </div>
+                                <p style="margin-top: 8px; font-size: 10px; color: #999; font-weight: 600;">VISUAL PLACEMENT (1:1 SCALE WITH SHOP)</p>
+                            </div>
+
+                            <div style="width: 100%; text-align: left;">
+                                <h3 style="font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #fdf2f8; color: #333; font-weight: 700;">STICKET SETUP:</h3>
+                                <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+                                    ${stickerListHtml}
+                                </div>
+                                
+                                <div style="background: #f9fafb; padding: 10px; border-radius: 8px; border: 1px solid #f0f0f0;">
+                                    <p style="font-size: 10px; color: #777; margin: 0; line-height: 1.4;">
+                                        <strong>Production Note:</strong> The preview above matches the size and scaling as seen by the customer on the shop page. Print coordinates are absolute to this container.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            const html = `
+                <div class="invoice-wrapper">
+                    <div class="master-header">
+                        <h1>ROOHIRA FASHION POINT</h1>
+                        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 11px; color: #999;">FULL ORDER INVOICE & DESIGN BLUEPRINT</p>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="margin: 0; color: #e91e63; font-size: 24px; margin-bottom: 10px;">INVOICE</h2>
+                            <p style="margin: 0; color: #666; font-size: 14px; font-weight: 600;">Date: ${dateStr}</p>
+                            <p style="margin: 0; color: #666; font-size: 14px; font-weight: 600;">Order ID: ${order.id}</p>
+                        </div>
+                        <div style="text-align: right; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                            <h3 style="margin: 0 0 10px 0; font-size: 12px; color: #999; text-transform: uppercase;">Customer Details</h3>
+                            <p style="margin: 0; font-weight: 700; font-size: 15px;">${order.name}</p>
+                            <p style="margin: 4px 0 0 0; color: #666; font-size: 13px;">${order.phone}</p>
+                            <p style="margin: 4px 0 0 0; color: #666; font-size: 13px;">${order.address}, ${order.city}</p>
+                        </div>
+                    </div>
+
+                    ${order.note ? `
+                    <div style="background: #fff8e1; padding: 15px; border-left: 4px solid #ffc107; border-radius: 4px; margin-bottom: 20px;">
+                        <strong>Note:</strong> ${order.note}
+                    </div>` : ''}
+
+                    <table style="margin-bottom: 20px;">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">Item</th>
+                                <th>Description</th>
+                                <th style="text-align: center; width: 60px;">Qty</th>
+                                <th style="text-align: right; width: 100px;">Price</th>
+                                <th style="text-align: right; width: 120px;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${itemsHtml}
+                        </tbody>
+                    </table>
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <div style="width: 300px; background: #fafafa; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+                            <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; color: #e91e63;">
+                                <span>Grand Total:</span>
+                                <span>Rs. ${order.total.toLocaleString()}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${customizationHtml}
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px; color: #bbb; font-size: 11px;">
+                    © 2026 ROOHIRA ONLINE STORE. ALL RIGHTS RESERVED.
+                </div>
+            `;
+            
+            document.getElementById('invoice-container').innerHTML = html;
+        }
+    </script>
+</body>
+</html>
