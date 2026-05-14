@@ -356,10 +356,10 @@ const products = [
                 image: "nike_promo.png",
                 hex: "#ffffffff",
                 variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
+                    { size: "S", price: 1600, oldPrice: 2300, stock: 10 },
+                    { size: "M", price: 1600, oldPrice: 2300, stock: 10 },
+                    { size: "L", price: 1600, oldPrice: 2300, stock: 10 },
+                    { size: "XL", price: 1600, oldPrice: 2300, stock: 10 }
                 ]
             }
         ],
@@ -1864,11 +1864,11 @@ function placeOrder(e) {
             ]) : []
         ])
     ];
-    
+
     // Encode to Base64 and make it URL safe
     const base64Str = btoa(encodeURIComponent(JSON.stringify(minOrderDataArr)));
     const encodedData = encodeURIComponent(base64Str);
-    
+
     // SMART LINK GENERATION
     // This logic automatically detects if you are on GitHub or Local, and creates the best link.
     const GITHUB_BASE = 'https://onijawathsuka39-arch.github.io/Roohira-Online-Clothing-/';
