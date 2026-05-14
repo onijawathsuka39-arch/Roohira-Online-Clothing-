@@ -169,6 +169,12 @@
                 // Render after a small delay to ensure images display
                 setTimeout(() => {
                     document.getElementById('main-content').innerHTML = finalHtml;
+                    
+                    // Auto-print if print=1 is in URL
+                    const isPrint = urlParams.get('print') === '1';
+                    if (isPrint) {
+                        setTimeout(() => window.print(), 1000);
+                    }
                 }, 200);
 
             } catch (err) {
