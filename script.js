@@ -1849,7 +1849,7 @@ function placeOrder(e) {
             item.qty,
             item.price,
             item.stickers ? item.stickers.map(s => [
-                s.id, s.x, s.y, parseInt(s.size) || 3, s.rotation || 0, s.side || 'Front', s.type === 'UPLOAD' ? s.image : ''
+                s.id, s.x, s.y, parseInt(s.size) || 3, s.rotation || 0, s.side || 'Front', '' // Exclude large image data to keep URL short
             ]) : []
         ])
     ];
