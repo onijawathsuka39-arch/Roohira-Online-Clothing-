@@ -166,7 +166,18 @@
                 }, 200);
 
             } catch (err) {
-                document.getElementById('main-content').innerHTML = "<h2>Failed to load invoice.</h2>";
+                console.error("Decoding Error:", err);
+                document.getElementById('main-content').innerHTML = `
+                    <div class="error-screen">
+                        <h2>Oops! Invoice Error</h2>
+                        <p>We couldn't read the bill data from this link.</p>
+                        <div style="margin-top: 15px; background: white; padding: 10px; border-radius: 5px; font-size: 11px; color: #888; text-align: left; border: 1px solid #ddd;">
+                            <b>Error:</b> ${err.message}<br>
+                            <b>Data:</b> ${data ? data.substring(0, 40) + "..." : "Empty"}
+                        </div>
+                        <button onclick="location.href='index.html'" style="margin-top: 15px; padding: 8px 15px; cursor: pointer;">Back to Home</button>
+                    </div>
+                `;
             }
         })();
     </script>
