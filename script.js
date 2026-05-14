@@ -1739,8 +1739,9 @@ function placeOrder(e) {
         ])
     ];
 
-    // Encode to Base64 and make it URL safe
-    const base64Str = btoa(encodeURIComponent(JSON.stringify(minOrderDataArr)));
+    // Robust Base64 Encoding for Unicode (Sinhala characters, etc.)
+    const jsonStr = JSON.stringify(minOrderDataArr);
+    const base64Str = btoa(unescape(encodeURIComponent(jsonStr)));
     const encodedData = encodeURIComponent(base64Str);
 
     // SMART LINK GENERATION

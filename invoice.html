@@ -41,11 +41,9 @@
                 return;
             }
 
-            try {
-                console.log("Decoding data parameter:", dataParam);
-                
-                // Robust Base64 Decoding
-                const decodedStr = decodeURIComponent(atob(dataParam.replace(/ /g, '+')));
+                // Robust Base64 Decoding with Unicode Support
+                const base64 = dataParam.replace(/ /g, '+');
+                const decodedStr = decodeURIComponent(escape(atob(base64)));
                 const d = JSON.parse(decodedStr);
                 
                 if (!Array.isArray(d)) throw new Error("Data format mismatch.");
