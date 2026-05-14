@@ -1779,7 +1779,7 @@ function placeOrder(e) {
         directLink = `${currentUrl}invoice.html?direct=${directEncodedData}`;
     }
 
-    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *VIEW YOUR INVOICE:*\n1. Official Link: ${finalInvoiceLink}\n2. Direct Link (Backup): ${directLink}\n\nThank you for shopping with us!`;
+    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *VIEW YOUR INVOICE:*\n1. Web Link: ${finalInvoiceLink}\n📄 Invoice File (Direct): ${directLink}\n\nThank you for shopping with us!`;
     const encodedMsg = encodeURIComponent(messageBody);
 
     // Trigger immediate order finishing
