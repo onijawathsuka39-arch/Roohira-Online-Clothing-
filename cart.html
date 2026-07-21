@@ -4,136 +4,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart | Roohira Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Cart | Python</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <header>
-        <div class="container flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2 branding">
-                <span class="logo-text">Roohira Collection</span>
+    <nav id="navbar" class="scrolled">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Python Logo">
+            <img src="python-logo.png" alt="Python Logo" class="python-logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="customize.html">Customize</a></li>
+            <li><a href="offers.html">Offers</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html"><i data-lucide="user"></i></a>
+            <a href="wishlist.html" style="position: relative; margin-right: 5px;">
+                <i data-lucide="heart"></i>
+                <span id="wishlist-count"
+                    style="position: absolute; top: -10px; right: -10px; background: #DC143C; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <nav class="flex gap-4 items-center">
-                <!-- Login Button (Visible when logged out) -->
-                <a href="login.html" id="header-login-btn" class="btn btn-primary" data-i18n="login"
-                    style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
-
-                <!-- User Info (Hidden in Header) -->
-                <div id="header-user-menu" style="display: none;"></div>
-
-                <!-- Language Selector -->
-                <div class="lang-selector">
-                    <button class="lang-toggle-btn" onclick="toggleLanguageDropdown()">
-                        <i class="fas fa-globe"></i>
-                        <span id="current-lang-label">EN</span>
-                    </button>
-                    <div class="lang-dropdown" id="lang-dropdown">
-                        <button class="lang-btn" data-lang="en" onclick="toggleLanguage('en')">
-                            <span class="lang-name">English</span>
-                        </button>
-                        <button class="lang-btn" data-lang="si" onclick="toggleLanguage('si')">
-                            <span class="lang-name">සිංහල</span>
-                        </button>
-                        <button class="lang-btn" data-lang="ta" onclick="toggleLanguage('ta')">
-                            <span class="lang-name">தமிழ்</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"
-                    style="margin-right: 0.5rem;">
-                    <i class="fas fa-moon"></i>
-                </button>
-
-                <!-- Hamburger Menu -->
-                <button class="hamburger-btn" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary);">Menu</h2>
-            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
-        </div>
-        <div class="sidebar-nav">
-            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
-            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
-            <!-- Customize link removed -->
-            <a href="cart.html" class="sidebar-link">
-                <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
-                <span id="sidebar-cart-badge"
-                    style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
+            <a href="cart.html" style="position: relative;">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cart-count"
+                    style="position: absolute; top: -10px; right: -10px; background: #c8a96e; color: #0A0F1E; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My Profile</span></a>
-
-            <!-- User Logout (Hidden by default, shown if logged in) -->
-            <div id="sidebar-user-section"
-                style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
-                <button onclick="logout()" class="sidebar-link" data-i18n="logout"
-                    style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
-                        class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
+            <a href="#" id="mobile-menu-btn"><i data-lucide="menu"></i></a>
         </div>
+    </nav>
+
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="customize.html">Customize</a>
+        <a href="offers.html">Offers</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="profile.html">My Account</a>
+        <a href="cart.html">Cart</a>
     </div>
 
-    <main class="py-10">
-        <div class="container" id="cart-container">
-            <h1 style="font-size: 2.5rem; margin-bottom: 2rem;" data-i18n="your_cart">Your Cart</h1>
+    <main class="section" style="padding-top: 150px; min-height: 80vh;">
+        <div class="section-title">
+            <h2>Your <span style="color: #ff0000;">Cart</span></h2>
+        </div>
 
-            <div class="cart-page-layout">
-                <div id="cart-items">
-                    <!-- Cart items injected by JS -->
+        <div id="cart-items-container" style="max-width: 800px; margin: 0 auto;">
+            <div id="cart-items">
+                <!-- Items rendered by script.js -->
+            </div>
+
+            <div class="cart-summary glass" style="padding: 30px; margin-top: 30px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <span>Subtotal</span>
+                    <span id="cart-total" style="font-weight: 800; color: #c8a96e;">Rs. 0.00</span>
                 </div>
-
-                <div id="cart-summary" class="cart-summary-card">
-                    <h2 class="cart-summary-header">Order Summary</h2>
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span id="cart-total">Rs. 0</span>
-                    </div>
-                    <!-- Shipping or other costs can be added here -->
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span id="cart-grand-total">Rs. 0</span>
-                    </div>
-
-                    <a href="checkout.html" class="checkout-btn" data-i18n="checkout_title">Proceed to Checkout</a>
-                    <a href="shop.html" class="continue-shopping-btn" data-i18n="continue_shopping">Continue Shopping</a>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                    <span>Shipping</span>
+                    <span>Free</span>
                 </div>
+                <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Proceed to
+                    Checkout</a>
             </div>
         </div>
     </main>
 
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 style="color: #c8a96e; font-weight: 800;">PYTHON</h4>
+                <p>Elevate your style with our premium, high-quality t-shirt collections. Designed for those who
+                    appreciate excellence.</p>
+                <div class="social-links">
+                    <a href="#"><i data-lucide="instagram"></i></a>
+                    <a href="#"><i data-lucide="facebook"></i></a>
+                    <a href="#"><i data-lucide="twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="shop.html">Shop All</a>
+                <a href="customize.html">Custom Design</a>
+                <a href="offers.html">Special Offers</a>
+                <a href="profile.html">My Account</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p><i data-lucide="phone" style="width: 16px; margin-right: 10px;"></i> Call: 0757218786</p>
+                <p><i data-lucide="message-circle" style="width: 16px; margin-right: 10px;"></i> WhatsApp: 0757218786
+                </p>
+                <p><i data-lucide="mail" style="width: 16px; margin-right: 10px;"></i> roohira@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
-    <!-- Floating Buttons -->
-    <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA==" target="_blank"
-        class="instagram-float">
-        <i class="fab fa-instagram"></i>
-    </a>
-
-    <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank" class="facebook-float">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-
-    <a href="https://wa.me/94757218786" target="_blank" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <script>lucide.createIcons();</script>
 </body>
 
 </html>
-
-
-
-

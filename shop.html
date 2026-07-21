@@ -4,158 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Roohira Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <title>Shop | Python</title>
+    <link rel="icon" href="logo.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
-    <header>
-        <div class="container flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-2 branding">
-                <span class="logo-text">Roohira Collection</span>
+    <nav id="navbar">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Python Logo">
+            <img src="python-logo.png" alt="Python Logo" class="python-logo-img">
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="customize.html">Customize</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="https://www.instagram.com/" target="_blank"><i data-lucide="instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank"><i data-lucide="facebook"></i></a>
+            <a href="profile.html"><i data-lucide="user"></i></a>
+            <a href="wishlist.html" style="position: relative; margin-right: 5px;">
+                <i data-lucide="heart"></i>
+                <span id="wishlist-count"
+                    style="position: absolute; top: -10px; right: -10px; background: #DC143C; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <nav class="flex gap-4 items-center">
-                <!-- Login Button (Visible when logged out) -->
-
-                <a href="login.html" id="header-login-btn" class="btn btn-primary" data-i18n="login"
-                    style="padding: 0.5rem 1rem; font-size: 0.8rem;">Login</a>
-
-                <!-- User Info (Hidden in Header) -->
-                <div id="header-user-menu" style="display: none;"></div>
-
-                <!-- Language Selector -->
-                <div class="lang-selector">
-                    <button class="lang-toggle-btn" onclick="toggleLanguageDropdown()">
-                        <i class="fas fa-globe"></i>
-                        <span id="current-lang-label">EN</span>
-                    </button>
-                    <div class="lang-dropdown" id="lang-dropdown">
-
-                        <button class="lang-btn" data-lang="en" onclick="toggleLanguage('en')">
-                            <span class="lang-name">English</span>
-                        </button>
-                        <button class="lang-btn" data-lang="si" onclick="toggleLanguage('si')">
-                            <span class="lang-name">සිංහල</span>
-                        </button>
-                        <button class="lang-btn" data-lang="ta" onclick="toggleLanguage('ta')">
-                            <span class="lang-name">தமிழ்</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Theme Toggle -->
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode"
-                    style="margin-right: 0.5rem;">
-                    <i class="fas fa-moon"></i>
-                </button>
-
-                <!-- Hamburger Menu -->
-                <button class="hamburger-btn" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Sidebar Overlay -->
-    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2 style="font-family: 'Outfit', sans-serif; color: var(--primary);">Menu</h2>
-            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
-        </div>
-        <div class="sidebar-nav">
-            <a href="index.html" class="sidebar-link"><i class="fas fa-home"></i> <span data-i18n="home">Home</span></a>
-            <a href="shop.html" class="sidebar-link"><i class="fas fa-store"></i> <span data-i18n="shop">Shop</span></a>
-            <!-- Customize link removed -->
-            <a href="cart.html" class="sidebar-link">
-                <i class="fas fa-shopping-cart"></i> <span data-i18n="cart">Cart</span>
-                <span id="sidebar-cart-badge"
-                    style="background: var(--primary); color: white; border-radius: 50%; padding: 2px 6px; font-size: 0.75rem; margin-left: auto;">0</span>
+            <a href="cart.html" style="position: relative;">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cart-count"
+                    style="position: absolute; top: -10px; right: -10px; background: var(--accent-gold); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <a href="profile.html" class="sidebar-link"><i class="fas fa-user"></i> <span data-i18n="profile">My Profile</span></a>
-
-            <!-- User Logout (Hidden by default, shown if logged in) -->
-            <div id="sidebar-user-section"
-                style="display: none; border-top: 1px solid #eee; margin-top: 1rem; padding-top: 1rem;">
-                <button onclick="logout()" class="sidebar-link" data-i18n="logout"
-                    style="width: 100%; text-align: left; background: none; border: none; cursor: pointer; color: #ef4444; font-size: 1.1rem;"><i
-                        class="fas fa-sign-out-alt"></i> Logout</button>
-            </div>
+            <a href="#" id="mobile-menu-btn"><i data-lucide="menu"></i></a>
         </div>
+    </nav>
+
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="customize.html">Customize</a>
+        <a href="offers.html">Offers</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="wishlist.html">Wishlist</a>
+        <a href="profile.html">My Account</a>
+        <a href="cart.html">Cart</a>
     </div>
 
-    <main class="py-10">
-        <div class="container">
-            <h1 style="font-size: 2.5rem; margin-bottom: 2rem;" data-i18n="shop_coll">Shop Collection</h1>
+    <main class="section" style="padding-top: 150px;">
+        <div class="section-title">
+            <h2>Our <span style="color: #ff0000;">Shop</span></h2>
+            <p>Browse through our exclusive T-shirt collection</p>
+        </div>
 
-            <div id="category-filters" class="filter-tabs">
-                <!-- Filters injected by JS -->
-            </div>
+        <!-- Search Bar -->
+        <div class="search-container" style="max-width: 300px; margin: 0 0 30px auto; position: relative;">
+            <input type="text" id="shop-search" placeholder="Search (e.g. t-shirt, kids)..." oninput="handleSearch(this.value)"
+                style="width: 100%; padding: 12px 15px 12px 42px; border-radius: 50px; border: 1px solid var(--border-color); background: var(--surface); color: var(--primary-dark); font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); outline: none; transition: var(--transition-smooth);">
+            <i data-lucide="search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 18px; height: 18px; pointer-events: none;"></i>
+        </div>
 
-            <div id="product-grid" class="grid grid-cols-4 product-grid">
-                <!-- Products injected by JS -->
+        <!-- Category Filter Row -->
+        <div class="filter-scroll-wrapper visible animate-fade-up stagger-1" id="category-row-wrapper">
+            <span class="filter-row-label">Category:</span>
+            <div class="filter-scroll-container">
+                <button class="shop-filter-btn category-btn active" onclick="selectCategory('All', this)">All Categories</button>
+                <button class="shop-filter-btn category-btn" onclick="selectCategory('T-Shirts', this)">T-Shirts</button>
             </div>
+        </div>
+
+        <!-- Subcategory Filter Row -->
+        <div class="filter-scroll-wrapper animate-fade-up stagger-2" id="subcategory-row-wrapper">
+            <span class="filter-row-label">Type:</span>
+            <div class="filter-scroll-container">
+                <button class="shop-filter-btn subcategory-btn active" onclick="selectSubcategory('All', this)">All Subcategories</button>
+                <button class="shop-filter-btn subcategory-btn" onclick="selectSubcategory('Regular Tee (Printed)', this)">Regular Tee (Printed)</button>
+                <button class="shop-filter-btn subcategory-btn" onclick="selectSubcategory('Oversized Tee (Printed)', this)">Oversized Tee (Printed)</button>
+            </div>
+        </div>
+
+        <!-- GSM Filter Row -->
+        <div class="filter-scroll-wrapper animate-fade-up stagger-3" id="gsm-row-wrapper">
+            <span class="filter-row-label">GSM:</span>
+            <div class="filter-scroll-container">
+                <button class="shop-filter-btn gsm-btn active" onclick="selectGSM('all', this)">All GSM</button>
+                <button class="shop-filter-btn gsm-btn" onclick="selectGSM('220 GSM', this)">220 GSM</button>
+                <button class="shop-filter-btn gsm-btn" onclick="selectGSM('190 GSM', this)">190 GSM</button>
+                <button class="shop-filter-btn gsm-btn" onclick="selectGSM('240 GSM', this)">240 GSM</button>
+            </div>
+        </div>
+
+
+        <div class="product-grid" id="product-grid">
+            <!-- Products will be here -->
         </div>
     </main>
 
-        <!-- Footer -->
-    <footer>
-        <div class="container grid grid-cols-4">
-            <div style="grid-column: span 2;">
-                <h2 style="color: var(--text-main); margin-bottom: 1rem; font-weight: 800; font-family: 'Playfair Display', serif; font-size: 1.4rem;">Roohira Collection</h2>
-                <p style="color: grey; max-width: 300px;" data-i18n="footer_tagline">Your Trusted Online Fashion Partner.</p>
-            </div>
-            <div>
-                <h3 style="margin-bottom: 1rem;" data-i18n="quick_links">Quick Links</h3>
-                <ul style="list-style: none; color: grey; line-height: 2;">
-                    <li><a href="index.html" data-i18n="home">Home</a></li>
-                    <li><a href="shop.html" data-i18n="shop">Shop</a></li>
-                    <li><a href="cart.html" data-i18n="cart">Cart</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 style="margin-bottom: 1rem;" data-i18n="contact">Contact</h3>
-                <ul style="list-style: none; color: grey; line-height: 2;">
-                    <li><i class="fas fa-phone"></i> +94 75 721 8786</li>
-                    <li><i class="fas fa-envelope"></i> roohiraonline@gmail.com</li>
-                    <li style="margin-top: 1rem; display: flex; gap: 1rem;">
-                        <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank"
-                            style="font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA=="
-                            target="_blank" style="font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-                    </li>
-                </ul>
-            </div>
+
+
+    <!-- Size Chart Modal -->
+    <div id="sizeChartModal" class="modal-overlay" onclick="closeSizeChart()"
+        style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
+        <div class="glass"
+            style="max-width: 90%; max-height: 90%; position: relative; padding: 10px; background: white; border-radius: 20px;"
+            onclick="event.stopPropagation()">
+            <span onclick="closeSizeChart()"
+                style="position: absolute; right: -15px; top: -15px; background: #DC143C; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);">&times;</span>
+            <img src="https://i.ibb.co/pvGrdQMD/Size-Chart-01.jpg" alt="Size Chart"
+                style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
         </div>
-        <div class="container text-center" style="margin-top: 3rem; color: grey; font-size: 0.9rem;">
-            &copy; 2026 Roohira Collection. All rights reserved.
-        </div>
+    </div>
+
+    <style>
+        /* GSM sub-category buttons — outline only, no fill */
+        .gsm-sub {
+            padding: 5px 14px !important;
+            border-radius: 50px !important;
+            border: 1.5px solid #333 !important;
+            background: transparent !important;
+            color: var(--primary-dark) !important;
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+        .gsm-sub:hover {
+            border-color: #DC143C !important;
+            color: #DC143C !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+        .gsm-sub.active {
+            border-color: #DC143C !important;
+            color: #DC143C !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            transform: none !important;
+        }
+
+        .product-card:hover .size-chart-card-btn {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .size-chart-card-btn:hover {
+            background: #000 !important;
+            color: #fff !important;
+        }
+
+        .modal-overlay.active {
+            display: flex !important;
+        }
+
+        #shop-search:focus {
+            border-color: var(--accent-gold) !important;
+            box-shadow: 0 10px 25px rgba(220, 20, 60, 0.15) !important;
+        }
+    </style>
+
+    <footer class="footer">
+        <!-- Footer content -->
     </footer>
 
-    <a href="https://www.instagram.com/roohiracollectionby?igsh=MWNnazN2NHF5YXNiMA==" target="_blank" class="instagram-float">
-        <i class="fab fa-instagram"></i>
-    </a>
-
-    <a href="https://www.facebook.com/share/17WF7YPVWo/" target="_blank" class="facebook-float">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-
-    <a href="https://wa.me/94757218786" target="_blank" class="whatsapp-float">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        function openSizeChart() {
+            document.getElementById('sizeChartModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSizeChart() {
+            document.getElementById('sizeChartModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
 </body>
 
 </html>
-
-
-
-
-

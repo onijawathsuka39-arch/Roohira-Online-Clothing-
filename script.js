@@ -1,2972 +1,1696 @@
-/* Mock Data & Logic for Roohira Online */
+// Apply stored theme immediately to avoid flash of light theme
+(function () {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
+// Centralized Color Configuration (Hex to Name Mapping)
+const colorNames = {
+    '#ffffff': 'White',
+    '#000000': 'Black',
+    '#ff0000': 'Red',
+    '#DC143C': 'Red',
+    '#0000ff': 'Blue',
+    '#008000': 'Green',
+    '#ffff00': 'Yellow',
+    '#808080': 'Gray',
+    '#00f2ff': 'Light Blue',
+    '#e100ff': 'Pink',
+    '#1a2a4a': 'Midnight Blue',
+    '#4a90e2': 'Sky Blue',
+    '#f0f0f0': 'Off-White',
+    '#0A0F1E': 'Dark Navy',
+    '#333333': 'Grey',
+    '#ff91a4': 'samon pink',
+    '#800000': 'Maroon',
+    '#900056': 'Dark Pink',
+    '#c4956a': 'Light Brown',
+    '#f5e6c8': 'Light Yellow',
+    '#36454f': 'Charcoal',
+    '#889c8a': 'Sage Green',
+    '#7f94a8': 'Dusty Blue',
+    '#d9cdbe': 'Beige'
+};
 
 const products = [
     {
-        id: 25,
-        name: "Screen Printed T-shirt",
-        description: "Premium Quality. Vibrant colors and a professional, high-end finish. Long-Lasting: Highly durable designs that won't fade or crack easily.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "Green",
-                image: "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png",
-                hex: "#006400ff",
-                variants: [
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Yellow",
-                image: "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png",
-                hex: "#ffff00ff",
-                variants: [
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            }
-        ],
+        id: '1', name: 'Infinity Edition', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
         images: [
-            "https://i.ibb.co/JF83TpXc/RR-Printed-T-shirts-01.jpg",
-            "https://i.ibb.co/VWWHVPj3/Chat-GPT-Image-Apr-16-2026-05-37-37-PM.png"
+            'https://i.ibb.co/4w34h3hZ/Python-Infinity-w.png',
+            'https://i.ibb.co/NnswC8R5/Chat-GPT-Image-Apr-30-2026-12-01-14-PM.png'
         ],
-        gsms: ["-"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'The Infinity Edition Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
-        id: 13,
-        name: "Premium Blank Classic T-Shirt",
-        description: "High-quality basic t-shirt for daily wear. Choose your size, GSM, and preferred color.",
-        material: "-",
-        category: "Reguler T shirt",
-        colors: [
-            {
-                name: "Green",
-                image: "https://i.ibb.co/pBcnr02v/Chat-GPT-Image-Mar-20-2026-08-30-01-PM.png",
-                hex: "#74c306ff",
-                variants: [
-                    { size: "S", price: 1300, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1300, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1300, oldPrice: 0, stock: 5 },
-                    { size: "XL", price: 1300, oldPrice: 0, stock: 1 }
-                ]
-            },
-            {
-                name: "Black",
-                image: "https://i.ibb.co/3m2qcpfj/Chat-GPT-Image-Mar-20-2026-08-32-09-PM.png",
-                hex: "#030202ff",
-                variants: [
-                    { size: "S", price: 1300, oldPrice: 0, stock: 15 },
-                    { size: "M", price: 1300, oldPrice: 0, stock: 12 },
-                    { size: "L", price: 1300, oldPrice: 0, stock: 8 },
-                    { size: "XL", price: 1300, oldPrice: 0, stock: 4 }
-                ]
-            },
-            {
-                name: "Light Blue",
-                image: "https://i.ibb.co/WpNB2G4D/Chat-GPT-Image-Mar-20-2026-08-37-22-PM.png",
-                hex: "#00f2ffff",
-                variants: [
-                    { size: "S", price: 1300, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1300, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1300, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1300, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Pink",
-                image: "https://i.ibb.co/rGck4JpM/Chat-GPT-Image-Mar-20-2026-08-39-36-PM.png",
-                hex: "#d13ea5ff",
-                variants: [
-                    { size: "S", price: 1300, oldPrice: 0, stock: 5 },
-                    { size: "M", price: 1300, oldPrice: 0, stock: 5 },
-                    { size: "L", price: 1300, oldPrice: 0, stock: 5 },
-                    { size: "XL", price: 1300, oldPrice: 0, stock: 5 }
-                ]
-            }
-        ],
-        gsms: ["220 GSM", "220 GSM"]
-    },
-    {
-        id: 17,
-        name: "Kids Two Tone Premium T-Shirt",
-        description: "Stylish and comfortable two-tone t-shirt for kids. Perfect for daily wear and special occasions.",
-        material: "-",
-        category: "Kids Two Tone T-shirt",
-        colors: [
-            {
-                name: "White & Yellow",
-                image: "https://i.ibb.co/4R7m3NBD/Whats-App-Image-2026-03-21-at-4-52-40-PM-1.jpg",
-                hex: ["#ffffffff", "#ffe600ff"],
-                variants: [
-                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "M (8-10 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 0 }
-                ]
-            },
-            {
-                name: "White & Black",
-                image: "https://i.ibb.co/JRwBq8FR/Whats-App-Image-2026-03-21-at-4-52-40-PM.jpg",
-                hex: ["#ffffffff", "#000000ff"],
-                variants: [
-                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "M (8-10 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 0 }
-                ]
-            },
-            {
-                name: "White & Purple",
-                image: "https://i.ibb.co/MyD4cmC5/Whats-App-Image-2026-03-21-at-4-52-39-PM.jpg",
-                hex: ["#ffffffff", "#740880ff"],
-                variants: [
-                    { size: "S (3-5 Years)", price: 900, oldPrice: 950, stock: 0 },
-                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 10 },
-                    { size: "L (9-12 Years)", price: 900, oldPrice: 950, stock: 0 }
-                ]
-            },
-            {
-                name: "Purple & White",
-                image: "https://i.ibb.co/FLTWMdJk/Whats-App-Image-2026-03-21-at-4-52-39-PM-1.jpg",
-                hex: ["#e205ffff", "#feffffff"],
-                variants: [
-                    { size: "S (3-5 Years)", price: 900, oldPrice: 950, stock: 0 },
-                    { size: "M (8-9 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
-                ]
-            },
-            {
-                name: "Red & Light Pink",
-                image: "https://i.ibb.co/yFYBqCDD/Whats-App-Image-2026-03-21-at-4-52-38-PM.jpg",
-                hex: ["#ff002bff", "#fe8bd8ff"],
-                variants: [
-                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 0 },
-                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 0 },
-                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
-                ]
-            },
-            {
-                name: "Light Blue Green & Light Yellow",
-                image: "https://i.ibb.co/FLVXBDXN/Whats-App-Image-2026-03-21-at-4-52-38-PM-1.jpg",
-                hex: ["#00fff2ff", "#f3e678ff"],
-                variants: [
-                    { size: "S (7-8 Years)", price: 900, oldPrice: 950, stock: 1 },
-                    { size: "M (9-10 Years)", price: 900, oldPrice: 950, stock: 0 },
-                    { size: "L (10-12 Years)", price: 900, oldPrice: 950, stock: 1 }
-                ]
-            }
-        ],
-        gsms: ["220 GSM", "220 GSM"]
-    },
-    {
-        id: 21,
-        name: "220 GSM Oversized T-shirt",
-        description: "Experience ultimate comfort and style with our 220 GSM Oversized T-shirt. Crafted from high-quality fabric, it offers a relaxed fit perfect for everyday wear. Available in multiple premium colors.",
-        material: "100% Premium Cotton",
-        category: "Oversized T shirt",
-        colors: [
-            {
-                name: "Light Blue",
-                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-                hex: "#add8e6ff",
-                variants: [
-                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "White",
-                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Pink",
-                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-                hex: "#ffc0cbff",
-                variants: [
-                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Dark Pink",
-                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-                hex: "#ff1493ff",
-                variants: [
-                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Salmon Pink",
-                image: "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-                hex: "#fa8072ff",
-                variants: [
-                    { size: "M", price: 1400, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1400, oldPrice: 0, stock: 10 }
-                ]
-            }
-        ],
+        id: '2', name: 'Peace Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
         images: [
-            "https://i.ibb.co/4Z24b3Ry/Oversized-220-GSM-T-shirts-01.jpg",
-            "https://i.ibb.co/PG42KNq8/Whats-App-Image-2026-04-29-at-19-19-38-1.jpg",
-            "https://i.ibb.co/35pg73yJ/Whats-App-Image-2026-04-29-at-19-19-38.jpg",
-            "https://i.ibb.co/mFvfdwh0/Whats-App-Image-2026-04-29-at-19-19-39.jpg"
+            'https://i.ibb.co/ZzqQ1P97/Python-Peace.png',
+            'https://i.ibb.co/QvcG1bRY/Chat-GPT-Image-May-4-2026-03-30-55-PM.png'
         ],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#000000'], stock: 10,
+        desc: 'Peace Design Regular Tee (Printed) by Python. Featuring a premium 220 GSM build for a sleek and meaningful streetwear look.'
     },
     {
-        id: 26,
-        name: "Raglen Oversized T shirts",
-        description: "An oversized raglan t-shirt combines the baggy, relaxed silhouette of 'oversized' fashion with a specific 'raglan' sleeve construction. Customize your oversized raglan with any DTF sticker of your choice. As a special offer, your first sticker is printed absolutely free!",
-        material: "Premium Quality Fabric",
-        category: "Oversized T shirt",
-        colors: [
-            {
-                name: "Mustard & Maroon",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#E09A14", "#3D1B1A"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "White & Black",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#FFFFFF", "#000000"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Teal & Navy",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#259ABD", "#0C0F20"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Maroon & Mustard",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#250F11", "#DC941C"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Grey & Green",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#818286", "#006130"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Olive & White",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#525737", "#FFFFFF"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Sky Blue & Navy",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#2CC5FF", "#121526"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Grey & Black",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#818286", "#231F20"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "White & Olive",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#FFFFFF", "#525737"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "White & Bright Green",
-                image: "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-                hex: ["#FFFFFF", "#009241"],
-                variants: [
-                    { size: "S", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1350, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1350, oldPrice: 0, stock: 10 }
-                ]
-            }
-        ],
+        id: '3', name: 'Nike Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
         images: [
-            "https://i.ibb.co/3mnDqbRn/Raglan-T-shirts-01.jpg",
-            "https://i.ibb.co/B5xJG13Q/Whats-App-Image-2026-04-29-at-18-36-12.jpg",
-            "https://i.ibb.co/QFxGmGNk/Whats-App-Image-2026-04-29-at-18-36-13-Copy.jpg",
-            "https://i.ibb.co/DgDrJ9rc/Whats-App-Image-2026-04-29-at-18-36-14.jpg"
+            'https://i.ibb.co/XkDb3jmB/Nike.png',
+            'https://i.ibb.co/BV3wRfLt/Chat-GPT-Image-Apr-30-2026-04-50-57-PM.png'
         ],
-        gsms: ["-"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Nike Design Regular Tee (Printed) by Python. A classic aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
     },
     {
-        id: 27,
-        name: "Nike Design Regular T-shirt",
-        description: "Experience the perfect fusion of sporty elegance and premium comfort with the Python Brand Nike Design Regular T-Shirt. Crafted from 220 GSM high-grade cotton, this tee features a bold Nike-inspired graphic that stands out. Designed for a regular fit, it's your go-to choice for a confident, everyday look.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "White",
-                image: "nike_promo.png",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '4', name: 'Stitch Design for Girls', category: 'Regular Tee (Printed)', sections: ['Womens'],
+        images: [
+            'https://i.ibb.co/20MCs0nk/Python-Scrich.png',
+            'https://i.ibb.co/C3SgXz87/Python-Srtich-balck.png',
+            'https://i.ibb.co/Qj1hcz4D/Gemini-Generated-Image-9ngc6s9ngc6s9ngc.png',
+            'https://i.ibb.co/sdC39Jz8/Gemini-Generated-Image-rgqfm7rgqfm7rgqf.png'
         ],
-        images: ["nike_promo.png", "nike_design.jpg", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#000000', '#ffffff'],
+        desc: 'Stitch Design for Girls Regular Tee (Printed) by Python. Cute and stylish aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
     },
     {
-        id: 28,
-        name: "Infinity Design Regular T-shirt",
-        description: "Unlock endless style with the Python Brand Infinity Edition Regular T-Shirt. This 220 GSM premium cotton tee features a sleek Infinity design that symbolizes timeless fashion. The crisp white fabric and durable print ensure you stay comfortable and stylish all day long.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "White",
-                image: "infinity_promo.png",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '5', name: 'BMW Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/gLS0w69Y/Python-BMW.png',
+            'https://i.ibb.co/m5mSZSSB/Chat-GPT-Image-Apr-30-2026-02-48-53-PM.png'
         ],
-        images: ["infinity_promo.png", "infinity_design.jpg", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'],
+        desc: 'BMW Design Regular Tee (Printed) by Python. Iconic automotive styling paired with premium 220 GSM comfort.'
     },
     {
-        id: 29,
-        name: "BMW Design Regular T-shirt",
-        description: "Rev up your wardrobe with the Python Brand BMW Design Regular T-Shirt. Tailored for those who appreciate precision and style, this 220 GSM tee features a dynamic motorcycle-inspired graphic. High-quality cotton meets premium printing for a look that's as fast as it is fashionable.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "White",
-                image: "bmw_promo.png",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '6', name: 'Space Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/jZ8BbSM2/Python-Space.png',
+            'https://i.ibb.co/j9SNvjhp/Chat-GPT-Image-Apr-30-2026-12-19-43-PM.png'
         ],
-        images: ["bmw_promo.png", "bmw_design.jpg", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'],
+        desc: 'Space Design Regular Tee (Printed) by Python. Explore the cosmos in style with this premium 220 GSM graphic tee.'
     },
     {
-        id: 30,
-        name: "Space Design Regular T-shirt",
-        description: "Reach for the stars with the Python Brand Space Design Regular T-Shirt. Featuring a stunning cosmic-inspired graphic on 220 GSM premium white cotton, this tee is designed for those who love to explore. Durable, comfortable, and out of this world.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "White",
-                image: "space_promo.png",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '7', name: 'Air Jordan Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/yFQVXd3p/Chat-GPT-Image-Apr-29-2026-10-04-36-PM.png',
+            'https://i.ibb.co/fdyjtDZY/Chat-GPT-Image-Apr-30-2026-05-36-29-PM.png'
         ],
-        images: ["space_promo.png", "space_design.jpg", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#000000'], stock: 10,
+        desc: 'Air Jordan Design Regular Tee (Printed) by Python. Iconic basketball-inspired aesthetic meets premium 220 GSM comfort.'
     },
     {
-        id: 31,
-        name: "Air Jordan Design Regular T-shirt",
-        description: "Step up your streetwear game with the Python Brand Air Jordan Design Regular T-Shirt. This sleek black tee, made from 220 GSM premium cotton, features an iconic Air Jordan-inspired graphic. Bold, classic, and built for comfort, it's the ultimate addition to any urban collection.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "Black",
-                image: "air_jordan_promo.png",
-                hex: "#000000ff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '8', name: 'Urban Design Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Womens',],
+        images: [
+            'https://i.ibb.co/G4Nb8tRV/OVERSIZE-190-python.png',
+            'https://i.ibb.co/cSvDHTyx/Chat-GPT-Image-Apr-30-2026-05-10-31-PM.png'
         ],
-        images: ["air_jordan_promo.png", "air_jordan_design.jpg", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '190 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1700, oldPrice: 1900 },
+            'M': { price: 1700, oldPrice: 1900 },
+            'L': { price: 1700, oldPrice: 1900 },
+            'XL': { price: 1700, oldPrice: 1900 }
+        },
+        colors: ['#c803a4ff'],
+        desc: 'Urban Oversized Tee (Printed) by Python. A bold, relaxed fit in a refreshing light blue hue, crafted from premium 190 GSM fabric for the ultimate streetwear vibe.'
     },
     {
-        id: 32,
-        name: "Peace Design Regular T-shirt",
-        description: "Step up your streetwear game with the Python Brand Peace Design Regular T-Shirt. This sleek black tee, made from 220 GSM premium cotton, features an iconic Air Jordan-inspired graphic. Bold, classic, and built for comfort, it's the ultimate addition to any urban collection.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "Black",
-                image: "Python Peace.png",
-                hex: "#000000ff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '9', name: 'Nike Design Oversized Tee (Printed) ', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/7d7g8Hmd/190gsm-python-nike-yellow.png',
+            'https://i.ibb.co/Y7hJ3Mjy/Chat-GPT-Image-Apr-30-2026-04-53-45-PM.png'
         ],
-        images: ["Python Peace.png", "ChatGPT Image May 4, 2026, 03_30_55 PM.png", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '190 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1700, oldPrice: 1900 },
+            'M': { price: 1700, oldPrice: 1900 },
+            'L': { price: 1700, oldPrice: 1900 },
+            'XL': { price: 1700, oldPrice: 1900 }
+        },
+        colors: ['#ffff00'],
+        desc: 'Nike Design Oversized Tee (Printed) by Python. A high-energy, vibrant yellow design featuring iconic streetwear aesthetics and premium 190 GSM comfort.'
     },
     {
-        id: 33,
-        name: "Stitch Design Regular T-shirt",
-        description: "Add some playful charm to your wardrobe with the Python Brand Stitch Design Regular T-Shirt. This 220 GSM premium cotton tee features a vibrant Stitch graphic, perfect for fans of all ages. Soft, durable, and stylishly fun.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "White",
-                image: "Python Stitch White.png",
-                hex: "#ffffffff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            },
-            {
-                name: "Black",
-                image: "Python Stitch Black.png",
-                hex: "#000000ff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '10', name: 'Infinity Edition Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/yFmFFkG0/Python-Infinity-B.png',
+            'https://i.ibb.co/Y7dvR0vH/Chat-GPT-Image-Apr-30-2026-12-07-41-PM.png'
         ],
-        images: ["Python Stitch White.png", "Python Stitch Black.png", "Stitch Mockup 1.png", "Stitch Mockup 2.png", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1790, oldPrice: 1900 },
+            'M': { price: 1790, oldPrice: 1900 },
+            'L': { price: 1790, oldPrice: 1900 },
+            'XL': { price: 1790, oldPrice: 1900 }
+        },
+        colors: ['#00f2ff'],
+        desc: 'Infinity Edition Oversized Tee (Printed) by Python. A refreshing light blue design featuring the iconic infinity motif and premium 220 GSM comfort.'
     },
     {
-        id: 34,
-        name: "Urban Girl Design Regular T-shirt",
-        description: "Express your vibrant personality with the Python Brand Urban Girl Design Regular T-Shirt. This 220 GSM premium cotton tee features a stylish character graphic on a beautiful salmon pink fabric. Comfortable, chic, and uniquely you.",
-        material: "100% Premium Cotton",
-        category: "Printed T shirt",
-        colors: [
-            {
-                name: "Salmon Pink",
-                image: "Salmon Pink Mockup.png",
-                hex: "#ff91a4ff",
-                variants: [
-                    { size: "S", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "M", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "L", price: 1600, oldPrice: 0, stock: 10 },
-                    { size: "XL", price: 1600, oldPrice: 0, stock: 10 }
-                ]
-            }
+        id: '11', name: 'GTR Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/jmXL8K9/GTR-Design.png',
+            'https://i.ibb.co/N24VB8L1/Chat-GPT-Image-May-20-2026-08-42-05-PM.png'
         ],
-        images: ["Salmon Pink Mockup.png", "Salmon Pink Promo.png", "size_chart.jpg"],
-        gsms: ["220 GSM"]
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'GTR Design Regular Tee (Printed) by Python. Featuring an iconic Nissan GT-R Liberty Walk graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '12', name: 'F30 M3 Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/qLqb4RNj/F30-M3-Design.png',
+            'https://i.ibb.co/fzDHqJw6/Chat-GPT-Image-May-20-2026-08-51-35-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'F30 M3 Design Regular Tee (Printed) by Python. Featuring an iconic BMW F30 M3 graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '13', name: 'Samurai Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/35YkhXRs/honor-black-design.png',
+            'https://i.ibb.co/p7ftW61/honor-white-design.png',
+            'https://i.ibb.co/7NVzPVhv/Chat-GPT-Image-May-20-2026-08-47-42-PM.png',
+            'https://i.ibb.co/rK2NP38J/Chat-GPT-Image-May-20-2026-09-03-02-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#000000', '#ffffff'], stock: 10,
+        desc: 'Samurai Design Regular Tee (Printed) by Python. A premium 220 GSM streetwear t-shirt featuring a striking Japanese Samurai "Honor" design, available in both black and white.'
+    },
+    {
+        id: '14', name: 'Mustang Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/23M5QKKX/Mustang-desing.png',
+            'https://i.ibb.co/JRBp67cp/Chat-GPT-Image-May-20-2026-08-44-29-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Mustang Design Regular Tee (Printed) by Python. Featuring an iconic Ford Mustang graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '15', name: 'Angel Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/hFsMZR7s/angels-design.png',
+            'https://i.ibb.co/rR6WpLZC/Chat-GPT-Image-May-20-2026-08-54-03-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Angel Design Regular Tee (Printed) by Python. Featuring a unique angelic graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '16', name: 'Rock Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/gMQPpMfR/rock-desing.png',
+            'https://i.ibb.co/zV2z6pj0/Chat-GPT-Image-May-20-2026-08-57-42-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Rock Design Regular Tee (Printed) by Python. Featuring a striking rock-inspired graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '17', name: 'Never Give Up Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/zh9kdHYY/never-give-up-design.png',
+            'https://i.ibb.co/fcL3x12/Chat-GPT-Image-May-20-2026-08-49-40-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1600, oldPrice: 1850 },
+            'M': { price: 1600, oldPrice: 1850 },
+            'L': { price: 1600, oldPrice: 1850 },
+            'XL': { price: 1600, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Never Give Up Design Regular Tee (Printed) by Python. Featuring a motivational graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '18', name: 'Waffle T-shirts', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/RTGD6DPx/12.png',
+            'https://i.ibb.co/cKzdSStx/23.png'
+        ],
+        sizeImages: {
+            'M': 'https://i.ibb.co/RTGD6DPx/12.png',
+            'XL': 'https://i.ibb.co/cKzdSStx/23.png'
+        },
+        colorSizes: {
+            '#c4956a': 'M',
+            '#f5e6c8': 'XL'
+        },
+        sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
+        gsm: '240 GSM', brand: 'Python',
+        sizes: {
+            'M':  { price: 1450, oldPrice: 1500 },
+            'XL': { price: 1450, oldPrice: 1500 }
+        },
+        colors: ['#c4956a', '#f5e6c8'], stock: 10,
+        desc: 'Waffle T-shirts by Python. Premium 240 GSM waffle-knit fabric for a unique texture and superior comfort. Available in Light Brown and Light Yellow. A must-have wardrobe essential.'
+    },
+    {
+        id: '19', name: 'Waffle Printed', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/7JPf15Fw/Chat-GPT-Image-Jun-5-2026-03-26-18-PM78.png',
+            'https://i.ibb.co/j9XPBYs8/Chat-GPT-Image-Jun-5-2026-03-26-18-PM24.png',
+            'https://i.ibb.co/CK4ZcVpH/Chat-GPT-Image-Jun-5-2026-04-31-07-PM.png',
+            'https://i.ibb.co/nNbt6sjK/Chat-GPT-Image-Jun-5-2026-04-29-40-PM.png'
+        ],
+        sizeImages: {
+            'M': 'https://i.ibb.co/7JPf15Fw/Chat-GPT-Image-Jun-5-2026-03-26-18-PM78.png',
+            'XL': 'https://i.ibb.co/j9XPBYs8/Chat-GPT-Image-Jun-5-2026-03-26-18-PM24.png'
+        },
+        colorSizes: {
+            '#c4956a': 'M',
+            '#f5e6c8': 'XL'
+        },
+        sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
+        gsm: '240 GSM', brand: 'Python',
+        sizes: {
+            'M':  { price: 1850, oldPrice: null },
+            'XL': { price: 1850, oldPrice: null }
+        },
+        colors: ['#c4956a', '#f5e6c8'], stock: 10,
+        desc: 'Waffle Printed T-shirts by Python. Premium 240 GSM waffle-knit fabric for a unique texture, superior comfort, and clean prints. Features non-clickable sizes selected directly by color dots. Available in Light Brown and Light Yellow.'
+    },
+    {
+        id: '20', name: 'Colour Elephant Design', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: [
+            'https://i.ibb.co/67CjtFx0/Python-Infinity.png',
+            'https://i.ibb.co/WWwpQsLR/Chat-GPT-Image-Jun-6-2026-10-02-04-PM.png'
+        ],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1790, oldPrice: 1900 },
+            'M': { price: 1790, oldPrice: 1900 },
+            'L': { price: 1790, oldPrice: 1900 },
+            'XL': { price: 1790, oldPrice: 1900 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Colour Elephant Design Oversized Tee (Printed) by Python. Featuring a stunning elephant artwork graphic, crafted from premium 220 GSM fabric for ultimate comfort and design definition.'
     }
 ];
 
-const STICKERS = []; // Stickers disabled
-
-// State Management
-function safeParse(item, defaultVal) {
-    try {
-        const val = localStorage.getItem(item);
-        if (!val || val === 'undefined') return defaultVal;
-        return JSON.parse(val);
-    } catch (e) {
-        console.error(`Error parsing localStorage item "${item}":`, e);
-        return defaultVal;
-    }
+// --- Cart System ---
+let cart = [];
+try {
+    cart = JSON.parse(localStorage.getItem('python_cart')) || [];
+    if (!Array.isArray(cart)) cart = [];
+} catch (e) {
+    cart = [];
+    console.error("Failed to load cart from localStorage", e);
 }
-
-let cart = safeParse('roohira_cart', []);
-let user = safeParse('roohira_user', null);
-let currentTheme = localStorage.getItem('roohira_theme') || 'light';
-let currentLang = localStorage.getItem('roohira_lang') || 'en';
-
-const TRANSLATIONS = {
-    en: {
-        home: "Home",
-        shop: "Shop",
-        customize: "Customize",
-        cart: "Cart",
-        profile: "My Profile",
-        login: "Login",
-        logout: "Logout",
-        explore: "Explore Collection",
-        customize_now: "Customize Now",
-        featured: "Featured Collections",
-        view_all: "View All Products",
-        delivery: "Island-wide Delivery",
-        returns: "Returns Policy",
-        quality: "Authentic Quality",
-        add_to_cart: "Add to Cart",
-        buy_now: "Buy Now",
-        order_history: "Order History",
-        settings: "Profile Settings",
-        factory_reset: "Factory Reset",
-        danger_zone: "Danger Zone",
-        confirmed: "Order Confirmed!",
-        redirecting: "Redirecting to WhatsApp...",
-        copy_invoice: "Download Invoice",
-        attach_whatsapp: "Please attach the downloaded invoice in WhatsApp.",
-        confirm_delete: "Are you sure you want to delete this order?",
-        confirm_reset: "WARNING: This will delete ALL your data and orders. Continue?",
-        in_stock: "In Stock",
-        out_of_stock: "Out of Stock",
-        category: "Category",
-        size: "Select Size",
-        material: "Material",
-        qty: "Quantity",
-        total: "Total",
-        search: "Search Products...",
-        all: "All",
-        quick_links: "Quick Links",
-        contact: "Contact",
-        shop_coll: "Shop Collection",
-        your_cart: "Your Cart",
-        checkout_title: "Checkout",
-        profile_title: "My Profile",
-        orders_title: "Order History",
-        empty_cart: "Your cart is empty",
-        continue_shopping: "Continue Shopping",
-        hero_title: "<span class='h-line-1'>Designed for</span> <span class='h-line-2'>Everyday Confidence</span>",
-        hero_desc: "Experience the perfect fusion of luxury and comfort. <br>Crafted for those who demand excellence."
-    },
-    si: {
-        home: "මුල් පිටුව",
-        shop: "සාප්පුව",
-        customize: "අභිරුචිය",
-        cart: "කරත්තය",
-        profile: "ගිණුම",
-        login: "ඇතුල් වන්න",
-        logout: "පිටවන්න",
-        explore: "දැන් බලන්න",
-        customize_now: "නිර්මාණය කරන්න",
-        featured: "විශේෂ එකතුව",
-        view_all: "සියල්ල බලන්න",
-        delivery: "මුළු දිවයිනටම බෙදා හැරීම",
-        returns: "ආපසු ලබාගැනීමේ ප්‍රතිපත්තිය",
-        quality: "උසස් තත්ත්වයේ නිෂ්පාදන",
-        add_to_cart: "කරත්තයට එක් කරන්න",
-        buy_now: "දැන් මිලදී ගන්න",
-        order_history: "ඇණවුම් ලැයිස්තුව",
-        settings: "ගිණුමේ සැකසුම්",
-        factory_reset: "පද්ධතිය යථා තත්ත්වයට පත් කිරීම",
-        danger_zone: "අවදානම් කලාපය",
-        confirmed: "ඇණවුම සාර්ථකයි!",
-        redirecting: "WhatsApp වෙත යොමු කෙරේ...",
-        copy_invoice: "බිල්පත බාගත කරන්න",
-        attach_whatsapp: "කරුණාකර බාගත කළ බිල්පත WhatsApp පණිවිඩයට අමුණන්න.",
-        confirm_delete: "මෙම ඇණවුම ඉවත් කිරීමට ඔබට විශ්වාසද?",
-        confirm_reset: "අවවාදයයි: මෙහිදී ඔබගේ සියලුම දත්ත මැකී යනු ඇත. දිගටම කරගෙන යනවාද?",
-        in_stock: "තිබේ",
-        out_of_stock: "අවසන් වී ඇත",
-        category: "වර්ගය",
-        size: "ප්‍රමාණය තෝරන්න",
-        material: "අමුද්‍රව්‍ය",
-        qty: "ප්‍රමාණය",
-        total: "එකතුව",
-        search: "සොයන්න...",
-        all: "සියල්ල",
-        quick_links: "ප්‍රධාන සබැඳි",
-        contact: "සම්බන්ධ වන්න",
-        shop_coll: "විශේෂ එකතුව",
-        your_cart: "ඔබේ කරත්තය",
-        checkout_title: "ගෙවීම් පිටුව",
-        profile_title: "මගේ ගිණුම",
-        orders_title: "පසුගිය ඇණවුම්",
-        empty_cart: "ඔබේ කරත්තය හිස්",
-        continue_shopping: "සාප්පු සවාරි යන්න",
-        hero_title: "<span class='h-line-1'>නිර්මාණය කර ඇත්තේ</span> <span class='h-line-2'>සෑම දිනකම විශ්වාසය වෙනුවෙන්</span>",
-        hero_desc: "සුඛෝපභෝගී සහ සුවපහසුවෙහි පරිපූර්ණ එකතුව. <br>උසස්ම ප්‍රමිතියෙන් යුක්තව නිර්මාණය කර ඇත."
-    },
-    ta: {
-        home: "முகப்பு",
-        shop: "கடை",
-        customize: "தனிப்பயனாக்கு",
-        cart: "வண்டி",
-        profile: "சுயவிவரம்",
-        login: "உள்நுழைக",
-        logout: "வெளியேறு",
-        explore: "ஆராய்ந்து பாருங்கள்",
-        customize_now: "இப்போது வடிவமைக்கவும்",
-        featured: "சிறப்பு சேகரிப்புகள்",
-        view_all: "அனைத்தையும் காண்க",
-        delivery: "நாடளாவிய விநியோகம்",
-        returns: "திரும்பப் பெறும் கொள்கை",
-        quality: "உண்மையான தரம்",
-        add_to_cart: "வண்டியில் சேர்க்கவும்",
-        buy_now: "இப்போது வாங்கவும்",
-        order_history: "ஆர்டர் வரலாறு",
-        settings: "சுயவிவர அமைப்புகள்",
-        factory_reset: "தொழிற்சாலை மீட்டமைப்பு",
-        danger_zone: "ஆபத்தான மண்டலம்",
-        confirmed: "ஆர்டர் உறுதி செய்யப்பட்டது!",
-        redirecting: "வாட்ஸ்அப்பிற்கு திருப்பி விடப்படுகிறது...",
-        copy_invoice: "விலைப்பட்டியலை பதிவிறக்கவும்",
-        attach_whatsapp: "வாட்ஸ்அப்பில் பதிவிறக்கம் செய்யப்பட்ட விலைப்பட்டியலை இணைக்கவும்.",
-        confirm_delete: "இந்த ஆர்டரை நீக்க விரும்புகிறீர்களா?",
-        confirm_reset: "எச்சரிக்கை: இது உங்கள் எல்லா தரவையும் ஆர்டர்களையும் நீக்கும். தொடரவா?",
-        in_stock: "கையில் உள்ளது",
-        out_of_stock: "கையிருப்பில் இல்லை",
-        category: "வகை",
-        size: "அளவைத் தேர்ந்தெடுக்கவும்",
-        material: "பொருள்",
-        qty: "அளவு",
-        total: "மொத்தம்",
-        search: "தேடுக...",
-        all: "அனைத்தும்",
-        quick_links: "விரைவான இணைப்புகள்",
-        contact: "தொடர்பு கொள்ள",
-        shop_coll: "கடை சேகரிப்பு",
-        your_cart: "உங்கள் வண்டி",
-        checkout_title: "செக்அவுட்",
-        profile_title: "எனது சுயவிவரம்",
-        orders_title: "ஆர்டர் வரலாறு",
-        empty_cart: "உங்கள் வண்டி காலியாக உள்ளது",
-        continue_shopping: "தொடர்ந்து ஷாப்பிங் செய்யுங்கள்",
-        hero_title: "<span class='h-line-1'>நவீன</span> <span class='h-line-2'>பிரீமியம் தெரு உடைகள்</span>",
-        hero_desc: "சொகுசு மற்றும் வசதியின் சரியான கலவை. <br>சிறந்த விபரங்களுடன் வடிவமைக்கப்பட்டுள்ளது."
-    }
-};
-
-// DOM Elements & Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    initTheme();
-    initLanguage();
-    updateCartCount();
-    updateUserUI();
-    initScrollReveal();
-
-    // Page specific logic
-    if (document.getElementById('product-grid')) loadShop();
-    if (document.getElementById('featured-products')) loadFeatured();
-    if (document.getElementById('product-detail-container')) loadProductDetails();
-    if (document.getElementById('cart-container')) loadCart();
-    if (document.getElementById('checkout-form')) loadCheckout();
-    if (document.getElementById('login-form')) {
-        initLogin();
-        initForgotPassword();
-    }
-    if (document.getElementById('signup-form')) initSignup();
-    if (document.getElementById('profile-container')) {
-        loadProfile();
-        initChangePassword();
-    }
-});
-
-// --- Theme Management ---
-
-function initTheme() {
-    const theme = localStorage.getItem('roohira_theme') || 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeIcon(theme);
-}
-
-function toggleTheme() {
-    const current = document.documentElement.getAttribute('data-theme');
-    const target = current === 'light' ? 'dark' : 'light';
-
-    document.documentElement.setAttribute('data-theme', target);
-    localStorage.setItem('roohira_theme', target);
-    updateThemeIcon(target);
-
-    showToast(`${target.charAt(0).toUpperCase() + target.slice(1)} mode enabled`, 'success');
-}
-
-function updateThemeIcon(theme) {
-    const icons = document.querySelectorAll('.theme-toggle i');
-    icons.forEach(icon => {
-        icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
-    });
-}
-
-// --- Language Management ---
-
-function initLanguage() {
-    const lang = localStorage.getItem('roohira_lang') || 'en';
-    currentLang = lang;
-    applyLanguage(lang);
-}
-
-function toggleLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('roohira_lang', lang);
-    applyLanguage(lang);
-    showToast(`Language changed to ${lang === 'en' ? 'English' : lang === 'si' ? 'Sinhala' : 'Tamil'}`, 'success');
-}
-
-function applyLanguage(lang) {
-    const texts = TRANSLATIONS[lang];
-    if (!texts) return;
-
-    // Direct data-i18n attributes
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (texts[key]) {
-            if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'search')) {
-                el.placeholder = texts[key];
-            } else {
-                el.innerHTML = texts[key];
-            }
-        }
-    });
-
-    // Update active state of language buttons
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-    });
-
-    // Update current lang label if it exists
-    const label = document.getElementById('current-lang-label');
-    if (label) {
-        label.textContent = lang.toUpperCase();
-    }
-}
-
-function toggleLanguageDropdown() {
-    const dropdown = document.getElementById('lang-dropdown');
-    if (dropdown) {
-        dropdown.classList.toggle('active');
-    }
-}
-
-// Close dropdowns if clicking outside
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.lang-selector')) {
-        const dropdown = document.getElementById('lang-dropdown');
-        if (dropdown) dropdown.classList.remove('active');
-    }
-});
-
-
-// --- UI Updates ---
 
 function updateCartCount() {
-    const count = cart.reduce((acc, item) => acc + item.qty, 0);
-    const badge = document.getElementById('cart-badge');
-    const sidebarBadge = document.getElementById('sidebar-cart-badge');
-
-    if (badge) badge.textContent = count;
-    if (sidebarBadge) {
-        sidebarBadge.textContent = count;
-        sidebarBadge.style.display = count > 0 ? 'inline-block' : 'none';
+    const countElement = document.getElementById('cart-count');
+    if (countElement) {
+        countElement.innerText = cart.reduce((total, item) => total + item.quantity, 0);
     }
 }
 
-// --- Typing Effect ---
-function initHeroTyping() {
-    const title = document.getElementById('hero-typing-title');
-    if (!title) return;
-
-    const line1 = "Elevate Your Style With ";
-    const line2 = "Premium Fashion";
-    let charIndex = 0;
-    let isLine2 = false;
-
-    title.innerHTML = "";
-
-    function type() {
-        if (!isLine2) {
-            if (charIndex < line1.length) {
-                title.innerHTML += line1.charAt(charIndex);
-                charIndex++;
-                setTimeout(type, 100);
-            } else {
-                title.innerHTML += "<br>";
-                charIndex = 0;
-                isLine2 = true;
-
-                // Create the span for the second line with gradient styling
-                const span = document.createElement('span');
-                span.id = "hero-typing-accent";
-                span.style.background = "linear-gradient(to right, var(--primary), var(--accent))";
-                span.style.webkitBackgroundClip = "text";
-                span.style.backgroundClip = "text";
-                span.style.webkitTextFillColor = "transparent";
-                title.appendChild(span);
-
-                setTimeout(type, 300);
-            }
-        } else {
-            const span = document.getElementById('hero-typing-accent');
-            if (charIndex < line2.length) {
-                span.innerHTML += line2.charAt(charIndex);
-                charIndex++;
-                setTimeout(type, 150);
-            }
-        }
-    }
-
-    setTimeout(type, 500);
-}
-
-// --- Looping Product Typing Effect ---
-function initProductTyping() {
-    const titles = document.querySelectorAll('.typing-title');
-    titles.forEach(title => {
-        // Prevent multiple initializations
-        if (title.getAttribute('data-typing-active')) return;
-        title.setAttribute('data-typing-active', 'true');
-
-        const fullText = title.getAttribute('data-full-text');
-        let charIndex = 0;
-        let isTyping = true;
-
-        title.innerHTML = "";
-
-        function typeLoop() {
-            if (isTyping) {
-                if (charIndex < fullText.length) {
-                    title.innerHTML += fullText.charAt(charIndex);
-                    charIndex++;
-                    setTimeout(typeLoop, 50); // Faster typing for short product names
-                } else {
-                    isTyping = false;
-                    setTimeout(typeLoop, 2000); // Pause while full text is shown
-                }
-            } else {
-                if (charIndex > 0) {
-                    title.innerHTML = fullText.substring(0, charIndex - 1);
-                    charIndex--;
-                    setTimeout(typeLoop, 30); // Quick erase
-                } else {
-                    isTyping = true;
-                    setTimeout(typeLoop, 500); // Small pause before restarting
-                }
-            }
-        }
-
-        typeLoop();
-    });
-}
-
-function updateUserUI() {
-    const loginLink = document.getElementById('login-link');
-    const userMenu = document.getElementById('user-menu');
-
-    // New Elements
-    const headerLoginBtn = document.getElementById('header-login-btn');
-    const headerUserMenu = document.getElementById('header-user-menu');
-    const headerUsername = document.getElementById('header-username');
-    const sidebarUserSection = document.getElementById('sidebar-user-section');
-
-    if (user) {
-        if (loginLink) loginLink.style.display = 'none';
-        if (userMenu) {
-            userMenu.style.display = 'block';
-            userMenu.querySelector('span').textContent = user.name.split(' ')[0];
-        }
-
-        // New UI
-        if (headerLoginBtn) headerLoginBtn.style.display = 'none';
-        if (headerUserMenu) headerUserMenu.style.display = 'none'; // Hidden in Header per request
-        if (sidebarUserSection) sidebarUserSection.style.display = 'block';
-    } else {
-        if (loginLink) loginLink.style.display = 'block';
-        if (userMenu) userMenu.style.display = 'none';
-
-        // New UI
-        if (headerLoginBtn) headerLoginBtn.style.display = 'block';
-        if (headerUserMenu) headerUserMenu.style.display = 'none';
-        if (sidebarUserSection) sidebarUserSection.style.display = 'none';
-    }
-}
-
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-    if (sidebar && overlay) {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
-    }
-}
-
-// --- Product Listing ---
-
-function loadFeatured() {
-    const container = document.getElementById('featured-products');
-    if (!container) return;
-
-    const featured = products.slice(0, 3);
-    container.innerHTML = featured.map(p => createProductCard(p)).join('');
-    initProductTyping();
-}
-
-function loadShop() {
-    const container = document.getElementById('product-grid');
-    const filterContainer = document.getElementById('category-filters');
-    if (!container) return;
-
-    // Render Filters
-    const categories = ['All', ...new Set(products.map(p => p.category))];
-    if (filterContainer) {
-        filterContainer.innerHTML = categories.map(cat =>
-            `<button class="filter-tab ${cat === 'All' ? 'active' : ''}" onclick="filterProducts('${cat}')">${cat}</button>`
-        ).join('');
-    }
-
-    // Initial Load
-    renderProducts(products);
-}
-
-function filterProducts(category) {
-    // Update active tab
-    document.querySelectorAll('.filter-tab').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent === category);
-    });
-
-    const filtered = category === 'All'
-        ? products
-        : products.filter(p => p.category === category);
-
-    renderProducts(filtered);
-}
-
-function renderProducts(items) {
-    const container = document.getElementById('product-grid');
-    if (items.length === 0) {
-        container.innerHTML = `<div class="text-center" style="grid-column: 1/-1; padding: 3rem;"><h3>No products found under this category.</h3></div>`;
-        return;
-    }
-    container.innerHTML = items.map(p => createProductCard(p)).join('');
-    initProductTyping();
-}
-
-function createProductCard(product) {
-    const defaultVariants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
-    const defaultVariant = defaultVariants ? defaultVariants[0] : { price: 0, oldPrice: 0, stock: 0 };
-    const defaultImage = (product.images && product.images.length > 0) ? product.images[0] : (product.colors ? product.colors[0].image : '');
-
-    // Check if any variant has stock across any color
-    let isSoldOut = true;
-    if (product.colors && product.colors.some(c => c.variants && c.variants.length > 0)) {
-        isSoldOut = product.colors.every(c => !c.variants || c.variants.every(v => v.stock <= 0));
-    } else if (product.variants) {
-        isSoldOut = product.variants.every(v => v.stock <= 0);
-    } else {
-        isSoldOut = false; // Default to available if data is missing
-    }
-
-    return `
-    <div class="product-card ${isSoldOut ? 'sold-out' : ''}">
-        <div class="product-image">
-            <a href="product.html?id=${product.id}">
-                <img src="${defaultImage}" alt="${product.name}">
-                ${isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-            </a>
-            <div class="product-actions">
-                ${!isSoldOut ? `<button onclick="addToCartPreview(${product.id})" class="action-btn" title="Add to Cart"><i class="fas fa-shopping-cart"></i></button>` : ''}
-                <a href="product.html?id=${product.id}" class="action-btn" title="View Details"><i class="fas fa-eye"></i></a>
-            </div>
-        </div>
-        <div class="product-info">
-            <div class="product-category">${product.category}</div>
-            <a href="product.html?id=${product.id}">
-                <h3 class="product-title typing-title" data-full-text="${product.name}">
-                    ${product.name}
-                </h3>
-            </a>
-            <div class="flex justify-between items-center mt-2">
-                <div class="price-tag-container">
-                    ${defaultVariant.oldPrice ? `<span class="old-price">Rs. ${defaultVariant.oldPrice.toLocaleString()}</span>` : ''}
-                    <span class="new-price">Rs. ${defaultVariant.price.toLocaleString()}</span>
-                </div>
-                <div class="text-warning"><i class="fas fa-star text-gold"></i> 4.5</div>
-            </div>
-        </div>
-    </div>
-    `;
-}
-
-function addToCartPreview(id) {
-    // Just delegating everything to simplified unified logic
-    addToCart(id, 1);
-}
-
-// --- Product Details ---
-
-let currentProduct = null;
-
-function loadProductDetails() {
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get('id'));
-    const product = products.find(p => p.id === id);
-    currentProduct = product;
-
-    if (!product) {
-        document.getElementById('product-detail-container').innerHTML = '<div class="text-center p-10">Product not found</div>';
-        return;
-    }
-
-    // Populate Details
-    document.getElementById('detail-image').src = (product.images && product.images.length > 0) ? product.images[0] : (product.colors ? product.colors[0].image : '');
-    document.getElementById('detail-category').textContent = product.category;
-    document.getElementById('detail-name').textContent = product.name;
-    document.getElementById('detail-desc').textContent = product.description;
-
-    // Size Select
-    const sizeSelect = document.getElementById('size-select');
-    if (sizeSelect) {
-        const variants = (product.colors && product.colors[0].variants) ? product.colors[0].variants : product.variants;
-        sizeSelect.innerHTML = variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
-        // Set initial price
-        const initialVariant = variants[0];
-        const priceHTML = `
-            <div class="price-box">
-                ${initialVariant.oldPrice ? `<span class="old-price">Was: Rs. ${initialVariant.oldPrice.toLocaleString()}</span>` : ''}
-                <span class="new-price" style="font-size: 1.8rem;">Rs. ${initialVariant.price.toLocaleString()}</span>
-                ${initialVariant.oldPrice ? `<span style="color: #4ade80; font-size: 0.8rem; font-weight: bold; margin-top: 4px;">Exclusive Discount!</span>` : ''}
-            </div>
-        `;
-        document.getElementById('detail-price').innerHTML = priceHTML;
-    }
-
-    document.getElementById('detail-material').textContent = product.material;
-
-    // Handle T-shirt specific options
-    const specBox = document.querySelector('.spec-box');
-
-    // Remove old injected options if any
-    const oldExtra = document.getElementById('extra-options');
-    if (oldExtra) oldExtra.remove();
-    const oldColors = document.getElementById('color-options');
-    if (oldColors) oldColors.remove();
-
-    if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Towels' || product.category === 'Cotton සරම්' || product.category === 'Printed T shirt') {
-        let extraHtml = '';
-        if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Printed T shirt') {
-            const gsmValue = product.gsms && product.gsms.length > 0 ? product.gsms[0] : '180 GSM';
-            extraHtml = `
-                <div class="spec-item" id="extra-options" style="margin-top: 10px;">
-                    <span class="label">GSM</span>
-                    <span class="value">${gsmValue}</span>
-                </div>
-            `;
-        }
-
-        // Color Selection (Visual Swatches)
-        const colorsHtml = `
-            <div class="spec-item" id="color-options" style="flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 10px;">
-                <label class="label" style="margin-bottom: 0;">Select Color: <span id="color-label" style="font-weight: 600; color: var(--text-dark);">${product.colors[0].name}</span></label>
-                <div style="display: flex; gap: 10px; margin-top: 5px; flex-wrap: wrap;" id="color-swatch-container">
-                    ${product.colors.map((c, i) => {
-            let bgStyle;
-            if (Array.isArray(c.hex)) {
-                bgStyle = `linear-gradient(135deg, ${c.hex[0]} 50%, ${c.hex[1]} 50%)`;
-            } else if (typeof c.hex === 'string' && c.hex.includes(',')) {
-                bgStyle = `linear-gradient(135deg, ${c.hex.split(',')[0]} 50%, ${c.hex.split(',')[1]} 50%)`;
-            } else {
-                bgStyle = c.hex;
-            }
-            return `
-                            <button onclick="selectProductColor('${c.name}', '${c.image}')" class="color-swatch ${i === 0 ? 'active' : ''}" style="width: 35px; height: 35px; border-radius: 50%; border: ${i === 0 ? '2px solid var(--primary)' : '2px solid #ddd'}; background: ${bgStyle}; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-color="${c.name}"></button>
-                        `;
-        }).join('')}
-                </div>
-            </div>
-        `;
-
-        // Hide Material if needed or just append
-        if (extraHtml) specBox.insertAdjacentHTML('beforeend', extraHtml);
-        specBox.insertAdjacentHTML('beforeend', colorsHtml);
-
-        window.selectedColor = product.colors[0].name; // Default color
-
-        // Sticker Customization Logic Removed
-        const stickerSec = document.getElementById('product-sticker-section');
-        if (stickerSec) stickerSec.style.display = 'none';
-    } else {
-        window.selectedColor = null;
-        const stickerSec = document.getElementById('product-sticker-section');
-        if (stickerSec) stickerSec.style.display = 'none';
-    }
-
-    const stockStatus = document.getElementById('detail-stock');
-    const displayVariants = (product.colors && product.colors[0] && product.colors[0].variants) ? product.colors[0].variants : product.variants;
-    const firstVariant = (displayVariants && displayVariants.length > 0) ? displayVariants[0] : null;
-
-    if (firstVariant && firstVariant.stock > 0) {
-        stockStatus.textContent = 'In Stock';
-        stockStatus.style.color = 'green';
-        document.getElementById('add-to-cart-btn').disabled = false;
-    } else {
-        stockStatus.textContent = 'Out of Stock';
-        stockStatus.style.color = 'red';
-        document.getElementById('add-to-cart-btn').disabled = true;
-    }
-
-    // Render Thumbnails
-    const thumbContainer = document.getElementById('thumbnail-container');
-    const imagesToThumb = (product.images && product.images.length > 0) ? product.images : (product.colors ? product.colors.map(c => c.image) : []);
-    if (imagesToThumb && imagesToThumb.length > 1) {
-        thumbContainer.innerHTML = imagesToThumb.map((img, index) => `
-            <img src="${img}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage('${img}', this)">
-        `).join('');
-        thumbContainer.style.display = 'flex';
-    } else {
-        thumbContainer.style.display = 'none';
-    }
-    const btn = document.getElementById('add-to-cart-btn');
-    // Important: clear old event listeners if any
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
-
-    newBtn.onclick = () => {
-        const qtyInput = document.getElementById('qty-input');
-        const qty = qtyInput ? parseInt(qtyInput.value) || 1 : 1;
-
-        const sizeSelectEl = document.getElementById('size-select');
-        let selectedSize = sizeSelectEl ? sizeSelectEl.value : '';
-
-        // Unified Call
-        addToCart(
-            product.id,
-            qty,
-            selectedSize,
-            window.productStickers || [],
-            window.selectedColor,
-            (product.gsms && product.gsms[0]),
-            document.getElementById('detail-image').src
-        );
-    };
-}
-
-function updateMainImageAnimated(newSrc) {
-    const img = document.getElementById('detail-image');
-    if (img.src.includes(newSrc)) return;
-
-    img.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
-    img.style.opacity = 0;
-    img.style.transform = 'scale(0.96)';
-
-    setTimeout(() => {
-        img.onload = () => {
-            img.style.opacity = 1;
-            img.style.transform = 'scale(1)';
-        };
-        img.src = newSrc;
-
-        // Fallback in case of quick load or cache
-        setTimeout(() => {
-            img.style.opacity = 1;
-            img.style.transform = 'scale(1)';
-        }, 50);
-    }, 250);
-}
-
-function selectProductColor(colorName, imageSrc) {
-    window.selectedColor = colorName;
-    updateMainImageAnimated(imageSrc);
-    const labelEl = document.getElementById('color-label');
-    if (labelEl) labelEl.textContent = colorName;
-
-    // Refresh size list for this specific color if product has color-specific variants
-    const sizeSelect = document.getElementById('size-select');
-    if (sizeSelect && currentProduct.colors) {
-        const colorObj = currentProduct.colors.find(c => c.name === colorName);
-        if (colorObj && colorObj.variants) {
-            sizeSelect.innerHTML = colorObj.variants.map(v => `<option value="${v.size}">Size: ${v.size} - Rs. ${v.price.toLocaleString()}</option>`).join('');
-        }
-    }
-
-    // Update active swatch class
-    const swatches = document.querySelectorAll('.color-swatch');
-    if (swatches) {
-        swatches.forEach(swatch => {
-            if (swatch.getAttribute('data-color') === colorName) {
-                swatch.classList.add('active');
-                swatch.style.border = '2px solid var(--primary)';
-            } else {
-                swatch.classList.remove('active');
-                swatch.style.border = '2px solid #ddd';
-            }
-        });
-    }
-
-    // Update thumbnail active states if they exist
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    if (thumbnails) {
-        thumbnails.forEach(t => {
-            if (t.src.includes(imageSrc)) {
-                t.classList.add('active');
-            } else {
-                t.classList.remove('active');
-            }
-        });
-    }
-
-    // Refresh Price/Stock for currently selected size under this color
-    updatePriceOnSizeChange();
-}
-
-function updatePriceOnSizeChange() {
-    if (!currentProduct) return;
-    const sizeSelect = document.getElementById('size-select');
-    if (!sizeSelect) return;
-
-    const selectedSize = sizeSelect.value;
-
-    // Determine which variants list to use (Color-scoped vs Product-scoped)
-    let variants;
-    if (currentProduct.colors) {
-        const colorObj = currentProduct.colors.find(c => c.name === window.selectedColor);
-        variants = (colorObj && colorObj.variants) ? colorObj.variants : currentProduct.variants;
-    } else {
-        variants = currentProduct.variants;
-    }
-
-    if (!variants) return;
-    const variant = variants.find(v => v.size === selectedSize);
-
-    if (variant) {
-        const priceHTML = `
-            <div class="price-box">
-                ${variant.oldPrice ? `<span class="old-price">Was: Rs. ${variant.oldPrice.toLocaleString()}</span>` : ''}
-                <span class="new-price" style="font-size: 1.8rem;">Rs. ${variant.price.toLocaleString()}</span>
-                ${variant.oldPrice ? `<span style="color: #4ade80; font-size: 0.8rem; font-weight: bold; margin-top: 4px;">Exclusive Discount!</span>` : ''}
-            </div>
-        `;
-        document.getElementById('detail-price').innerHTML = priceHTML;
-
-        // Update Stock Status
-        const stockStatus = document.getElementById('detail-stock');
-        const btn = document.getElementById('add-to-cart-btn');
-        if (variant.stock > 0) {
-            stockStatus.textContent = 'In Stock';
-            stockStatus.style.color = 'green';
-            btn.disabled = false;
-        } else {
-            stockStatus.textContent = 'Out of Stock';
-            stockStatus.style.color = 'red';
-            btn.disabled = true;
-        }
-    }
-}
-
-function changeImage(src, element) {
-    // If the product has colors linked to images, auto-select the color
-    if (currentProduct && currentProduct.colors) {
-        const colorObj = currentProduct.colors.find(c => src.includes(c.image) || c.image.includes(src));
-        if (colorObj) {
-            selectProductColor(colorObj.name, src);
-            return;
-        }
-    }
-
-    updateMainImageAnimated(src);
-
-    // Toggle active class
-    document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-    element.classList.add('active');
-}
-
-// --- Cart Logic ---
-
-function addToCart(id, qty = 1, size = null, stickers = [], color = null, gsm = null, customImage = null) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-
-    // Resolve size/variant
-    let baseSizeLabel = size ? size.split(' | ')[0].trim() : null;
-    let currentColor = color;
-    let currentGsm = gsm;
-
-    // Handle Quick Add cases (from Shop page) where color/size aren't provided
-    if (!size) {
-        let availableVariant = null;
-        if (product.colors && product.colors[0].variants) {
-            const colorObj = product.colors.find(c => c.variants.some(v => v.stock > 0)) || product.colors[0];
-            availableVariant = colorObj.variants.find(v => v.stock > 0) || colorObj.variants[0];
-            currentColor = colorObj.name;
-        } else if (product.variants) {
-            availableVariant = product.variants.find(v => v.stock > 0) || product.variants[0];
-            currentColor = (product.colors && product.colors.length > 0) ? product.colors[0].name : null;
-        }
-        baseSizeLabel = availableVariant ? availableVariant.size : 'M';
-        if (!currentGsm && product.gsms) currentGsm = product.gsms[0];
-    }
-
-    // Determine variant for price/stock
-    let variantsToSearch = product.variants;
-    if (product.colors && currentColor) {
-        const colorObj = product.colors.find(c => c.name === currentColor);
-        // Only override variantsToSearch if the specific color has its own variants list
-        if (colorObj && colorObj.variants) {
-            variantsToSearch = colorObj.variants;
-        }
-    }
-    const variant = (variantsToSearch && variantsToSearch.find(v => v.size === baseSizeLabel)) || (variantsToSearch ? variantsToSearch[0] : { price: 0, stock: 0 });
-
-    if (variant.stock <= 0) {
-        showToast('Sorry, this item/size is out of stock!', 'error');
-        return;
-    }
-
-    // Pricing
-    const stickerCount = (stickers || []).length;
-    const extraPrice = Math.max(0, stickerCount - 1) * 100;
-    const finalPrice = variant.price + extraPrice;
-
-    // Label Construction (Consistent!)
-    let fullSizeLabel = baseSizeLabel;
-    if (product.category === 'Reguler T shirt' || product.category === 'Kids Two Tone T-shirt' || product.category === 'Oversized T shirt' || product.category === 'Printed T shirt') {
-        const gsmLabel = currentGsm || (product.gsms ? product.gsms[0] : '180 GSM');
-        const colorLabel = currentColor || (product.colors ? product.colors[0].name : 'Black');
-        const stickerDetails = (stickers || []).map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size})`).join(' | ');
-        fullSizeLabel = `${baseSizeLabel} | ${gsmLabel} | ${colorLabel}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
-    }
-
-    // Image Priority
-    let finalImage = customImage || (product.colors && currentColor ? product.colors.find(c => c.name === currentColor).image : product.images[0]);
-
-    const cartItemId = stickers.length > 0
-        ? `custom-${id}-${Date.now()}-${Math.random()}`
-        : `item-${id}-${fullSizeLabel}`;
-
-    const cartItem = {
-        ...product,
-        cartItemId: cartItemId,
-        image: finalImage,
-        price: finalPrice,
-        oldPrice: variant.oldPrice,
-        size: fullSizeLabel,
-        qty: parseInt(qty) || 1,
-        stickers: stickers,
-        customMapping: stickers.length > 0 ? JSON.stringify(stickers) : null
-    };
-
-    const existingItem = stickers.length === 0 ? cart.find(x =>
-        x.id === id && x.size === fullSizeLabel && !x.customMapping
-    ) : null;
-
+function addToCart(name, price, image = '', size = 'Free', color = 'Default', quantity = 1) {
+    const existingItem = cart.find(item => item.name === name && item.size === size && item.color === color);
     if (existingItem) {
-        existingItem.qty += parseInt(qty) || 1;
+        existingItem.quantity += parseInt(quantity);
     } else {
-        cart.push(cartItem);
+        cart.push({ name: name, price: price, quantity: parseInt(quantity), image: image, size: size, color: color });
     }
+    saveCart();
+    showNotification(`${name} added to cart!`);
+}
 
-    localStorage.setItem('roohira_cart', JSON.stringify(cart));
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    saveCart();
+    renderCart();
+}
+
+function updateQuantity(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) removeFromCart(index);
+    else { saveCart(); renderCart(); }
+}
+
+function saveCart() {
+    localStorage.setItem('python_cart', JSON.stringify(cart));
     updateCartCount();
-    showToast(`${product.name} Added to cart!`, 'success');
+    if(typeof updateFreeDeliveryBar === 'function') updateFreeDeliveryBar();
 }
 
-function loadCart() {
-    const container = document.getElementById('cart-items');
-    const summary = document.getElementById('cart-summary');
+function displayProducts(filteredProducts) {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    filteredProducts.forEach((p) => {
+        const hasSizes = p.sizes && typeof p.sizes === 'object';
+        const displayPrice = hasSizes ? Object.values(p.sizes)[0].price : p.price;
+        const displayOldPrice = hasSizes ? Object.values(p.sizes)[0].oldPrice : p.oldPrice;
 
-    if (cart.length === 0) {
-        container.innerHTML = '<div class="text-center py-10"><h3>Your cart is empty</h3><a href="shop.html" class="text-primary">Continue Shopping</a></div>';
-        summary.style.display = 'none';
-        return;
-    }
-
-    renderCartItems();
-    updateCartTotals();
-}
-
-function renderCartItems() {
-    const container = document.getElementById('cart-items');
-    container.innerHTML = cart.map((item, index) => {
-        const identifier = item.cartItemId || item.id;
-        return `
-            <div class="cart-item">
-                <img src="${item.image}" alt="${item.name}">
-                <div class="cart-item-info">
-                    <h3>${item.name}</h3>
-                    <div class="price-tag-container" style="margin-bottom: 5px;">
-                        ${item.oldPrice ? `<span class="old-price" style="font-size: 0.7rem;">Rs. ${item.oldPrice.toLocaleString()}</span>` : ''}
-                        <span class="new-price" style="font-size: 1rem;">Rs. ${item.price.toLocaleString()}</span>
-                    </div>
-                    ${item.size ? `<p class="cart-item-meta" style="font-size: 0.8rem; opacity: 0.7;">Size: ${item.size}</p>` : ''}
-                </div>
-                <div class="quantity-control">
-                    <button onclick="updateQty('${identifier}', ${item.qty - 1})" class="qty-btn">-</button>
-                    <span class="qty-display">${item.qty}</span>
-                    <button onclick="updateQty('${identifier}', ${item.qty + 1})" class="qty-btn">+</button>
-                </div>
-                <button onclick="removeFromCart('${identifier}')" class="remove-btn" title="Remove"><i class="fas fa-trash"></i></button>
-            </div>
-        `;
-    }).join('');
-}
-
-function updateQty(cartItemId, newQty) {
-    if (newQty < 1) return;
-    const item = cart.find(x => x.cartItemId === cartItemId || (x.id === cartItemId && !x.cartItemId)); // Backward compatibility check
-    if (item) {
-        item.qty = newQty;
-        localStorage.setItem('roohira_cart', JSON.stringify(cart));
-        renderCartItems();
-        updateCartTotals();
-        updateCartCount();
-    }
-}
-
-function removeFromCart(cartItemId) {
-    cart = cart.filter(x => (x.cartItemId || x.id) !== cartItemId);
-    localStorage.setItem('roohira_cart', JSON.stringify(cart));
-    loadCart();
-    updateCartCount();
-}
-
-function updateCartTotals() {
-    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    const totalEl = document.getElementById('cart-total');
-    if (totalEl) totalEl.textContent = `Rs. ${subtotal.toLocaleString()}`;
-}
-
-// --- Checkout ---
-
-function loadCheckout() {
-    if (cart.length === 0) {
-        window.location.href = 'shop.html';
-        return;
-    }
-
-    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    document.getElementById('checkout-total').textContent = `Rs. ${subtotal.toLocaleString()}`;
-    document.getElementById('summary-list').innerHTML = cart.map(item => `
-        <div class="flex justify-between py-2 border-b border-gray-100">
-            <span>${item.name} x ${item.qty}</span>
-            <span>Rs. ${(item.price * item.qty).toLocaleString()}</span>
-        </div>
-    `).join('');
-
-    // Pre-fill if user logged in
-    if (user) {
-        document.getElementById('name').value = user.name;
-        document.getElementById('phone').value = user.phone;
-    }
-}
-
-function placeOrder(e) {
-    e.preventDefault();
-    const element = document.getElementById('invoice-template');
-
-    const name = document.getElementById('name').value;
-    const address = document.getElementById('address').value;
-    const city = document.getElementById('city').value;
-    const phone = document.getElementById('phone').value;
-
-    if (!name || !address || !city || !phone) {
-        showToast('Please fill all fields', 'error');
-        return;
-    }
-
-    // Generate Order ID
-    const date = new Date();
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    const dateStr = `${day}${month}${year}`;
-    let orderCount = parseInt(localStorage.getItem('roohira_order_count') || '0') + 1;
-    localStorage.setItem('roohira_order_count', orderCount.toString());
-    const sequence = String(orderCount).padStart(3, '0');
-    const orderId = `ORD-RO-${dateStr}-${sequence}`;
-
-    const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-
-    // Populate Invoice Template for PDF
-    const invDate = document.getElementById('inv-date');
-    const invId = document.getElementById('inv-id');
-    const invName = document.getElementById('inv-name');
-    const invPhone = document.getElementById('inv-phone');
-    const invAddress = document.getElementById('inv-address');
-    const invItems = document.getElementById('inv-items');
-    const invTotal = document.getElementById('inv-total');
-
-    if (invDate) invDate.textContent = `Date: ${date.toLocaleDateString()}`;
-    if (invId) invId.textContent = `Order ID: ${orderId}`;
-    if (invName) invName.textContent = name;
-    if (invPhone) invPhone.textContent = phone;
-    if (invAddress) invAddress.textContent = `${address}, ${city}`;
-    if (invTotal) invTotal.textContent = `Rs. ${subtotal.toLocaleString()}`;
-
-    const noteValue = document.getElementById('note').value;
-    const invNoteContainer = document.getElementById('inv-note-container');
-    const invNote = document.getElementById('inv-note');
-    if (invNote && invNoteContainer) {
-        if (noteValue) {
-            invNote.textContent = `Note: ${noteValue}`;
-            invNoteContainer.style.display = 'block';
-        } else {
-            invNoteContainer.style.display = 'none';
+        // Calculate discount percentage
+        let discountBadge = '';
+        if (displayOldPrice && displayOldPrice > displayPrice) {
+            const discountPercent = Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100);
+            discountBadge = `<span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; z-index: 10; box-shadow: 0 4px 10px rgba(220, 20, 60, 0.3);">${discountPercent}% OFF</span>`;
         }
-    }
 
-    if (invItems) {
-        invItems.innerHTML = cart.map(item => {
-            let stickerTableHtml = '';
-            if (item.stickers && item.stickers.length > 0) {
-                stickerTableHtml = `
-                    <div style="margin-top: 8px; font-size: 7.5pt; color: #555;">
-                        <strong>Includes:</strong> ${item.stickers.map(s => `${s.name} (ID: ${s.id})`).join(', ')}
-                    </div>
-                `;
-            }
+        const isOutOfStock = p.stock === 0;
+        const stockBadge = isOutOfStock
+            ? `<span style="background: #fdf2f2; color: #9b1c1c; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; display: inline-block; margin-left: 8px; vertical-align: middle; border: 1px solid #fbd5d5;">OUT OF STOCK</span>`
+            : `<span style="background: #f3faf7; color: #03543f; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; display: inline-block; margin-left: 8px; vertical-align: middle; border: 1px solid #def7ec;">IN STOCK</span>`;
 
-            return `
-            <tr>
-                <td style="padding: 12px; border-bottom: 1px solid #eee;">
-                    <img src="${item.image}" alt="" style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;">
-                </td>
-                <td style="padding: 12px; border-bottom: 1px solid #eee;">
-                    <div style="font-weight: 700; font-size: 10pt; margin-bottom: 4px;">${item.name}</div>
-                    <div style="font-size: 8pt; color: #777; line-height: 1.4;">Size: ${item.size}</div>
-                    ${stickerTableHtml}
-                </td>
-                <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: center; font-size: 10pt;">${item.qty}</td>
-                <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 10pt;">Rs. ${item.price.toLocaleString()}</td>
-                <td style="padding: 12px; border-bottom: 1px solid #eee; text-align: right; font-size: 10pt; font-weight: 700;">Rs. ${(item.price * item.qty).toLocaleString()}</td>
-            </tr>
-        `}).join('');
-    }
+        // Determine wishlist state
+        const wished = isInWishlist(p.id);
+        const heartColor = wished ? 'color: #DC143C;' : 'color: var(--text-main);';
 
-    // --- Generate Customization Detail Pages for PDF ---
-    const invCustomizations = document.getElementById('inv-customizations');
-    if (invCustomizations) {
-        let customizationHtml = '';
-        cart.forEach((item, index) => {
-            if (item.stickers && item.stickers.length > 0) {
-                const stickerListHtml = item.stickers.map(s => {
-                    const isUpload = s.type === 'UPLOAD';
-                    const downloadBtn = isUpload ? `<a href="${s.image}" download="${s.id}_design.png" style="display: block; margin-top: 5px; background: #e91e63; color: white; text-align: center; padding: 4px; border-radius: 4px; font-size: 10px; text-decoration: none; font-weight: 700;">DOWNLOAD DESIGN</a>` : '';
+        grid.innerHTML += `
+        <div class="product-card glass ${isOutOfStock ? 'out-of-stock' : ''}" 
+             onclick="window.location.href='product-detail.html?id=${p.id}'" 
+             onmouseenter="startHoverSlide('${p.id}', this.querySelector('.card-slider'))"
+             onmouseleave="stopHoverSlide('${p.id}', this.querySelector('.card-slider'))"
+             style="cursor: pointer; animation: fadeIn 0.5s ease forwards; overflow: hidden; display: flex; flex-direction: column; position: relative; ${isOutOfStock ? 'opacity: 0.7;' : ''}">
+            <div class="product-image" style="overflow: hidden; position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 15px;">
+                ${discountBadge}
+                <!-- Wishlist Toggle overlay -->
+                <div class="wishlist-overlay-btn" onclick="event.stopPropagation(); handleCardWishlistToggle('${p.id}', this)" 
+                     style="position: absolute; top: 15px; right: 15px; background: var(--surface); border: 1px solid var(--border-color); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 12; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
+                     title="Add to Wishlist">
+                    <i data-lucide="heart" style="width: 18px; height: 18px; ${heartColor}" ${wished ? 'fill="#DC143C"' : ''}></i>
+                </div>
+                <div class="card-slider" style="display: flex; transition: transform 0.5s ease; height: 100%; width: 100%;">
+                    ${p.images.map(img => `<img src="${img}" style="width: 100%; flex-shrink: 0; height: 100%; object-fit: cover;">`).join('')}
+                </div>
+                ${p.images.length > 1 ? `
+                <div class="card-slider-indicators">
+                    ${p.images.map((_, idx) => `<div class="card-slider-indicator-dot ${idx === 0 ? 'active' : ''}"></div>`).join('')}
+                </div>
+                ` : ''}
+            </div>
+            <div class="product-info">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
+                    <span style="font-size: 0.7rem; color: #DC143C; font-weight: 800;">${p.category || ''}</span>
+                    ${stockBadge}
+                </div>
+                <h3 style="margin-top: 0;">${p.name}</h3>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <p class="price">Rs. ${displayPrice.toLocaleString()}.00</p>
+                    ${displayOldPrice ? `<p style="text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem;">Rs. ${displayOldPrice.toLocaleString()}</p>` : ''}
+                </div>
+            </div>
+            ${isOutOfStock ? '' : `
+            <div class="add-to-cart" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${p.images[0]}')">
+                <i data-lucide="plus"></i>
+            </div>
+            `}
+            ${(p.category === 'Oversized Tee (Printed)' && !p.sizeChartImg) || isOutOfStock ? '' : `
+            <div class="size-chart-card-btn" onclick="event.stopPropagation(); openSizeChart()" title="Size Chart" style="position: absolute; bottom: 20px; right: 75px; width: 45px; height: 45px; border-radius: 50%; background: #fff; border: 1px solid #ddd; color: #000; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(20px); transition: 0.3s; cursor: pointer; z-index: 10;">
+                <i data-lucide="ruler" style="width: 20px; height: 20px;"></i>
+            </div>
+            `}
+        </div>`;
+    });
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
 
-                    return `
-                        <div style="flex: 0 0 calc(33.3% - 10px); border: 1px solid #f0f0f0; padding: 8px; background: #fafafa; border-radius: 8px; text-align: left;">
-                            <img src="${s.image}" style="width: 35px; height: 35px; object-fit: contain; margin-bottom: 5px; display: block;">
-                            <div style="font-weight: 700; font-size: 11px; color: #e91e63;">ID: ${s.id}</div>
-                            <div style="font-size: 9px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${s.name}</div>
-                            <div style="font-size: 9px; color: #888; margin-top: 2px;">Side: ${s.side} | Size: ${s.size}</div>
-                            ${downloadBtn}
-                        </div>
-                    `;
-                }).join('');
+let hoverIntervals = {};
 
-                const overlaysHtml = item.stickers.map(s => {
-                    // Match shop sizes: 3"->30px, 5"->50px, 8"->70px
-                    const sizePx = s.size.includes('3') ? '30px' : (s.size.includes('5') ? '50px' : '70px');
-                    const posLine = `left: ${s.x || 50}%; top: ${s.y || 50}%; transform: translate(-50%, -50%) rotate(${s.rotation || 0}deg);`;
-                    return `<img src="${s.image}" style="position: absolute; width: ${sizePx}; height: auto; ${posLine} pointer-events: none; opacity: 0.95;">`;
-                }).join('');
+function startHoverSlide(productId, sliderElement) {
+    const p = products.find(prod => prod.id === productId);
+    if (!p || !p.images || p.images.length <= 1) return;
 
-                customizationHtml += `
-                    <div style="page-break-before: always; padding: 25px; background: white; border-bottom: 2px dashed #eee; min-height: 800px; font-family: 'Inter', sans-serif;">
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <h2 style="color: #e91e63; font-size: 20px; font-family: 'Playfair Display', serif; margin: 0;">Shop-Scale Design Blueprint - Item #${index + 1}</h2>
-                            <p style="color: #bbb; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; margin-top: 3px;">Design scale matches product page view</p>
-                        </div>
-                        
-                        <div style="background: #fdf2f8; padding: 12px 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #e91e63; text-align: left;">
-                            <h3 style="font-size: 12px; margin: 0 0 4px 0; color: #e91e63; text-transform: uppercase; font-weight: 700;">Product:</h3>
-                            <p style="margin: 0; font-weight: 700; font-size: 15px; color: #333;">${item.name} <span style="font-weight: 400; color: #666; font-size: 13px;">(${item.size})</span></p>
-                        </div>
+    let currentIdx = 0;
+    const container = sliderElement.parentElement;
+    const dots = container.querySelectorAll('.card-slider-indicator-dot');
 
-                        <!-- CENTERED PREVIEW (Shop Scale: 400px) -->
-                        <div style="width: 100%; text-align: center; margin-bottom: 25px;">
-                            <div style="position: relative; width: 400px; height: 400px; background: #fff; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                                <img src="${item.image}" style="width: 100%; height: 100%; object-fit: contain;">
-                                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">${overlaysHtml}</div>
-                            </div>
-                            <p style="margin-top: 8px; font-size: 10px; color: #999; font-weight: 600;">VISUAL PLACEMENT (1:1 SCALE WITH SHOP)</p>
-                        </div>
-
-                        <!-- DETAILS ROW -->
-                        <div style="width: 100%; text-align: left;">
-                            <h3 style="font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #fdf2f8; color: #333; font-weight: 700;">STICKET SETUP:</h3>
-                            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
-                                ${stickerListHtml}
-                            </div>
-                            
-                            <div style="background: #f9fafb; padding: 10px; border-radius: 8px; border: 1px solid #f0f0f0;">
-                                <p style="font-size: 10px; color: #777; margin: 0; line-height: 1.4;">
-                                    <strong>Production Note:</strong> The preview above matches the size and scaling as seen by the customer on the shop page. Print coordinates are absolute to this container.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 30px; text-align: center; color: #ddd; font-size: 9px; letter-spacing: 1px;">
-                            ROOHIRA ONLINE FASHION PORTAL 
-                        </div>
-                    </div>
-                `;
+    hoverIntervals[productId] = setInterval(() => {
+        currentIdx = (currentIdx + 1) % p.images.length;
+        sliderElement.style.transform = `translateX(-${currentIdx * 100}%)`;
+        
+        dots.forEach((dot, idx) => {
+            if (idx === currentIdx) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
             }
         });
-        invCustomizations.innerHTML = customizationHtml;
-
-        // --- NEW: Generate standalone FULL INVOICE HTML file for WhatsApp attachment ---
-        const invoiceContent = element.innerHTML;
-        const fullInvoiceHtml = `
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Roohira Order Invoice #${orderId}</title>
-                <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-                <style>
-                    body { margin: 0; padding: 20px; background: #fdfdfd; color: #333; font-family: 'Inter', sans-serif; }
-                    .invoice-wrapper { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border: 1px solid #eee; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-                    .page-break { page-break-before: always; border-top: 2px dashed #eee; margin-top: 50px; padding-top: 50px; }
-                    table { width: 100%; border-collapse: collapse; }
-                    th { text-align: left; background: #f9fafb; padding: 12px; font-weight: 700; color: #1f2937; border-bottom: 2px solid #e5e7eb; }
-                    td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
-                    .master-header { text-align: center; margin-bottom: 40px; border-bottom: 2px solid #e91e63; padding-bottom: 20px; }
-                    .master-header h1 { color: #e91e63; font-family: 'Playfair Display', serif; margin: 0; font-size: 32px; }
-                </style>
-            </head>
-            <body>
-                <div class="invoice-wrapper">
-                    <div class="master-header">
-                        <h1>ROOHIRA FASHION POINT</h1>
-                        <p style="text-transform: uppercase; letter-spacing: 2px; font-size: 11px; color: #999;">FULL ORDER INVOICE & DESIGN BLUEPRINT</p>
-                    </div>
-                    
-                    ${invoiceContent}
-                </div>
-                
-                <div style="text-align: center; margin-top: 50px; color: #bbb; font-size: 11px;">
-                    © 2026 ROOHIRA ONLINE STORE. ALL RIGHTS RESERVED.
-                </div>
-            </body>
-            </html>
-        `;
-
-        const blob = new Blob([fullInvoiceHtml], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `roohira_full_invoice_${orderId}.html`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-
-        // Save for sharing
-        window.currentOrderFile = new File([fullInvoiceHtml], `roohira_full_invoice_${orderId}.html`, { type: 'text/html' });
-    }
-
-
-    // HTML Download is already triggered above in the "Generate standalone FULL INVOICE HTML" section.
-
-    const noteEl = document.getElementById('note');
-    const customerNote = noteEl ? noteEl.value : '';
-
-    // Create Heavily Minified Order Data Array for URL to keep it small
-    const minOrderDataArr = [
-        orderId.replace('ORD-RO-', ''), // Shorten ID
-        name,
-        phone,
-        address,
-        city,
-        customerNote,
-        cart.map(item => [
-            item.id,
-            item.size,
-            item.qty,
-            item.price,
-            [] // No stickers
-        ])
-    ];
-
-    // Robust URL-Safe Base64 Encoding
-    const jsonStr = JSON.stringify(minOrderDataArr);
-    let base64Str = btoa(unescape(encodeURIComponent(jsonStr)));
-    // Make it URL-safe: replace + with -, / with _, and remove =
-    const safeBase64 = base64Str.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-    const encodedData = encodeURIComponent(safeBase64);
-
-    // SMART LINK GENERATION
-    // This logic automatically detects if you are on GitHub or Local, and creates the best link.
-    const GITHUB_BASE = 'https://onijawathsuka39-arch.github.io/Roohira-Online-Clothing-/';
-    let currentUrl = window.location.href.split('checkout.html')[0];
-    if (!currentUrl.endsWith('/')) currentUrl += '/';
-
-    let finalInvoiceLink = "";
-    let linkNote = "";
-
-    if (window.location.protocol === 'file:') {
-        // If Local: Provide the clickable GitHub link as primary, but show the local path too
-        finalInvoiceLink = `${GITHUB_BASE}invoice.html?data=${encodedData}`;
-        linkNote = `(Note: Link above points to your Live GitHub site. For local view, copy this: ${currentUrl}invoice.html?data=${encodedData})`;
-    } else {
-        // If Online: Use the current live URL (Blue & Clickable)
-        finalInvoiceLink = `${currentUrl}invoice.html?data=${encodedData}`;
-        linkNote = `(View order details online)`;
-    }
-
-    // Construct WhatsApp Message Items
-    const orderItemsText = cart.map(item => {
-        return `• *${item.name}* (${item.size})\n  Qty: ${item.qty} x Rs. ${item.price.toLocaleString()}`;
-    }).join('\n\n');
-
-    // LINK 2: DIRECT JSON LINK (Backup - extremely reliable)
-    const directEncodedData = encodeURIComponent(jsonStr);
-    let directLink = "";
-    if (window.location.protocol === 'file:') {
-        directLink = `${GITHUB_BASE}invoice.html?direct=${directEncodedData}`;
-    } else {
-        directLink = `${currentUrl}invoice.html?direct=${directEncodedData}`;
-    }
-
-    const messageBody = `*Order Confirmation: ${orderId}*\n\n*Customer:* ${name}\n*Phone:* ${phone}\n*Address:* ${address}, ${city}${customerNote ? '\n*Note:* ' + customerNote : ''}\n\n*Items:*\n${orderItemsText}\n\n*Total: Rs. ${subtotal.toLocaleString()}*\n\n🔗 *VIEW YOUR INVOICE:*\n🌐 Online View: ${finalInvoiceLink}\n📥 Download Invoice (PDF): ${directLink}&print=1\n\nThank you for shopping with us!`;
-    const encodedMsg = encodeURIComponent(messageBody);
-
-    // Trigger immediate order finishing
-    finishOrder(orderId, subtotal, encodedMsg, messageBody);
-}
-
-function finishOrder(orderId, subtotal, encodedMsg, plainMsg) {
-    // Save to history
-    if (user) {
-        const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-        orders.push({ id: orderId, date: new Date().toISOString(), total: subtotal, items: cart });
-        localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(orders));
-    }
-
-    // Capture for sharing
-    window.lastOrderMessage = encodedMsg;
-
-    // Clear cart
-    cart = [];
-    localStorage.removeItem('roohira_cart');
-    updateCartCount();
-
-    // Instant Redirect to WhatsApp as requested with a tiny delay to ensure download starts first
-    const waUrl = `https://api.whatsapp.com/send?phone=94757218786&text=${encodedMsg}`;
-
-    setTimeout(() => {
-        window.location.href = waUrl;
-    }, 300);
-}
-
-function shareToWhatsApp() {
-    const msg = window.lastOrderMessage || "";
-    // Target the specific Roohira WhatsApp number directly with the full encoded order message
-    const waUrl = `https://wa.me/94757218786?text=${msg}`;
-
-    // We open the specific number immediately as requested.
-    // This ensures the order details are sent to the correct WhatsApp chat.
-    window.location.href = waUrl;
-}
-
-// --- Auth ---
-
-// --- Auth ---
-
-function initLogin() {
-    const form = document.getElementById('login-form');
-    if (!form) return;
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        // Mock Login
-        const storedUser = JSON.parse(localStorage.getItem(`roohira_user_${email}`));
-
-        if (storedUser && storedUser.password === password) {
-            localStorage.setItem('roohira_user', JSON.stringify(storedUser));
-            showToast('Login Successful!', 'success');
-            setTimeout(() => window.location.href = 'index.html', 1000);
-        } else {
-            showToast('Invalid credentials (Check signup)', 'error');
-        }
-    };
-}
-
-function initSignup() {
-    const form = document.getElementById('signup-form');
-    if (!form) return;
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const password = document.getElementById('password').value;
-
-        const newUser = { name, email, phone, password };
-        localStorage.setItem(`roohira_user_${email}`, JSON.stringify(newUser));
-        localStorage.setItem('roohira_user', JSON.stringify(newUser));
-
-        showToast('Account Created!', 'success');
-        setTimeout(() => window.location.href = 'index.html', 1000);
-    };
-}
-
-function initChangePassword() {
-    const form = document.getElementById('change-password-form');
-    if (!form) return;
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        const currentPass = document.getElementById('current-password').value;
-        const newPass = document.getElementById('new-password').value;
-        const confirmPass = document.getElementById('confirm-password').value;
-
-        if (!user) return; // Should not happen if on profile page
-
-        const storedUser = JSON.parse(localStorage.getItem(`roohira_user_${user.email}`));
-
-        if (storedUser.password !== currentPass) {
-            showToast('Incorrect current password', 'error');
-            return;
-        }
-
-        if (newPass !== confirmPass) {
-            showToast('New passwords do not match', 'error');
-            return;
-        }
-
-        storedUser.password = newPass;
-        localStorage.setItem(`roohira_user_${user.email}`, JSON.stringify(storedUser));
-        localStorage.setItem('roohira_user', JSON.stringify(storedUser)); // Update session
-
-        showToast('Password updated successfully!', 'success');
-        form.reset();
-    };
-}
-
-function showOrders() {
-    const container = document.getElementById('order-history');
-    if (!container || !user) return;
-
-    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-
-    if (orders.length === 0) {
-        container.innerHTML = '<p style="color: grey; text-align: center; padding: 2rem;">No orders found.</p>';
-        return;
-    }
-
-    container.innerHTML = orders.reverse().map(order => `
-        <div style="border: 1px solid #efefef; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;">
-            <div style="display: flex; justify-content: justify-between; margin-bottom: 0.5rem;">
-                <span style="font-weight: bold; color: var(--primary);">#${order.id}</span>
-                <span style="font-size: 0.8rem; color: grey;">${new Date(order.date).toLocaleDateString()}</span>
-            </div>
-            <div style="font-size: 0.9rem; margin-bottom: 0.5rem;">
-                ${order.items.map(item => `${item.qty}x ${item.name}`).join(', ')}
-            </div>
-            <div style="font-weight: bold; text-align: right;">Total: Rs. ${order.total.toLocaleString()}</div>
-        </div>
-    `).join('');
-}
-
-function initOrdersPage() {
-    const container = document.getElementById('order-history-page-content');
-    if (!container) return;
-
-    if (!user) {
-        window.location.href = 'login.html';
-        return;
-    }
-
-    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-
-    if (orders.length === 0) {
-        container.innerHTML = `
-            <div style="text-align: center; padding: 4rem 2rem;">
-                <div style="font-size: 4rem; color: #e2e8f0; margin-bottom: 1.5rem;"><i class="fas fa-box-open"></i></div>
-                <h2 style="font-size: 1.5rem; color: #475569; margin-bottom: 0.5rem;">No Orders Yet</h2>
-                <p style="color: #94a3b8; margin-bottom: 2rem;">When you place an order, it will appear here.</p>
-                <a href="shop.html" class="btn btn-primary">Start Shopping</a>
-            </div>
-        `;
-        return;
-    }
-
-    container.innerHTML = `
-        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-            ${orders.reverse().map(order => {
-        const date = new Date(order.date).toLocaleDateString();
-        const time = new Date(order.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-        return `
-                <div style="border: 1px solid #f1f5f9; border-radius: 1.5rem; overflow: hidden; transition: 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
-                    <div style="background: #f8fafc; padding: 1.25rem 2rem; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                        <div>
-                            <span style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; display: block;">Order Reference</span>
-                            <span style="font-weight: 800; color: var(--primary); font-size: 1.1rem;">#${order.id}</span>
-                        </div>
-                        <div style="text-align: right;">
-                            <span style="color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; display: block;">Date & Time</span>
-                            <span style="font-weight: 600; color: #475569;">${date} at ${time}</span>
-                        </div>
-                        <div style="background: #dcfce7; color: #166534; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 0.5rem;">
-                            <i class="fas fa-check-circle"></i> Placed
-                        </div>
-                        <button onclick="deleteOrder('${order.id}')" style="background: #fee2e2; color: #ef4444; border: none; padding: 0.5rem 1rem; border-radius: 1rem; cursor: pointer; font-weight: 700; font-size: 0.8rem; transition: 0.3s; display: flex; align-items: center; gap: 0.5rem;" onmouseover="this.style.background='#fecaca'" onmouseout="this.style.background='#fee2e2'">
-                            <i class="fas fa-trash-alt"></i> Delete Order
-                        </button>
-                    </div>
-                    
-                    <div style="padding: 2rem;">
-                        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
-                            ${order.items.map(item => `
-                                <div style="display: flex; align-items: center; gap: 1.25rem;">
-                                    <img src="${item.image}" style="width: 60px; height: 60px; border-radius: 1rem; object-fit: cover; background: #f8fafc; border: 1px solid #f1f5f9;">
-                                    <div style="flex-grow: 1;">
-                                        <h4 style="font-weight: 700; color: #1e293b; margin: 0; font-size: 1rem;">${item.name}</h4>
-                                        <p style="color: #64748b; font-size: 0.85rem; margin: 0.25rem 0 0;">Size: ${item.size} | Qty: ${item.qty}</p>
-                                    </div>
-                                    <div style="font-weight: 700; color: #1e293b; font-size: 1rem;">Rs. ${(item.price * item.qty).toLocaleString()}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <div style="border-top: 1px dashed #e2e8f0; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
-                            <div style="color: #64748b; font-size: 0.9rem;">
-                                <strong>${order.items.length}</strong> ${order.items.length === 1 ? 'item' : 'items'} in total
-                            </div>
-                            <div style="text-align: right;">
-                                <span style="display: block; color: #94a3b8; font-size: 0.8rem; font-weight: 700;">Grand Total</span>
-                                <span style="font-size: 1.5rem; font-weight: 900; color: #1e293b;">Rs. ${order.total.toLocaleString()}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `;
-    }).join('')}
-        </div>
-    `;
-}
-
-function deleteOrder(orderId) {
-    if (!user || !confirm(`Are you sure you want to delete order #${orderId}? SI: ඔබට මෙම ඇණවුම ඉවත් කිරීමට අවශ්‍ය බව සහතිකද?`)) return;
-
-    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-    const updatedOrders = orders.filter(o => o.id !== orderId);
-
-    localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(updatedOrders));
-    initOrdersPage(); // Refresh
-    showToast('Order deleted successfully!', 'success');
-}
-
-function factoryReset() {
-    if (!confirm('WARNING: This will permanently delete ALL your data, cart, and account settings. SI: අවවාදයයි: මෙයින් ඔබගේ සියලු දත්ත, cart සහ ගිණුම් තොරතුරු සදහටම මැකී යනු ඇත. Proceed?')) return;
-
-    localStorage.clear();
-    showToast('System reset complete. Redirecting...', 'info');
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 1500);
-}
-
-function loadProfile() {
-    if (!user) {
-        window.location.href = 'login.html';
-        return;
-    }
-
-    // Show full signup details in profile header
-    if (document.getElementById('profile-name')) document.getElementById('profile-name').textContent = user.name || 'User';
-    if (document.getElementById('profile-email')) document.getElementById('profile-email').textContent = user.email || '';
-
-    // Add phone to profile if element exists
-    const phoneEl = document.getElementById('profile-phone');
-    if (phoneEl) phoneEl.textContent = user.phone || 'N/A';
-
-    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-    const container = document.getElementById('order-history');
-
-    if (!container) return;
-
-    if (orders.length === 0) {
-        container.innerHTML = '<div class="text-center py-8 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200"><p class="text-gray-500">You haven\'t placed any orders yet.</p></div>';
-    } else {
-        // Sort orders by newest first (descending by timestamp/ID)
-        const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        container.innerHTML = sortedOrders.map(o => `
-            <div class="bg-white border border-gray-100 rounded-xl p-6 mb-4 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <div class="text-sm text-gray-400 mb-1">Order #${o.id ? o.id.split('-').pop() : 'N/A'}</div>
-                        <div class="font-bold text-lg text-gray-900">${o.date ? new Date(o.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Unknown Date'}</div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-primary font-bold text-xl">Rs. ${o.total ? o.total.toLocaleString() : '0'}</div>
-                        <div class="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full inline-block mt-1">Confirmed</div>
-                    </div>
-                </div>
-                
-                <div class="border-t border-gray-50 pt-4 flex justify-between items-center">
-                    <button onclick="toggleOrderDetails('${o.id}')" class="text-sm font-semibold text-primary hover:underline flex items-center gap-2">
-                        View Order Items <i class="fas fa-chevron-down text-xs transition-transform" id="icon-${o.id}"></i>
-                    </button>
-                    <button onclick="deleteOrder('${o.id}')" class="text-red-500 hover:text-red-700 text-sm font-semibold flex items-center gap-1" title="Delete Order">
-                        <i class="fas fa-trash"></i> Delete
-                    </button>
-                    
-                    <div id="details-${o.id}" style="display: none;" class="mt-4 bg-gray-50 p-4 rounded-lg">
-                        ${(o.items || []).map(item => `
-                            <div class="flex justify-between items-center py-2 border-b border-gray-200 last:border-0">
-                                <div class="flex items-center gap-3">
-                                    <img src="${item.image || (item.images ? item.images[0] : '')}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px;">
-                                    <div style="text-align: left;">
-                                        <div class="text-sm font-semibold text-gray-800">${item.name}</div>
-                                        <div class="text-xs text-gray-500">Size: ${item.size || 'Standard'} | Qty: ${item.qty}</div>
-                                    </div>
-                                </div>
-                                <div class="text-sm font-bold text-gray-700">Rs. ${((item.price || 0) * (item.qty || 1)).toLocaleString()}</div>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-}
-
-function logout() {
-    localStorage.removeItem('roohira_user');
-    window.location.href = 'index.html';
-}
-
-function toggleOrderDetails(id) {
-    const el = document.getElementById(`details-${id}`);
-    const icon = document.getElementById(`icon-${id}`);
-    if (el.style.display === 'none') {
-        el.style.display = 'block';
-        icon.style.transform = 'rotate(180deg)';
-    } else {
-        el.style.display = 'none';
-        icon.style.transform = 'rotate(0deg)';
-    }
-}
-
-function deleteOrder(orderId) {
-    if (!user) return;
-
-    // Confirm deletion
-    if (!confirm('Are you sure you want to delete this order from your history?')) {
-        return;
-    }
-
-    // Get orders from localStorage
-    const orders = JSON.parse(localStorage.getItem(`roohira_orders_${user.email}`)) || [];
-
-    // Filter out the order to delete
-    const updatedOrders = orders.filter(order => order.id !== orderId);
-
-    // Save updated orders back to localStorage
-    localStorage.setItem(`roohira_orders_${user.email}`, JSON.stringify(updatedOrders));
-
-    // Show success message
-    showToast('Order deleted successfully', 'success');
-
-    // Reload the profile to update the display
-    loadProfile();
-}
-
-
-// --- Utilities ---
-
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    // Trigger reflow
-    toast.offsetHeight;
-
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-}
-
-function initForgotPassword() {
-    const forgotLink = document.getElementById('forgot-password-link');
-    const backBtn = document.getElementById('back-to-login');
-    const loginForm = document.getElementById('login-form');
-    const forgotForm = document.getElementById('forgot-password-form');
-    const signupPrompt = document.getElementById('signup-prompt');
-
-    if (!forgotLink || !forgotForm) return;
-
-    forgotLink.onclick = (e) => {
-        e.preventDefault();
-        loginForm.style.display = 'none';
-        forgotForm.style.display = 'block';
-        signupPrompt.style.display = 'none';
-    };
-
-    backBtn.onclick = () => {
-        loginForm.style.display = 'block';
-        forgotForm.style.display = 'none';
-        signupPrompt.style.display = 'block';
-    };
-
-    forgotForm.onsubmit = (e) => {
-        e.preventDefault();
-        const email = document.getElementById('reset-email').value;
-        const phone = document.getElementById('reset-phone').value;
-        const newPassword = document.getElementById('reset-new-password').value;
-
-        const storedUser = JSON.parse(localStorage.getItem(`roohira_user_${email}`));
-
-        if (storedUser && storedUser.phone === phone) {
-            storedUser.password = newPassword;
-            localStorage.setItem(`roohira_user_${email}`, JSON.stringify(storedUser));
-            showToast('Password reset successfully!', 'success');
-
-            // Go back to login
-            loginForm.style.display = 'block';
-            forgotForm.style.display = 'none';
-            signupPrompt.style.display = 'block';
-            forgotForm.reset();
-        } else {
-            showToast('Email or phone number does not match!', 'error');
-        }
-    };
-}
-
-
-
-// --- Banner Modal ---
-function openBannerModal(index) {
-    const bannerContainers = document.querySelectorAll('.offer-banner-container');
-    if (bannerContainers[index]) {
-        const img = bannerContainers[index].querySelector('img');
-        if (img) {
-            const modal = document.getElementById('banner-modal');
-            const modalImg = document.getElementById('modal-img');
-            modalImg.src = img.src;
-            modal.classList.add('active');
-        }
-    }
-}
-
-function closeBannerModal(event) {
-    const modal = document.getElementById('banner-modal');
-    modal.classList.remove('active');
-}
-
-function toggleOffersModal() {
-    const modal = document.getElementById('offers-modal');
-    if (modal) {
-        const isVisible = modal.style.display === "flex";
-        modal.style.display = isVisible ? "none" : "flex";
-
-        // Disable body scroll when modal is open
-        document.body.style.overflow = isVisible ? "auto" : "hidden";
-    }
-}
-
-// --- Customization Logic ---
-
-let customOrder = {
-    category: '',
-    designId: null,
-    designName: '',
-    designImage: '',
-    material: '',
-    size: 'M',
-    color: 'White',
-    width: '',
-    height: '',
-    note: '',
-    stickers: [], // Array of {id, name, image, size, side}
-    basePrice: 1200
-};
-
-function selectCategory(category) {
-    customOrder.category = category;
-    if (category === 'Reguler T shirt' || category === 'Kids Two Tone T-shirt' || category === 'Printed T shirt') {
-        customOrder.stickers = []; // Reset stickers when starting fresh
-        goToStep('tshirt-base');
-        updateCustomTshirtState();
-
-        // Update color swatches in wizard based on category
-        const colorContainer = document.getElementById('tshirt-color-options');
-        if (colorContainer) {
-            const p = products.find(prod => prod.category === category);
-            if (p && p.colors) {
-                colorContainer.innerHTML = p.colors.map((c, i) => {
-                    let bgStyle;
-                    if (Array.isArray(c.hex)) {
-                        bgStyle = `linear-gradient(135deg, ${c.hex[0]} 50%, ${c.hex[1]} 50%)`;
-                    } else if (typeof c.hex === 'string' && c.hex.includes(',')) {
-                        bgStyle = `linear-gradient(135deg, ${c.hex.split(',')[0]} 50%, ${c.hex.split(',')[1]} 50%)`;
-                    } else {
-                        bgStyle = c.hex;
-                    }
-                    return `<button onclick="selectTshirtColor('${c.name}', '${c.image}')" class="color-swatch-btn tshirt-swatch ${i === 0 ? 'active' : ''}" style="background: ${bgStyle}; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;" data-color="${c.name}"></button>`;
-                }).join('');
-                selectTshirtColor(p.colors[0].name, p.colors[0].image);
-            } else if (category === 'Reguler T shirt') {
-                // Fallback for custom T-shirts if not found in products
-                colorContainer.innerHTML = `
-                    <button onclick="selectTshirtColor('White', 'tshirt-white.png')" class="color-swatch-btn tshirt-swatch active" style="background: #ffffff; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
-                    <button onclick="selectTshirtColor('Black', 'tshirt-black.png')" class="color-swatch-btn tshirt-swatch" style="background: #111111; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
-                    <button onclick="selectTshirtColor('Red', 'tshirt-red.png')" class="color-swatch-btn tshirt-swatch" style="background: #dc2626; border: 2px solid #ddd; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;"></button>
-                `;
-                selectTshirtColor('White', 'tshirt-white.png');
-            }
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-function goToStep(stepName) {
-    // Validate before moving forward
-
-
-    // Hide all steps
-    ['category', 'design', 'options', 'details'].forEach(s => {
-        const el = document.getElementById(`step-${s}`);
-        if (el) el.style.display = 'none';
-
-        // Update Progress UI
-        const stepMap = { 'category': 1, 'design': 2, 'options': 3, 'details': 4 };
-        const stepNum = stepMap[s];
-        const progressItem = document.getElementById(`p-step-${stepNum}`);
-        if (progressItem) {
-            if (s === stepName) {
-                progressItem.classList.add('active');
-                const num = progressItem.querySelector('.step-num');
-                if (num) {
-                    num.style.background = 'var(--primary)';
-                    num.style.color = 'white';
-                }
-                const span = progressItem.querySelector('span');
-                if (span) {
-                    span.style.color = 'var(--text-dark)';
-                    span.style.fontWeight = '700';
-                }
-            } else if (stepMap[s] < stepMap[stepName]) {
-                // Completed steps
-                progressItem.classList.remove('active');
-                const num = progressItem.querySelector('.step-num');
-                if (num) {
-                    num.style.background = '#4ade80'; // Green
-                    num.style.color = 'white';
-                    num.innerHTML = '<i class="fas fa-check"></i>';
-                }
-            } else {
-                progressItem.classList.remove('active');
-                const num = progressItem.querySelector('.step-num');
-                if (num) {
-                    num.style.background = 'white';
-                    num.style.color = '#999';
-                    num.textContent = stepNum;
-                }
-                const span = progressItem.querySelector('span');
-                if (span) {
-                    span.style.color = '#999';
-                    span.style.fontWeight = '500';
-                }
-            }
-        }
-    });
-
-    // Show target step
-    const target = document.getElementById(`step-${stepName}`);
-    if (target) target.style.display = 'block';
-
-    // Scroll to top of wizard
-    document.getElementById('customize-wizard').scrollIntoView({ behavior: 'smooth' });
-}
-
-
-
-// --- T-Shirt Specific Customization ---
-
-function selectTshirtColor(color, image) {
-    customOrder.color = color;
-    document.getElementById('tshirt-base-preview').src = image;
-
-    // Update swatches
-    document.querySelectorAll('.tshirt-swatch').forEach(s => {
-        const onclickAttr = s.getAttribute('onclick');
-        if (onclickAttr && onclickAttr.includes(`'${color}'`)) {
-            s.classList.add('active');
-            s.style.borderColor = 'var(--primary)';
-            s.style.borderWidth = '3px';
-        } else {
-            s.classList.remove('active');
-            s.style.borderColor = '#ddd';
-            s.style.borderWidth = '2px';
-        }
-    });
-
-    updateCustomTshirtState();
-}
-
-function updateCustomTshirtState() {
-    customOrder.size = document.getElementById('tshirt-size-select').value;
-    updateTshirtPrice();
-    renderStickerList();
-}
-
-function updateTshirtPrice() {
-    // Base price 1200. First 1 sticker free. Then 100 each.
-    const stickerCount = customOrder.stickers.length;
-    const additionalStickers = Math.max(0, stickerCount - 1);
-    const extraPrice = additionalStickers * 100;
-    const totalPrice = customOrder.basePrice + extraPrice;
-
-    const priceEl = document.getElementById('tshirt-custom-price');
-    if (priceEl) {
-        priceEl.textContent = `Rs. ${totalPrice.toLocaleString()}`;
-    }
-}
-
-function goToStickersStep() {
-    goToStep('stickers');
-    loadStickers();
-}
-
-function loadStickers() {
-    const grid = document.getElementById('sticker-grid');
-    if (!grid) return;
-
-    grid.innerHTML = STICKERS.map(s => `
-        <div class="design-card" onclick="openStickerModal('${s.id}')" style="padding: 5px; border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; transition: 0.2s; min-width: 60px;">
-            <div style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px;">
-                <img src="${s.image}" alt="${s.id}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-            </div>
-            <p class="text-center mt-1 font-bold" style="font-size: 0.6rem; color: #333; margin: 0;">ID: ${s.id}</p>
-        </div>
-    `).join('');
-}
-
-let activeStickerId = null;
-
-function openStickerModal(id) {
-    const sticker = STICKERS.find(s => s.id === id);
-    if (!sticker) return;
-
-    activeStickerId = id;
-    currentSticker = null; // Clear uploaded sticker state
-
-    document.getElementById('modal-sticker-img').src = sticker.image;
-    document.getElementById('modal-sticker-img').alt = sticker.id; // Set alt for later retrieval
-    document.getElementById('modal-sticker-name').textContent = sticker.name; // Display sticker name
-
-    // Populate sizes
-    const sizeSelect = document.getElementById('sticker-size');
-    if (sizeSelect && sticker.sizes) {
-        sizeSelect.innerHTML = sticker.sizes.map(s => `<option value="${s}">${s} inch</option>`).join('');
-    }
-
-    document.getElementById('sticker-detail-modal').style.display = 'flex';
-}
-
-function closeStickerModal() {
-    document.getElementById('sticker-detail-modal').style.display = 'none';
-}
-
-function addStickerToOrder() {
-    let sticker = currentSticker; // Prioritize uploaded sticker
-    if (!sticker) { // If no uploaded sticker, use the selected system sticker
-        sticker = STICKERS.find(s => s.id === activeStickerId);
-    }
-
-    if (!sticker) return;
-
-    const size = document.getElementById('sticker-size').value;
-    const side = document.querySelector('input[name="sticker-side"]:checked').value;
-
-    customOrder.stickers.push({
-        id: sticker.id, // Use sticker.id from the resolved sticker
-        name: sticker.name,
-        image: sticker.image,
-        type: sticker.type || 'STANDARD',
-        size: size,
-        side: side,
-        x: 50,
-        y: 50,
-        rotation: 0
-    });
-
-    closeStickerModal();
-    goToStep('tshirt-base');
-    updateCustomTshirtState(); // This function calls renderStickerList()
-    showToast(`${sticker.name} added!`, 'success');
-
-    // Clear upload state and active system sticker ID
-    currentSticker = null;
-    activeStickerId = null;
-    const input = document.getElementById('user-sticker-upload');
-    if (input) input.value = '';
-}
-
-function renderStickerList() {
-    const container = document.getElementById('stickers-container');
-    const listParent = document.getElementById('added-stickers-list');
-    const overlays = document.getElementById('tshirt-sticker-overlays');
-
-    if (!container || !listParent || !overlays) return;
-
-    if (customOrder.stickers.length === 0) {
-        listParent.style.display = 'none';
-        overlays.innerHTML = '';
-        return;
-    }
-
-    listParent.style.display = 'block';
-    container.innerHTML = customOrder.stickers.map((s, index) => `
-        <div class="flex items-center gap-2 bg-gray-100 px-3 py-1 rounded-full border border-gray-200">
-            <span class="text-xs font-semibold">ID: ${s.id} (${s.side} - ${s.size})</span>
-            <button onclick="removeSticker(${index})" class="text-red-500 hover:text-red-700" style="background: none; border: none; padding: 0; cursor: pointer;">
-                <i class="fas fa-times-circle"></i>
-            </button>
-        </div>
-    `).join('');
-
-    // Render Overlays with Drag & Drop and Rotation capability
-    overlays.innerHTML = customOrder.stickers.map((s, index) => {
-        const sizePx = s.size.includes('3') ? '40px' : (s.size.includes('5') ? '60px' : '80px');
-        const posLine = s.x ? `left: ${s.x}%; top: ${s.y}%; transform: translate(-50%, -50%) rotate(${s.rotation || 0}deg);` : `position: relative;`;
-        return `
-            <div id="wiz-sticker-wrapper-${index}" style="position: absolute; ${posLine} cursor: move; pointer-events: auto; padding: 10px;">
-                <img src="${s.image}" 
-                     id="wiz-sticker-${index}"
-                     onmousedown="startMovingSticker(event, ${index}, 'wizard')"
-                     ontouchstart="startMovingSticker(event, ${index}, 'wizard')"
-                     style="width: ${sizePx}; height: auto; display: block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));">
-                <div class="rotate-handle" 
-                     onmousedown="startRotatingSticker(event, ${index}, 'wizard')"
-                     ontouchstart="startRotatingSticker(event, ${index}, 'wizard')"
-                     style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; background: white; border: 2px solid var(--primary); border-radius: 50%; cursor: alias; display: flex; align-items: center; justify-content: center; font-size: 8px; color: var(--primary);">
-                    <i class="fas fa-redo"></i>
-                </div>
-            </div>`;
-    }).join('');
-}
-
-function removeSticker(index) {
-    customOrder.stickers.splice(index, 1);
-    updateCustomTshirtState();
-    showToast('Sticker removed', 'info');
-}
-
-function finishTshirtCustomization() {
-    // Calculate final price
-    const stickerCount = customOrder.stickers.length;
-    const additionalStickers = Math.max(0, stickerCount - 1);
-    const totalPrice = customOrder.basePrice + (additionalStickers * 100);
-
-    // Create a special cart item
-    const stickerDetails = customOrder.stickers.map(s => `Sticker ID: ${s.id} (Side: ${s.side}, Size: ${s.size}, Pos: ${s.x ? s.x.toFixed(0) + ',' + s.y.toFixed(0) : 'N/A'}, Rot: ${s.rotation || 0}deg)`).join(' | ');
-    const finalSizeLabel = `${customOrder.size} | Color: ${customOrder.color}${stickerDetails ? ' | Stickers: ' + stickerDetails : ''}`;
-
-    const cartItem = {
-        id: Date.now(), // Unique ID for custom items
-        name: `Customized T-Shirt (${customOrder.color})`,
-        image: document.getElementById('tshirt-base-preview').src,
-        price: totalPrice,
-        size: finalSizeLabel,
-        qty: 1,
-        isCustom: true,
-        stickers: customOrder.stickers,
-        baseColor: customOrder.color,
-        baseSize: customOrder.size
-    };
-
-    cart.push(cartItem);
-    localStorage.setItem('roohira_cart', JSON.stringify(cart));
-    updateCartCount();
-    showToast('Custom T-Shirt added to cart!', 'success');
-
-    setTimeout(() => {
-        window.location.href = 'cart.html';
     }, 1000);
 }
 
-// --- Shop Product T-Shirt Stickers ---
-
-function toggleStickerGrid() {
-    const modal = document.getElementById('product-sticker-selection-modal');
-    if (modal) {
-        if (modal.style.display === 'none') {
-            modal.style.display = 'flex';
-            loadShopStickers(); // Ensure loaded
+function stopHoverSlide(productId, sliderElement) {
+    if (hoverIntervals[productId]) {
+        clearInterval(hoverIntervals[productId]);
+        delete hoverIntervals[productId];
+    }
+    sliderElement.style.transform = 'translateX(0)';
+    
+    const container = sliderElement.parentElement;
+    const dots = container.querySelectorAll('.card-slider-indicator-dot');
+    dots.forEach((dot, idx) => {
+        if (idx === 0) {
+            dot.classList.add('active');
         } else {
-            modal.style.display = 'none';
+            dot.classList.remove('active');
         }
-    }
-}
-
-function loadShopStickers() {
-    const grid = document.getElementById('product-sticker-grid');
-    if (!grid) return;
-
-    grid.innerHTML = STICKERS.map(s => `
-        <div class="shop-sticker-item" onclick="openShopStickerModal('${s.id}')" 
-             style="cursor: pointer; border: 1px solid #eee; border-radius: 8px; padding: 5px; transition: 0.3s; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.02); min-width: 65px; height: auto;">
-            <div style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px;">
-                <img src="${s.image}" alt="${s.id}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-            </div>
-            <p style="font-size: 0.6rem; font-weight: 700; margin: 0; color: #333;">ID: ${s.id}</p>
-        </div>
-    `).join('');
-}
-
-let activeShopStickerId = null;
-
-function openShopStickerModal(id) {
-    const sticker = STICKERS.find(s => s.id === id);
-    if (!sticker) return;
-    activeShopStickerId = id;
-    currentSticker = null; // Clear uploaded sticker state
-
-    const modal = document.getElementById('shop-sticker-modal');
-    if (modal) {
-        const imgEl = document.getElementById('shop-modal-sticker-img');
-        const nameEl = document.getElementById('shop-modal-sticker-name');
-        if (imgEl) {
-            imgEl.src = sticker.image;
-            imgEl.alt = sticker.id;
-        }
-        if (nameEl) nameEl.textContent = sticker.name;
-        modal.style.display = 'flex';
-    }
-
-    const gridModal = document.getElementById('product-sticker-selection-modal');
-    if (gridModal) gridModal.style.display = 'none';
-}
-
-function closeShopStickerModal() {
-    document.getElementById('shop-sticker-modal').style.display = 'none';
-}
-
-function addStickerToShopOrder() {
-    let sticker = null;
-
-    // Check if it's a user upload or a standard sticker
-    if (currentSticker && currentSticker.type === 'UPLOAD') {
-        sticker = currentSticker;
-    } else {
-        sticker = STICKERS.find(s => s.id === activeShopStickerId);
-    }
-
-    if (!sticker) {
-        showToast('Please select a sticker first', 'error');
-        return;
-    }
-
-    const size = document.getElementById('shop-sticker-size').value;
-    const side = document.querySelector('input[name="shop-sticker-side"]:checked').value;
-
-    if (!window.productStickers) window.productStickers = [];
-
-    window.productStickers.push({
-        id: sticker.id,
-        name: sticker.name,
-        image: sticker.image,
-        type: sticker.type || 'STANDARD',
-        size: size,
-        side: side,
-        x: 50,
-        y: 50,
-        rotation: 0
     });
-
-    closeShopStickerModal();
-    const gridModal = document.getElementById('product-sticker-selection-modal');
-    if (gridModal) gridModal.style.display = 'none';
-    renderShopStickers();
-    showToast(`${sticker.name} added!`, 'success');
-
-    // Clear upload state after success
-    currentSticker = null;
-    const input = document.getElementById('shop-user-sticker-upload');
-    if (input) input.value = '';
 }
 
-function renderShopStickers() {
-    const container = document.getElementById('product-added-stickers');
-    const overlays = document.getElementById('product-sticker-overlays');
+// --- Shop Filtering System ---
+let currentCategory = 'All';
+let currentSubcategory = 'All';
+let currentGSM = 'all';
+let searchQuery = '';
 
-    if (!container || !overlays) return;
+// true only when a *specific* (non-All) value is chosen
+let categorySelected = false;
+let subcategorySelected = false;
 
-    if (!window.productStickers || window.productStickers.length === 0) {
-        container.innerHTML = '<span class="text-xs text-gray-400">No stickers added yet</span>';
-        overlays.innerHTML = '';
-        return;
+function handleSearch(val) {
+    searchQuery = val.trim().toLowerCase();
+    filterShop();
+}
+
+function scrollToActiveButtonInContainer(containerSelector, activeSelector) {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    const activeBtn = container.querySelector(activeSelector);
+    if (!activeBtn) return;
+    
+    const containerWidth = container.getBoundingClientRect().width;
+    const btnWidth = activeBtn.getBoundingClientRect().width;
+    const btnLeft = activeBtn.offsetLeft;
+    
+    container.scrollTo({
+        left: btnLeft - (containerWidth / 2) + (btnWidth / 2),
+        behavior: 'smooth'
+    });
+}
+
+function updateFilterVisibility() {
+    const categoryRow = document.getElementById('category-row-wrapper');
+    const subcategoryRow = document.getElementById('subcategory-row-wrapper');
+    const gsmRow = document.getElementById('gsm-row-wrapper');
+
+    // Category row is always visible
+    if (categoryRow) categoryRow.classList.add('visible');
+
+    // Subcategory row only appears when a specific category (not 'All') is active
+    if (subcategoryRow) {
+        if (categorySelected) {
+            subcategoryRow.classList.add('visible');
+        } else {
+            subcategoryRow.classList.remove('visible');
+        }
     }
 
-    container.innerHTML = window.productStickers.map((s, index) => `
-        <div class="sticker-tag">
-            <span>ID: ${s.id} (${s.side}, ${s.size})</span>
-            <i class="fas fa-times-circle cursor-pointer" onclick="removeShopSticker(${index})"></i>
-        </div>
-    `).join('');
+    // GSM row only appears when a specific subcategory (not 'All') is active
+    if (gsmRow) {
+        if (categorySelected && subcategorySelected) {
+            gsmRow.classList.add('visible');
+        } else {
+            gsmRow.classList.remove('visible');
+        }
+    }
+}
 
-    // Update Overlays with Drag & Drop and Rotation
-    overlays.innerHTML = (window.productStickers || []).map((s, index) => {
-        const sizePx = s.size.includes('3') ? '30px' : (s.size.includes('5') ? '50px' : '70px');
-        const posLine = s.x ? `left: ${s.x}%; top: ${s.y}%; transform: translate(-50%, -50%) rotate(${s.rotation || 0}deg);` : `position: relative;`;
-        return `
-            <div id="shop-sticker-wrapper-${index}" style="position: absolute; ${posLine} cursor: move; pointer-events: auto; padding: 10px;">
-                <img src="${s.image}" 
-                     id="shop-sticker-${index}"
-                     onmousedown="startMovingSticker(event, ${index}, 'shop')"
-                     ontouchstart="startMovingSticker(event, ${index}, 'shop')"
-                     style="width: ${sizePx}; height: auto; display: block; opacity: 0.85; ${s.type === 'UPLOAD' ? 'border: 1px dashed var(--primary); padding: 2px;' : ''}">
-                <div class="rotate-handle" 
-                     onmousedown="startRotatingSticker(event, ${index}, 'shop')"
-                     ontouchstart="startRotatingSticker(event, ${index}, 'shop')"
-                     style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 12px; height: 12px; background: white; border: 1px solid var(--primary); border-radius: 50%; cursor: alias; display: flex; align-items: center; justify-content: center; font-size: 6px; color: var(--primary);">
-                    <i class="fas fa-redo"></i>
+function selectCategory(cat, btn) {
+    currentCategory = cat;
+    // categorySelected = true only for a real category, not 'All'
+    categorySelected = (cat !== 'All');
+    // Whenever category changes, reset subcategory
+    currentSubcategory = 'All';
+    subcategorySelected = false;
+    currentGSM = 'all';
+    // Reset subcategory buttons to 'All'
+    document.querySelectorAll('.subcategory-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes("'All'")) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    // Reset GSM buttons to 'all'
+    document.querySelectorAll('.gsm-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes("'all'")) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    document.querySelectorAll('.category-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes(`'${cat}'`)) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    updateFilterVisibility();
+    filterShop();
+    setTimeout(() => {
+        scrollToActiveButtonInContainer('#category-row-wrapper .filter-scroll-container', '.category-btn.active');
+    }, 100);
+}
+
+function selectSubcategory(subcat, btn) {
+    currentSubcategory = subcat;
+    // subcategorySelected = true only for a real subcategory, not 'All'
+    subcategorySelected = (subcat !== 'All');
+    // Reset GSM when subcategory changes
+    currentGSM = 'all';
+    document.querySelectorAll('.gsm-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes("'all'")) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    document.querySelectorAll('.subcategory-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes(`'${subcat}'`)) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    updateFilterVisibility();
+    filterShop();
+    setTimeout(() => {
+        scrollToActiveButtonInContainer('#subcategory-row-wrapper .filter-scroll-container', '.subcategory-btn.active');
+    }, 100);
+}
+
+function selectGSM(gsm, btn) {
+    currentGSM = gsm;
+    document.querySelectorAll('.gsm-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        if (onclickAttr.includes(`'${gsm}'`)) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+    filterShop();
+    setTimeout(() => {
+        scrollToActiveButtonInContainer('#gsm-row-wrapper .filter-scroll-container', '.gsm-btn.active');
+    }, 100);
+}
+
+function filterShop() {
+    let filtered = products;
+
+    // 1. Filter by Category
+    if (currentCategory !== 'All') {
+        if (currentCategory === 'T-Shirts') {
+            filtered = filtered.filter(p => p.category.toLowerCase().includes('tee') || p.category.toLowerCase().includes('t-shirt') || p.category.toLowerCase().includes('waffle'));
+        }
+    }
+
+    // 2. Filter by Subcategory (Regular Tee, Oversized Tee)
+    if (currentSubcategory !== 'All') {
+        filtered = filtered.filter(p => p.category === currentSubcategory);
+    }
+
+    // 3. Filter by GSM
+    if (currentGSM !== 'all') {
+        filtered = filtered.filter(p => p.gsm === currentGSM);
+    }
+
+    // 4. Filter by Search Query
+    if (searchQuery !== '') {
+        filtered = filtered.filter(p => {
+            const name = p.name.toLowerCase();
+            const desc = (p.desc || '').toLowerCase();
+            const category = (p.category || '').toLowerCase();
+            const sections = (p.sections || []).map(s => s.toLowerCase());
+
+            // 1. Direct includes match
+            if (name.includes(searchQuery) || desc.includes(searchQuery) || category.includes(searchQuery)) {
+                return true;
+            }
+
+            // 2. Synonyms and clothing type mapping
+            const isTeeQuery = searchQuery.includes('t shirt') || searchQuery.includes('t-shirt') || searchQuery.includes('tee') || searchQuery.includes('te-shirt') || searchQuery.includes('tshirt');
+            const isOversizedQuery = searchQuery.includes('oversize') || searchQuery.includes('oversized');
+            const isKidsQuery = searchQuery.includes('kid') || searchQuery.includes('child');
+            const isMensQuery = searchQuery.includes('men') || searchQuery.includes('boy');
+            const isWomensQuery = searchQuery.includes('women') || searchQuery.includes('girl') || searchQuery.includes('lady') || searchQuery.includes('ladies');
+            const isFrockQuery = searchQuery.includes('frock') || searchQuery.includes('dress');
+
+            // If query is for a T-shirt and product is a T-shirt
+            if (isTeeQuery && (category.includes('tee') || category.includes('t-shirt') || category.includes('t shirt'))) {
+                // If it is also an oversized query, ensure product is oversized
+                if (isOversizedQuery && !category.includes('oversized')) {
+                    return false;
+                }
+                // If it's a kids query, check sections
+                if (isKidsQuery && !sections.includes('kids')) {
+                    return false;
+                }
+                return true;
+            }
+
+            // Kids clothing query
+            if (isKidsQuery && sections.includes('kids')) {
+                return true;
+            }
+
+            // Men's clothing query
+            if (isMensQuery && (sections.includes('mens') || sections.includes('unisexs'))) {
+                return true;
+            }
+
+            // Women's clothing query
+            if (isWomensQuery && (sections.includes('womens') || sections.includes('unisexs'))) {
+                return true;
+            }
+
+            // Frock or dress query
+            if (isFrockQuery && (name.includes('frock') || name.includes('dress') || desc.includes('frock') || desc.includes('dress'))) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    displayProducts(filtered);
+
+    // Empty State if 0 matching products
+    const grid = document.getElementById('product-grid');
+    if (grid && filtered.length === 0) {
+        grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 80px 20px; animation: fadeIn 0.5s ease;">
+                <div class="glass" style="display: inline-block; padding: 40px 60px; border-radius: 24px; border: 1px dashed var(--border-color); max-width: 450px;">
+                    <i data-lucide="shopping-bag" style="width: 48px; height: 48px; color: var(--accent-gold); margin-bottom: 20px; stroke-width: 1.5;"></i>
+                    <h3 style="margin-bottom: 10px; font-weight: 800; font-size: 1.3rem;">No Products Found</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6;">We couldn't find any products in this category. Stay tuned for the next drop!</p>
+                </div>
+            </div>
+        `;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+
+function filterProducts(category) {
+    if (category === 'Regular Tee (Printed)' || category === 'Oversized Tee (Printed)') {
+        // Set category first, then subcategory
+        currentCategory = 'T-Shirts';
+        categorySelected = true;
+        currentSubcategory = category;
+        subcategorySelected = true;
+        currentGSM = 'all';
+        // Update button states
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'T-Shirts'"));
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes(`'${category}'`));
+        });
+        document.querySelectorAll('.gsm-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
+        });
+    } else if (category === 'T-Shirts') {
+        currentCategory = 'T-Shirts';
+        categorySelected = true;
+        currentSubcategory = 'All';
+        subcategorySelected = false;
+        currentGSM = 'all';
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'T-Shirts'"));
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
+        });
+        document.querySelectorAll('.gsm-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
+        });
+    } else {
+        currentCategory = 'All';
+        categorySelected = false;
+        currentSubcategory = 'All';
+        subcategorySelected = false;
+        currentGSM = 'all';
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
+        });
+        document.querySelectorAll('.gsm-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
+        });
+    }
+    updateFilterVisibility();
+    filterShop();
+}
+
+
+function renderCart() {
+    const cartContainer = document.getElementById('cart-items');
+    const totalElement = document.getElementById('cart-total');
+    if (!cartContainer) return;
+    if (cart.length === 0) {
+        cartContainer.innerHTML = '<div style="text-align: center; padding: 50px; color: var(--text-muted);">Your cart is empty.</div>';
+        if (totalElement) totalElement.innerText = 'Rs. 0.00';
+        return;
+    }
+    let html = '', total = 0;
+    cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        html += `
+            <div class="cart-item glass" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; margin-bottom: 15px;">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+                    <div>
+                        <h4 style="margin: 0;">${item.name}</h4>
+                        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 2px 0;">Size: ${item.size} | Color: ${colorNames[item.color] || item.color}</p>
+                        <p style="color: #000; font-weight: 800; margin: 5px 0 0;">Rs. ${itemTotal.toLocaleString()}</p>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 10px; border-radius: 8px;">
+                        <button onclick="updateQuantity(${index}, -1)" class="btn-qty">-</button>
+                        <span style="min-width: 20px; text-align: center; font-weight: 800;">${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)" class="btn-qty">+</button>
+                    </div>
+                    <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4444; cursor: pointer;"><i data-lucide="trash-2" style="width: 18px;"></i></button>
                 </div>
             </div>`;
-    }).join('');
-
-    // Update Price with stickers
-    updateProductPagePrice();
+    });
+    cartContainer.innerHTML = html;
+    if (totalElement) totalElement.innerText = `Rs. ${total.toLocaleString()}.00`;
+    lucide.createIcons();
 }
 
-function removeShopSticker(index) {
-    window.productStickers.splice(index, 1);
-    renderShopStickers();
+// --- Auth System ---
+let currentUser = JSON.parse(localStorage.getItem('python_user')) || null;
+
+// Sync Auth State with Firebase
+if (typeof auth !== 'undefined' && auth) {
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists) {
+                    const userData = doc.data();
+                    const syncedUser = { uid: user.uid, name: userData.name, email: user.email, phone: userData.phone || '', address: userData.address || '' };
+                    localStorage.setItem('python_user', JSON.stringify(syncedUser));
+                    currentUser = syncedUser;
+                } else {
+                    // Auto-create Firestore doc for existing Auth users who signed up before Firestore was configured
+                    const autoData = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email, phone: '', address: '', createdAt: new Date().toISOString() };
+                    db.collection('users').doc(user.uid).set(autoData).catch(err => console.warn('Auto user doc create failed:', err));
+                    localStorage.setItem('python_user', JSON.stringify(autoData));
+                    currentUser = autoData;
+                }
+                startNotificationListener();
+            }).catch(err => {
+                console.error("Error syncing user profile:", err);
+                startNotificationListener();
+            });
+        } else {
+            localStorage.removeItem('python_user');
+            currentUser = null;
+            if (notificationListenerUnsubscribe) {
+                notificationListenerUnsubscribe();
+                notificationListenerUnsubscribe = null;
+            }
+        }
+    });
 }
 
-function updateProductPagePrice() {
-    if (!currentProduct) return;
-    const sizeSelect = document.getElementById('size-select');
-    if (!sizeSelect) return;
-
-    const selectedSize = sizeSelect.value;
-    const variant = currentProduct.variants.find(v => v.size === selectedSize);
-    if (!variant) return;
-
-    const stickerCount = (window.productStickers || []).length;
-    const additionalPrice = Math.max(0, stickerCount - 1) * 100;
-    const totalPrice = variant.price + additionalPrice;
-
-    const priceBox = document.querySelector('.new-price');
-    if (priceBox) {
-        priceBox.textContent = `Rs. ${totalPrice.toLocaleString()}`;
-    }
-}
-
-// --- Sticker Drag & Drop Logic ---
-
-let movingSticker = null;
-
-function startMovingSticker(e, index, type) {
-    const touch = e.type === 'touchstart' ? e.touches[0] : e;
-    // Find the wrapper div (e.target is the img)
-    const target = e.target.closest('div');
-    if (e.type !== 'touchstart') e.preventDefault();
-
-    const parent = target.parentElement; // This is 'tshirt-sticker-overlays'
-    const rect = parent.getBoundingClientRect();
-
-    movingSticker = {
-        index: index,
-        type: type,
-        parent: parent,
-        rect: rect,
-        target: target
-    };
-
-    if (e.type === 'touchstart') {
-        document.addEventListener('touchmove', moveSticker, { passive: false });
-        document.addEventListener('touchend', stopMovingSticker);
-    } else {
-        document.addEventListener('mousemove', moveSticker);
-        document.addEventListener('mouseup', stopMovingSticker);
-    }
-}
-
-function moveSticker(e) {
-    if (!movingSticker) return;
-
-    const touch = e.type === 'touchmove' ? e.touches[0] : e;
-    if (e.type === 'touchmove') e.preventDefault(); // Prevent scrolling while dragging
-
-    const x = ((touch.clientX - movingSticker.rect.left) / movingSticker.rect.width) * 100;
-    const y = ((touch.clientY - movingSticker.rect.top) / movingSticker.rect.height) * 100;
-
-    // Constrain within the T-shirt area (approx 10% to 90%)
-    const constrainedX = Math.max(10, Math.min(90, x));
-    const constrainedY = Math.max(15, Math.min(85, y));
-
-    movingSticker.target.style.left = `${constrainedX}%`;
-    movingSticker.target.style.top = `${constrainedY}%`;
-
-    // We must preserve the rotation transform
-    let currentRot = 0;
-    if (movingSticker.type === 'shop') {
-        currentRot = window.productStickers[movingSticker.index].rotation || 0;
-    } else {
-        currentRot = customOrder.stickers[movingSticker.index].rotation || 0;
-    }
-    movingSticker.target.style.transform = `translate(-50%, -50%) rotate(${currentRot}deg)`;
-
-    // Update the position in the data array
-    if (movingSticker.type === 'shop') {
-        window.productStickers[movingSticker.index].x = constrainedX;
-        window.productStickers[movingSticker.index].y = constrainedY;
-    } else {
-        customOrder.stickers[movingSticker.index].x = constrainedX;
-        customOrder.stickers[movingSticker.index].y = constrainedY;
-    }
-}
-
-function stopMovingSticker() {
-    movingSticker = null;
-    document.removeEventListener('mousemove', moveSticker);
-    document.removeEventListener('mouseup', stopMovingSticker);
-    document.removeEventListener('touchmove', moveSticker);
-    document.removeEventListener('touchend', stopMovingSticker);
-}
-
-// --- Sticker Rotation Logic ---
-
-let rotatingSticker = null;
-
-function startRotatingSticker(e, index, type) {
-    const touch = e.type === 'touchstart' ? e.touches[0] : e;
-    const target = e.target.closest('div.rotate-handle').parentElement;
-    e.stopPropagation(); // Prevent drag from triggering
-    if (e.type !== 'touchstart') e.preventDefault();
-
-    const rect = target.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    rotatingSticker = {
-        index: index,
-        type: type,
-        target: target,
-        centerX: centerX,
-        centerY: centerY
-    };
-
-    if (e.type === 'touchstart') {
-        document.addEventListener('touchmove', rotateSticker, { passive: false });
-        document.addEventListener('touchend', stopRotatingSticker);
-    } else {
-        document.addEventListener('mousemove', rotateSticker);
-        document.addEventListener('mouseup', stopRotatingSticker);
-    }
-}
-
-function rotateSticker(e) {
-    if (!rotatingSticker) return;
-    const touch = e.type === 'touchmove' ? e.touches[0] : e;
-    if (e.type === 'touchmove') e.preventDefault();
-
-    const dx = touch.clientX - rotatingSticker.centerX;
-    const dy = touch.clientY - rotatingSticker.centerY;
-
-    // Calculate angle (atan2 returns radians, we convert to degrees)
-    // We add 90 because the handle is at the top (negative Y)
-    let angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
-
-    rotatingSticker.target.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
-
-    // Save to data
-    if (rotatingSticker.type === 'shop') {
-        window.productStickers[rotatingSticker.index].rotation = angle;
-    } else {
-        customOrder.stickers[rotatingSticker.index].rotation = angle;
-    }
-}
-
-function stopRotatingSticker() {
-    rotatingSticker = null;
-    document.removeEventListener('mousemove', rotateSticker);
-    document.removeEventListener('mouseup', stopRotatingSticker);
-    document.removeEventListener('touchmove', rotateSticker);
-    document.removeEventListener('touchend', stopRotatingSticker);
-}
-
-// --- User Uploaded Sticker Logic ---
-
-let currentUserUploadedFile = null;
-let currentUploadContext = null; // 'shop' or 'customize'
-
-function handleShopUserStickerUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-        showToast('Please upload an image file.', 'error');
+function login(email, password, onError) {
+    if (typeof auth === 'undefined' || !auth) {
+        if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
         return;
     }
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        currentUserUploadedFile = e.target.result;
-        currentUploadContext = 'shop';
-        openUserStickerModal(currentUserUploadedFile, 'Uploaded Design');
-    };
-    reader.readAsDataURL(file);
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            // Check Firestore for blocked status before allowing entry
+            if (typeof db !== 'undefined' && db) {
+                db.collection('users').doc(user.uid).get().then(doc => {
+                    if (doc.exists && doc.data().blocked === true) {
+                        // Sign them back out immediately
+                        auth.signOut();
+                        if (onError) onError('⛔ ඔබගේ account block කර ඇත. Admin හා සම්බන්ධ වන්න.');
+                        return;
+                    }
+                    const userData = doc.exists
+                        ? { uid: user.uid, name: doc.data().name, email: user.email, phone: doc.data().phone||'', address: doc.data().address||'' }
+                        : { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+                    localStorage.setItem('python_user', JSON.stringify(userData));
+                    currentUser = userData;
+                    window.location.href = 'profile.html';
+                }).catch(() => {
+                    // Firestore unreachable — allow login anyway
+                    const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+                    localStorage.setItem('python_user', JSON.stringify(quickUser));
+                    currentUser = quickUser;
+                    window.location.href = 'profile.html';
+                });
+            } else {
+                const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+                localStorage.setItem('python_user', JSON.stringify(quickUser));
+                currentUser = quickUser;
+                window.location.href = 'profile.html';
+            }
+        })
+        .catch((error) => {
+            let msg = 'Login failed. නැවත try කරන්න.';
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Email හෝ Password වැරදියි.';
+            else if (error.code === 'auth/invalid-email') msg = 'Email format එක වැරදියි.';
+            else if (error.code === 'auth/too-many-requests') msg = 'ඉතා වාර ගණනක් try කළා. ටිකක් wait කරලා try කරන්න.';
+            if (onError) onError(msg); else alert(msg);
+        });
 }
 
-function handleUserStickerUpload(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        currentUserUploadedFile = e.target.result;
-        currentUploadContext = 'customize';
-        openUserStickerModal(currentUserUploadedFile, 'Uploaded Design');
-    };
-    reader.readAsDataURL(file);
-}
-
-function openUserStickerModal(imageSrc, name) {
-    // We use the existing sticker modal but adapt it
-    const modalId = currentUploadContext === 'shop' ? 'shop-sticker-modal' : 'sticker-detail-modal';
-    const imgId = currentUploadContext === 'shop' ? 'shop-modal-sticker-img' : 'modal-sticker-img';
-    const nameId = currentUploadContext === 'shop' ? 'shop-modal-sticker-name' : 'modal-sticker-name';
-
-    const modal = document.getElementById(modalId);
-    if (!modal) {
-        console.error("Modal not found:", modalId);
+function signup(name, email, password, phone, address, onError) {
+    if (typeof auth === 'undefined' || !auth) {
+        if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
         return;
     }
-
-    const imgEl = document.getElementById(imgId);
-    const nameEl = document.getElementById(nameId);
-
-    if (imgEl) {
-        imgEl.src = imageSrc;
-        imgEl.alt = "UPLOADED";
-    }
-    if (nameEl) nameEl.textContent = name;
-
-    modal.style.display = 'flex';
-
-    // Clear the standard sticker ID when an upload is shown
-    activeShopStickerId = null;
-    activeStickerId = null;
-
-    // Set currentSticker global for adding
-    currentSticker = {
-        id: `UPL-${Math.floor(Math.random() * 9000) + 1000}`,
-        name: name,
-        image: imageSrc,
-        type: 'UPLOAD'
-    };
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            const userData = { uid: user.uid, name: name, email: email, phone: phone || '', address: address || '', createdAt: new Date().toISOString() };
+            if (typeof db !== 'undefined' && db) {
+                db.collection('users').doc(user.uid).set(userData)
+                    .then(() => {
+                        localStorage.setItem('python_user', JSON.stringify(userData));
+                        currentUser = userData;
+                        window.location.href = 'profile.html';
+                    })
+                    .catch(err => {
+                        console.error('Firestore save error:', err);
+                        user.delete().then(() => {
+                            let msg = 'Database එකට දත්ත ඇතුලත් කිරීම අසාර්ථක විය. Firestore Rules -> read, write: if true ලෙස සකසා නැවත උත්සාහ කරන්න.';
+                            if (onError) onError(msg); else alert(msg);
+                        }).catch(() => {
+                            if (onError) onError('Database දෝෂයකි: ' + err.message); else alert('Database error: ' + err.message);
+                        });
+                    });
+            } else {
+                localStorage.setItem('python_user', JSON.stringify(userData));
+                currentUser = userData;
+                window.location.href = 'profile.html';
+            }
+        })
+        .catch((error) => {
+            let msg = 'Account create කිරීම අසාර්ථකයි.';
+            if (error.code === 'auth/email-already-in-use') msg = 'මෙම Email ලෙස දැනටමත් account තිබේ. Login කරන්න.';
+            else if (error.code === 'auth/invalid-email') msg = 'Email format එක වැරදියි.';
+            else if (error.code === 'auth/weak-password') msg = 'Password ශක්තිමත් නැත. අවම 6 characters.';
+            if (onError) onError(msg); else alert(msg);
+        });
 }
 
-// --- Scroll Reveal Logic ---
-function initScrollReveal() {
-    const reveals = document.querySelectorAll('.reveal');
+function logout() {
+    if (typeof auth !== 'undefined' && auth) {
+        auth.signOut().then(() => {
+            localStorage.removeItem('python_user');
+            currentUser = null;
+            window.location.href = 'login.html';
+        });
+    } else {
+        localStorage.removeItem('python_user');
+        currentUser = null;
+        window.location.href = 'login.html';
+    }
+}
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                // Optional: stop observing after reveal
-                // revealObserver.unobserve(entry.target);
+function showNotification(message) {
+    const note = document.createElement('div');
+    note.className = 'glass';
+    note.style.cssText = `position: fixed; bottom: 20px; right: 20px; padding: 15px 30px; border-left: 4px solid #DC143C; z-index: 10001; background: white;`;
+    note.innerText = message;
+    document.body.appendChild(note);
+    setTimeout(() => { note.style.opacity = '0'; note.style.transition = '0.5s'; setTimeout(() => note.remove(), 500); }, 3000);
+}
+
+let notificationListenerUnsubscribe = null;
+
+function startNotificationListener() {
+    if (typeof db === 'undefined' || !db || !currentUser || !currentUser.email) return;
+    
+    if (notificationListenerUnsubscribe) {
+        notificationListenerUnsubscribe();
+    }
+    
+    notificationListenerUnsubscribe = db.collection('notifications')
+        .where('userEmail', '==', currentUser.email)
+        .where('read', '==', false)
+        .onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === 'added') {
+                    const notif = change.doc.data();
+                    const docId = change.doc.id;
+                    
+                    showCustomerNotification(notif.message, notif.status);
+                    
+                    db.collection('notifications').doc(docId).update({ read: true })
+                        .catch(err => console.error("Error marking notification as read:", err));
+                }
+            });
+        }, err => {
+            console.error("Error in notification listener:", err);
+        });
+}
+
+function showCustomerNotification(message, status) {
+    // Play audio alert
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+            const ctx = new AudioContext();
+            const playTone = (freq, start, duration) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.setValueAtTime(freq, start);
+                gain.gain.setValueAtTime(0.2, start);
+                gain.gain.exponentialRampToValueAtTime(0.001, start + duration);
+                osc.start(start);
+                osc.stop(start + duration);
+            };
+            const now = ctx.currentTime;
+            if (status === 'confirmed') {
+                playTone(523.25, now, 0.15); // C5
+                playTone(659.25, now + 0.1, 0.3); // E5
+            } else {
+                playTone(392.00, now, 0.15); // G4
+                playTone(311.13, now + 0.1, 0.3); // D#4 (sad tone)
+            }
+        }
+    } catch (e) {
+        console.warn("Could not play customer notification sound:", e);
+    }
+
+    const note = document.createElement('div');
+    note.className = 'glass';
+    const borderLeftColor = status === 'confirmed' ? '#22c55e' : (status === 'cancelled' ? '#ef4444' : '#DC143C');
+    const titleEmoji = status === 'confirmed' ? '✅' : (status === 'cancelled' ? '❌' : '🔔');
+    
+    note.style.cssText = `
+        position: fixed; 
+        bottom: 24px; 
+        right: 24px; 
+        padding: 16px 24px; 
+        border-left: 4px solid ${borderLeftColor}; 
+        z-index: 10001; 
+        background: var(--surface, white);
+        color: var(--text-main, #000);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        border-radius: 12px;
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transform: translateY(20px);
+        opacity: 0;
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s;
+    `;
+    
+    note.innerHTML = `
+        <span style="font-size: 1.2rem;">${titleEmoji}</span>
+        <div style="font-size: 0.9rem; font-weight: 700;">${message}</div>
+    `;
+    
+    document.body.appendChild(note);
+    
+    setTimeout(() => {
+        note.style.transform = 'translateY(0)';
+        note.style.opacity = '1';
+    }, 10);
+    
+    setTimeout(() => {
+        note.style.transform = 'translateY(-20px)';
+        note.style.opacity = '0';
+        setTimeout(() => note.remove(), 400);
+    }, 4500);
+}
+
+// --- Order System ---
+let orders = JSON.parse(localStorage.getItem('python_orders')) || [];
+
+function placeOrder() {
+    if (cart.length === 0) { alert('Your cart is empty!'); return; }
+
+    const address = document.getElementById('checkout-address')?.value || 'N/A';
+    const city = document.getElementById('checkout-city')?.value || 'N/A';
+    const phone = document.getElementById('checkout-phone')?.value || 'N/A';
+
+    const now = new Date();
+    const dateStr = `${now.getDate().toString().padStart(2, '0')}${(now.getMonth() + 1).toString().padStart(2, '0')}${now.getFullYear()}`;
+
+    // Get next order count
+    const totalOrdersCount = (orders.length + 1).toString().padStart(3, '0');
+    const orderID = `ORD-PS-${dateStr}${totalOrdersCount}`;
+
+    // Calculate dynamic delivery fee
+    const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const deliveryFee = itemCount > 3 ? 0 : 450;
+
+    // Prepare data for the E-Invoice
+    const orderData = {
+        id: orderID,
+        name: currentUser ? currentUser.name : 'Guest',
+        phone: phone,
+        address: `${address}, ${city}`,
+        date: now.toLocaleDateString(),
+        time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        items: cart.map(item => {
+            const p = products.find(prod => prod.name === item.name) || {};
+            return {
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                size: item.size,
+                color: colorNames[item.color] || item.color,
+                image: item.image || (p.images ? p.images[0] : ''),
+                isCustom: item.isCustom || (item.id && String(item.id).startsWith('custom-')) || false,
+                customStickers: item.customStickers || []
+            };
+        }),
+        delivery: deliveryFee
+    };
+
+    // Encode order data for the URL (Safe for Unicode/Sinhala)
+    const jsonStr = JSON.stringify(orderData);
+    const encodedData = btoa(unescape(encodeURIComponent(jsonStr)));
+    
+    let baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    let whatsappBaseUrl = baseUrl;
+    
+    if (window.location.protocol === 'file:') {
+        // Construct local file path for local preview and testing so localStorage works
+        baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+        baseUrl = 'file:///' + baseUrl.replace(/^\/+/g, '');
+        
+        // Use production path for the WhatsApp shared link
+        whatsappBaseUrl = 'https://onijawathsuka39-arch.github.io/Python.-Store/';
+    } else {
+        whatsappBaseUrl = baseUrl;
+    }
+    
+    const invoiceUrl = `${baseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
+    const whatsappInvoiceUrl = `${whatsappBaseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
+
+    let message = `🔴 *NEW ORDER CONFIRMATION: ${orderID}*\n\n`;
+    message += `👤 *Customer:* ${orderData.name}\n`;
+    message += `📞 *Phone:* ${phone}\n`;
+    message += `📍 *Address:* ${orderData.address}\n`;
+    message += `📅 *Date:* ${orderData.date} | ${orderData.time}\n\n`;
+    message += `📦 *Items Ordered:*\n`;
+
+    let subtotal = 0;
+    cart.forEach((item) => {
+        const colorName = colorNames[item.color] || item.color;
+        message += `• *${item.name}* (${item.size} | ${colorName})\n`;
+        message += `  Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
+        subtotal += item.price * item.quantity;
+    });
+
+    const grandTotal = subtotal + deliveryFee;
+    message += `\n💵 *Subtotal:* Rs. ${subtotal.toLocaleString()}.00\n`;
+    message += `🚚 *Delivery Fee:* ${deliveryFee === 0 ? 'FREE' : 'Rs. ' + deliveryFee.toLocaleString() + '.00'}\n`;
+    message += `💰 *Grand Total: Rs. ${grandTotal.toLocaleString()}.00*\n\n`;
+
+    message += `📄 *View E-Invoice:* ${whatsappInvoiceUrl}\n\n`;
+    message += `Thank you for shopping with Python Store!`;
+
+    const whatsappUrl = `https://wa.me/94757218786?text=${encodeURIComponent(message)}`;
+
+    const dbOrder = {
+        id: orderID,
+        date: now.toLocaleDateString(),
+        items: [...cart],
+        total: grandTotal,
+        userEmail: currentUser ? currentUser.email : 'Guest',
+        userName: currentUser ? currentUser.name : 'Guest',
+        userPhone: phone,
+        userAddress: `${address}, ${city}`,
+        status: 'pending',
+        timestamp: (typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString())
+    };
+    orders.push(dbOrder);
+    localStorage.setItem('python_orders', JSON.stringify(orders));
+    if (typeof db !== 'undefined' && db) {
+        db.collection('orders').add(dbOrder).catch(e => {
+            console.error("Error saving order to database:", e);
+            alert("⚠️ Error: Order could not be saved to Firestore. Firestore Rules update කරන්න (allow read, write: if true).");
+        });
+    }
+    localStorage.removeItem('python_free_delivery_active');
+    const bar = document.getElementById('free-delivery-bar');
+    if (bar) bar.remove();
+    cart = []; saveCart();
+
+    // Open WhatsApp immediately to avoid popup blockers
+    window.open(whatsappUrl, '_blank');
+
+    showNotification('Order placed successfully! Redirecting...');
+
+    setTimeout(() => { window.location.href = invoiceUrl; }, 2000);
+}
+
+function clearOrderHistory() {
+    if (confirm('Are you sure you want to clear your order history?')) {
+        orders = orders.filter(o => o.userEmail !== currentUser.email);
+        localStorage.setItem('python_orders', JSON.stringify(orders));
+        if (typeof db !== 'undefined' && db) {
+            db.collection('orders').where('userEmail', '==', currentUser.email).get().then(snapshot => {
+                let deletePromises = [];
+                snapshot.forEach(doc => deletePromises.push(doc.ref.delete()));
+                Promise.all(deletePromises).then(() => {
+                    loadProfile();
+                    showNotification('Order history cleared.');
+                });
+            }).catch(e => {
+                console.error("Error clearing orders from database:", e);
+                loadProfile();
+                showNotification('Order history cleared.');
+            });
+        } else {
+            loadProfile();
+            showNotification('Order history cleared.');
+        }
+    }
+}
+
+function loadProfile() {
+    const nameEl = document.getElementById('profile-name');
+    const emailEl = document.getElementById('profile-email');
+    const initialEl = document.getElementById('profile-initial');
+    const orderCountEl = document.getElementById('order-count');
+    const historyEl = document.getElementById('order-history');
+    if (currentUser) {
+        if (nameEl) nameEl.innerText = currentUser.name;
+        if (emailEl) emailEl.innerText = currentUser.email;
+        if (initialEl) initialEl.innerText = currentUser.name.charAt(0).toUpperCase();
+
+        const renderOrdersList = (ordersList) => {
+            if (orderCountEl) orderCountEl.innerText = ordersList.length;
+            if (historyEl) {
+                if (ordersList.length === 0) {
+                    historyEl.innerHTML = '<p style="color: var(--text-muted);">No orders found.</p>';
+                } else {
+                    historyEl.innerHTML = ordersList.map(o => {
+                        const status = o.status || 'pending';
+                        const statusColor = status === 'confirmed' ? '#22c55e' : status === 'cancelled' ? '#ef4444' : '#f59e0b';
+                        const statusLabel = status === 'confirmed' ? '✅ Confirmed' : status === 'cancelled' ? '❌ Cancelled' : '🕐 Pending';
+                        return `
+                        <div class="glass" style="padding: 20px; margin-bottom: 15px; text-align: left;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                                <span style="font-weight: 800;">Order #${o.id.toString().slice(-6)}</span>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <span style="background:${statusColor}22; color:${statusColor}; border:1px solid ${statusColor}44; padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:700;">${statusLabel}</span>
+                                    <span style="color: var(--text-muted); font-size:0.85rem;">${o.date}</span>
+                                </div>
+                            </div>
+                            <div style="font-size: 0.9rem; margin-bottom: 10px;">
+                                ${o.items.map(i => `${i.name} (${i.size}, ${i.quantity}x)`).join(', ')}
+                            </div>
+                            <div style="font-weight: 800; color: #DC143C;">Total: Rs. ${o.total.toLocaleString()}.00</div>
+                        </div>`;
+                    }).join('');
+                }
+            }
+        };
+
+        if (typeof db !== 'undefined' && db) {
+            db.collection('orders')
+                .where('userEmail', '==', currentUser.email)
+                .get()
+                .then((querySnapshot) => {
+                    const dbOrders = [];
+                    querySnapshot.forEach((doc) => {
+                        dbOrders.push(doc.data());
+                    });
+                    // Sort descending by date/timestamp
+                    dbOrders.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+                    renderOrdersList(dbOrders);
+                })
+                .catch((err) => {
+                    console.error("Error fetching orders from Firestore:", err);
+                    const userOrders = orders.filter(o => o.userEmail === currentUser.email);
+                    renderOrdersList(userOrders.reverse());
+                });
+        } else {
+            const userOrders = orders.filter(o => o.userEmail === currentUser.email);
+            renderOrdersList(userOrders.reverse());
+        }
+    } else {
+        if (window.location.pathname.includes('profile.html')) { window.location.href = 'login.html'; }
+    }
+}
+
+// Animation styles
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes pulse-red { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 20, 60, 0.7); } 70% { transform: scale(1.2); box-shadow: 0 0 0 10px rgba(220, 20, 60, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(220, 20, 60, 0); } }
+    .btn-qty { background: white; border: 1px solid #ddd; color: #000; width: 25px; height: 25px; border-radius: 5px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+    .btn-qty:hover { background: #000; color: white; }
+    .offer-dot { position: absolute; top: -2px; right: -10px; width: 8px; height: 8px; background: #DC143C; border-radius: 50%; animation: pulse-red 2s infinite; }
+`;
+document.head.appendChild(styleSheet);
+
+function handleOfferNotification() {
+    const offerViewed = localStorage.getItem('python_offer_viewed_v2');
+    const isOfferPage = window.location.pathname.includes('offers.html');
+    if (isOfferPage) { localStorage.setItem('python_offer_viewed_v2', 'true'); }
+    if (!offerViewed && !isOfferPage) {
+        document.querySelectorAll('a[href="offers.html"]').forEach(link => {
+            if (!link.querySelector('.offer-dot')) {
+                link.style.position = 'relative';
+                const dot = document.createElement('span');
+                dot.className = 'offer-dot';
+                link.appendChild(dot);
             }
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    }
+}
 
-    reveals.forEach(el => {
-        revealObserver.observe(el);
+// Centralized Light/Dark Theme System
+function initThemeToggle() {
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+
+    // 2. Mobile Drawer Toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && !document.getElementById('mobile-theme-toggle')) {
+        const mobileToggle = document.createElement('a');
+        mobileToggle.href = '#';
+        mobileToggle.id = 'mobile-theme-toggle';
+        mobileToggle.style.display = 'flex';
+        mobileToggle.style.alignItems = 'center';
+        mobileToggle.style.gap = '15px';
+        mobileToggle.style.marginTop = '30px';
+        mobileToggle.style.padding = '12px 18px';
+        mobileToggle.style.borderRadius = '15px';
+        mobileToggle.style.background = 'var(--border-light)';
+        mobileToggle.style.color = 'var(--primary-dark)';
+        mobileToggle.style.fontSize = '1.1rem';
+        mobileToggle.style.fontWeight = '600';
+        mobileToggle.style.textDecoration = 'none';
+        mobileToggle.style.border = '1px solid var(--border-color)';
+        mobileToggle.innerHTML = `<i data-lucide="${currentTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${currentTheme === 'dark' ? 'Light' : 'Dark'}`;
+
+        // Append to the list/menu block in mobile sidebar
+        const listContainer = mobileMenu.querySelector('ul');
+        if (listContainer) {
+            const li = document.createElement('li');
+            li.style.marginTop = '20px';
+            li.appendChild(mobileToggle);
+            listContainer.appendChild(li);
+        } else {
+            mobileMenu.appendChild(mobileToggle);
+        }
+
+        mobileToggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+
+            const mainToggle = document.getElementById('theme-toggle');
+            if (mainToggle) {
+                mainToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
+            }
+            mobileToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${newTheme === 'dark' ? 'Light' : 'Dark'}`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+    }
+}
+
+// --- Free Delivery Promo Bar ---
+function initFreeDeliveryBar() {
+    const isShopPage = window.location.pathname.includes('shop.html');
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('offer') === 'freedelivery') {
+        localStorage.setItem('python_free_delivery_active', 'true');
+        window.history.replaceState({}, document.title, 'shop.html');
+    }
+    
+    const isActive = localStorage.getItem('python_free_delivery_active') === 'true';
+    if (isShopPage && isActive) {
+        if (!document.getElementById('free-delivery-bar')) {
+            const bar = document.createElement('div');
+            bar.id = 'free-delivery-bar';
+            bar.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: var(--primary-dark);
+                color: var(--primary-light);
+                padding: 15px;
+                text-align: center;
+                z-index: 10000;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+                transition: transform 0.3s ease;
+                font-size: 1rem;
+                font-weight: 500;
+                border-top: 3px solid var(--accent-gold);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            `;
+            document.body.appendChild(bar);
+            
+            if (!document.getElementById('promo-animations')) {
+                const style = document.createElement('style');
+                style.id = 'promo-animations';
+                style.innerHTML = `
+                    @keyframes celebrate {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                    }
+                    @keyframes pop {
+                        0% { transform: scale(0.9); opacity: 0; }
+                        100% { transform: scale(1); opacity: 1; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+        updateFreeDeliveryBar();
+    }
+}
+
+function updateFreeDeliveryBar() {
+    const bar = document.getElementById('free-delivery-bar');
+    if (!bar) return;
+    
+    const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+    
+    if (itemCount >= 4) {
+        bar.innerHTML = '🎉 <span style="font-weight: 800; letter-spacing: 1px;">Congratulations! You have unlocked FREE DELIVERY!</span> 🚚';
+        bar.style.animation = 'celebrate 1s ease 3, pop 0.5s ease-out';
+        bar.style.background = 'var(--accent-gold)';
+        bar.style.color = '#fff';
+        bar.style.borderTop = '3px solid #fff';
+    } else {
+        const needed = 4 - itemCount;
+        bar.innerHTML = `<i data-lucide="shopping-bag" style="width: 20px;"></i> Buy <b style="color: var(--accent-gold); font-size: 1.2rem; margin: 0 5px;">${needed}</b> more item${needed > 1 ? 's' : ''} to get <b style="letter-spacing: 0.5px; margin-left: 5px;">FREE DELIVERY</b> Island Wide! 🚚`;
+        bar.style.animation = 'pop 0.3s ease-out';
+        bar.style.background = 'var(--primary-dark)';
+        bar.style.color = 'var(--primary-light)';
+        bar.style.borderTop = '3px solid var(--accent-gold)';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+}
+
+// Wishlist Functionality
+let wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+
+function toggleWishlist(productId) {
+    wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+    const index = wishlist.indexOf(productId);
+    let added = false;
+    if (index === -1) {
+        wishlist.push(productId);
+        added = true;
+    } else {
+        wishlist.splice(index, 1);
+    }
+    localStorage.setItem('python_wishlist', JSON.stringify(wishlist));
+    updateWishlistCount();
+    
+    // Refresh display if we are on the wishlist page
+    if (window.location.pathname.includes('wishlist.html')) {
+        renderWishlist();
+    }
+    return added;
+}
+
+function handleCardWishlistToggle(productId, btnElement) {
+    const added = toggleWishlist(productId);
+    const heart = btnElement.querySelector('i');
+    if (added) {
+        heart.setAttribute('fill', '#DC143C');
+        heart.style.color = '#DC143C';
+        showNotification('Added to Wishlist!');
+    } else {
+        heart.removeAttribute('fill');
+        heart.style.color = 'var(--text-main)';
+        showNotification('Removed from Wishlist!');
+    }
+}
+
+function isInWishlist(productId) {
+    return wishlist.includes(productId);
+}
+
+function updateWishlistCount() {
+    wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+    const counts = document.querySelectorAll('#wishlist-count');
+    counts.forEach(el => {
+        el.innerText = wishlist.length;
     });
 }
 
-// Ensure reveal logic runs on load
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // ... existing init calls ...
-    initScrollReveal();
+    initThemeToggle();
+    updateCartCount();
+    updateWishlistCount();
+    handleOfferNotification();
+    if (window.location.pathname.includes('cart.html')) { renderCart(); }
+    if (window.location.pathname.includes('profile.html')) { loadProfile(); }
+    if (window.location.pathname.includes('wishlist.html')) { renderWishlist(); }
+    if (window.location.pathname.includes('shop.html')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('category');
+        catParam ? filterProducts(catParam) : filterProducts('All');
+    }
+    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') { displayProducts(products.slice(0, 4)); }
+    if ((window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html')) && currentUser) {
+        window.location.href = 'profile.html';
+    }
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('menu-overlay');
+    const closeBtn = document.getElementById('close-menu');
+    if (menuBtn && mobileMenu && overlay) {
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+        });
+        const closeHandler = () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+        };
+        overlay.addEventListener('click', closeHandler);
+        if (closeBtn) closeBtn.addEventListener('click', closeHandler);
+    }
+    
+    // Initialize Free Delivery Promo Bar if needed
+    if (typeof initFreeDeliveryBar === 'function') {
+        initFreeDeliveryBar();
+    }
 });
 
-// Adding styles for .reveal.active if they are missing
-const revealStyles = document.createElement('style');
-revealStyles.innerHTML = `
-    .reveal.active {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-`;
-document.head.appendChild(revealStyles);
+// ===== NEW DROP WAITLIST =====
+function handleNewDropWaitlist() {
+    const nameInput  = document.getElementById('nd-name-input');
+    const phoneInput = document.getElementById('nd-phone-input');
+    const btn        = document.getElementById('nd-notify-btn');
+    const msg        = document.getElementById('nd-notify-msg');
 
+    const name  = nameInput  ? nameInput.value.trim()  : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+
+    // Reset message
+    msg.className = 'nd-notify-msg';
+
+    // Validation
+    if (!name) {
+        msg.textContent = '⚠️ Please enter your name.';
+        msg.classList.add('error');
+        if (nameInput) nameInput.focus();
+        return;
+    }
+    if (!phone || !/^[0-9+\s\-]{7,15}$/.test(phone)) {
+        msg.textContent = '⚠️ Please enter a valid phone number.';
+        msg.classList.add('error');
+        if (phoneInput) phoneInput.focus();
+        return;
+    }
+
+    // Disable button to prevent double-submit
+    if (btn) { btn.disabled = true; btn.textContent = 'Joining...'; }
+
+    const waitlistEntry = { name: name, phone: phone, joinedAt: new Date().toISOString() };
+
+    if (typeof db !== 'undefined' && db) {
+        db.collection('waitlist').where('phone', '==', phone).get()
+            .then(snap => {
+                if (!snap.empty) {
+                    msg.textContent = '✅ You are already on the waitlist!';
+                    msg.classList.add('success');
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i data-lucide="bell" style="width:16px;height:16px;"></i> Join Waitlist';
+                        if (window.lucide) lucide.createIcons();
+                    }
+                    return;
+                }
+                
+                db.collection('waitlist').add(waitlistEntry)
+                    .then(() => {
+                        msg.textContent = '🎉 You are successfully added to the waitlist!';
+                        msg.classList.add('success');
+                        
+                        // Clear inputs
+                        if (nameInput)  nameInput.value  = '';
+                        if (phoneInput) phoneInput.value = '';
+                        
+                        // Save to localStorage waitlist
+                        const waitlist = JSON.parse(localStorage.getItem('python_waitlist') || '[]');
+                        // Filter out old phone entry if any to clean local cache
+                        const filteredWaitlist = waitlist.filter(e => e.phone !== phone);
+                        filteredWaitlist.push(waitlistEntry);
+                        localStorage.setItem('python_waitlist', JSON.stringify(filteredWaitlist));
+                    })
+                    .catch(e => {
+                        console.error("Error saving to waitlist database:", e);
+                        msg.textContent = '⚠️ Error: Waitlist entry could not be saved to Firestore.';
+                        msg.classList.add('error');
+                    })
+                    .finally(() => {
+                        if (btn) {
+                            btn.disabled = false;
+                            btn.innerHTML = '<i data-lucide="bell" style="width:16px;height:16px;"></i> Join Waitlist';
+                            if (window.lucide) lucide.createIcons();
+                        }
+                    });
+            })
+            .catch(e => {
+                console.error("Error checking waitlist database:", e);
+                // Fallback to direct insertion if lookup fails
+                db.collection('waitlist').add(waitlistEntry)
+                    .then(() => {
+                        msg.textContent = '🎉 You are successfully added to the waitlist!';
+                        msg.classList.add('success');
+                        if (nameInput)  nameInput.value  = '';
+                        if (phoneInput) phoneInput.value = '';
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        msg.textContent = '⚠️ Error: Waitlist entry could not be saved.';
+                        msg.classList.add('error');
+                    })
+                    .finally(() => {
+                        if (btn) {
+                            btn.disabled = false;
+                            btn.innerHTML = '<i data-lucide="bell" style="width:16px;height:16px;"></i> Join Waitlist';
+                            if (window.lucide) lucide.createIcons();
+                        }
+                    });
+            });
+    } else {
+        // No firebase configuration loaded
+        msg.textContent = '⚠️ Database connection is not available.';
+        msg.classList.add('error');
+        if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="bell" style="width:16px;height:16px;"></i> Join Waitlist';
+            if (window.lucide) lucide.createIcons();
+        }
+    }
+}
 
