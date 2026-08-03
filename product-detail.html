@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -153,7 +153,7 @@
             <div>
                 <h4 class="option-label" style="margin-bottom: 12px;">Specifications</h4>
                 <div class="specs-panel">
-                    <div class="spec-item">
+                    <div class="spec-item" id="gsm-spec-item">
                         <div class="spec-icon">
                             <i data-lucide="shirt"></i>
                         </div>
@@ -171,7 +171,7 @@
                             <p id="detail-brand">Roohira</p>
                         </div>
                     </div>
-                    <div class="spec-item">
+                    <div class="spec-item" id="print-spec-item">
                         <div class="spec-icon">
                             <i data-lucide="sparkles"></i>
                         </div>
@@ -289,7 +289,7 @@
     <script src="script.js"></script>
     <script>
         lucide.createIcons();
-        
+
         const urlParams = new URLSearchParams(window.location.search);
         const pid = urlParams.get('id') || '1';
         const product = products.find(p => p.id === pid) || products[0];
@@ -307,22 +307,31 @@
                 const scSection = document.getElementById('size-chart-link');
                 if (scSection) scSection.style.display = 'none';
             }
+            // Hide GSM spec, Print Tech spec, and size chart for Frock category
+            if (product.category === 'Frock') {
+                const gsmSpec = document.getElementById('gsm-spec-item');
+                if (gsmSpec) gsmSpec.style.display = 'none';
+                const printSpec = document.getElementById('print-spec-item');
+                if (printSpec) printSpec.style.display = 'none';
+                const scSection = document.getElementById('size-chart-link');
+                if (scSection) scSection.style.display = 'none';
+            }
 
             document.getElementById('detail-name').innerText = product.name;
-            document.getElementById('detail-gsm').innerText = product.gsm || '180 GSM';
+            document.getElementById('detail-gsm').innerText = product.gsm || '';
             document.getElementById('detail-brand').innerText = product.brand || 'Roohira';
-            
+
             const catLabel = document.getElementById('detail-category-label');
             if (catLabel) {
                 catLabel.innerText = product.category || 'T-Shirt';
             }
-            
+
             // Image Slider & Thumbnails
             const slider = document.getElementById('image-slider');
             const dotsContainer = document.getElementById('slider-dots');
             const thumbContainer = document.getElementById('image-thumbnails');
             const images = product.images || [product.img];
-            
+
             images.forEach((img, idx) => {
                 // Slider Image
                 const imgTag = document.createElement('img');
@@ -333,14 +342,14 @@
                 imgTag.style.maxHeight = '500px';
                 imgTag.style.background = 'var(--surface)';
                 slider.appendChild(imgTag);
-                
+
                 // Dot
                 if (images.length > 1) {
                     const dot = document.createElement('div');
                     dot.className = `dot ${idx === 0 ? 'active' : ''}`;
                     dot.onclick = () => goToSlide(idx);
                     dotsContainer.appendChild(dot);
-                    
+
                     // Thumbnail
                     const thumb = document.createElement('img');
                     thumb.src = img;
@@ -360,14 +369,14 @@
                 document.getElementById('prev-btn').style.display = 'none';
                 document.getElementById('next-btn').style.display = 'none';
             }
-            
+
             if (product.desc) document.getElementById('detail-desc').innerText = product.desc;
-            
+
             // Sizes
             const sizeContainer = document.getElementById('detail-sizes');
             const sizes = product.sizes ? Object.keys(product.sizes) : ['Free'];
 
-            // Build a reverse map: size → color (if colorSizes exists)
+            // Build a reverse map: size Ã¢â€ â€™ color (if colorSizes exists)
             const sizeToColor = {};
             if (product.colorSizes) {
                 Object.entries(product.colorSizes).forEach(([col, sz]) => { sizeToColor[sz] = col; });
@@ -393,7 +402,7 @@
                     : s;
 
                 if (product.colorSizes) {
-                    // Size is ONLY controlled by color — make all size chips non-clickable
+                    // Size is ONLY controlled by color Ã¢â‚¬â€ make all size chips non-clickable
                     btn.style.cssText += isUnavailable
                         ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;'
                         : 'cursor:default;pointer-events:none;';
@@ -401,7 +410,7 @@
                         ? 'Out of Stock'
                         : 'Select the matching color to choose this size';
                 } else {
-                    // Normal products — size chips are clickable
+                    // Normal products Ã¢â‚¬â€ size chips are clickable
                     if (isUnavailable) {
                         btn.style.cssText = 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;';
                     } else {
@@ -418,7 +427,13 @@
                 product.colors.forEach(c => {
                     const btn = document.createElement('div');
                     btn.className = `color-dot ${c === selectedColor ? 'active' : ''}`;
-                    btn.style.background = c;
+                    if (product.colorImages && product.colorImages[c]) {
+                        btn.style.backgroundImage = `url('${product.colorImages[c]}')`;
+                        btn.style.backgroundSize = 'cover';
+                        btn.style.backgroundPosition = 'center';
+                    } else {
+                        btn.style.background = c;
+                    }
                     btn.title = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
                     btn.onclick = () => selectColor(c, btn);
                     colorContainer.appendChild(btn);
@@ -445,7 +460,7 @@
                 addToCartBtn.style.background = '#555';
                 addToCartBtn.style.opacity = '0.6';
                 addToCartBtn.style.cursor = 'not-allowed';
-                
+
                 // Hide stock urgency section if out of stock
                 const stockSection = document.getElementById('stock-urgency-section');
                 if (stockSection) stockSection.style.display = 'none';
@@ -459,7 +474,7 @@
             stopAutoScroll();
             autoScrollInterval = setInterval(() => {
                 slideImage(1, true);
-            }, 4000); // cycle every 4 seconds
+            }, 4000);
         }
 
         function stopAutoScroll() {
@@ -501,7 +516,7 @@
         function updateSlider() {
             const slider = document.getElementById('image-slider');
             if (slider) slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
+
             const dots = document.querySelectorAll('.slider-pagination .dot');
             dots.forEach((dot, idx) => {
                 idx === currentSlide ? dot.classList.add('active') : dot.classList.remove('active');
@@ -518,12 +533,11 @@
             const sizeData = product.sizes ? product.sizes[size] : { price: product.price, oldPrice: product.oldPrice };
             currentPrice = typeof sizeData === 'object' ? sizeData.price : sizeData;
             currentOldPrice = typeof sizeData === 'object' ? sizeData.oldPrice : product.oldPrice;
-            
+
             document.querySelectorAll('.size-chip').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             updatePriceDisplay();
 
-            // If this product has per-size images, jump the slider to the matching image
             if (product.sizeImages && product.sizeImages[size]) {
                 const images = product.images || [];
                 const targetUrl = product.sizeImages[size];
@@ -540,6 +554,18 @@
             selectedColor = color;
             document.querySelectorAll('.color-dot').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+
+            // If product has colorImages, slide to the matching image when color is selected
+            if (product.colorImages && product.colorImages[color]) {
+                const images = product.images || [];
+                const targetUrl = product.colorImages[color];
+                const idx = images.indexOf(targetUrl);
+                if (idx !== -1) {
+                    currentSlide = idx;
+                    updateSlider();
+                    resetAutoScrollTimer();
+                }
+            }
 
             // If this product links colors to sizes, auto-select the matching size
             if (product.colorSizes && product.colorSizes[color]) {
@@ -573,7 +599,6 @@
         }
 
         function openSizeChart() {
-            // Use product-specific size chart if available
             const chartImg = document.querySelector('#sizeChartModal img');
             if (chartImg && product.sizeChartImg) {
                 chartImg.src = product.sizeChartImg;
@@ -602,7 +627,7 @@
             const stockBar = document.getElementById('stock-bar-fill-elem');
             const stockCountDisplay = document.getElementById('stock-count-display');
             if (stockBar && stockCountDisplay) {
-                const pseudoStock = (parseInt(product.id) % 5) + 3; // 3 to 7 items left
+                const pseudoStock = (parseInt(product.id) % 5) + 3;
                 stockCountDisplay.innerText = `${pseudoStock} items left!`;
                 const percentage = (pseudoStock / 10) * 100;
                 stockBar.style.width = `${percentage}%`;
@@ -666,7 +691,5 @@
             updateDeliveryPromo();
         });
     </script>
-</body>
-</html>
 </body>
 </html>

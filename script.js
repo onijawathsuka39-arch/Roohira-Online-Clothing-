@@ -26,6 +26,8 @@ const colorNames = {
     '#900056': 'Dark Pink',
     '#c4956a': 'Light Brown',
     '#f5e6c8': 'Light Yellow',
+    '#e6a100': 'Dark Yellow',
+    '#8B4513': 'Brown',
     '#36454f': 'Charcoal',
     '#889c8a': 'Sage Green',
     '#7f94a8': 'Dusty Blue',
@@ -402,6 +404,42 @@ const products = [
         },
         colors: ['#000000'], stock: 10,
         desc: 'Monkey Design Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
+    },
+    {
+        id: '23', name: 'Long Design Frock', category: 'Frock', sections: ['Womens'],
+        images: [
+            'https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png',
+            'https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png',
+            'https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png'
+        ],
+        brand: 'Roohira',
+        sizes: {
+            'Free Size': { price: 2250, oldPrice: 2600 }
+        },
+        colors: ['#e6a100', '#f5e6c8', '#800000'], stock: 10,
+        desc: 'Long Design Frock by Roohira. An elegant and stylish long frock crafted from soft, lightweight premium fabric. Designed with a flattering silhouette and available in Dark Yellow, Light Yellow, and Maroon in versatile Free Size.'
+    },
+    {
+        id: '24', name: 'Long Batik Frock', category: 'Frock', sections: ['Womens'],
+        images: [
+            'https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',
+            'https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',
+            'https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',
+            'https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'
+        ],
+        colorImages: {
+            '#0000ff': 'https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',
+            '#e6a100': 'https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',
+            '#8B4513': 'https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',
+            '#800000': 'https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'
+        },
+        brand: 'Roohira',
+        sizes: {
+            'XL': { price: 1500, oldPrice: 1850 },
+            '2XL': { price: 1500, oldPrice: 1850 }
+        },
+        colors: ['#0000ff', '#e6a100', '#8B4513', '#800000'], stock: 10,
+        desc: 'Long Batik Frock by Roohira. Beautiful traditional and modern fusion long batik frock available in Blue, Dark Yellow, Brown, and Maroon in XL and 2XL sizes.'
     }
 ];
 
@@ -509,6 +547,19 @@ function displayProducts(filteredProducts) {
                     <p class="price">Rs. ${displayPrice.toLocaleString()}.00</p>
                     ${displayOldPrice ? `<p style="text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem;">Rs. ${displayOldPrice.toLocaleString()}</p>` : ''}
                 </div>
+                ${p.colors && p.colors.length > 0 ? `
+                <div style="display: flex; gap: 6px; margin-top: 8px; align-items: center;">
+                    ${p.colors.map(c => {
+                        const imgUrl = (p.colorImages && p.colorImages[c]) ? p.colorImages[c] : null;
+                        const cName = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
+                        if (imgUrl) {
+                            return `<span style="width: 20px; height: 20px; border-radius: 50%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border: 1.5px solid rgba(0,0,0,0.2); display: inline-block;" title="${cName}"></span>`;
+                        } else {
+                            return `<span style="width: 14px; height: 14px; border-radius: 50%; background: ${c}; border: 1.5px solid rgba(0,0,0,0.2); display: inline-block;" title="${cName}"></span>`;
+                        }
+                    }).join('')}
+                </div>
+                ` : ''}
             </div>
             ${isOutOfStock ? '' : `
             <div class="add-to-cart" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${p.images[0]}')">
@@ -633,6 +684,21 @@ function selectCategory(cat, btn) {
     currentSubcategory = 'All';
     subcategorySelected = false;
     currentGSM = 'all';
+
+    // Show/hide subcategory buttons depending on selected category
+    const tshirtSubs = document.querySelectorAll('.t-shirt-sub');
+    const frockSubs = document.querySelectorAll('.frock-sub');
+    if (cat === 'T-Shirts') {
+        tshirtSubs.forEach(b => b.style.display = '');
+        frockSubs.forEach(b => b.style.display = 'none');
+    } else if (cat === 'Frock') {
+        tshirtSubs.forEach(b => b.style.display = 'none');
+        frockSubs.forEach(b => b.style.display = '');
+    } else {
+        tshirtSubs.forEach(b => b.style.display = '');
+        frockSubs.forEach(b => b.style.display = 'none');
+    }
+
     // Reset subcategory buttons to 'All'
     document.querySelectorAll('.subcategory-btn').forEach(b => {
         const onclickAttr = b.getAttribute('onclick') || '';
@@ -718,6 +784,8 @@ function filterShop() {
     if (currentCategory !== 'All') {
         if (currentCategory === 'T-Shirts') {
             filtered = filtered.filter(p => p.category.toLowerCase().includes('tee') || p.category.toLowerCase().includes('t-shirt') || p.category.toLowerCase().includes('waffle'));
+        } else if (currentCategory === 'Frock') {
+            filtered = filtered.filter(p => p.category === 'Frock');
         }
     }
 
@@ -815,6 +883,9 @@ function filterProducts(category) {
         currentSubcategory = category;
         subcategorySelected = true;
         currentGSM = 'all';
+        // Show T-shirt subs, hide frock subs
+        document.querySelectorAll('.t-shirt-sub').forEach(b => b.style.display = '');
+        document.querySelectorAll('.frock-sub').forEach(b => b.style.display = 'none');
         // Update button states
         document.querySelectorAll('.category-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'T-Shirts'"));
@@ -825,12 +896,32 @@ function filterProducts(category) {
         document.querySelectorAll('.gsm-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
         });
+    } else if (category === 'Frock') {
+        currentCategory = 'Frock';
+        categorySelected = true;
+        currentSubcategory = 'Frock';
+        subcategorySelected = false;
+        currentGSM = 'all';
+        // Show frock subs, hide t-shirt subs
+        document.querySelectorAll('.t-shirt-sub').forEach(b => b.style.display = 'none');
+        document.querySelectorAll('.frock-sub').forEach(b => b.style.display = '');
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'Frock'"));
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
+        });
+        document.querySelectorAll('.gsm-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
+        });
     } else if (category === 'T-Shirts') {
         currentCategory = 'T-Shirts';
         categorySelected = true;
         currentSubcategory = 'All';
         subcategorySelected = false;
         currentGSM = 'all';
+        document.querySelectorAll('.t-shirt-sub').forEach(b => b.style.display = '');
+        document.querySelectorAll('.frock-sub').forEach(b => b.style.display = 'none');
         document.querySelectorAll('.category-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'T-Shirts'"));
         });
@@ -846,6 +937,8 @@ function filterProducts(category) {
         currentSubcategory = 'All';
         subcategorySelected = false;
         currentGSM = 'all';
+        document.querySelectorAll('.t-shirt-sub').forEach(b => b.style.display = '');
+        document.querySelectorAll('.frock-sub').forEach(b => b.style.display = 'none');
         document.querySelectorAll('.category-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
         });

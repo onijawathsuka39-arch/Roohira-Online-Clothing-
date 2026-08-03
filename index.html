@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -78,6 +78,133 @@
           <div>
             <h3 style="color: var(--primary-dark); font-size: 1.5rem;">50+</h3>
             <p style="font-size: 0.8rem; opacity: 0.6;">Unique Designs</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exclusive New Arrivals Section -->
+    <section class="section" style="padding: 60px 10% 40px; background: linear-gradient(135deg, rgba(255,20,147,0.04) 0%, rgba(255,255,255,0) 100%);">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <span style="background: #ff1493; color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px;">EXCLUSIVE NEW ARRIVALS</span>
+        <h2 style="font-size: 2.3rem; font-weight: 800; font-family: 'Mileast', sans-serif; margin-top: 10px;">Long Design <span style="color: #ff1493;">Frock</span></h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 5px;">Elegant & stylish long frock in Dark Yellow, Light Yellow & Maroon colors</p>
+      </div>
+
+      <div class="glass" style="max-width: 1000px; margin: 0 auto; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; align-items: center;">
+        <!-- Left: Image Preview Carousel -->
+        <div>
+          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">13% OFF</span>
+            <img id="home-frock-main-img" src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
+          </div>
+          <div id="home-frock-thumb-container" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <img class="frock-thumb active" src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" onclick="setHomeFrockImage(0)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; transition: 0.3s;">
+            <img class="frock-thumb" src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" onclick="setHomeFrockImage(1)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img class="frock-thumb" src="https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png" onclick="setHomeFrockImage(2)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+          </div>
+        </div>
+
+        <!-- Right: Ordering Info -->
+        <div>
+          <span style="color: #ff1493; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Frock Category</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">Long Design Frock</h3>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 2,250.00</span>
+            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 2,600.00</span>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            An elegant, high-quality long frock featuring a graceful silhouette and comfortable fit. Perfect for any special occasion or stylish outing.
+          </p>
+
+          <!-- Size selector -->
+          <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
+            <span style="display: inline-block; padding: 8px 18px; border-radius: 12px; background: #ff1493; color: white; font-weight: 700; font-size: 0.85rem;">Free Size</span>
+          </div>
+
+          <!-- Color selector with Circles -->
+          <div style="margin-bottom: 25px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="selected-home-color-name" style="color: #ff1493;">Dark Yellow</span></label>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <div onclick="selectHomeFrockColor('#e6a100', 'Dark Yellow', this)" title="Dark Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #e6a100; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 2px #ff1493; transition: 0.2s;"></div>
+              <div onclick="selectHomeFrockColor('#f5e6c8', 'Light Yellow', this)" title="Light Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #f5e6c8; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="selectHomeFrockColor('#800000', 'Maroon', this)" title="Maroon" style="width: 32px; height: 32px; border-radius: 50%; background: #800000; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="orderHomeFrock(false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+            </button>
+            <button onclick="orderHomeFrock(true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+            </button>
+            <a href="product-detail.html?id=23" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Long Batik Frock -->
+      <div class="glass" style="max-width: 1000px; margin: 30px auto 0; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; align-items: center;">
+        <!-- Left: Image Preview Carousel -->
+        <div>
+          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">19% OFF</span>
+            <img id="home-batik-main-img" src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
+          </div>
+          <div id="home-batik-thumb-container" style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <img class="batik-thumb active" src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" onclick="setHomeBatikImage(0)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; transition: 0.3s;">
+            <img class="batik-thumb" src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" onclick="setHomeBatikImage(1)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img class="batik-thumb" src="https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png" onclick="setHomeBatikImage(2)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img class="batik-thumb" src="https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png" onclick="setHomeBatikImage(3)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+          </div>
+        </div>
+
+        <!-- Right: Ordering Info -->
+        <div>
+          <span style="color: #ff1493; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Batik Frock</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">Long Batik Frock</h3>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 1,500.00</span>
+            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 1,850.00</span>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">
+            Beautiful traditional and modern fusion long batik frock featuring unique patterns. Available in Blue, Dark Yellow, Brown, and Maroon.
+          </p>
+
+          <!-- Size selector -->
+          <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
+            <div id="home-batik-size-container" style="display: flex; gap: 8px;">
+              <span onclick="selectHomeBatikSize('XL', this)" style="padding: 8px 18px; border-radius: 12px; background: #ff1493; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XL</span>
+              <span onclick="selectHomeBatikSize('2XL', this)" style="padding: 8px 18px; border-radius: 12px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">2XL</span>
+            </div>
+          </div>
+
+          <!-- Color Image selector with Circles containing frock images -->
+          <div style="margin-bottom: 25px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="selected-home-batik-color-name" style="color: #ff1493;">Blue</span></label>
+            <div id="home-batik-color-circles" style="display: flex; gap: 12px; align-items: center;">
+              <div onclick="selectHomeBatikColor(0, '#0000ff', 'Blue', this)" title="Blue" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 2px #ff1493; transition: 0.2s;"></div>
+              <div onclick="selectHomeBatikColor(1, '#e6a100', 'Dark Yellow', this)" title="Dark Yellow" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="selectHomeBatikColor(2, '#8B4513', 'Brown', this)" title="Brown" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="selectHomeBatikColor(3, '#800000', 'Maroon', this)" title="Maroon" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="orderHomeBatik(false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+            </button>
+            <button onclick="orderHomeBatik(true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+            </button>
+            <a href="product-detail.html?id=24" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
           </div>
         </div>
       </div>
@@ -333,6 +460,136 @@
       
       if (subjectInput) subjectInput.value = '';
       if (messageInput) messageInput.value = '';
+    }
+
+    let selectedHomeFrockColor = '#e6a100';
+    let selectedHomeFrockColorName = 'Dark Yellow';
+
+    const homeFrockImages = [
+      'https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png',
+      'https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png',
+      'https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png'
+    ];
+    let currentHomeFrockIndex = 0;
+
+    function setHomeFrockImage(index) {
+      currentHomeFrockIndex = index;
+      const imgEl = document.getElementById('home-frock-main-img');
+      if (imgEl) {
+        imgEl.style.opacity = '0.3';
+        setTimeout(() => {
+          imgEl.src = homeFrockImages[index];
+          imgEl.style.opacity = '1';
+        }, 150);
+      }
+      const thumbs = document.querySelectorAll('#home-frock-thumb-container .frock-thumb');
+      thumbs.forEach((t, i) => {
+        if (i === index) {
+          t.style.borderColor = '#ff1493';
+        } else {
+          t.style.borderColor = 'var(--border-color)';
+        }
+      });
+    }
+
+    // Auto-scroll images every 3.5 seconds
+    setInterval(() => {
+      currentHomeFrockIndex = (currentHomeFrockIndex + 1) % homeFrockImages.length;
+      setHomeFrockImage(currentHomeFrockIndex);
+    }, 3500);
+
+    function selectHomeFrockColor(hex, name, el) {
+      selectedHomeFrockColor = hex;
+      selectedHomeFrockColorName = name;
+      document.getElementById('selected-home-color-name').innerText = name;
+      const parent = el.parentElement;
+      parent.querySelectorAll('div').forEach(d => d.style.boxShadow = '0 0 0 1px var(--border-color)');
+      el.style.boxShadow = '0 0 0 2px #ff1493';
+    }
+
+    function orderHomeFrock(buyNow = false) {
+      const frock = products.find(p => p.id === '23') || {
+        name: 'Long Design Frock',
+        images: ['https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png']
+      };
+      addToCart(frock.name, 2250, frock.images[currentHomeFrockIndex], 'Free Size', selectedHomeFrockColor, 1);
+      if (buyNow) {
+        window.location.href = 'checkout.html';
+      }
+    }
+
+    // --- Long Batik Frock Card Logic ---
+    let selectedHomeBatikColor = '#0000ff';
+    let selectedHomeBatikColorName = 'Blue';
+    let selectedHomeBatikSize = 'XL';
+
+    function selectHomeBatikSize(size, el) {
+      selectedHomeBatikSize = size;
+      const parent = el.parentElement;
+      parent.querySelectorAll('span').forEach(s => {
+        s.style.background = 'var(--surface)';
+        s.style.color = 'var(--text-main)';
+        s.style.border = '1px solid var(--border-color)';
+      });
+      el.style.background = '#ff1493';
+      el.style.color = 'white';
+      el.style.border = 'none';
+    }
+
+    const homeBatikImages = [
+      'https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',
+      'https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',
+      'https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',
+      'https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'
+    ];
+    const homeBatikColorNames = ['Blue', 'Dark Yellow', 'Brown', 'Maroon'];
+    const homeBatikHexes = ['#0000ff', '#e6a100', '#8B4513', '#800000'];
+    let currentHomeBatikIndex = 0;
+
+    function setHomeBatikImage(index) {
+      currentHomeBatikIndex = index;
+      const imgEl = document.getElementById('home-batik-main-img');
+      if (imgEl) {
+        imgEl.style.opacity = '0.3';
+        setTimeout(() => {
+          imgEl.src = homeBatikImages[index];
+          imgEl.style.opacity = '1';
+        }, 150);
+      }
+      const thumbs = document.querySelectorAll('#home-batik-thumb-container .batik-thumb');
+      thumbs.forEach((t, i) => {
+        t.style.borderColor = (i === index) ? '#ff1493' : 'var(--border-color)';
+      });
+
+      // Highlight matching circle
+      const circles = document.querySelectorAll('#home-batik-color-circles > div');
+      circles.forEach((c, i) => {
+        c.style.boxShadow = (i === index) ? '0 0 0 2px #ff1493' : '0 0 0 1px var(--border-color)';
+      });
+      selectedHomeBatikColor = homeBatikHexes[index];
+      selectedHomeBatikColorName = homeBatikColorNames[index];
+      document.getElementById('selected-home-batik-color-name').innerText = selectedHomeBatikColorName;
+    }
+
+    function selectHomeBatikColor(index, hex, name, el) {
+      setHomeBatikImage(index);
+    }
+
+    // Auto-scroll Batik Frock images every 4 seconds
+    setInterval(() => {
+      currentHomeBatikIndex = (currentHomeBatikIndex + 1) % homeBatikImages.length;
+      setHomeBatikImage(currentHomeBatikIndex);
+    }, 4000);
+
+    function orderHomeBatik(buyNow = false) {
+      const batik = products.find(p => p.id === '24') || {
+        name: 'Long Batik Frock',
+        images: [homeBatikImages[0]]
+      };
+      addToCart(batik.name, 1500, homeBatikImages[currentHomeBatikIndex], selectedHomeBatikSize, selectedHomeBatikColor, 1);
+      if (buyNow) {
+        window.location.href = 'checkout.html';
+      }
     }
   </script>
 </body>
