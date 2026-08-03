@@ -1389,10 +1389,40 @@ function handleOfferNotification() {
     }
 }
 
-// Centralized Dark Theme Lock System
+// Centralized Light/Dark Theme Toggle System
 function initThemeToggle() {
     const currentTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
+
+    // Header Theme Toggle Icon Button
+    const navIcons = document.querySelector('.nav-icons');
+    if (navIcons && !document.getElementById('theme-toggle')) {
+        const themeBtn = document.createElement('a');
+        themeBtn.href = '#';
+        themeBtn.id = 'theme-toggle';
+        themeBtn.title = 'Toggle Light/Dark Theme';
+        themeBtn.style.cursor = 'pointer';
+        themeBtn.style.display = 'flex';
+        themeBtn.style.alignItems = 'center';
+        themeBtn.style.justifyContent = 'center';
+        themeBtn.style.color = 'var(--accent-pink)';
+        themeBtn.innerHTML = `<i data-lucide="${currentTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
+
+        // Insert before account user icon or first child
+        const userIcon = navIcons.querySelector('a[href*="profile"], a[href*="login"]');
+        if (userIcon) {
+            navIcons.insertBefore(themeBtn, userIcon);
+        } else {
+            navIcons.insertBefore(themeBtn, navIcons.firstChild);
+        }
+
+        themeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            toggleTheme();
+        });
+    }
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function toggleTheme() {
