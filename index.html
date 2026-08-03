@@ -21,6 +21,7 @@
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
       <li><a href="customize.html">Customize</a></li>
+      <li><a href="dtf.html">DTF Print</a></li>
       <li><a href="offers.html">Offers</a></li>
       <li><a href="reviews.html">Reviews</a></li>
     </ul>
@@ -48,6 +49,7 @@
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <a href="customize.html">Customize</a>
+    <a href="dtf.html">DTF Print</a>
     <a href="offers.html">Offers</a>
     <a href="reviews.html">Reviews</a>
     <a href="wishlist.html">Wishlist</a>
@@ -65,8 +67,9 @@
       <div class="hero-content">
         <h1>Men's & Women's <span style="color: #ff1493;">Fashion Clothing</span></h1>
         <p>Discover our trendy Men's & Women's clothing collection. Premium oversized T-shirts, stylish custom apparel, and modern fits crafted for ultimate confidence and style.</p>
-        <div class="hero-btns">
+        <div class="hero-btns" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
           <a href="shop.html" class="btn btn-primary">Shop Collection</a>
+          <a href="dtf.html" class="btn" style="background: #ff1493; color: white; padding: 12px 30px; border-radius: 30px; font-weight: 700; text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px;"><i data-lucide="printer" style="width: 18px;"></i> Order DTF Prints</a>
           <a href="customize.html" class="btn btn-outline">Customize T-Shirt</a>
         </div>
 
@@ -84,115 +87,104 @@
     </section>
 
     <!-- Exclusive New Arrivals Section -->
-    <section class="section" style="padding: 60px 0 50px; background: linear-gradient(135deg, rgba(255,20,147,0.04) 0%, rgba(255,255,255,0) 100%); overflow: hidden;">
-      <div style="text-align: center; margin-bottom: 35px; padding: 0 10%;">
+    <section class="section" style="padding: 60px 10% 50px; background: linear-gradient(135deg, rgba(255,20,147,0.04) 0%, rgba(255,255,255,0) 100%);">
+      <div style="text-align: center; margin-bottom: 40px;">
         <span style="background: #ff1493; color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px;">EXCLUSIVE NEW ARRIVALS</span>
         <h2 style="font-size: 2.3rem; font-weight: 800; font-family: 'Mileast', sans-serif; margin-top: 10px;">New <span style="color: #ff1493;">Frocks</span> Collection</h2>
-
       </div>
-      <div style="position: relative;">
-        <button id="na-prev-btn" onclick="naSlide(-1)" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); z-index: 20; width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid var(--border-color); box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;">
-          <i data-lucide="chevron-left" style="width: 20px; height: 20px; color: var(--primary-dark);"></i>
-        </button>
-        <button id="na-next-btn" onclick="naSlide(1)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); z-index: 20; width: 44px; height: 44px; border-radius: 50%; background: white; border: 1px solid var(--border-color); box-shadow: 0 4px 16px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;">
-          <i data-lucide="chevron-right" style="width: 20px; height: 20px; color: var(--primary-dark);"></i>
-        </button>
-        <div id="na-track" style="display: flex; gap: 24px; overflow-x: hidden; padding: 10px 80px; cursor: pointer; user-select: none; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);">
 
-          <!-- Card 1: Long Design Frock -->
-          <div class="na-card glass" id="na-card-1" onclick="naCardClick(this, 1)" style="min-width: calc(100vw - 180px); max-width: 600px; border-radius: 24px; border: 2px solid var(--border-color); overflow: hidden; cursor: pointer; transition: box-shadow 0.3s; flex-shrink: 0; position: relative; box-shadow: 0 8px 30px rgba(255,20,147,0.08);">
-            <div style="display: grid; grid-template-columns: 220px 1fr; min-height: 480px;">
-              <div style="position: relative; background: #fdfdfd; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                <span style="position: absolute; top: 12px; left: 12px; background: #DC143C; color: white; padding: 4px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; z-index: 5;">13% OFF</span>
-                <img id="na-img-1" src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease; min-height: 480px;">
-                <div style="position: absolute; bottom: 10px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center;">
-                  <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-1',this.src,this)" style="width: 38px; height: 38px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; opacity: 1;">
-                  <img src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-1',this.src,this)" style="width: 38px; height: 38px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); opacity: 0.75;">
-                  <img src="https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png" onclick="event.stopPropagation(); naSwapImg('na-img-1',this.src,this)" style="width: 38px; height: 38px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); opacity: 0.75;">
-                </div>
-              </div>
-              <div style="padding: 24px 22px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto;">
-                <div>
-                  <span style="color: #ff1493; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Frock Category</span>
-                  <h3 style="font-size: 1.4rem; font-weight: 800; margin: 6px 0 10px;">Long Design Frock</h3>
-                  <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px;">
-                    <span style="font-size: 1.3rem; font-weight: 800; color: var(--primary-dark);">Rs. 2,250</span>
-                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem;">Rs. 2,600</span>
-                  </div>
-                  <p style="color: var(--text-muted); font-size: 0.83rem; line-height: 1.6; margin-bottom: 14px;">Elegant long frock with graceful silhouette. Available in Dark Yellow, Light Yellow &amp; Maroon. Free Size.</p>
-                  <div style="margin-bottom: 12px;">
-                    <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 5px;">Color: <span id="na-frock-color-label" style="color:#ff1493;">Dark Yellow</span></label>
-                    <div style="display:flex; gap:8px;">
-                      <div onclick="event.stopPropagation(); naPickColor('#e6a100','Dark Yellow','na-frock-color-label',this)" style="width:26px;height:26px;border-radius:50%;background:#e6a100;cursor:pointer;border:2px solid white;box-shadow:0 0 0 2px #ff1493;" title="Dark Yellow"></div>
-                      <div onclick="event.stopPropagation(); naPickColor('#f5e6c8','Light Yellow','na-frock-color-label',this)" style="width:26px;height:26px;border-radius:50%;background:#f5e6c8;cursor:pointer;border:2px solid white;box-shadow:0 0 0 1px #ccc;" title="Light Yellow"></div>
-                      <div onclick="event.stopPropagation(); naPickColor('#800000','Maroon','na-frock-color-label',this)" style="width:26px;height:26px;border-radius:50%;background:#800000;cursor:pointer;border:2px solid white;box-shadow:0 0 0 1px #ccc;" title="Maroon"></div>
-                    </div>
-                  </div>
-                  <div style="margin-bottom: 16px;">
-                    <label style="font-size: 0.78rem; font-weight: 700;">Size: <span style="color:#ff1493; font-size:0.85rem;">Free Size</span></label>
-                  </div>
-                </div>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                  <button onclick="event.stopPropagation(); naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',false)" class="btn btn-primary" style="flex:1; padding:10px; font-size:0.82rem; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="shopping-bag" style="width:14px;"></i> Add to Cart</button>
-                  <button onclick="event.stopPropagation(); naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',true)" class="btn" style="flex:1; background:var(--primary-dark); color:white; padding:10px; font-size:0.82rem; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="zap" style="width:14px; color:var(--accent-gold);"></i> Buy Now</button>
-                  <a href="product-detail.html?id=23" onclick="event.stopPropagation()" class="btn btn-outline" style="padding:10px 13px; border-radius:10px; font-size:0.82rem; font-weight:700;">Details</a>
-                </div>
-              </div>
-            </div>
+      <!-- Card 1: Long Design Frock -->
+      <div class="glass" style="max-width: 1000px; margin: 0 auto; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; align-items: center;">
+        <div>
+          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">13% OFF</span>
+            <img id="na-img-1" src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
           </div>
-
-          <!-- Card 2: Long Batik Frock -->
-          <div class="na-card glass" id="na-card-2" onclick="naCardClick(this, 2)" style="min-width: calc(100vw - 180px); max-width: 600px; border-radius: 24px; border: 2px solid var(--border-color); overflow: hidden; cursor: pointer; transition: box-shadow 0.3s; flex-shrink: 0; position: relative; box-shadow: 0 8px 30px rgba(255,20,147,0.08);">
-            <div style="display: grid; grid-template-columns: 220px 1fr; min-height: 480px;">
-              <div style="position: relative; background: #fdfdfd; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                <span style="position: absolute; top: 12px; left: 12px; background: #DC143C; color: white; padding: 4px 10px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; z-index: 5;">19% OFF</span>
-                <img id="na-img-2" src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease; min-height: 480px;">
-                <div style="position: absolute; bottom: 10px; left: 0; right: 0; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
-                  <img src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-2',this.src,this)" style="width: 34px; height: 34px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; opacity: 1;">
-                  <img src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-2',this.src,this)" style="width: 34px; height: 34px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); opacity: 0.75;">
-                  <img src="https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-2',this.src,this)" style="width: 34px; height: 34px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); opacity: 0.75;">
-                  <img src="https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png" onclick="event.stopPropagation(); naSwapImg('na-img-2',this.src,this)" style="width: 34px; height: 34px; border-radius: 6px; object-fit: cover; cursor: pointer; border: 2px solid rgba(255,255,255,0.7); opacity: 0.75;">
-                </div>
-              </div>
-              <div style="padding: 24px 22px; display: flex; flex-direction: column; justify-content: space-between; overflow-y: auto;">
-                <div>
-                  <span style="color: #ff1493; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">Batik Frock</span>
-                  <h3 style="font-size: 1.4rem; font-weight: 800; margin: 6px 0 10px;">Long Batik Frock</h3>
-                  <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px;">
-                    <span style="font-size: 1.3rem; font-weight: 800; color: var(--primary-dark);">Rs. 1,500</span>
-                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem;">Rs. 1,850</span>
-                  </div>
-                  <p style="color: var(--text-muted); font-size: 0.83rem; line-height: 1.6; margin-bottom: 14px;">Traditional &amp; modern fusion batik frock. Blue, Dark Yellow, Brown &amp; Maroon. Available in XL &amp; 2XL.</p>
-                  <div style="margin-bottom: 12px;">
-                    <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 5px;">Color: <span id="na-batik-color-label" style="color:#ff1493;">Blue</span></label>
-                    <div style="display:flex; gap:8px;">
-                      <div onclick="event.stopPropagation(); naPickColorImg('#0000ff','Blue','na-batik-color-label','na-img-2','https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',this)" style="width:26px;height:26px;border-radius:50%;background-image:url('https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png');background-size:cover;cursor:pointer;border:2px solid white;box-shadow:0 0 0 2px #ff1493;" title="Blue"></div>
-                      <div onclick="event.stopPropagation(); naPickColorImg('#e6a100','Dark Yellow','na-batik-color-label','na-img-2','https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',this)" style="width:26px;height:26px;border-radius:50%;background-image:url('https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png');background-size:cover;cursor:pointer;border:2px solid white;box-shadow:0 0 0 1px #ccc;" title="Dark Yellow"></div>
-                      <div onclick="event.stopPropagation(); naPickColorImg('#8B4513','Brown','na-batik-color-label','na-img-2','https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',this)" style="width:26px;height:26px;border-radius:50%;background-image:url('https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png');background-size:cover;cursor:pointer;border:2px solid white;box-shadow:0 0 0 1px #ccc;" title="Brown"></div>
-                      <div onclick="event.stopPropagation(); naPickColorImg('#800000','Maroon','na-batik-color-label','na-img-2','https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png',this)" style="width:26px;height:26px;border-radius:50%;background-image:url('https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png');background-size:cover;cursor:pointer;border:2px solid white;box-shadow:0 0 0 1px #ccc;" title="Maroon"></div>
-                    </div>
-                  </div>
-                  <div id="na-batik-sizes" style="margin-bottom: 16px;">
-                    <label style="font-size: 0.78rem; font-weight: 700; display: block; margin-bottom: 5px;">Size:</label>
-                    <div style="display:flex; gap:6px;">
-                      <span id="na-batik-sz-xl" onclick="event.stopPropagation(); naPickSize('XL','na-batik-sz-xl','na-batik-sz-2xl')" style="padding:5px 13px;border-radius:8px;background:#ff1493;color:white;font-weight:700;font-size:0.8rem;cursor:pointer;">XL</span>
-                      <span id="na-batik-sz-2xl" onclick="event.stopPropagation(); naPickSize('2XL','na-batik-sz-2xl','na-batik-sz-xl')" style="padding:5px 13px;border-radius:8px;background:var(--surface);color:var(--text-main);border:1px solid var(--border-color);font-weight:700;font-size:0.8rem;cursor:pointer;">2XL</span>
-                    </div>
-                  </div>
-                </div>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                  <button onclick="event.stopPropagation(); naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',false)" class="btn btn-primary" style="flex:1; padding:10px; font-size:0.82rem; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="shopping-bag" style="width:14px;"></i> Add to Cart</button>
-                  <button onclick="event.stopPropagation(); naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',true)" class="btn" style="flex:1; background:var(--primary-dark); color:white; padding:10px; font-size:0.82rem; border-radius:10px; display:flex; align-items:center; justify-content:center; gap:6px;"><i data-lucide="zap" style="width:14px; color:var(--accent-gold);"></i> Buy Now</button>
-                  <a href="product-detail.html?id=24" onclick="event.stopPropagation()" class="btn btn-outline" style="padding:10px 13px; border-radius:10px; font-size:0.82rem; font-weight:700;">Details</a>
-                </div>
-              </div>
-            </div>
+          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; transition: 0.3s;">
+            <img src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img src="https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
           </div>
-
         </div>
-        <div id="na-dots" style="display: flex; justify-content: center; gap: 8px; margin-top: 20px; padding: 0 10%;">
-          <div onclick="naGoTo(0)" style="width: 24px; height: 8px; border-radius: 50px; background: #ff1493; cursor: pointer; transition: 0.3s;" class="na-dot active"></div>
-          <div onclick="naGoTo(1)" style="width: 8px; height: 8px; border-radius: 50px; background: var(--border-color); cursor: pointer; transition: 0.3s;" class="na-dot"></div>
+        <div>
+          <span style="color: #ff1493; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Frock Category</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">Long Design Frock</h3>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 2,250.00</span>
+            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 2,600.00</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">An elegant, high-quality long frock featuring a graceful silhouette and comfortable fit. Perfect for any special occasion or stylish outing.</p>
+          <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
+            <span style="display: inline-block; padding: 8px 18px; border-radius: 12px; background: #ff1493; color: white; font-weight: 700; font-size: 0.85rem;">Free Size</span>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="na-frock-color-label" style="color: #ff1493;">Dark Yellow</span></label>
+            <div id="frock-color-circles" style="display: flex; gap: 12px; align-items: center;">
+              <div onclick="naPickColor('#e6a100','Dark Yellow','na-frock-color-label',this)" title="Dark Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #e6a100; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 2px #ff1493; transition: 0.2s;"></div>
+              <div onclick="naPickColor('#f5e6c8','Light Yellow','na-frock-color-label',this)" title="Light Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #f5e6c8; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="naPickColor('#800000','Maroon','na-frock-color-label',this)" title="Maroon" style="width: 32px; height: 32px; border-radius: 50%; background: #800000; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+            </button>
+            <button onclick="naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+            </button>
+            <a href="product-detail.html?id=23" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Long Batik Frock -->
+      <div class="glass" style="max-width: 1000px; margin: 30px auto 0; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; align-items: center;">
+        <div>
+          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">19% OFF</span>
+            <img id="na-img-2" src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <img src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; transition: 0.3s;">
+            <img src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img src="https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img src="https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+          </div>
+        </div>
+        <div>
+          <span style="color: #ff1493; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Batik Frock</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">Long Batik Frock</h3>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 1,500.00</span>
+            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 1,850.00</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">Beautiful traditional and modern fusion long batik frock featuring unique patterns. Available in Blue, Dark Yellow, Brown, and Maroon.</p>
+          <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
+            <div style="display: flex; gap: 8px;">
+              <span id="na-batik-sz-xl" onclick="naPickSize('XL','na-batik-sz-xl','na-batik-sz-2xl')" style="padding: 8px 18px; border-radius: 12px; background: #ff1493; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XL</span>
+              <span id="na-batik-sz-2xl" onclick="naPickSize('2XL','na-batik-sz-2xl','na-batik-sz-xl')" style="padding: 8px 18px; border-radius: 12px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">2XL</span>
+            </div>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="na-batik-color-label" style="color: #ff1493;">Blue</span></label>
+            <div id="batik-color-circles" style="display: flex; gap: 12px; align-items: center;">
+              <div onclick="naPickColorImg('#0000ff','Blue','na-batik-color-label','na-img-2','https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',this)" title="Blue" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 2px #ff1493; transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#e6a100','Dark Yellow','na-batik-color-label','na-img-2','https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',this)" title="Dark Yellow" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#8B4513','Brown','na-batik-color-label','na-img-2','https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',this)" title="Brown" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#800000','Maroon','na-batik-color-label','na-img-2','https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png',this)" title="Maroon" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+            </button>
+            <button onclick="naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+            </button>
+            <a href="product-detail.html?id=24" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
+          </div>
         </div>
       </div>
     </section>
@@ -563,50 +555,86 @@
     }
 
     // ======= Exclusive New Arrivals Slider =======
-    let naCurrentIndex = 0;
-    const naTotalCards = 2;
+
+
+    // ======= Exclusive New Arrivals Image Auto-scroll =======
     window.naBatikSize = 'XL';
-    let naAutoInterval = null;
+    const naFrockImages = [
+      'https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png',
+      'https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png',
+      'https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png'
+    ];
+    const naFrockColors = ['Dark Yellow', 'Light Yellow', 'Maroon'];
 
-    function naGetTrack() { return document.getElementById('na-track'); }
-    function naGetCards() { return document.querySelectorAll('#na-track .na-card'); }
+    const naBatikImages = [
+      'https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',
+      'https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',
+      'https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',
+      'https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'
+    ];
+    const naBatikColors = ['Blue', 'Dark Yellow', 'Brown', 'Maroon'];
 
-    function naScrollToCard(index) {
-      const track = naGetTrack();
-      const cards = naGetCards();
-      if (!track || !cards.length) return;
-      const cardWidth = cards[0].offsetWidth + 24; // card + gap
-      track.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
-      naCurrentIndex = index;
-      // Update dots
-      document.querySelectorAll('.na-dot').forEach((d, i) => {
-        d.style.background = i === index ? '#ff1493' : 'var(--border-color)';
-        d.style.width = i === index ? '24px' : '8px';
-      });
-    }
+    let naFrockIdx = 0;
+    let naBatikIdx = 0;
 
-    function naSlide(dir) {
-      naResetAuto();
-      let next = naCurrentIndex + dir;
-      if (next < 0) next = naTotalCards - 1;
-      if (next >= naTotalCards) next = 0;
-      naScrollToCard(next);
-    }
-
-    function naGoTo(index) {
-      naResetAuto();
-      naScrollToCard(index);
-    }
-
-    function naResetAuto() {
-      if (naAutoInterval) clearInterval(naAutoInterval);
-      naAutoInterval = setInterval(() => naSlide(1), 5000);
-    }
-
-    // Start auto-scroll
     window.addEventListener('DOMContentLoaded', () => {
-      naScrollToCard(0);
-      naResetAuto();
+      // Auto scroll images for Card 1 (Long Design Frock)
+      setInterval(() => {
+        naFrockIdx = (naFrockIdx + 1) % naFrockImages.length;
+        const imgEl = document.getElementById('na-img-1');
+        if (imgEl) {
+          imgEl.style.opacity = '0.3';
+          setTimeout(() => {
+            imgEl.src = naFrockImages[naFrockIdx];
+            imgEl.style.opacity = '1';
+            
+            // Highlight thumbnail
+            const container = imgEl.parentElement.nextElementSibling;
+            if (container) {
+              const thumbs = container.querySelectorAll('img');
+              thumbs.forEach((t, i) => {
+                t.style.borderColor = (i === naFrockIdx) ? '#ff1493' : 'var(--border-color)';
+              });
+            }
+
+            // Sync color label & color circle active state
+            document.getElementById('na-frock-color-label').innerText = naFrockColors[naFrockIdx];
+            const colorCircles = document.querySelectorAll('#frock-color-circles > div');
+            colorCircles.forEach((circle, i) => {
+              circle.style.boxShadow = (i === naFrockIdx) ? '0 0 0 2px #ff1493' : '0 0 0 1px var(--border-color)';
+            });
+          }, 150);
+        }
+      }, 3500);
+
+      // Auto scroll images for Card 2 (Long Batik Frock)
+      setInterval(() => {
+        naBatikIdx = (naBatikIdx + 1) % naBatikImages.length;
+        const imgEl = document.getElementById('na-img-2');
+        if (imgEl) {
+          imgEl.style.opacity = '0.3';
+          setTimeout(() => {
+            imgEl.src = naBatikImages[naBatikIdx];
+            imgEl.style.opacity = '1';
+
+            // Highlight thumbnail
+            const container = imgEl.parentElement.nextElementSibling;
+            if (container) {
+              const thumbs = container.querySelectorAll('img');
+              thumbs.forEach((t, i) => {
+                t.style.borderColor = (i === naBatikIdx) ? '#ff1493' : 'var(--border-color)';
+              });
+            }
+
+            // Sync color label & color circle active state
+            document.getElementById('na-batik-color-label').innerText = naBatikColors[naBatikIdx];
+            const colorCircles = document.querySelectorAll('#batik-color-circles > div');
+            colorCircles.forEach((circle, i) => {
+              circle.style.boxShadow = (i === naBatikIdx) ? '0 0 0 2px #ff1493' : '0 0 0 1px var(--border-color)';
+            });
+          }, 150);
+        }
+      }, 3500);
     });
 
     function naSwapImg(imgId, src, thumbEl) {

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTF Print Studio | Roohira Collection</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .dtf-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dtf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 900px) {
+            .dtf-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dtf-preview-card {
+            position: sticky;
+            top: 100px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .dtf-sheet-mockup {
+            width: 100%;
+            aspect-ratio: 3/4;
+            max-width: 380px;
+            background: #ffffff;
+            border-radius: 12px;
+            margin: 0 auto 20px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ff1493;
+            overflow: hidden;
+        }
+
+        .dtf-sheet-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 20px 20px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+        }
+
+        .dtf-size-btn {
+            background: var(--surface);
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+            padding: 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dtf-size-btn.active {
+            border-color: #ff1493;
+            background: rgba(255, 20, 147, 0.04);
+            box-shadow: 0 8px 24px rgba(255, 20, 147, 0.1);
+        }
+
+        .dtf-size-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .upload-area:hover {
+            border-color: #ff1493;
+            background: rgba(255, 20, 147, 0.02);
+        }
+
+        .file-input {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Coming Soon Overlay -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 15, 30, 0.95); backdrop-filter: blur(15px); z-index: 999999; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #fff;">
+        <div style="width: 80px; height: 80px; background: rgba(255, 20, 147, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; color: #ff1493; border: 2px dashed #ff1493; animation: pulse 2s infinite;">
+            <i data-lucide="printer" style="width: 40px; height: 40px;"></i>
+        </div>
+        <span style="background: #ff1493; color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Feature Locked</span>
+        <h1 style="font-family: 'Mileast', sans-serif; font-size: 3rem; font-weight: 800; margin: 15px 0 10px;">DTF Printing <span style="color: #ff1493;">Studio</span></h1>
+        <h2 style="font-size: 1.8rem; font-weight: 700; color: #c8a96e; margin-bottom: 15px;">COMING SOON!</h2>
+        <p style="color: #cbd5e0; font-size: 1rem; max-width: 500px; line-height: 1.6; margin-bottom: 30px;">We are setting up our premium Direct-to-Film printing machinery. This exciting feature will be available shortly!</p>
+        
+        <a href="index.html" class="btn btn-primary" style="padding: 14px 35px; border-radius: 30px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+            <i data-lucide="arrow-left" style="width: 18px;"></i> Go Back to Home
+        </a>
+
+        <style>
+            @keyframes pulse {
+                0% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.08); opacity: 0.8; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        </style>
+    </div>
+
+    <nav id="navbar" class="scrolled">
+        <a href="index.html" class="logo">
+            <img src="logo.png" alt="Roohira Logo">
+            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="customize.html">Customize</a></li>
+            <li><a href="dtf.html" class="active">DTF Print</a></li>
+            <li><a href="offers.html">Offers</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+        <div class="nav-icons">
+            <a href="login.html"><i data-lucide="user"></i></a>
+            <a href="cart.html" style="position: relative;">
+                <i data-lucide="shopping-cart"></i>
+                <span id="cart-count" style="position: absolute; top: -10px; right: -10px; background: var(--accent-gold); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
+            </a>
+            <a href="#" id="mobile-menu-btn"><i data-lucide="menu"></i></a>
+        </div>
+    </nav>
+
+    <div class="menu-overlay" id="menu-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="customize.html">Customize</a>
+        <a href="dtf.html">DTF Print</a>
+        <a href="offers.html">Offers</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="cart.html">Cart</a>
+    </div>
+
+    <main style="padding-top: 120px;">
+        <div class="dtf-container">
+            <div style="text-align: center; margin-bottom: 50px;">
+                <span style="background: #ff1493; color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;">Direct-to-Film</span>
+                <h1 style="font-size: 2.5rem; font-weight: 800; font-family: 'Mileast', sans-serif; margin-top: 15px;">Premium <span style="color: #ff1493;">DTF Printing</span> Service</h1>
+                <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 10px auto 0;">Upload your custom artwork designs and get vibrant, high-quality, long-lasting print stickers shipped to your doorstep.</p>
+            </div>
+
+            <div class="dtf-grid">
+                <!-- Left Details Form -->
+                <div class="glass" style="padding: 35px; border-radius: 24px; border: 1px solid var(--border-color);">
+                    <h3 style="margin-bottom: 25px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800;">1. Select Print Sheet Size</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 35px;">
+                        <!-- A4 -->
+                        <div class="dtf-size-btn active" onclick="selectDtfSize('A4', 250, this)">
+                            <div>
+                                <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 4px;">A4 Size Sheet</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">21.0 x 29.7 cm (Standard Flyer/Logo Size)</p>
+                            </div>
+                            <span style="font-weight: 800; color: #ff1493; font-size: 1.25rem;">Rs. 250</span>
+                        </div>
+
+                        <!-- A3 -->
+                        <div class="dtf-size-btn" onclick="selectDtfSize('A3', 450, this)">
+                            <div>
+                                <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 4px;">A3 Size Sheet</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">29.7 x 42.0 cm (Medium Poster Size)</p>
+                            </div>
+                            <span style="font-weight: 800; color: #ff1493; font-size: 1.25rem;">Rs. 450</span>
+                        </div>
+
+                        <!-- A2 -->
+                        <div class="dtf-size-btn" onclick="selectDtfSize('A2', 800, this)">
+                            <div>
+                                <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 4px;">A2 Size Sheet</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">42.0 x 59.4 cm (Large Print Area)</p>
+                            </div>
+                            <span style="font-weight: 800; color: #ff1493; font-size: 1.25rem;">Rs. 800</span>
+                        </div>
+
+                        <!-- 1 Meter -->
+                        <div class="dtf-size-btn" onclick="selectDtfSize('1 Meter Roll', 1350, this)">
+                            <div>
+                                <h4 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 4px;">1 Meter Roll</h4>
+                                <p style="font-size: 0.8rem; color: var(--text-muted);">60.0 cm x 100.0 cm (Bulk Sticker Gangsheet)</p>
+                            </div>
+                            <span style="font-weight: 800; color: #ff1493; font-size: 1.25rem;">Rs. 1,350</span>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-bottom: 20px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800;">2. Upload Design File</h3>
+                    <div class="upload-area" onclick="document.getElementById('artwork-upload').click()">
+                        <input type="file" id="artwork-upload" class="file-input" accept="image/*,application/pdf" onchange="handleArtworkUpload(this)">
+                        <div id="upload-status-box">
+                            <i data-lucide="upload-cloud" style="width: 48px; height: 48px; color: #ff1493; margin-bottom: 12px; margin-left: auto; margin-right: auto;"></i>
+                            <h4 style="font-weight: 700; margin-bottom: 4px; color: var(--text-main);">Upload transparent PNG / Vector Artwork</h4>
+                            <p style="font-size: 0.78rem; color: var(--text-muted);">Maximum size: 25MB (PNG with 300 DPI recommended)</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 35px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 8px;">Order Quantity:</label>
+                            <div style="display: flex; align-items: center; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 12px; width: fit-content; overflow: hidden;">
+                                <button onclick="changeQty(-1)" style="border: none; background: transparent; color: var(--text-main); width: 44px; height: 44px; cursor: pointer; font-size: 1.2rem; font-weight: 800;">-</button>
+                                <span id="dtf-quantity" style="width: 40px; text-align: center; font-weight: 800; color: #fff;">1</span>
+                                <button onclick="changeQty(1)" style="border: none; background: transparent; color: var(--text-main); width: 44px; height: 44px; cursor: pointer; font-size: 1.2rem; font-weight: 800;">+</button>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 8px;">Estimated Total:</label>
+                            <span id="dtf-total-price" style="font-size: 1.8rem; font-weight: 800; color: #ff1493; font-family: 'Plus Jakarta Sans', sans-serif;">Rs. 250</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Live Preview Mockup -->
+                <div class="dtf-preview-card">
+                    <div class="dtf-sheet-mockup">
+                        <div class="dtf-sheet-grid"></div>
+                        <div id="preview-art-placeholder" style="z-index: 5; text-align: center; color: var(--text-muted); padding: 20px;">
+                            <i data-lucide="image" style="width: 44px; height: 44px; margin: 0 auto 10px; opacity: 0.5;"></i>
+                            <p style="font-size: 0.85rem;">Live Artwork Preview</p>
+                        </div>
+                        <img id="dtf-artwork-preview" src="" style="width: 85%; height: 85%; object-fit: contain; z-index: 4; display: none;">
+                    </div>
+                    <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 8px;">DTF Printing Sheet Mockup</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 25px;">
+                        Sheet Size: <span id="mockup-size-label" style="color: #ff1493; font-weight: 700;">A4</span> | 
+                        Sticker Resolution: <span style="color: #22c55e; font-weight: 700;">High (300 DPI)</span>
+                    </p>
+
+                    <div style="display: flex; gap: 15px;">
+                        <button onclick="addDtfToCart(false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem;">
+                            <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+                        </button>
+                        <button onclick="addDtfToCart(true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem;">
+                            <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="footer" style="padding: 60px 10% 30px; border-top: 2px solid rgba(255, 20, 147, 0.3); background: #ffffff !important; color: #000000 !important; margin-top: 80px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; text-align: left;">
+            <div>
+                <h3 style="font-family: 'Mileast', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
+                    <span style="color: #ff1493 !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
+                </h3>
+                <p style="color: #000000 !important; font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;">
+                    Elevate your style with our premium clothing and customized printing drops. Crafted to perfection.
+                </p>
+            </div>
+            <div>
+                <h4 style="font-size: 1.1rem; font-weight: 800; color: #000000 !important; margin-bottom: 18px; letter-spacing: 1px;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+                    <li><a href="shop.html" style="color: #000000 !important; text-decoration: none;">Shop All</a></li>
+                    <li><a href="customize.html" style="color: #000000 !important; text-decoration: none;">Custom Design</a></li>
+                    <li><a href="dtf.html" style="color: #000000 !important; text-decoration: none;">DTF Print</a></li>
+                    <li><a href="offers.html" style="color: #000000 !important; text-decoration: none;">Special Offers</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase / Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+
+        let currentSize = 'A4';
+        let unitPrice = 250;
+        let quantity = 1;
+        let uploadedImageSrc = '';
+
+        function selectDtfSize(size, price, el) {
+            currentSize = size;
+            unitPrice = price;
+            
+            // Remove active classes
+            document.querySelectorAll('.dtf-size-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            el.classList.add('active');
+
+            document.getElementById('mockup-size-label').innerText = size;
+            updateTotal();
+        }
+
+        function handleArtworkUpload(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedImageSrc = e.target.result;
+                    document.getElementById('preview-art-placeholder').style.display = 'none';
+                    const previewImg = document.getElementById('dtf-artwork-preview');
+                    previewImg.src = uploadedImageSrc;
+                    previewImg.style.display = 'block';
+
+                    document.getElementById('upload-status-box').innerHTML = `
+                        <i data-lucide="check-circle" style="width: 48px; height: 48px; color: #22c55e; margin-bottom: 12px; margin-left: auto; margin-right: auto;"></i>
+                        <h4 style="font-weight: 700; margin-bottom: 4px; color: #22c55e;">Artwork Loaded Successfully!</h4>
+                        <p style="font-size: 0.78rem; color: var(--text-muted);">${file.name} (${(file.size/1024/1024).toFixed(2)} MB)</p>
+                    `;
+                    lucide.createIcons();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function changeQty(change) {
+            quantity += change;
+            if (quantity < 1) quantity = 1;
+            document.getElementById('dtf-quantity').innerText = quantity;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const total = unitPrice * quantity;
+            document.getElementById('dtf-total-price').innerText = `Rs. ${total.toLocaleString()}`;
+        }
+
+        function addDtfToCart(buyNow = false) {
+            if (!uploadedImageSrc) {
+                alert('Please upload your artwork design file first!');
+                return;
+            }
+
+            const productName = `DTF Custom Print (${currentSize})`;
+            const itemImage = uploadedImageSrc;
+            
+            // Call system addToCart function from script.js
+            addToCart(productName, unitPrice, itemImage, currentSize, 'Default Color', quantity);
+            
+            if (buyNow) {
+                window.location.href = 'checkout.html';
+            } else {
+                showNotification(`${productName} added to cart!`);
+            }
+        }
+    </script>
+</body>
+
+</html>

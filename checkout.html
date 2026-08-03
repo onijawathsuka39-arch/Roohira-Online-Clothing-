@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -89,6 +89,22 @@
     <script>
         lucide.createIcons();
         document.addEventListener('DOMContentLoaded', () => {
+            // Auto-fill user shipping details if logged in
+            const user = JSON.parse(localStorage.getItem('roohira_user')) || null;
+            if (user) {
+                if (user.address) {
+                    const addressParts = user.address.split(',');
+                    const cityVal = addressParts.pop().trim();
+                    const streetAddress = addressParts.join(',').trim();
+                    
+                    document.getElementById('checkout-address').value = streetAddress || user.address;
+                    document.getElementById('checkout-city').value = cityVal || '';
+                }
+                if (user.phone) {
+                    document.getElementById('checkout-phone').value = user.phone;
+                }
+            }
+
             const cart = JSON.parse(localStorage.getItem('roohira_cart')) || [];
             const container = document.getElementById('checkout-items');
             let subtotal = 0;

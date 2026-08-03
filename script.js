@@ -1356,12 +1356,84 @@ function placeOrder() {
     if (bar) bar.remove();
     cart = []; saveCart();
 
-    // Open WhatsApp immediately to avoid popup blockers
-    window.open(whatsappUrl, '_blank');
+    // Create a beautiful premium success modal on the page
+    const successModal = document.createElement('div');
+    successModal.style.position = 'fixed';
+    successModal.style.top = '0';
+    successModal.style.left = '0';
+    successModal.style.width = '100%';
+    successModal.style.height = '100%';
+    successModal.style.backgroundColor = 'rgba(10, 15, 30, 0.9)';
+    successModal.style.backdropFilter = 'blur(15px)';
+    successModal.style.display = 'flex';
+    successModal.style.alignItems = 'center';
+    successModal.style.justifyContent = 'center';
+    successModal.style.zIndex = '99999';
+    successModal.style.padding = '20px';
 
-    showNotification('Order placed successfully! Redirecting...');
+    // First, show a beautiful loading animation
+    successModal.innerHTML = `
+        <div style="text-align: center; color: #fff;">
+            <div style="width: 55px; height: 55px; border: 4px solid rgba(255, 20, 147, 0.2); border-left-color: #ff1493; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+            <p style="font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; font-family: 'Plus Jakarta Sans', sans-serif;">PROCESSING YOUR ORDER...</p>
+            <style>
+                @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+            </style>
+        </div>
+    `;
+    document.body.appendChild(successModal);
 
-    setTimeout(() => { window.location.href = invoiceUrl; }, 2000);
+    // After 1.5 seconds loading, show the actual compact order success popup
+    setTimeout(() => {
+        successModal.innerHTML = `
+            <div class="glass" style="max-width: 400px; width: 100%; border-radius: 20px; padding: 25px 20px; border: 2px solid #ff1493; box-shadow: 0 15px 35px rgba(255,20,147,0.15); text-align: center; color: #fff; background: rgba(15, 20, 35, 0.98); transform: scale(0.9); opacity: 0; transition: all 0.3s ease;">
+                <div style="width: 50px; height: 50px; background: rgba(34, 197, 94, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: #22c55e; border: 1.5px solid #22c55e;">
+                    <i data-lucide="check" style="width: 28px; height: 28px;"></i>
+                </div>
+                <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; color: #fff;">Order Confirmed!</h3>
+                <p style="color: #cbd5e0; font-size: 0.85rem; margin-bottom: 18px;">Your order has been recorded successfully.</p>
+                
+                <!-- Compact Price Box -->
+                <div style="background: rgba(255, 20, 147, 0.08); padding: 12px; border-radius: 12px; margin-bottom: 20px; border: 1px solid rgba(255, 20, 147, 0.2); display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 0.85rem; color: #a0aec0; font-weight: 600;">Total Amount:</span>
+                    <span style="color: #ff1493; font-size: 1.2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;">Rs. ${grandTotal.toLocaleString()}.00</span>
+                </div>
+
+                <p style="color: #cbd5e0; font-size: 0.88rem; font-weight: 600; margin-bottom: 18px;">Share order details to WhatsApp?</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button id="modal-wa-btn" style="width: 100%; background: #25D366; color: white; border: none; padding: 12px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
+                        <i data-lucide="message-circle" style="width: 18px;"></i> Share to WhatsApp
+                    </button>
+                    <button id="modal-inv-btn" style="width: 100%; background: transparent; color: #ff1493; border: 1.5px solid #ff1493; padding: 11px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
+                        <i data-lucide="file-text" style="width: 18px;"></i> View Invoice Only
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Create animation entrance
+        setTimeout(() => {
+            const innerBox = successModal.querySelector('div');
+            if (innerBox) {
+                innerBox.style.transform = 'scale(1)';
+                innerBox.style.opacity = '1';
+            }
+        }, 50);
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+
+        document.getElementById('modal-wa-btn').onclick = () => {
+            window.open(whatsappUrl, '_blank');
+            window.location.href = invoiceUrl;
+        };
+
+        document.getElementById('modal-inv-btn').onclick = () => {
+            window.location.href = invoiceUrl;
+        };
+    }, 1500);
 }
 
 function clearOrderHistory() {
