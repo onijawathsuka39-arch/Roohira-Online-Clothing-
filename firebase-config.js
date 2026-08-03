@@ -1,4 +1,4 @@
-// Firebase Configuration for Python Store
+// Firebase Configuration for Roohira Store
 const firebaseConfig = {
     apiKey: "AIzaSyBRVpoxdo0fc_SnPKctaBEuG8H4g7NrphQ",
     authDomain: "python-store-7e509.firebaseapp.com",

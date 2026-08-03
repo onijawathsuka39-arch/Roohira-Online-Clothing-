@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Python</title>
+    <title>Profile | Roohira</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -12,8 +12,8 @@
 <body>
     <nav id="navbar" class="scrolled">
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Python Logo">
-            <img src="python-logo.png" alt="Python Logo" class="python-logo-img">
+            <img src="logo.png" alt="Roohira Logo">
+            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -23,7 +23,7 @@
         </ul>
         <div class="nav-icons">
             <a href="https://www.instagram.com/" target="_blank"><i data-lucide="instagram"></i></a>
-            <a href="https://www.facebook.com/" target="_blank"><i data-lucide="facebook"></i></a>
+            <a href="https://web.facebook.com/roohiraonline" target="_blank"><i data-lucide="facebook"></i></a>
             <a href="profile.html" class="active"><i data-lucide="user"></i></a>
             <a href="wishlist.html" style="position: relative; margin-right: 5px;">
                 <i data-lucide="heart"></i>
@@ -86,7 +86,7 @@
 
     <footer class="footer">
         <div class="footer-bottom">
-            <p>&copy; 2026 Python. Powered by Roohira Collection</p>
+            <p>&copy; 2026 Roohira. Powered by Roohira Collection</p>
         </div>
     </footer>
 
@@ -114,7 +114,7 @@
                     document.getElementById('profile-email').innerText = firebaseUser.email;
                     document.getElementById('profile-initial').innerText = name.charAt(0).toUpperCase();
                     // Set dynamic wishlist length
-                    const wl = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+                    const wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
                     document.getElementById('profile-wishlist-count').innerText = wl.length;
                     // Load orders
                     if (typeof loadProfile === 'function') loadProfile();
@@ -123,7 +123,7 @@
         } else {
             // Fallback to localStorage if Firebase not configured yet
             document.addEventListener('DOMContentLoaded', function() {
-                const user = JSON.parse(localStorage.getItem('python_user'));
+                const user = JSON.parse(localStorage.getItem('roohira_user'));
                 if (!user) {
                     window.location.href = 'login.html';
                     return;
@@ -131,7 +131,7 @@
                 document.getElementById('profile-name').innerText = user.name;
                 document.getElementById('profile-email').innerText = user.email;
                 document.getElementById('profile-initial').innerText = user.name.charAt(0).toUpperCase();
-                const wl = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+                const wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
                 document.getElementById('profile-wishlist-count').innerText = wl.length;
             });
         }

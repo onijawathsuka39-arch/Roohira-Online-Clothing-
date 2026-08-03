@@ -1,6 +1,6 @@
 // Apply stored theme immediately to avoid flash of light theme
 (function () {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
@@ -39,7 +39,7 @@ const products = [
             'https://i.ibb.co/4w34h3hZ/Python-Infinity-w.png',
             'https://i.ibb.co/NnswC8R5/Chat-GPT-Image-Apr-30-2026-12-01-14-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -47,7 +47,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'The Infinity Edition Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'The Infinity Edition Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '2', name: 'Peace Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -55,7 +55,7 @@ const products = [
             'https://i.ibb.co/ZzqQ1P97/Python-Peace.png',
             'https://i.ibb.co/QvcG1bRY/Chat-GPT-Image-May-4-2026-03-30-55-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -63,7 +63,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#000000'], stock: 10,
-        desc: 'Peace Design Regular Tee (Printed) by Python. Featuring a premium 220 GSM build for a sleek and meaningful streetwear look.'
+        desc: 'Peace Design Regular Tee (Printed) by Roohira. Featuring a premium 220 GSM build for a sleek and meaningful streetwear look.'
     },
     {
         id: '3', name: 'Nike Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -71,7 +71,7 @@ const products = [
             'https://i.ibb.co/XkDb3jmB/Nike.png',
             'https://i.ibb.co/BV3wRfLt/Chat-GPT-Image-Apr-30-2026-04-50-57-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -79,7 +79,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Nike Design Regular Tee (Printed) by Python. A classic aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
+        desc: 'Nike Design Regular Tee (Printed) by Roohira. A classic aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
     },
     {
         id: '4', name: 'Stitch Design for Girls', category: 'Regular Tee (Printed)', sections: ['Womens'],
@@ -89,7 +89,7 @@ const products = [
             'https://i.ibb.co/Qj1hcz4D/Gemini-Generated-Image-9ngc6s9ngc6s9ngc.png',
             'https://i.ibb.co/sdC39Jz8/Gemini-Generated-Image-rgqfm7rgqfm7rgqf.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -97,7 +97,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#000000', '#ffffff'],
-        desc: 'Stitch Design for Girls Regular Tee (Printed) by Python. Cute and stylish aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
+        desc: 'Stitch Design for Girls Regular Tee (Printed) by Roohira. Cute and stylish aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
     },
     {
         id: '5', name: 'BMW Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -105,7 +105,7 @@ const products = [
             'https://i.ibb.co/gLS0w69Y/Python-BMW.png',
             'https://i.ibb.co/m5mSZSSB/Chat-GPT-Image-Apr-30-2026-02-48-53-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -113,7 +113,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'],
-        desc: 'BMW Design Regular Tee (Printed) by Python. Iconic automotive styling paired with premium 220 GSM comfort.'
+        desc: 'BMW Design Regular Tee (Printed) by Roohira. Iconic automotive styling paired with premium 220 GSM comfort.'
     },
     {
         id: '6', name: 'Space Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -121,7 +121,7 @@ const products = [
             'https://i.ibb.co/jZ8BbSM2/Python-Space.png',
             'https://i.ibb.co/j9SNvjhp/Chat-GPT-Image-Apr-30-2026-12-19-43-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -129,7 +129,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'],
-        desc: 'Space Design Regular Tee (Printed) by Python. Explore the cosmos in style with this premium 220 GSM graphic tee.'
+        desc: 'Space Design Regular Tee (Printed) by Roohira. Explore the cosmos in style with this premium 220 GSM graphic tee.'
     },
     {
         id: '7', name: 'Air Jordan Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -137,7 +137,7 @@ const products = [
             'https://i.ibb.co/yFQVXd3p/Chat-GPT-Image-Apr-29-2026-10-04-36-PM.png',
             'https://i.ibb.co/fdyjtDZY/Chat-GPT-Image-Apr-30-2026-05-36-29-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -145,7 +145,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#000000'], stock: 10,
-        desc: 'Air Jordan Design Regular Tee (Printed) by Python. Iconic basketball-inspired aesthetic meets premium 220 GSM comfort.'
+        desc: 'Air Jordan Design Regular Tee (Printed) by Roohira. Iconic basketball-inspired aesthetic meets premium 220 GSM comfort.'
     },
     {
         id: '8', name: 'Urban Design Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Womens',],
@@ -153,7 +153,7 @@ const products = [
             'https://i.ibb.co/G4Nb8tRV/OVERSIZE-190-python.png',
             'https://i.ibb.co/cSvDHTyx/Chat-GPT-Image-Apr-30-2026-05-10-31-PM.png'
         ],
-        gsm: '190 GSM', brand: 'Python',
+        gsm: '190 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1700, oldPrice: 1900 },
             'M': { price: 1700, oldPrice: 1900 },
@@ -161,7 +161,7 @@ const products = [
             'XL': { price: 1700, oldPrice: 1900 }
         },
         colors: ['#c803a4ff'],
-        desc: 'Urban Oversized Tee (Printed) by Python. A bold, relaxed fit in a refreshing light blue hue, crafted from premium 190 GSM fabric for the ultimate streetwear vibe.'
+        desc: 'Urban Oversized Tee (Printed) by Roohira. A bold, relaxed fit in a refreshing light blue hue, crafted from premium 190 GSM fabric for the ultimate streetwear vibe.'
     },
     {
         id: '9', name: 'Nike Design Oversized Tee (Printed) ', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -169,7 +169,7 @@ const products = [
             'https://i.ibb.co/7d7g8Hmd/190gsm-python-nike-yellow.png',
             'https://i.ibb.co/Y7hJ3Mjy/Chat-GPT-Image-Apr-30-2026-04-53-45-PM.png'
         ],
-        gsm: '190 GSM', brand: 'Python',
+        gsm: '190 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1700, oldPrice: 1900 },
             'M': { price: 1700, oldPrice: 1900 },
@@ -177,7 +177,7 @@ const products = [
             'XL': { price: 1700, oldPrice: 1900 }
         },
         colors: ['#ffff00'],
-        desc: 'Nike Design Oversized Tee (Printed) by Python. A high-energy, vibrant yellow design featuring iconic streetwear aesthetics and premium 190 GSM comfort.'
+        desc: 'Nike Design Oversized Tee (Printed) by Roohira. A high-energy, vibrant yellow design featuring iconic streetwear aesthetics and premium 190 GSM comfort.'
     },
     {
         id: '10', name: 'Infinity Edition Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -185,7 +185,7 @@ const products = [
             'https://i.ibb.co/yFmFFkG0/Python-Infinity-B.png',
             'https://i.ibb.co/Y7dvR0vH/Chat-GPT-Image-Apr-30-2026-12-07-41-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1790, oldPrice: 1900 },
             'M': { price: 1790, oldPrice: 1900 },
@@ -193,7 +193,7 @@ const products = [
             'XL': { price: 1790, oldPrice: 1900 }
         },
         colors: ['#00f2ff'],
-        desc: 'Infinity Edition Oversized Tee (Printed) by Python. A refreshing light blue design featuring the iconic infinity motif and premium 220 GSM comfort.'
+        desc: 'Infinity Edition Oversized Tee (Printed) by Roohira. A refreshing light blue design featuring the iconic infinity motif and premium 220 GSM comfort.'
     },
     {
         id: '11', name: 'GTR Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -201,7 +201,7 @@ const products = [
             'https://i.ibb.co/jmXL8K9/GTR-Design.png',
             'https://i.ibb.co/N24VB8L1/Chat-GPT-Image-May-20-2026-08-42-05-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -209,7 +209,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'GTR Design Regular Tee (Printed) by Python. Featuring an iconic Nissan GT-R Liberty Walk graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'GTR Design Regular Tee (Printed) by Roohira. Featuring an iconic Nissan GT-R Liberty Walk graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '12', name: 'F30 M3 Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -217,7 +217,7 @@ const products = [
             'https://i.ibb.co/qLqb4RNj/F30-M3-Design.png',
             'https://i.ibb.co/fzDHqJw6/Chat-GPT-Image-May-20-2026-08-51-35-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -225,7 +225,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'F30 M3 Design Regular Tee (Printed) by Python. Featuring an iconic BMW F30 M3 graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'F30 M3 Design Regular Tee (Printed) by Roohira. Featuring an iconic BMW F30 M3 graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '13', name: 'Samurai Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -235,7 +235,7 @@ const products = [
             'https://i.ibb.co/7NVzPVhv/Chat-GPT-Image-May-20-2026-08-47-42-PM.png',
             'https://i.ibb.co/rK2NP38J/Chat-GPT-Image-May-20-2026-09-03-02-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -243,7 +243,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#000000', '#ffffff'], stock: 10,
-        desc: 'Samurai Design Regular Tee (Printed) by Python. A premium 220 GSM streetwear t-shirt featuring a striking Japanese Samurai "Honor" design, available in both black and white.'
+        desc: 'Samurai Design Regular Tee (Printed) by Roohira. A premium 220 GSM streetwear t-shirt featuring a striking Japanese Samurai "Honor" design, available in both black and white.'
     },
     {
         id: '14', name: 'Mustang Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -251,7 +251,7 @@ const products = [
             'https://i.ibb.co/23M5QKKX/Mustang-desing.png',
             'https://i.ibb.co/JRBp67cp/Chat-GPT-Image-May-20-2026-08-44-29-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -259,7 +259,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Mustang Design Regular Tee (Printed) by Python. Featuring an iconic Ford Mustang graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Mustang Design Regular Tee (Printed) by Roohira. Featuring an iconic Ford Mustang graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '15', name: 'Angel Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -267,7 +267,7 @@ const products = [
             'https://i.ibb.co/hFsMZR7s/angels-design.png',
             'https://i.ibb.co/rR6WpLZC/Chat-GPT-Image-May-20-2026-08-54-03-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -275,7 +275,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Angel Design Regular Tee (Printed) by Python. Featuring a unique angelic graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Angel Design Regular Tee (Printed) by Roohira. Featuring a unique angelic graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '16', name: 'Rock Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -283,7 +283,7 @@ const products = [
             'https://i.ibb.co/gMQPpMfR/rock-desing.png',
             'https://i.ibb.co/zV2z6pj0/Chat-GPT-Image-May-20-2026-08-57-42-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -291,7 +291,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Rock Design Regular Tee (Printed) by Python. Featuring a striking rock-inspired graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Rock Design Regular Tee (Printed) by Roohira. Featuring a striking rock-inspired graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '17', name: 'Never Give Up Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -299,7 +299,7 @@ const products = [
             'https://i.ibb.co/zh9kdHYY/never-give-up-design.png',
             'https://i.ibb.co/fcL3x12/Chat-GPT-Image-May-20-2026-08-49-40-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -307,7 +307,7 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Never Give Up Design Regular Tee (Printed) by Python. Featuring a motivational graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Never Give Up Design Regular Tee (Printed) by Roohira. Featuring a motivational graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '18', name: 'Waffle T-shirts', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -324,13 +324,13 @@ const products = [
             '#f5e6c8': 'XL'
         },
         sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
-        gsm: '240 GSM', brand: 'Python',
+        gsm: '240 GSM', brand: 'Roohira',
         sizes: {
             'M':  { price: 1450, oldPrice: 1500 },
             'XL': { price: 1450, oldPrice: 1500 }
         },
         colors: ['#c4956a', '#f5e6c8'], stock: 10,
-        desc: 'Waffle T-shirts by Python. Premium 240 GSM waffle-knit fabric for a unique texture and superior comfort. Available in Light Brown and Light Yellow. A must-have wardrobe essential.'
+        desc: 'Waffle T-shirts by Roohira. Premium 240 GSM waffle-knit fabric for a unique texture and superior comfort. Available in Light Brown and Light Yellow. A must-have wardrobe essential.'
     },
     {
         id: '19', name: 'Waffle Printed', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -349,13 +349,13 @@ const products = [
             '#f5e6c8': 'XL'
         },
         sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
-        gsm: '240 GSM', brand: 'Python',
+        gsm: '240 GSM', brand: 'Roohira',
         sizes: {
             'M':  { price: 1850, oldPrice: null },
             'XL': { price: 1850, oldPrice: null }
         },
         colors: ['#c4956a', '#f5e6c8'], stock: 10,
-        desc: 'Waffle Printed T-shirts by Python. Premium 240 GSM waffle-knit fabric for a unique texture, superior comfort, and clean prints. Features non-clickable sizes selected directly by color dots. Available in Light Brown and Light Yellow.'
+        desc: 'Waffle Printed T-shirts by Roohira. Premium 240 GSM waffle-knit fabric for a unique texture, superior comfort, and clean prints. Features non-clickable sizes selected directly by color dots. Available in Light Brown and Light Yellow.'
     },
     {
         id: '20', name: 'Colour Elephant Design', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
@@ -363,7 +363,7 @@ const products = [
             'https://i.ibb.co/67CjtFx0/Python-Infinity.png',
             'https://i.ibb.co/WWwpQsLR/Chat-GPT-Image-Jun-6-2026-10-02-04-PM.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1790, oldPrice: 1900 },
             'M': { price: 1790, oldPrice: 1900 },
@@ -371,14 +371,14 @@ const products = [
             'XL': { price: 1790, oldPrice: 1900 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Colour Elephant Design Oversized Tee (Printed) by Python. Featuring a stunning elephant artwork graphic, crafted from premium 220 GSM fabric for ultimate comfort and design definition.'
+        desc: 'Colour Elephant Design Oversized Tee (Printed) by Roohira. Featuring a stunning elephant artwork graphic, crafted from premium 220 GSM fabric for ultimate comfort and design definition.'
     },
     {
         id: '21', name: 'Formular Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
         images: [
             'https://i.ibb.co/sJJ3LhPL/F1-Design.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -386,14 +386,14 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#ffffff'], stock: 10,
-        desc: 'Formular Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Formular Design Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
     },
     {
         id: '22', name: 'Monkey Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
         images: [
             'https://i.ibb.co/2GCH9zF/monke-Design.png'
         ],
-        gsm: '220 GSM', brand: 'Python',
+        gsm: '220 GSM', brand: 'Roohira',
         sizes: {
             'S': { price: 1600, oldPrice: 1850 },
             'M': { price: 1600, oldPrice: 1850 },
@@ -401,14 +401,14 @@ const products = [
             'XL': { price: 1600, oldPrice: 1850 }
         },
         colors: ['#000000'], stock: 10,
-        desc: 'Monkey Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
+        desc: 'Monkey Design Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
     }
 ];
 
 // --- Cart System ---
 let cart = [];
 try {
-    cart = JSON.parse(localStorage.getItem('python_cart')) || [];
+    cart = JSON.parse(localStorage.getItem('roohira_cart')) || [];
     if (!Array.isArray(cart)) cart = [];
 } catch (e) {
     cart = [];
@@ -446,7 +446,7 @@ function updateQuantity(index, delta) {
 }
 
 function saveCart() {
-    localStorage.setItem('python_cart', JSON.stringify(cart));
+    localStorage.setItem('roohira_cart', JSON.stringify(cart));
     updateCartCount();
     if(typeof updateFreeDeliveryBar === 'function') updateFreeDeliveryBar();
 }
@@ -900,7 +900,7 @@ function renderCart() {
 }
 
 // --- Auth System ---
-let currentUser = JSON.parse(localStorage.getItem('python_user')) || null;
+let currentUser = JSON.parse(localStorage.getItem('roohira_user')) || null;
 
 // Sync Auth State with Firebase
 if (typeof auth !== 'undefined' && auth) {
@@ -910,13 +910,13 @@ if (typeof auth !== 'undefined' && auth) {
                 if (doc.exists) {
                     const userData = doc.data();
                     const syncedUser = { uid: user.uid, name: userData.name, email: user.email, phone: userData.phone || '', address: userData.address || '' };
-                    localStorage.setItem('python_user', JSON.stringify(syncedUser));
+                    localStorage.setItem('roohira_user', JSON.stringify(syncedUser));
                     currentUser = syncedUser;
                 } else {
                     // Auto-create Firestore doc for existing Auth users who signed up before Firestore was configured
                     const autoData = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email, phone: '', address: '', createdAt: new Date().toISOString() };
                     db.collection('users').doc(user.uid).set(autoData).catch(err => console.warn('Auto user doc create failed:', err));
-                    localStorage.setItem('python_user', JSON.stringify(autoData));
+                    localStorage.setItem('roohira_user', JSON.stringify(autoData));
                     currentUser = autoData;
                 }
                 startNotificationListener();
@@ -925,7 +925,7 @@ if (typeof auth !== 'undefined' && auth) {
                 startNotificationListener();
             });
         } else {
-            localStorage.removeItem('python_user');
+            localStorage.removeItem('roohira_user');
             currentUser = null;
             if (notificationListenerUnsubscribe) {
                 notificationListenerUnsubscribe();
@@ -955,19 +955,19 @@ function login(email, password, onError) {
                     const userData = doc.exists
                         ? { uid: user.uid, name: doc.data().name, email: user.email, phone: doc.data().phone||'', address: doc.data().address||'' }
                         : { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
-                    localStorage.setItem('python_user', JSON.stringify(userData));
+                    localStorage.setItem('roohira_user', JSON.stringify(userData));
                     currentUser = userData;
                     window.location.href = 'profile.html';
                 }).catch(() => {
                     // Firestore unreachable — allow login anyway
                     const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
-                    localStorage.setItem('python_user', JSON.stringify(quickUser));
+                    localStorage.setItem('roohira_user', JSON.stringify(quickUser));
                     currentUser = quickUser;
                     window.location.href = 'profile.html';
                 });
             } else {
                 const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
-                localStorage.setItem('python_user', JSON.stringify(quickUser));
+                localStorage.setItem('roohira_user', JSON.stringify(quickUser));
                 currentUser = quickUser;
                 window.location.href = 'profile.html';
             }
@@ -993,7 +993,7 @@ function signup(name, email, password, phone, address, onError) {
             if (typeof db !== 'undefined' && db) {
                 db.collection('users').doc(user.uid).set(userData)
                     .then(() => {
-                        localStorage.setItem('python_user', JSON.stringify(userData));
+                        localStorage.setItem('roohira_user', JSON.stringify(userData));
                         currentUser = userData;
                         window.location.href = 'profile.html';
                     })
@@ -1007,7 +1007,7 @@ function signup(name, email, password, phone, address, onError) {
                         });
                     });
             } else {
-                localStorage.setItem('python_user', JSON.stringify(userData));
+                localStorage.setItem('roohira_user', JSON.stringify(userData));
                 currentUser = userData;
                 window.location.href = 'profile.html';
             }
@@ -1024,12 +1024,12 @@ function signup(name, email, password, phone, address, onError) {
 function logout() {
     if (typeof auth !== 'undefined' && auth) {
         auth.signOut().then(() => {
-            localStorage.removeItem('python_user');
+            localStorage.removeItem('roohira_user');
             currentUser = null;
             window.location.href = 'login.html';
         });
     } else {
-        localStorage.removeItem('python_user');
+        localStorage.removeItem('roohira_user');
         currentUser = null;
         window.location.href = 'login.html';
     }
@@ -1148,7 +1148,7 @@ function showCustomerNotification(message, status) {
 }
 
 // --- Order System ---
-let orders = JSON.parse(localStorage.getItem('python_orders')) || [];
+let orders = JSON.parse(localStorage.getItem('roohira_orders')) || [];
 
 function placeOrder() {
     if (cart.length === 0) { alert('Your cart is empty!'); return; }
@@ -1205,7 +1205,7 @@ function placeOrder() {
         baseUrl = 'file:///' + baseUrl.replace(/^\/+/g, '');
         
         // Use production path for the WhatsApp shared link
-        whatsappBaseUrl = 'https://onijawathsuka39-arch.github.io/Python.-Store/';
+        whatsappBaseUrl = 'https://onijawathsuka39-arch.github.io/Roohira-Store/';
     } else {
         whatsappBaseUrl = baseUrl;
     }
@@ -1234,7 +1234,7 @@ function placeOrder() {
     message += `💰 *Grand Total: Rs. ${grandTotal.toLocaleString()}.00*\n\n`;
 
     message += `📄 *View E-Invoice:* ${whatsappInvoiceUrl}\n\n`;
-    message += `Thank you for shopping with Python Store!`;
+    message += `Thank you for shopping with Roohira Store!`;
 
     const whatsappUrl = `https://wa.me/94757218786?text=${encodeURIComponent(message)}`;
 
@@ -1251,14 +1251,14 @@ function placeOrder() {
         timestamp: (typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString())
     };
     orders.push(dbOrder);
-    localStorage.setItem('python_orders', JSON.stringify(orders));
+    localStorage.setItem('roohira_orders', JSON.stringify(orders));
     if (typeof db !== 'undefined' && db) {
         db.collection('orders').add(dbOrder).catch(e => {
             console.error("Error saving order to database:", e);
             alert("⚠️ Error: Order could not be saved to Firestore. Firestore Rules update කරන්න (allow read, write: if true).");
         });
     }
-    localStorage.removeItem('python_free_delivery_active');
+    localStorage.removeItem('roohira_free_delivery_active');
     const bar = document.getElementById('free-delivery-bar');
     if (bar) bar.remove();
     cart = []; saveCart();
@@ -1274,7 +1274,7 @@ function placeOrder() {
 function clearOrderHistory() {
     if (confirm('Are you sure you want to clear your order history?')) {
         orders = orders.filter(o => o.userEmail !== currentUser.email);
-        localStorage.setItem('python_orders', JSON.stringify(orders));
+        localStorage.setItem('roohira_orders', JSON.stringify(orders));
         if (typeof db !== 'undefined' && db) {
             db.collection('orders').where('userEmail', '==', currentUser.email).get().then(snapshot => {
                 let deletePromises = [];
@@ -1374,9 +1374,9 @@ styleSheet.textContent = `
 document.head.appendChild(styleSheet);
 
 function handleOfferNotification() {
-    const offerViewed = localStorage.getItem('python_offer_viewed_v2');
+    const offerViewed = localStorage.getItem('roohira_offer_viewed_v2');
     const isOfferPage = window.location.pathname.includes('offers.html');
-    if (isOfferPage) { localStorage.setItem('python_offer_viewed_v2', 'true'); }
+    if (isOfferPage) { localStorage.setItem('roohira_offer_viewed_v2', 'true'); }
     if (!offerViewed && !isOfferPage) {
         document.querySelectorAll('a[href="offers.html"]').forEach(link => {
             if (!link.querySelector('.offer-dot')) {
@@ -1389,69 +1389,39 @@ function handleOfferNotification() {
     }
 }
 
-// Centralized Light/Dark Theme System
+// Centralized Dark Theme Lock System
 function initThemeToggle() {
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', currentTheme);
-
-    // 2. Mobile Drawer Toggle
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenu && !document.getElementById('mobile-theme-toggle')) {
-        const mobileToggle = document.createElement('a');
-        mobileToggle.href = '#';
-        mobileToggle.id = 'mobile-theme-toggle';
-        mobileToggle.style.display = 'flex';
-        mobileToggle.style.alignItems = 'center';
-        mobileToggle.style.gap = '15px';
-        mobileToggle.style.marginTop = '30px';
-        mobileToggle.style.padding = '12px 18px';
-        mobileToggle.style.borderRadius = '15px';
-        mobileToggle.style.background = 'var(--border-light)';
-        mobileToggle.style.color = 'var(--primary-dark)';
-        mobileToggle.style.fontSize = '1.1rem';
-        mobileToggle.style.fontWeight = '600';
-        mobileToggle.style.textDecoration = 'none';
-        mobileToggle.style.border = '1px solid var(--border-color)';
-        mobileToggle.innerHTML = `<i data-lucide="${currentTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${currentTheme === 'dark' ? 'Light' : 'Dark'}`;
-
-        // Append to the list/menu block in mobile sidebar
-        const listContainer = mobileMenu.querySelector('ul');
-        if (listContainer) {
-            const li = document.createElement('li');
-            li.style.marginTop = '20px';
-            li.appendChild(mobileToggle);
-            listContainer.appendChild(li);
-        } else {
-            mobileMenu.appendChild(mobileToggle);
-        }
-
-        mobileToggle.addEventListener('click', (e) => {
-            e.preventDefault();
-            const activeTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-
-            const mainToggle = document.getElementById('theme-toggle');
-            if (mainToggle) {
-                mainToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
-            }
-            mobileToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${newTheme === 'dark' ? 'Light' : 'Dark'}`;
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        });
-    }
 }
 
-// --- Free Delivery Promo Bar ---
+function toggleTheme() {
+    const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+
+    const mainToggle = document.getElementById('theme-toggle');
+    if (mainToggle) {
+        mainToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
+    }
+    const mobileToggle = document.getElementById('mobile-theme-toggle');
+    if (mobileToggle) {
+        mobileToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${newTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
+    }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// --- Free Delivery Promo Bar (Disabled) ---
 function initFreeDeliveryBar() {
-    const isShopPage = window.location.pathname.includes('shop.html');
+    return; // Bar disabled as requested
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('offer') === 'freedelivery') {
-        localStorage.setItem('python_free_delivery_active', 'true');
+        localStorage.setItem('roohira_free_delivery_active', 'true');
         window.history.replaceState({}, document.title, 'shop.html');
     }
     
-    const isActive = localStorage.getItem('python_free_delivery_active') === 'true';
+    const isActive = localStorage.getItem('roohira_free_delivery_active') === 'true';
     if (isShopPage && isActive) {
         if (!document.getElementById('free-delivery-bar')) {
             const bar = document.createElement('div');
@@ -1522,10 +1492,10 @@ function updateFreeDeliveryBar() {
 }
 
 // Wishlist Functionality
-let wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+let wishlist = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
 
 function toggleWishlist(productId) {
-    wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+    wishlist = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
     const index = wishlist.indexOf(productId);
     let added = false;
     if (index === -1) {
@@ -1534,7 +1504,7 @@ function toggleWishlist(productId) {
     } else {
         wishlist.splice(index, 1);
     }
-    localStorage.setItem('python_wishlist', JSON.stringify(wishlist));
+    localStorage.setItem('roohira_wishlist', JSON.stringify(wishlist));
     updateWishlistCount();
     
     // Refresh display if we are on the wishlist page
@@ -1563,7 +1533,7 @@ function isInWishlist(productId) {
 }
 
 function updateWishlistCount() {
-    wishlist = JSON.parse(localStorage.getItem('python_wishlist')) || [];
+    wishlist = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
     const counts = document.querySelectorAll('#wishlist-count');
     counts.forEach(el => {
         el.innerText = wishlist.length;
@@ -1670,11 +1640,11 @@ function handleNewDropWaitlist() {
                         if (phoneInput) phoneInput.value = '';
                         
                         // Save to localStorage waitlist
-                        const waitlist = JSON.parse(localStorage.getItem('python_waitlist') || '[]');
+                        const waitlist = JSON.parse(localStorage.getItem('roohira_waitlist') || '[]');
                         // Filter out old phone entry if any to clean local cache
                         const filteredWaitlist = waitlist.filter(e => e.phone !== phone);
                         filteredWaitlist.push(waitlistEntry);
-                        localStorage.setItem('python_waitlist', JSON.stringify(filteredWaitlist));
+                        localStorage.setItem('roohira_waitlist', JSON.stringify(filteredWaitlist));
                     })
                     .catch(e => {
                         console.error("Error saving to waitlist database:", e);

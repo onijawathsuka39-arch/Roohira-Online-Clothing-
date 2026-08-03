@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details | Python</title>
+    <title>Product Details | Roohira</title>
+    <link rel="icon" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <nav id="navbar" class="scrolled">
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Python Logo">
-            <img src="python-logo.png" alt="Python Logo" class="python-logo-img">
+            <img src="logo.png" alt="Roohira Logo">
+            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -34,8 +35,8 @@
     <div class="mobile-menu" id="mobile-menu">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
             <div class="logo">
-                <img src="logo.png" alt="Python Logo" style="width: 30px;">
-                <img src="python-logo.png" alt="Python Logo" class="python-logo-img" style="width: 30px;">
+                <img src="logo.png" alt="Roohira Logo" style="width: 35px;">
+                <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
             </div>
             <button id="close-menu" style="background: none; border: none; color: var(--primary-dark); cursor: pointer;">
                 <i data-lucide="x"></i>
@@ -167,7 +168,7 @@
                         </div>
                         <div class="spec-details">
                             <h5>Original Brand</h5>
-                            <p id="detail-brand">Python</p>
+                            <p id="detail-brand">Roohira</p>
                         </div>
                     </div>
                     <div class="spec-item">
@@ -207,7 +208,7 @@
     <!-- Size Chart Modal -->
     <div id="sizeChartModal" class="modal-overlay" onclick="closeSizeChart()" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
         <div class="glass" style="max-width: 90%; max-height: 90%; position: relative; padding: 10px; background: var(--surface); border-radius: 20px; animation: modalZoom 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onclick="event.stopPropagation()">
-            <span onclick="closeSizeChart()" style="position: absolute; right: -15px; top: -15px; background: #DC143C; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(220, 20, 60, 0.3);">&times;</span>
+            <span onclick="closeSizeChart()" style="position: absolute; right: -15px; top: -15px; background: #ff1493; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);">&times;</span>
             <img src="https://i.ibb.co/pvGrdQMD/Size-Chart-01.jpg" alt="Size Chart" style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
         </div>
     </div>
@@ -217,11 +218,68 @@
         .modal-overlay.active { display: flex !important; }
     </style>
 
-    <footer class="footer">
-        <div class="footer-bottom">
-            <p>&copy; 2026 Python. Powered by Roohira Collection</p>
+      <footer class="footer" style="padding: 60px 10% 30px; border-top: 2px solid rgba(255, 20, 147, 0.3); background: #ffffff !important; color: #000000 !important;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; text-align: left;">
+      <!-- Brand & About -->
+      <div>
+        <h3 style="font-family: 'Mileast', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
+          <span style="color: #ff1493 !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
+        </h3>
+        <p style="color: #000000 !important; font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;">
+          Elevate your style with our premium, high-quality clothing collection. Designed for those who appreciate excellence.
+        </p>
+        <div style="display: flex; gap: 12px;">
+          <a href="https://web.facebook.com/roohiraonline" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://wa.me/94757218786" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #25D366 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="WhatsApp"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i></a>
         </div>
-    </footer>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 style="font-size: 1.1rem; font-weight: 800; color: #000000 !important; margin-bottom: 18px; letter-spacing: 1px;">Quick Links</h4>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem;">
+          <li><a href="shop.html" style="color: #000000 !important; text-decoration: none;">Shop All</a></li>
+          <li><a href="customize.html" style="color: #000000 !important; text-decoration: none;">Custom Design</a></li>
+          <li><a href="offers.html" style="color: #000000 !important; text-decoration: none;">Special Offers</a></li>
+          <li><a href="profile.html" style="color: #000000 !important; text-decoration: none;">My Account</a></li>
+          <li><a href="index.html#email-subject" style="color: #000000 !important; text-decoration: none;">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 style="font-size: 1.1rem; font-weight: 800; color: #000000 !important; margin-bottom: 18px; letter-spacing: 1px;">Contact Us</h4>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
+          <li>
+            <a href="tel:0757218786" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <i data-lucide="phone" style="width: 16px; height: 16px; color: #ff1493;"></i> Call: 0757218786
+            </a>
+          </li>
+          <li>
+            <a href="https://wa.me/94757218786" target="_blank" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <i data-lucide="message-square" style="width: 16px; height: 16px; color: #25D366;"></i> WhatsApp: 0757218786
+            </a>
+          </li>
+          <li>
+            <a href="mailto:roohiraonline@gmail.com" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <i data-lucide="mail" style="width: 16px; height: 16px; color: #ff1493;"></i> roohiraonline@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://web.facebook.com/roohiraonline" target="_blank" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
+              <i data-lucide="facebook" style="width: 16px; height: 16px; color: #ff1493;"></i> facebook.com/roohiraonline
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div style="border-top: 1px solid #e0e0e0; padding-top: 25px; text-align: center; color: #000000 !important; font-size: 0.85rem;">
+      <p style="color: #000000 !important;">&copy; 2026 Roohira Collection. All rights reserved.</p>
+    </div>
+  </footer>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -252,7 +310,7 @@
 
             document.getElementById('detail-name').innerText = product.name;
             document.getElementById('detail-gsm').innerText = product.gsm || '180 GSM';
-            document.getElementById('detail-brand').innerText = product.brand || 'Python';
+            document.getElementById('detail-brand').innerText = product.brand || 'Roohira';
             
             const catLabel = document.getElementById('detail-category-label');
             if (catLabel) {
@@ -556,10 +614,10 @@
             const btn = document.getElementById('detail-wishlist-btn');
             if (icon && btn) {
                 if (isInWishlist(product.id)) {
-                    icon.setAttribute('fill', '#DC143C');
-                    icon.style.color = '#DC143C';
-                    btn.style.borderColor = '#DC143C';
-                    btn.style.background = 'rgba(220, 20, 60, 0.05)';
+                    icon.setAttribute('fill', '#ff1493');
+                    icon.style.color = '#ff1493';
+                    btn.style.borderColor = '#ff1493';
+                    btn.style.background = 'rgba(255, 20, 147, 0.05)';
                 } else {
                     icon.removeAttribute('fill');
                     icon.style.color = 'var(--text-main)';
@@ -575,10 +633,10 @@
             const btn = document.getElementById('detail-wishlist-btn');
             if (icon && btn) {
                 if (added) {
-                    icon.setAttribute('fill', '#DC143C');
-                    icon.style.color = '#DC143C';
-                    btn.style.borderColor = '#DC143C';
-                    btn.style.background = 'rgba(220, 20, 60, 0.05)';
+                    icon.setAttribute('fill', '#ff1493');
+                    icon.style.color = '#ff1493';
+                    btn.style.borderColor = '#ff1493';
+                    btn.style.background = 'rgba(255, 20, 147, 0.05)';
                     showNotification('Added to Wishlist!');
                 } else {
                     icon.removeAttribute('fill');

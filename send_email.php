@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $to = "pythonstore2008@gmail.com";
-    $emailSubject = "Python Store - Web Message: " . (empty($subject) ? "Inquiry" : $subject);
+    $emailSubject = "Roohira Store - Web Message: " . (empty($subject) ? "Inquiry" : $subject);
 
     // Email Body construction
-    $emailBody = "You received a new message from Python Store contact form:\n\n";
+    $emailBody = "You received a new message from Roohira Store contact form:\n\n";
     $emailBody .= "----------------------------------------\n";
     $emailBody .= "From Email: " . $customerEmail . "\n";
     $emailBody .= "Subject: " . $subject . "\n";
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Headers
     // Using a system email for From header to ensure delivery, and Reply-To for customer replies
-    $headers = "From: noreply@pythonstore.com\r\n";
+    $headers = "From: noreply@roohirastore.com\r\n";
     $headers .= "Reply-To: " . $customerEmail . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";

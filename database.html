@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Database | Python</title>
+    <title>Admin Database | Roohira</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg:#0d1117; --surface:#161b22; --surface2:#21262d;
             --border:#30363d; --text:#e6edf3; --muted:#7d8590;
-            --green:#22c55e; --gold:#c8a96e; --red:#DC143C;
+            --green:#22c55e; --gold:#ff1493; --red:#DC143C;
             --blue:#58a6ff; --purple:#bc8cff; --amber:#f59e0b;
         }
         *{margin:0;padding:0;box-sizing:border-box;}
@@ -269,7 +269,7 @@
 <div class="topbar">
     <div class="brand">
         <div class="live"></div>
-        <h1>PYTHON <span>ADMIN DB</span></h1>
+        <h1>ROOHIRA <span>ADMIN DB</span></h1>
     </div>
     <div class="topbar-right">
         <span id="auth-status">Connecting...</span>
@@ -582,7 +582,7 @@ function buildWaLink(o) {
     ).join('\n');
     const orderId = String(o.id || o._docId).slice(-8);
     const msg =
-`🧾 *PYTHON STORE — Invoice*
+`🧾 *ROOHIRA STORE — Invoice*
 ━━━━━━━━━━━━━━━━━━━━
 📦 Order ID : #${orderId}
 👤 Name     : ${o.userName || '–'}
@@ -598,7 +598,7 @@ ${items}
 
 ✅ Status: ${(o.status||'pending').toUpperCase()}
 
-Thank you for shopping at Python Store! 🙏`;
+Thank you for shopping with Roohira Store! 🙏`;
     // Use customer's phone; strip non-digits, assume Sri Lanka +94
     let phone = (o.userPhone || '').replace(/\D/g, '');
     if (phone.startsWith('0')) phone = '94' + phone.slice(1);
