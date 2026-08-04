@@ -31,7 +31,8 @@ const colorNames = {
     '#36454f': 'Charcoal',
     '#889c8a': 'Sage Green',
     '#7f94a8': 'Dusty Blue',
-    '#d9cdbe': 'Beige'
+    '#d9cdbe': 'Beige',
+    '#a020f0': 'Purple'
 };
 
 const products = [
@@ -440,6 +441,29 @@ const products = [
         },
         colors: ['#0000ff', '#e6a100', '#8B4513', '#800000'], stock: 10,
         desc: 'Long Batik Frock by Roohira. Beautiful traditional and modern fusion long batik frock available in Blue, Dark Yellow, Brown, and Maroon in XL and 2XL sizes.'
+    },
+    {
+        id: '25', name: 'White Blouse with Embroidery', category: 'Blouse', sections: ['Womens'],
+        images: [
+            'https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png',
+            'https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png',
+            'https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png',
+            'https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png'
+        ],
+        colorImages: {
+            '#ffff00': 'https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png',
+            '#a020f0': 'https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png',
+            '#0000ff': 'https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png',
+            '#008000': 'https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png'
+        },
+        brand: 'Roohira',
+        sizes: {
+            'XL': { price: 1490, oldPrice: 1700 },
+            'XXL': { price: 1490, oldPrice: 1700 },
+            'XXXL': { price: 1490, oldPrice: 1700 }
+        },
+        colors: ['#ffff00', '#a020f0', '#0000ff', '#008000'], stock: 15,
+        desc: 'White Blouse with Embroidery by Roohira. A beautiful, lightweight premium blouse styled with intricate embroidery detail. Available in Yellow, Purple, Blue, and Green in XL, XXL, and XXXL sizes.'
     }
 ];
 
@@ -657,9 +681,9 @@ function updateFilterVisibility() {
     // Category row is always visible
     if (categoryRow) categoryRow.classList.add('visible');
 
-    // Subcategory row only appears when a specific category (not 'All') is active
+    // Subcategory row only appears when a specific category (not 'All', 'Blouse') is active
     if (subcategoryRow) {
-        if (categorySelected) {
+        if (categorySelected && currentCategory !== 'Blouse') {
             subcategoryRow.classList.add('visible');
         } else {
             subcategoryRow.classList.remove('visible');
@@ -668,7 +692,7 @@ function updateFilterVisibility() {
 
     // GSM row only appears when a specific subcategory (not 'All') is active
     if (gsmRow) {
-        if (categorySelected && subcategorySelected) {
+        if (categorySelected && subcategorySelected && currentCategory !== 'Blouse') {
             gsmRow.classList.add('visible');
         } else {
             gsmRow.classList.remove('visible');
@@ -695,7 +719,7 @@ function selectCategory(cat, btn) {
         tshirtSubs.forEach(b => b.style.display = 'none');
         frockSubs.forEach(b => b.style.display = '');
     } else {
-        tshirtSubs.forEach(b => b.style.display = '');
+        tshirtSubs.forEach(b => b.style.display = 'none');
         frockSubs.forEach(b => b.style.display = 'none');
     }
 
@@ -786,6 +810,8 @@ function filterShop() {
             filtered = filtered.filter(p => p.category.toLowerCase().includes('tee') || p.category.toLowerCase().includes('t-shirt') || p.category.toLowerCase().includes('waffle'));
         } else if (currentCategory === 'Frock') {
             filtered = filtered.filter(p => p.category === 'Frock');
+        } else if (currentCategory === 'Blouse') {
+            filtered = filtered.filter(p => p.category === 'Blouse');
         }
     }
 

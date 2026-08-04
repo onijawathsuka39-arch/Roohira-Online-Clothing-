@@ -90,7 +90,7 @@
     <section class="section" style="padding: 60px 10% 50px; background: linear-gradient(135deg, rgba(255,20,147,0.04) 0%, rgba(255,255,255,0) 100%);">
       <div style="text-align: center; margin-bottom: 40px;">
         <span style="background: #ff1493; color: white; padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px;">EXCLUSIVE NEW ARRIVALS</span>
-        <h2 style="font-size: 2.3rem; font-weight: 800; font-family: 'Mileast', sans-serif; margin-top: 10px;">New <span style="color: #ff1493;">Frocks</span> Collection</h2>
+        <h2 style="font-size: 2.3rem; font-weight: 800; font-family: 'Mileast', sans-serif; margin-top: 10px;">New <span style="color: #ff1493;">Frocks & Blouses</span> Collection</h2>
       </div>
 
       <!-- Card 1: Long Design Frock -->
@@ -184,6 +184,57 @@
               <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
             </button>
             <a href="product-detail.html?id=24" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: White Blouse with Embroidery -->
+      <div class="glass" style="max-width: 1000px; margin: 30px auto 0; padding: 30px; border-radius: 24px; border: 1px solid var(--border-color); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; align-items: center;">
+        <div>
+          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
+            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">12% OFF</span>
+            <img id="na-img-3" src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" alt="White Blouse with Embroidery" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
+            <img src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #ff1493; transition: 0.3s;">
+            <img src="https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img src="https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+            <img src="https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
+          </div>
+        </div>
+        <div>
+          <span style="color: #ff1493; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Blouse Category</span>
+          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">White Blouse with Embroidery</h3>
+          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
+            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 1,490.00</span>
+            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 1,700.00</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">Intricately designed premium white blouse styled with beautiful embroidery detail. Available in Yellow, Purple, Blue, and Green.</p>
+          <div style="margin-bottom: 15px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
+            <div style="display: flex; gap: 8px;">
+              <span id="na-blouse-sz-xl" onclick="naPickBlouseSize('XL','na-blouse-sz-xl','na-blouse-sz-xxl','na-blouse-sz-xxxl')" style="padding: 8px 18px; border-radius: 12px; background: #ff1493; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XL</span>
+              <span id="na-blouse-sz-xxl" onclick="naPickBlouseSize('XXL','na-blouse-sz-xxl','na-blouse-sz-xl','na-blouse-sz-xxxl')" style="padding: 8px 18px; border-radius: 12px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XXL</span>
+              <span id="na-blouse-sz-xxxl" onclick="naPickBlouseSize('XXXL','na-blouse-sz-xxxl','na-blouse-sz-xl','na-blouse-sz-xxl')" style="padding: 8px 18px; border-radius: 12px; background: var(--surface); color: var(--text-main); border: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XXXL</span>
+            </div>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="na-blouse-color-label" style="color: #ff1493;">Yellow</span></label>
+            <div id="blouse-color-circles" style="display: flex; gap: 12px; align-items: center;">
+              <div onclick="naPickColorImg('#ffff00','Yellow','na-blouse-color-label','na-img-3','https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png',this)" title="Yellow" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 2px #ff1493; transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#a020f0','Purple','na-blouse-color-label','na-img-3','https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png',this)" title="Purple" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#0000ff','Blue','na-blouse-color-label','na-img-3','https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png',this)" title="Blue" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+              <div onclick="naPickColorImg('#008000','Green','na-blouse-color-label','na-img-3','https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png',this)" title="Green" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button onclick="naOrder('White Blouse with Embroidery',1490,'na-img-3',window.naBlouseSize||'XL','na-blouse-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
+            </button>
+            <button onclick="naOrder('White Blouse with Embroidery',1490,'na-img-3',window.naBlouseSize||'XL','na-blouse-color-label',true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
+            </button>
+            <a href="product-detail.html?id=25" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
           </div>
         </div>
       </div>
@@ -665,6 +716,17 @@
       const siblings = el.parentElement ? el.parentElement.querySelectorAll('div') : [];
       siblings.forEach(s => s.style.boxShadow = '0 0 0 1px #ccc');
       el.style.boxShadow = '0 0 0 2px #ff1493';
+    }
+
+    window.naBlouseSize = 'XL';
+    function naPickBlouseSize(size, activeId, inactiveId1, inactiveId2) {
+      window.naBlouseSize = size;
+      const activeEl = document.getElementById(activeId);
+      const inactiveEl1 = document.getElementById(inactiveId1);
+      const inactiveEl2 = document.getElementById(inactiveId2);
+      if (activeEl) { activeEl.style.background = '#ff1493'; activeEl.style.color = 'white'; activeEl.style.border = 'none'; }
+      if (inactiveEl1) { inactiveEl1.style.background = 'var(--surface)'; inactiveEl1.style.color = 'var(--text-main)'; inactiveEl1.style.border = '1px solid var(--border-color)'; }
+      if (inactiveEl2) { inactiveEl2.style.background = 'var(--surface)'; inactiveEl2.style.color = 'var(--text-main)'; inactiveEl2.style.border = '1px solid var(--border-color)'; }
     }
 
     function naPickSize(size, activeId, inactiveId) {

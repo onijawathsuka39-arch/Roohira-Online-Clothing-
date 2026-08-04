@@ -316,6 +316,15 @@
                 const scSection = document.getElementById('size-chart-link');
                 if (scSection) scSection.style.display = 'none';
             }
+            // Hide GSM spec, Print Tech (DTF) spec, and size chart for Blouse category
+            if (product.category === 'Blouse') {
+                const gsmSpec = document.getElementById('gsm-spec-item');
+                if (gsmSpec) gsmSpec.style.display = 'none';
+                const printSpec = document.getElementById('print-spec-item');
+                if (printSpec) printSpec.style.display = 'none';
+                const scSection = document.getElementById('size-chart-link');
+                if (scSection) scSection.style.display = 'none';
+            }
 
             document.getElementById('detail-name').innerText = product.name;
             document.getElementById('detail-gsm').innerText = product.gsm || '';
