@@ -464,6 +464,123 @@ const products = [
         },
         colors: ['#ffff00', '#a020f0', '#0000ff', '#008000'], stock: 15,
         desc: 'White Blouse with Embroidery by Roohira. A beautiful, lightweight premium blouse styled with intricate embroidery detail. Available in Yellow, Purple, Blue, and Green in XL, XXL, and XXXL sizes.'
+    },
+    {
+        id: '26', name: 'Garfield Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/4ZZkgf5d/garfilde-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Garfield Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '27', name: 'Focus Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/0VvY5PhY/Focus-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Focus Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '28', name: 'Ducati Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/KpJygRTT/ducarti-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Ducati Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '29', name: 'Dodge Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/v4wJ8PMC/doger-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Dodge Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '30', name: 'Stitch Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/0RLVSK7c/stich-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'Stitch Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '31', name: 'BMW Car Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/TqgwRzLD/BMW-tee-white.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#ffffff'], stock: 10,
+        desc: 'BMW Car Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '32', name: 'Snoopy Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/SCypGfW/snoopy-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#000000'], stock: 10,
+        desc: 'Snoopy Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '33', name: 'Space Traveler Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/q3gcMMMM/Moon-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#000000'], stock: 10,
+        desc: 'Space Traveler Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
+    },
+    {
+        id: '34', name: 'Ferrari Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
+        images: ['https://i.ibb.co/VYc93p4f/Ferari-tee.png'],
+        gsm: '220 GSM', brand: 'Python',
+        sizes: {
+            'S': { price: 1650, oldPrice: 1850 },
+            'M': { price: 1650, oldPrice: 1850 },
+            'L': { price: 1650, oldPrice: 1850 },
+            'XL': { price: 1650, oldPrice: 1850 }
+        },
+        colors: ['#000000'], stock: 10,
+        desc: 'Ferrari Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
     }
 ];
 
@@ -1803,17 +1920,27 @@ function updateWishlistCount() {
 
 // Function to sync products from Firestore
 function syncProducts(callback) {
+    // Call the callback immediately so the UI is responsive
+    if (callback) {
+        try {
+            callback();
+        } catch (e) {
+            console.error("Error in immediate syncProducts callback:", e);
+        }
+    }
+
     if (typeof db === 'undefined' || !db) {
         console.warn("Firestore 'db' is not initialized yet. Skipping Firestore sync.");
-        if (callback) callback();
         return;
     }
+
     db.collection('products').get().then(snapshot => {
         const dbProducts = {};
         snapshot.forEach(doc => {
             dbProducts[doc.id] = doc.data();
         });
         
+        let changed = false;
         // Loop backwards because we might delete elements
         for (let i = products.length - 1; i >= 0; i--) {
             const p = products[i];
@@ -1821,17 +1948,55 @@ function syncProducts(callback) {
                 const dbP = dbProducts[p.id];
                 if (dbP.isDeleted === true || dbP.deleted === true) {
                     products.splice(i, 1);
-                } else if (dbP.status === 'out_of_stock') {
+                    changed = true;
+                } else if (dbP.status === 'out_of_stock' && p.stock !== 0) {
                     p.stock = 0;
-                } else if (dbP.status === 'in_stock') {
+                    changed = true;
+                } else if (dbP.status === 'in_stock' && p.stock === 0) {
                     p.stock = 10;
+                    changed = true;
                 }
             }
         }
-        if (callback) callback();
+
+        // If something changed, trigger updates dynamically
+        if (changed) {
+            console.log("Firestore products synced. Dynamic update triggered.");
+            if (window.location.pathname.includes('shop.html')) {
+                if (typeof filterShop === 'function') filterShop();
+            }
+            if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+                if (typeof displayProducts === 'function') displayProducts(products.slice(0, 4));
+            }
+            if (window.location.pathname.includes('wishlist.html')) {
+                if (typeof renderWishlist === 'function') renderWishlist();
+            }
+            if (window.location.pathname.includes('product-detail.html')) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const pid = urlParams.get('id') || '1';
+                const currentProduct = products.find(p => p.id === pid);
+                if (!currentProduct) {
+                    alert('This product is no longer available.');
+                    window.location.href = 'shop.html';
+                } else if (currentProduct.stock === 0) {
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    if (addToCartBtn) {
+                        addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
+                        addToCartBtn.disabled = true;
+                        addToCartBtn.style.background = '#555';
+                        addToCartBtn.style.opacity = '0.6';
+                        addToCartBtn.style.cursor = 'not-allowed';
+                    }
+                    const stockSection = document.getElementById('stock-urgency-section');
+                    if (stockSection) stockSection.style.display = 'none';
+                }
+            }
+        }
+        
+        // Trigger a custom event to notify that products are synced
+        document.dispatchEvent(new CustomEvent('productsSynced'));
     }).catch(err => {
         console.error("Error syncing products from Firestore:", err);
-        if (callback) callback();
     });
 }
 
