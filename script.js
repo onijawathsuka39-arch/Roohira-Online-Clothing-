@@ -1819,7 +1819,7 @@ function syncProducts(callback) {
             const p = products[i];
             if (dbProducts[p.id]) {
                 const dbP = dbProducts[p.id];
-                if (dbP.deleted === true) {
+                if (dbP.isDeleted === true || dbP.deleted === true) {
                     products.splice(i, 1);
                 } else if (dbP.status === 'out_of_stock') {
                     p.stock = 0;
