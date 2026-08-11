@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products | Roohira Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --bg:#0d1117; --surface:#161b22; --surface2:#21262d;
+            --border:#30363d; --text:#e6edf3; --muted:#7d8590;
+            --green:#22c55e; --gold:#ff1493; --red:#DC143C;
+            --blue:#58a6ff; --purple:#bc8cff; --amber:#f59e0b;
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;}
+
+        /* TopBar */
+        .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+        .brand{display:flex;align-items:center;gap:12px;}
+        .brand .live{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite;}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+        .brand h1{font-size:.95rem;font-weight:800;letter-spacing:1.5px;}
+        .brand h1 span{color:var(--gold);}
+        .topbar-right{display:flex;gap:10px;align-items:center;}
+        #auth-status{font-size:.75rem;color:var(--muted);}
+        .tbtn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 16px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s;font-family:inherit;text-decoration:none;display:inline-block;}
+        .tbtn:hover{background:var(--border);}
+
+        /* Layout */
+        .layout{display:flex;min-height:calc(100vh - 57px);}
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            min-width: 220px;
+            background: rgba(22, 27, 34, 0.45);
+            backdrop-filter: blur(20px) saturate(190%);
+            -webkit-backdrop-filter: blur(20px) saturate(190%);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 24px 12px;
+            position: sticky;
+            top: 57px;
+            height: calc(100vh - 57px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .sidebar-label {
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: var(--gold);
+            padding: 0 12px;
+            margin-bottom: 8px;
+            margin-top: 12px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+        .nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.75);
+            transition: all 0.25s;
+            border: 1px solid transparent;
+            background: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+        }
+        .nav-btn.active {
+            background: linear-gradient(135deg, rgba(200, 169, 110, 0.16), rgba(200, 169, 110, 0.03));
+            color: var(--gold);
+            border: 1px solid rgba(200, 169, 110, 0.25);
+            border-left: 3px solid var(--gold);
+            font-weight: 700;
+        }
+
+        /* Main */
+        .main{flex:1;padding:22px;overflow:auto;}
+
+        /* Section */
+        .sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;}
+        .sec-title{display:flex;align-items:center;gap:10px;font-size:1rem;font-weight:700;}
+        .badge{background:var(--surface2);border:1px solid var(--border);font-size:.68rem;padding:2px 8px;border-radius:6px;color:var(--muted);font-weight:500;font-family:'JetBrains Mono',monospace;}
+        .search{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 13px;border-radius:8px;font-size:.81rem;font-family:inherit;outline:none;width:250px;}
+        .search:focus{border-color:var(--gold);}
+        .search::placeholder{color:var(--muted);}
+
+        /* Table wrapper */
+        .tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+        .dtable{width:100%;border-collapse:collapse;font-size:.81rem;}
+        .dtable thead th{background:var(--surface2);padding:12px 14px;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap;font-family:'JetBrains Mono',monospace;}
+        .dtable thead th:first-child{color:var(--gold);}
+        .dtable tbody tr{border-bottom:1px solid rgba(48,54,61,.5);transition:background .15s;}
+        .dtable tbody tr:hover{background:rgba(255,255,255,.03);}
+        .dtable tbody tr:last-child{border-bottom:none;}
+        .dtable td{padding:12px 14px;color:var(--text);vertical-align:middle;}
+        .dtable td.mono{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--muted);}
+
+        /* Toggle Switches */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 22px;
+        }
+        .switch input { 
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--surface2);
+            transition: .3s;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: var(--muted);
+            transition: .3s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: rgba(34, 197, 94, 0.15);
+            border-color: var(--green);
+        }
+        input:checked + .slider:before {
+            transform: translateX(22px);
+            background-color: var(--green);
+        }
+        
+        /* Badges */
+        .stock-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+        .stock-badge.in {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--green);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+        .stock-badge.out {
+            background: rgba(220, 20, 60, 0.1);
+            color: #ff6b6b;
+            border: 1px solid rgba(220, 20, 60, 0.25);
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: .72rem;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .action-btn.delete:hover {
+            border-color: var(--red);
+            color: #ff6b6b;
+            background: rgba(220, 20, 60, 0.05);
+        }
+        .action-btn.restore {
+            border-color: var(--blue);
+            color: var(--blue);
+            background: rgba(88, 166, 255, 0.05);
+        }
+        .action-btn.restore:hover {
+            background: rgba(88, 166, 255, 0.15);
+        }
+
+        /* Confirm Dialog */
+        .dialog-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(4px);z-index:10000;display:none;align-items:center;justify-content:center;}
+        .dialog-overlay.open{display:flex;}
+        .dialog{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 30px;max-width:380px;width:90%;box-shadow:0 20px 50px rgba(0,0,0,.7);text-align:center;}
+        .dialog .d-icon{font-size:2.4rem;margin-bottom:12px;}
+        .dialog h4{font-size:1rem;font-weight:800;margin-bottom:8px;}
+        .dialog p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:22px;white-space:pre-line;}
+        .dialog-btns{display:flex;gap:10px;justify-content:center;}
+        .d-ok{background:#DC143C;color:#fff;border:none;padding:10px 22px;border-radius:8px;font-weight:800;font-size:.85rem;cursor:pointer;}
+        .d-cancel{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 22px;border-radius:8px;font-weight:600;font-size:.85rem;cursor:pointer;}
+
+        /* Spinner & Empty State */
+        .empty{padding:50px;text-align:center;}
+        .spinner{width:34px;height:34px;border:3px solid rgba(200, 169, 110, .15);border-top:3px solid var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+        @keyframes spin{to{transform:rotate(360deg)}}
+    </style>
+</head>
+<body>
+
+<!-- TopBar -->
+<div class="topbar">
+    <div class="brand">
+        <div class="live"></div>
+        <h1>ROOHIRA <span>PRODUCT MANAGER</span></h1>
+    </div>
+    <div class="topbar-right">
+        <span id="auth-status">Connecting...</span>
+        <button class="tbtn" style="border-color: var(--green); color: var(--green); background: rgba(34,197,94,0.05);" onclick="loadProductsTable()">⟳ Refresh</button>
+        <a href="database.html" class="tbtn">← Database Panel</a>
+    </div>
+</div>
+
+<div class="layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-label">Navigation</div>
+        <a href="database.html" class="nav-btn">
+            <span>📊</span> Admin Dashboard
+        </a>
+        <a href="roohira-products.html" class="nav-btn active">
+            <span>👕</span> Products Directory
+        </a>
+        <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 16px 8px;">
+        <div class="sidebar-label">Shortcuts</div>
+        <a href="index.html" class="nav-btn">
+            <span>🏠</span> Back to Site
+        </a>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+        <div class="sec-header">
+            <div class="sec-title">👕 Products List <span class="badge" id="product-count">0 items</span></div>
+            <input class="search" id="product-search" placeholder="🔍 Search products by name/ID..." oninput="filterProductsTable(this.value)">
+        </div>
+
+        <div class="tbl-wrap">
+            <div id="loading" class="empty"><div class="spinner"></div><p>Syncing products with Firebase Firestore...</p></div>
+            
+            <table class="dtable" id="products-table" style="display:none;">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">ID</th>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th style="width: 150px;">Stock Status</th>
+                        <th style="width: 150px; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="products-tbody"></tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+<!-- Confirm Dialog -->
+<div class="dialog-overlay" id="confirm-dialog">
+    <div class="dialog">
+        <div class="d-icon" id="d-icon">🗑️</div>
+        <h4 id="d-title">Delete Product?</h4>
+        <p id="d-msg">Are you sure?</p>
+        <div class="dialog-btns">
+            <button class="d-ok" id="d-ok">Delete</button>
+            <button class="d-cancel" onclick="closeDialog()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<!-- Import script.js to get the products array -->
+<script src="script.js"></script>
+
+<script>
+    let dbProductsOverrides = {};
+    let localProductsBackup = [];
+
+    // Initialize Page
+    window.addEventListener('DOMContentLoaded', () => {
+        if (typeof firebase === 'undefined' || !db) {
+            document.getElementById('auth-status').innerHTML = '<span style="color: var(--red);">❌ Firebase disconnected</span>';
+            document.getElementById('loading').innerHTML = '<p style="color: var(--red);">Error: Firebase could not be loaded. Please check firebase-config.js.</p>';
+            return;
+        }
+        document.getElementById('auth-status').innerHTML = '<span style="color: var(--green);">🟢 Connected</span>';
+        
+        // Wait until script.js finishes loading products and dispatching the synced event
+        document.addEventListener('productsSynced', () => {
+            loadProductsTable();
+        });
+
+        // Fallback in case event already fired
+        setTimeout(() => {
+            if (localProductsBackup.length === 0) {
+                loadProductsTable();
+            }
+        }, 1500);
+    });
+
+    // Load Products from Firestore and local backup
+    function loadProductsTable() {
+        document.getElementById('loading').style.display = 'block';
+        document.getElementById('products-table').style.display = 'none';
+
+        db.collection('products').get().then(snapshot => {
+            dbProductsOverrides = {};
+            snapshot.forEach(doc => {
+                dbProductsOverrides[doc.id] = doc.data();
+            });
+
+            // Re-fetch standard products
+            const allProductsMap = {};
+            
+            // First, load from the current products list
+            products.forEach(p => {
+                allProductsMap[p.id] = { id: p.id, name: p.name, category: p.category || 'Regular Tee', stock: p.stock };
+            });
+
+            // Second, if there are deleted items in Firebase that are no longer in script.js products list,
+            // we should try to match them up from firestore overrides so the admin can restore them.
+            Object.keys(dbProductsOverrides).forEach(id => {
+                const dbP = dbProductsOverrides[id];
+                if (!allProductsMap[id]) {
+                    allProductsMap[id] = {
+                        id: id,
+                        name: dbP.name || `Product #${id}`,
+                        category: dbP.category || 'N/A',
+                        stock: 0,
+                        isDeletedPlaceholder: true
+                    };
+                }
+            });
+
+            localProductsBackup = Object.values(allProductsMap).sort((a, b) => parseInt(a.id) - parseInt(b.id));
+            renderTable(localProductsBackup);
+        }).catch(err => {
+            console.error("Firestore loading error:", err);
+            document.getElementById('loading').innerHTML = `<p style="color: var(--red);">Error loading from Firestore: ${err.message}</p>`;
+        });
+    }
+
+    // Render Table
+    function renderTable(items) {
+        const tbody = document.getElementById('products-tbody');
+        tbody.innerHTML = '';
+        
+        document.getElementById('product-count').textContent = `${items.length} items`;
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('products-table').style.display = 'table';
+
+        if (items.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="empty" style="text-align: center;">No matching products found.</td></tr>`;
+            return;
+        }
+
+        items.forEach(p => {
+            const dbOverride = dbProductsOverrides[p.id] || {};
+            const isDeleted = dbOverride.deleted === true;
+            const status = dbOverride.status || (p.stock > 0 ? 'in_stock' : 'out_of_stock');
+            
+            const tr = document.createElement('tr');
+            if (isDeleted) {
+                tr.style.opacity = '0.5';
+                tr.style.background = 'rgba(220, 20, 60, 0.02)';
+            }
+
+            tr.innerHTML = `
+                <td class="mono">#${p.id}</td>
+                <td style="font-weight: 600; color: ${isDeleted ? 'var(--muted)' : 'var(--text)'};">
+                    ${p.name} ${isDeleted ? '<span style="color: var(--red); font-size: 0.7rem; margin-left: 8px;">(DELETED)</span>' : ''}
+                </td>
+                <td style="color: var(--muted);">${p.category}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label class="switch">
+                            <input type="checkbox" ${status === 'in_stock' ? 'checked' : ''} ${isDeleted ? 'disabled' : ''} onchange="toggleStock('${p.id}', '${p.name}', this.checked)">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="stock-badge ${status === 'in_stock' ? 'in' : 'out'}">${status === 'in_stock' ? 'In Stock' : 'Out of Stock'}</span>
+                    </div>
+                </td>
+                <td style="text-align: center;">
+                    ${isDeleted ? `
+                        <button class="action-btn restore" onclick="restoreProduct('${p.id}', '${p.name}')">
+                            <i data-lucide="rotate-ccw" style="width: 13px; height: 13px;"></i> Restore
+                        </button>
+                    ` : `
+                        <button class="action-btn delete" onclick="confirmDeleteProduct('${p.id}', '${p.name}', '${p.category}')">
+                            <i data-lucide="trash-2" style="width: 13px; height: 13px;"></i> Delete
+                        </button>
+                    `}
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+
+    // Toggle stock status in Firestore
+    function toggleStock(id, name, isChecked) {
+        const newStatus = isChecked ? 'in_stock' : 'out_of_stock';
+        db.collection('products').doc(id).set({
+            name: name,
+            status: newStatus,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).then(() => {
+            showToast(`✅ "${name}" marked as ${isChecked ? 'IN STOCK' : 'OUT OF STOCK'}`, 'green');
+            if (!dbProductsOverrides[id]) dbProductsOverrides[id] = {};
+            dbProductsOverrides[id].status = newStatus;
+            renderTable(localProductsBackup);
+        }).catch(err => {
+            alert("Error updating stock status: " + err.message);
+        });
+    }
+
+    // Confirm Delete
+    let _deleteTargetId = null;
+    let _deleteTargetName = null;
+    let _deleteTargetCategory = null;
+
+    function confirmDeleteProduct(id, name, category) {
+        _deleteTargetId = id;
+        _deleteTargetName = name;
+        _deleteTargetCategory = category;
+
+        document.getElementById('d-icon').textContent = '🗑️';
+        document.getElementById('d-title').textContent = 'Delete Product?';
+        document.getElementById('d-msg').textContent = `"${name}" storefront eken delete karන්නද?\nDelete kaloth display wenne natha.`;
+        document.getElementById('d-ok').style.background = 'var(--red)';
+        document.getElementById('d-ok').textContent = 'Delete';
+        document.getElementById('d-ok').onclick = executeDelete;
+        
+        document.getElementById('confirm-dialog').classList.add('open');
+    }
+
+    function executeDelete() {
+        if (!_deleteTargetId) return;
+        const id = _deleteTargetId;
+        const name = _deleteTargetName;
+        const category = _deleteTargetCategory;
+
+        db.collection('products').doc(id).set({
+            name: name,
+            category: category,
+            deleted: true,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).then(() => {
+            closeDialog();
+            showToast(`🗑️ "${name}" deleted from storefront`, 'red');
+            loadProductsTable();
+        }).catch(err => {
+            alert("Error deleting product: " + err.message);
+        });
+    }
+
+    // Restore product
+    function restoreProduct(id, name) {
+        db.collection('products').doc(id).update({
+            deleted: false,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            showToast(`♻️ "${name}" restored successfully`, 'blue');
+            loadProductsTable();
+        }).catch(err => {
+            alert("Error restoring product: " + err.message);
+        });
+    }
+
+    function closeDialog() {
+        document.getElementById('confirm-dialog').classList.remove('open');
+        _deleteTargetId = null;
+        _deleteTargetName = null;
+        _deleteTargetCategory = null;
+    }
+
+    // Filter Products table by search query
+    function filterProductsTable(query) {
+        const q = query.toLowerCase().trim();
+        if (!q) {
+            renderTable(localProductsBackup);
+            return;
+        }
+        const filtered = localProductsBackup.filter(p => 
+            p.id.toLowerCase().includes(q) || 
+            p.name.toLowerCase().includes(q) || 
+            p.category.toLowerCase().includes(q)
+        );
+        renderTable(filtered);
+    }
+
+    // Toast alerts
+    function showToast(msg, type) {
+        const colors = { green:'#22c55e', amber:'#f59e0b', blue:'#58a6ff', red:'#ef4444' };
+        const t = document.createElement('div');
+        t.textContent = msg;
+        Object.assign(t.style, {
+            position:'fixed', bottom:'24px', right:'24px',
+            background: colors[type] || '#333', color:'#000',
+            padding:'12px 20px', borderRadius:'10px',
+            fontWeight:'700', fontSize:'.88rem', zIndex:'99999',
+            boxShadow:'0 8px 24px rgba(0,0,0,.5)',
+            transition: '0.3s'
+        });
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+    }
+</script>
+</body>
+</html>

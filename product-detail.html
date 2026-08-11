@@ -290,10 +290,7 @@
     <script>
         lucide.createIcons();
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const pid = urlParams.get('id') || '1';
-        const product = products.find(p => p.id === pid) || products[0];
-
+        let product;
         let selectedSize = '';
         let selectedColor = '';
         let currentPrice = 0;
@@ -302,179 +299,189 @@
         let currentSlide = 0;
         let autoScrollInterval = null;
 
-        if (product) {
-            if (product.category === 'Oversized Tee (Printed)' && !product.sizeChartImg) {
-                const scSection = document.getElementById('size-chart-link');
-                if (scSection) scSection.style.display = 'none';
-            }
-            // Hide GSM spec, Print Tech spec, and size chart for Frock category
-            if (product.category === 'Frock') {
-                const gsmSpec = document.getElementById('gsm-spec-item');
-                if (gsmSpec) gsmSpec.style.display = 'none';
-                const printSpec = document.getElementById('print-spec-item');
-                if (printSpec) printSpec.style.display = 'none';
-                const scSection = document.getElementById('size-chart-link');
-                if (scSection) scSection.style.display = 'none';
-            }
-            // Hide GSM spec, Print Tech (DTF) spec, and size chart for Blouse category
-            if (product.category === 'Blouse') {
-                const gsmSpec = document.getElementById('gsm-spec-item');
-                if (gsmSpec) gsmSpec.style.display = 'none';
-                const printSpec = document.getElementById('print-spec-item');
-                if (printSpec) printSpec.style.display = 'none';
-                const scSection = document.getElementById('size-chart-link');
-                if (scSection) scSection.style.display = 'none';
-            }
+        document.addEventListener('DOMContentLoaded', () => {
+            syncProducts(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const pid = urlParams.get('id') || '1';
+                product = products.find(p => p.id === pid) || products[0];
 
-            document.getElementById('detail-name').innerText = product.name;
-            document.getElementById('detail-gsm').innerText = product.gsm || '';
-            document.getElementById('detail-brand').innerText = product.brand || 'Roohira';
+                if (product) {
+                    if (product.category === 'Oversized Tee (Printed)' && !product.sizeChartImg) {
+                        const scSection = document.getElementById('size-chart-link');
+                        if (scSection) scSection.style.display = 'none';
+                    }
+                    // Hide GSM spec, Print Tech spec, and size chart for Frock category
+                    if (product.category === 'Frock') {
+                        const gsmSpec = document.getElementById('gsm-spec-item');
+                        if (gsmSpec) gsmSpec.style.display = 'none';
+                        const printSpec = document.getElementById('print-spec-item');
+                        if (printSpec) printSpec.style.display = 'none';
+                        const scSection = document.getElementById('size-chart-link');
+                        if (scSection) scSection.style.display = 'none';
+                    }
+                    // Hide GSM spec, Print Tech (DTF) spec, and size chart for Blouse category
+                    if (product.category === 'Blouse') {
+                        const gsmSpec = document.getElementById('gsm-spec-item');
+                        if (gsmSpec) gsmSpec.style.display = 'none';
+                        const printSpec = document.getElementById('print-spec-item');
+                        if (printSpec) printSpec.style.display = 'none';
+                        const scSection = document.getElementById('size-chart-link');
+                        if (scSection) scSection.style.display = 'none';
+                    }
 
-            const catLabel = document.getElementById('detail-category-label');
-            if (catLabel) {
-                catLabel.innerText = product.category || 'T-Shirt';
-            }
+                    document.getElementById('detail-name').innerText = product.name;
+                    document.getElementById('detail-gsm').innerText = product.gsm || '';
+                    document.getElementById('detail-brand').innerText = product.brand || 'Roohira';
 
-            // Image Slider & Thumbnails
-            const slider = document.getElementById('image-slider');
-            const dotsContainer = document.getElementById('slider-dots');
-            const thumbContainer = document.getElementById('image-thumbnails');
-            const images = product.images || [product.img];
+                    const catLabel = document.getElementById('detail-category-label');
+                    if (catLabel) {
+                        catLabel.innerText = product.category || 'T-Shirt';
+                    }
 
-            images.forEach((img, idx) => {
-                // Slider Image
-                const imgTag = document.createElement('img');
-                imgTag.src = img;
-                imgTag.style.width = '100%';
-                imgTag.style.flexShrink = '0';
-                imgTag.style.objectFit = 'contain';
-                imgTag.style.maxHeight = '500px';
-                imgTag.style.background = 'var(--surface)';
-                slider.appendChild(imgTag);
+                    // Image Slider & Thumbnails
+                    const slider = document.getElementById('image-slider');
+                    const dotsContainer = document.getElementById('slider-dots');
+                    const thumbContainer = document.getElementById('image-thumbnails');
+                    const images = product.images || [product.img];
 
-                // Dot
-                if (images.length > 1) {
-                    const dot = document.createElement('div');
-                    dot.className = `dot ${idx === 0 ? 'active' : ''}`;
-                    dot.onclick = () => goToSlide(idx);
-                    dotsContainer.appendChild(dot);
+                    images.forEach((img, idx) => {
+                        // Slider Image
+                        const imgTag = document.createElement('img');
+                        imgTag.src = img;
+                        imgTag.style.width = '100%';
+                        imgTag.style.flexShrink = '0';
+                        imgTag.style.objectFit = 'contain';
+                        imgTag.style.maxHeight = '500px';
+                        imgTag.style.background = 'var(--surface)';
+                        slider.appendChild(imgTag);
 
-                    // Thumbnail
-                    const thumb = document.createElement('img');
-                    thumb.src = img;
-                    thumb.className = `thumb ${idx === 0 ? 'active' : ''}`;
-                    thumb.onclick = () => goToSlide(idx);
-                    thumbContainer.appendChild(thumb);
-                }
-            });
+                        // Dot
+                        if (images.length > 1) {
+                            const dot = document.createElement('div');
+                            dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+                            dot.onclick = () => goToSlide(idx);
+                            dotsContainer.appendChild(dot);
 
-            if (images.length > 1) {
-                document.getElementById('prev-btn').style.display = 'flex';
-                document.getElementById('next-btn').style.display = 'flex';
-                startAutoScroll();
-            } else {
-                if (dotsContainer) dotsContainer.style.display = 'none';
-                if (thumbContainer) thumbContainer.style.display = 'none';
-                document.getElementById('prev-btn').style.display = 'none';
-                document.getElementById('next-btn').style.display = 'none';
-            }
+                            // Thumbnail
+                            const thumb = document.createElement('img');
+                            thumb.src = img;
+                            thumb.className = `thumb ${idx === 0 ? 'active' : ''}`;
+                            thumb.onclick = () => goToSlide(idx);
+                            thumbContainer.appendChild(thumb);
+                        }
+                    });
 
-            if (product.desc) document.getElementById('detail-desc').innerText = product.desc;
-
-            // Sizes
-            const sizeContainer = document.getElementById('detail-sizes');
-            const sizes = product.sizes ? Object.keys(product.sizes) : ['Free'];
-
-            // Build a reverse map: size Ã¢â€ â€™ color (if colorSizes exists)
-            const sizeToColor = {};
-            if (product.colorSizes) {
-                Object.entries(product.colorSizes).forEach(([col, sz]) => { sizeToColor[sz] = col; });
-            }
-
-            // Determine which sizes are actually available
-            const availableSizes = product.colorSizes
-                ? sizes.filter(s => sizeToColor[s])
-                : sizes;
-
-            selectedSize = availableSizes[0] || sizes[0];
-            const sizeData = product.sizes ? product.sizes[selectedSize] : { price: product.price, oldPrice: product.oldPrice };
-            currentPrice = typeof sizeData === 'object' ? sizeData.price : sizeData;
-            currentOldPrice = typeof sizeData === 'object' ? sizeData.oldPrice : product.oldPrice;
-
-            sizes.forEach(s => {
-                const btn = document.createElement('div');
-                const isUnavailable = product.colorSizes && !sizeToColor[s];
-
-                btn.className = `size-chip ${s === selectedSize ? 'active' : ''} ${isUnavailable ? 'out-of-stock-size' : ''}`;
-                btn.innerHTML = isUnavailable
-                    ? `${s} <span style="font-size:0.6rem;display:block;color:#e53935;">Out of Stock</span>`
-                    : s;
-
-                if (product.colorSizes) {
-                    // Size is ONLY controlled by color Ã¢â‚¬â€ make all size chips non-clickable
-                    btn.style.cssText += isUnavailable
-                        ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;'
-                        : 'cursor:default;pointer-events:none;';
-                    btn.title = isUnavailable
-                        ? 'Out of Stock'
-                        : 'Select the matching color to choose this size';
-                } else {
-                    // Normal products Ã¢â‚¬â€ size chips are clickable
-                    if (isUnavailable) {
-                        btn.style.cssText = 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;';
+                    if (images.length > 1) {
+                        document.getElementById('prev-btn').style.display = 'flex';
+                        document.getElementById('next-btn').style.display = 'flex';
+                        startAutoScroll();
                     } else {
-                        btn.onclick = () => selectSize(s, btn);
+                        if (dotsContainer) dotsContainer.style.display = 'none';
+                        if (thumbContainer) thumbContainer.style.display = 'none';
+                        document.getElementById('prev-btn').style.display = 'none';
+                        document.getElementById('next-btn').style.display = 'none';
+                    }
+
+                    if (product.desc) document.getElementById('detail-desc').innerText = product.desc;
+
+                    // Sizes
+                    const sizeContainer = document.getElementById('detail-sizes');
+                    const sizes = product.sizes ? Object.keys(product.sizes) : ['Free'];
+
+                    // Build a reverse map: size → color (if colorSizes exists)
+                    const sizeToColor = {};
+                    if (product.colorSizes) {
+                        Object.entries(product.colorSizes).forEach(([col, sz]) => { sizeToColor[sz] = col; });
+                    }
+
+                    // Determine which sizes are actually available
+                    const availableSizes = product.colorSizes
+                        ? sizes.filter(s => sizeToColor[s])
+                        : sizes;
+
+                    selectedSize = availableSizes[0] || sizes[0];
+                    const sizeData = product.sizes ? product.sizes[selectedSize] : { price: product.price, oldPrice: product.oldPrice };
+                    currentPrice = typeof sizeData === 'object' ? sizeData.price : sizeData;
+                    currentOldPrice = typeof sizeData === 'object' ? sizeData.oldPrice : product.oldPrice;
+
+                    sizes.forEach(s => {
+                        const btn = document.createElement('div');
+                        const isUnavailable = product.colorSizes && !sizeToColor[s];
+
+                        btn.className = `size-chip ${s === selectedSize ? 'active' : ''} ${isUnavailable ? 'out-of-stock-size' : ''}`;
+                        btn.innerHTML = isUnavailable
+                            ? `${s} <span style="font-size:0.6rem;display:block;color:#e53935;">Out of Stock</span>`
+                            : s;
+
+                        if (product.colorSizes) {
+                            // Size is ONLY controlled by color — make all size chips non-clickable
+                            btn.style.cssText += isUnavailable
+                                ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;'
+                                : 'cursor:default;pointer-events:none;';
+                            btn.title = isUnavailable
+                                ? 'Out of Stock'
+                                : 'Select the matching color to choose this size';
+                        } else {
+                            // Normal products — size chips are clickable
+                            if (isUnavailable) {
+                                btn.style.cssText = 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;';
+                            } else {
+                                btn.onclick = () => selectSize(s, btn);
+                            }
+                        }
+                        sizeContainer.appendChild(btn);
+                    });
+
+                    // Colors
+                    const colorContainer = document.getElementById('detail-colors');
+                    selectedColor = product.colors ? product.colors[0] : 'Default';
+                    if (product.colors) {
+                        product.colors.forEach(c => {
+                            const btn = document.createElement('div');
+                            btn.className = `color-dot ${c === selectedColor ? 'active' : ''}`;
+                            if (product.colorImages && product.colorImages[c]) {
+                                btn.style.backgroundImage = `url('${product.colorImages[c]}')`;
+                                btn.style.backgroundSize = 'cover';
+                                btn.style.backgroundPosition = 'center';
+                            } else {
+                                btn.style.background = c;
+                            }
+                            btn.title = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
+                            btn.onclick = () => selectColor(c, btn);
+                            colorContainer.appendChild(btn);
+                        });
+                    }
+
+                    // If color→size linking exists, auto-trigger size from first color on load
+                    if (product.colorSizes && product.colors && product.colors[0]) {
+                        const initSize = product.colorSizes[product.colors[0]];
+                        if (initSize) {
+                            const initSizeBtn = [...sizeContainer.querySelectorAll('.size-chip')].find(b => b.innerText.trim().startsWith(initSize));
+                            if (initSizeBtn) selectSize(initSize, initSizeBtn);
+                        }
+                    }
+
+                    updatePriceDisplay();
+                    setEstimatedDelivery();
+                    initStockUrgency();
+
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    if (product.stock === 0) {
+                        addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
+                        addToCartBtn.disabled = true;
+                        addToCartBtn.style.background = '#555';
+                        addToCartBtn.style.opacity = '0.6';
+                        addToCartBtn.style.cursor = 'not-allowed';
+
+                        // Hide stock urgency section if out of stock
+                        const stockSection = document.getElementById('stock-urgency-section');
+                        if (stockSection) stockSection.style.display = 'none';
                     }
                 }
-                sizeContainer.appendChild(btn);
+                initWishlistState();
+                updateDeliveryPromo();
             });
-
-            // Colors
-            const colorContainer = document.getElementById('detail-colors');
-            selectedColor = product.colors ? product.colors[0] : 'Default';
-            if (product.colors) {
-                product.colors.forEach(c => {
-                    const btn = document.createElement('div');
-                    btn.className = `color-dot ${c === selectedColor ? 'active' : ''}`;
-                    if (product.colorImages && product.colorImages[c]) {
-                        btn.style.backgroundImage = `url('${product.colorImages[c]}')`;
-                        btn.style.backgroundSize = 'cover';
-                        btn.style.backgroundPosition = 'center';
-                    } else {
-                        btn.style.background = c;
-                    }
-                    btn.title = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
-                    btn.onclick = () => selectColor(c, btn);
-                    colorContainer.appendChild(btn);
-                });
-            }
-
-            // If color→size linking exists, auto-trigger size from first color on load
-            if (product.colorSizes && product.colors && product.colors[0]) {
-                const initSize = product.colorSizes[product.colors[0]];
-                if (initSize) {
-                    const initSizeBtn = [...sizeContainer.querySelectorAll('.size-chip')].find(b => b.innerText.trim().startsWith(initSize));
-                    if (initSizeBtn) selectSize(initSize, initSizeBtn);
-                }
-            }
-
-            updatePriceDisplay();
-            setEstimatedDelivery();
-            initStockUrgency();
-
-            const addToCartBtn = document.getElementById('add-to-cart-btn');
-            if (product.stock === 0) {
-                addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
-                addToCartBtn.disabled = true;
-                addToCartBtn.style.background = '#555';
-                addToCartBtn.style.opacity = '0.6';
-                addToCartBtn.style.cursor = 'not-allowed';
-
-                // Hide stock urgency section if out of stock
-                const stockSection = document.getElementById('stock-urgency-section');
-                if (stockSection) stockSection.style.display = 'none';
-            }
-        }
+        });
 
         // --- Slideshow Auto-scroll ---
         function startAutoScroll() {
@@ -694,11 +701,6 @@
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initWishlistState();
-            updateDeliveryPromo();
-        });
     </script>
 </body>
 </html>

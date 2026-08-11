@@ -1272,6 +1272,15 @@ let orders = JSON.parse(localStorage.getItem('roohira_orders')) || [];
 function placeOrder() {
     if (cart.length === 0) { alert('Your cart is empty!'); return; }
 
+    // Check if any product in the cart is out of stock in our synced products list
+    for (const item of cart) {
+        const p = products.find(prod => prod.name === item.name);
+        if (p && p.stock === 0) {
+            alert(`Sorry, the product "${item.name}" is currently out of stock. Please remove it from your cart to complete the order.`);
+            return;
+        }
+    }
+
     const address = document.getElementById('checkout-address')?.value || 'N/A';
     const city = document.getElementById('checkout-city')?.value || 'N/A';
     const phone = document.getElementById('checkout-phone')?.value || 'N/A';
@@ -1792,25 +1801,64 @@ function updateWishlistCount() {
     });
 }
 
+// Function to sync products from Firestore
+function syncProducts(callback) {
+    if (typeof db === 'undefined' || !db) {
+        console.warn("Firestore 'db' is not initialized yet. Skipping Firestore sync.");
+        if (callback) callback();
+        return;
+    }
+    db.collection('products').get().then(snapshot => {
+        const dbProducts = {};
+        snapshot.forEach(doc => {
+            dbProducts[doc.id] = doc.data();
+        });
+        
+        // Loop backwards because we might delete elements
+        for (let i = products.length - 1; i >= 0; i--) {
+            const p = products[i];
+            if (dbProducts[p.id]) {
+                const dbP = dbProducts[p.id];
+                if (dbP.deleted === true) {
+                    products.splice(i, 1);
+                } else if (dbP.status === 'out_of_stock') {
+                    p.stock = 0;
+                } else if (dbP.status === 'in_stock') {
+                    p.stock = 10;
+                }
+            }
+        }
+        if (callback) callback();
+    }).catch(err => {
+        console.error("Error syncing products from Firestore:", err);
+        if (callback) callback();
+    });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    initThemeToggle();
-    updateCartCount();
-    updateWishlistCount();
-    handleOfferNotification();
-    if (window.location.pathname.includes('cart.html')) { renderCart(); }
-    if (window.location.pathname.includes('profile.html')) { loadProfile(); }
-    if (window.location.pathname.includes('wishlist.html')) { renderWishlist(); }
-    if (window.location.pathname.includes('shop.html')) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const catParam = urlParams.get('category');
-        catParam ? filterProducts(catParam) : filterProducts('All');
-    }
-    if (window.location.pathname.includes('index.html') || window.location.pathname === '/') { displayProducts(products.slice(0, 4)); }
-    if ((window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html')) && currentUser) {
-        window.location.href = 'profile.html';
-    }
-    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+    syncProducts(() => {
+        initThemeToggle();
+        updateCartCount();
+        updateWishlistCount();
+        handleOfferNotification();
+        if (window.location.pathname.includes('cart.html')) { renderCart(); }
+        if (window.location.pathname.includes('profile.html')) { loadProfile(); }
+        if (window.location.pathname.includes('wishlist.html')) { renderWishlist(); }
+        if (window.location.pathname.includes('shop.html')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('category');
+            catParam ? filterProducts(catParam) : filterProducts('All');
+        }
+        if (window.location.pathname.includes('index.html') || window.location.pathname === '/') { displayProducts(products.slice(0, 4)); }
+        if ((window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html')) && currentUser) {
+            window.location.href = 'profile.html';
+        }
+        if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+        
+        // Trigger a custom event to notify that products are synced
+        document.dispatchEvent(new CustomEvent('productsSynced'));
+    });
 
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
