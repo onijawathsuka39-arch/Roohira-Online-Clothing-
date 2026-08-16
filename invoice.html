@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -223,15 +223,21 @@
         </div>
 
         <div class="bill-info">
-            <div class="cust-details">
-                <h3>Customer Details</h3>
-                <p><strong>Name:</strong> <span id="c-name">Loading...</span></p>
-                <p><strong>Address:</strong> <span id="c-address"></span></p>
-                <p><strong>Phone:</strong> <span id="c-phone"></span></p>
+            <div class="cust-details" style="max-width: 460px;">
+                <h3>Billed & Shipped To</h3>
+                <p><strong>Customer Name:</strong> <span id="c-name">Loading...</span></p>
+                <p id="c-email-container" style="display: none;"><strong>Email:</strong> <span id="c-email"></span></p>
+                <p><strong>Primary Phone:</strong> <span id="c-phone"></span></p>
+                <p id="c-phone2-container" style="display: none;"><strong>Alt Phone:</strong> <span id="c-phone2"></span></p>
+                <p><strong>Delivery Address:</strong> <span id="c-address"></span></p>
+                <div id="c-notes-container" style="display: none; margin-top: 10px; padding: 10px 12px; background: #fafafa; border: 1px dashed #ccc; border-radius: 8px; font-size: 0.85rem; color: #333;">
+                    <strong>Delivery Notes:</strong> <span id="c-notes"></span>
+                </div>
             </div>
             <div class="order-details">
                 <p><strong>Date:</strong> <span id="o-date"></span></p>
                 <p><strong>Time:</strong> <span id="o-time"></span></p>
+                <p style="margin-top: 10px;"><strong>Status:</strong> <span style="color:#22c55e; font-weight:800;">CONFIRMED</span></p>
             </div>
         </div>
 
@@ -266,6 +272,27 @@
         <div class="payment-method">
             PAYMENT METHOD: <span id="p-method">CASH ON DELIVERY</span>
         </div>
+
+        <!-- Bank Transfer Deposit Details Box on Invoice -->
+        <div id="bank-invoice-box" style="display: none; margin-top: 20px; padding: 20px; background: #fafafa; border: 1.5px solid #000; border-radius: 12px; font-size: 0.88rem;">
+            <h4 style="margin-top: 0; color: var(--primary); text-transform: uppercase; font-weight: 900; margin-bottom: 12px; font-size: 1rem;">Bank Deposit Account Details</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div id="inv-bank-peoples" style="background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    <p style="font-weight: 900; color: #000; margin-bottom: 4px;">1. People's Bank</p>
+                    <p style="margin: 2px 0;">Acc Name: <b>Onija Wathsuka Kodithuwakku</b></p>
+                    <p style="margin: 2px 0;">Acc No: <b>217 200 4500 29209</b></p>
+                    <p style="margin: 2px 0;">Branch: <b>Mahara</b></p>
+                </div>
+                <div id="inv-bank-hnb" style="background: #fff; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                    <p style="font-weight: 900; color: #000; margin-bottom: 4px;">2. HNB (Hatton National Bank)</p>
+                    <p style="margin: 2px 0;">Acc Name: <b>Roohira Collection</b></p>
+                    <p style="margin: 2px 0;">Acc No: <b>0840 2041 4386</b></p>
+                </div>
+            </div>
+            <p style="margin-top: 12px; margin-bottom: 0; font-size: 0.78rem; color: #555;">
+                📌 <i>Please send transfer screenshot / deposit slip to <b>075 721 8786</b> on WhatsApp along with your Order ID.</i>
+            </p>
+        </div>
     </div>
 
     <!-- Production Design Sheet -->
@@ -285,12 +312,34 @@
             try {
                 const order = JSON.parse(decodeURIComponent(escape(atob(raw))));
                 
-                document.getElementById('o-id-top').innerText = order.id;
-                document.getElementById('o-date').innerText = order.date;
-                document.getElementById('o-time').innerText = order.time;
-                document.getElementById('c-name').innerText = order.name;
-                document.getElementById('c-address').innerText = order.address;
-                document.getElementById('c-phone').innerText = order.phone;
+                document.getElementById('o-id-top').innerText = order.id || 'N/A';
+                document.getElementById('o-date').innerText = order.date || '';
+                document.getElementById('o-time').innerText = order.time || '';
+                document.getElementById('c-name').innerText = order.name || 'Guest Customer';
+                document.getElementById('c-address').innerText = order.address || 'N/A';
+                document.getElementById('c-phone').innerText = order.phone || 'N/A';
+
+                if (order.email) {
+                    document.getElementById('c-email').innerText = order.email;
+                    document.getElementById('c-email-container').style.display = 'block';
+                }
+
+                if (order.phone2) {
+                    document.getElementById('c-phone2').innerText = order.phone2;
+                    document.getElementById('c-phone2-container').style.display = 'block';
+                }
+
+                if (order.notes) {
+                    document.getElementById('c-notes').innerText = order.notes;
+                    document.getElementById('c-notes-container').style.display = 'block';
+                }
+
+                if (order.paymentMethod) {
+                    document.getElementById('p-method').innerText = order.paymentMethod.toUpperCase();
+                    if (order.paymentMethod.toLowerCase().includes('bank')) {
+                        document.getElementById('bank-invoice-box').style.display = 'block';
+                    }
+                }
 
                 const list = document.getElementById('items-list');
                 const designGrid = document.getElementById('design-grid');

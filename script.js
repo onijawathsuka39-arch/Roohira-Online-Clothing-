@@ -1398,9 +1398,56 @@ function placeOrder() {
         }
     }
 
-    const address = document.getElementById('checkout-address')?.value || 'N/A';
-    const city = document.getElementById('checkout-city')?.value || 'N/A';
-    const phone = document.getElementById('checkout-phone')?.value || 'N/A';
+    // Extract Billing & Customer Details
+    const nameInput = document.getElementById('checkout-name');
+    const emailInput = document.getElementById('checkout-email');
+    const phoneInput = document.getElementById('checkout-phone');
+    const phone2Input = document.getElementById('checkout-phone2');
+    const addressInput = document.getElementById('checkout-address');
+    const cityInput = document.getElementById('checkout-city');
+    const districtInput = document.getElementById('checkout-district');
+    const postalInput = document.getElementById('checkout-postal');
+    const notesInput = document.getElementById('checkout-notes');
+    const paymentRadio = document.querySelector('input[name="payment"]:checked');
+
+    const name = nameInput?.value.trim() || '';
+    const email = emailInput?.value.trim() || '';
+    const phone = phoneInput?.value.trim() || '';
+    const phone2 = phone2Input?.value.trim() || '';
+    const address = addressInput?.value.trim() || '';
+    const city = cityInput?.value.trim() || '';
+    const district = districtInput?.value || '';
+    const postal = postalInput?.value.trim() || '';
+    const notes = notesInput?.value.trim() || '';
+    let paymentMethod = paymentRadio?.value || 'Cash on Delivery';
+    let targetBankChoice = '';
+    if (paymentMethod.includes('Bank Transfer')) {
+        targetBankChoice = document.querySelector('input[name="target_bank"]:checked')?.value || "People's Bank";
+        paymentMethod = `Bank Transfer (${targetBankChoice})`;
+    }
+
+    // Clear previous validation error styles
+    [nameInput, emailInput, phoneInput, addressInput, cityInput, districtInput].forEach(elem => {
+        if (elem) elem.closest('.checkout-form-group')?.classList.remove('field-error');
+    });
+
+    // Validate Required Fields
+    let missingField = false;
+    if (!name) { nameInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+    if (!email) { emailInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+    if (!phone) { phoneInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+    if (!address) { addressInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+    if (!city) { cityInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+    if (!district) { districtInput?.closest('.checkout-form-group')?.classList.add('field-error'); missingField = true; }
+
+    if (missingField) {
+        alert('⚠️ Please fill out all required billing fields marked with an asterisk (*).');
+        const firstErr = document.querySelector('.checkout-form-group.field-error');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    const fullAddress = `${address}, ${city}, ${district}${postal ? ' (' + postal + ')' : ''}`;
 
     const now = new Date();
     const dd = now.getDate().toString().padStart(2, '0');
@@ -1415,14 +1462,24 @@ function placeOrder() {
         // Calculate dynamic delivery fee
         const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
         const deliveryFee = itemCount > 3 ? 0 : 450;
-        const grandTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0) + deliveryFee;
+        const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+        const grandTotal = subtotal + deliveryFee;
 
         // Prepare data for the E-Invoice
         const orderData = {
             id: orderID,
-            name: currentUser ? currentUser.name : 'Guest',
+            name: name,
+            email: email,
             phone: phone,
-            address: `${address}, ${city}`,
+            phone2: phone2,
+            address: fullAddress,
+            streetAddress: address,
+            city: city,
+            district: district,
+            postal: postal,
+            notes: notes,
+            paymentMethod: paymentMethod,
+            targetBank: targetBankChoice,
             date: now.toLocaleDateString(),
             time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
             items: cart.map(item => {
@@ -1438,7 +1495,9 @@ function placeOrder() {
                     customStickers: item.customStickers || []
                 };
             }),
-            delivery: deliveryFee
+            delivery: deliveryFee,
+            subtotal: subtotal,
+            grandTotal: grandTotal
         };
 
         // Encode order data for the URL (Safe for Unicode/Sinhala)
@@ -1449,11 +1508,8 @@ function placeOrder() {
         let whatsappBaseUrl = baseUrl;
         
         if (window.location.protocol === 'file:') {
-            // Construct local file path for local preview and testing so localStorage works
             baseUrl = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
             baseUrl = 'file:///' + baseUrl.replace(/^\/+/g, '');
-            
-            // Use production path for the WhatsApp shared link
             whatsappBaseUrl = 'https://onijawathsuka39-arch.github.io/Roohira-Store/';
         } else {
             whatsappBaseUrl = baseUrl;
@@ -1463,18 +1519,32 @@ function placeOrder() {
         const whatsappInvoiceUrl = `${whatsappBaseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
 
         let message = `🔴 *NEW ORDER CONFIRMATION: ${orderID}*\n\n`;
-        message += `👤 *Customer:* ${orderData.name}\n`;
-        message += `📞 *Phone:* ${phone}\n`;
-        message += `📍 *Address:* ${orderData.address}\n`;
-        message += `📅 *Date:* ${orderData.date} | ${orderData.time}\n\n`;
+        message += `👤 *Customer Name:* ${name}\n`;
+        if (email) message += `✉️ *Email:* ${email}\n`;
+        message += `📞 *Primary Phone:* ${phone}\n`;
+        if (phone2) message += `📱 *Alt Phone:* ${phone2}\n`;
+        message += `📍 *Delivery Address:* ${fullAddress}\n`;
+        if (notes) message += `📝 *Notes:* ${notes}\n`;
+        message += `💳 *Payment Method:* ${paymentMethod}\n`;
+
+        if (paymentMethod.includes('People\'s Bank')) {
+            message += `\n🏦 *Deposit Account (People's Bank):*\n`;
+            message += `• Acc Name: Onija Wathsuka Kodithuwakku\n`;
+            message += `• Acc No: 217 200 4500 29209\n`;
+            message += `• Branch: Mahara\n`;
+        } else if (paymentMethod.includes('HNB Bank')) {
+            message += `\n🏦 *Deposit Account (HNB Bank):*\n`;
+            message += `• Acc Name: Roohira Collection\n`;
+            message += `• Acc No: 0840 2041 4386\n`;
+        }
+
+        message += `\n📅 *Date:* ${orderData.date} | ${orderData.time}\n\n`;
         message += `📦 *Items Ordered:*\n`;
 
-        let subtotal = 0;
         cart.forEach((item) => {
             const colorName = colorNames[item.color] || item.color;
             message += `• *${item.name}* (${item.size} | ${colorName})\n`;
             message += `  Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
-            subtotal += item.price * item.quantity;
         });
 
         message += `\n💵 *Subtotal:* Rs. ${subtotal.toLocaleString()}.00\n`;
@@ -1482,7 +1552,7 @@ function placeOrder() {
         message += `💰 *Grand Total: Rs. ${grandTotal.toLocaleString()}.00*\n\n`;
 
         message += `📄 *View E-Invoice:* ${whatsappInvoiceUrl}\n\n`;
-        message += `Thank you for shopping with Roohira Store!`;
+        message += `Thank you for shopping with Roohira Collection!`;
 
         const whatsappUrl = `https://wa.me/94757218786?text=${encodeURIComponent(message)}`;
 
@@ -1491,10 +1561,19 @@ function placeOrder() {
             date: now.toLocaleDateString(),
             items: [...cart],
             total: grandTotal,
-            userEmail: currentUser ? currentUser.email : 'Guest',
-            userName: currentUser ? currentUser.name : 'Guest',
+            subtotal: subtotal,
+            deliveryFee: deliveryFee,
+            userEmail: email,
+            userName: name,
             userPhone: phone,
-            userAddress: `${address}, ${city}`,
+            userPhone2: phone2,
+            userAddress: fullAddress,
+            streetAddress: address,
+            city: city,
+            district: district,
+            postal: postal,
+            notes: notes,
+            paymentMethod: paymentMethod,
             status: 'pending',
             timestamp: (typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString())
         };
@@ -1543,20 +1622,22 @@ function placeOrder() {
         // Transition to success card after 1.5s
         setTimeout(() => {
             successModal.innerHTML = `
-                <div class="glass" style="max-width: 440px; width: 100%; border-radius: 20px; padding: 25px 20px; border: 2px solid #ff1493; box-shadow: 0 15px 35px rgba(255,20,147,0.15); text-align: center; color: #fff; background: rgba(15, 20, 35, 0.98); transform: scale(0.9); opacity: 0; transition: all 0.3s ease;">
+                <div class="glass" style="max-width: 480px; width: 100%; border-radius: 20px; padding: 25px 20px; border: 2px solid #ff1493; box-shadow: 0 15px 35px rgba(255,20,147,0.15); text-align: center; color: #fff; background: rgba(15, 20, 35, 0.98); transform: scale(0.9); opacity: 0; transition: all 0.3s ease;">
                     <div style="width: 50px; height: 50px; background: rgba(34, 197, 94, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: #22c55e; border: 1.5px solid #22c55e;">
                         <i data-lucide="check" style="width: 28px; height: 28px;"></i>
                     </div>
                     <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; color: #fff;">Order Confirmed!</h3>
                     <p style="color: #cbd5e0; font-size: 0.85rem; margin-bottom: 5px;">Your order has been recorded successfully.</p>
-                    <p style="color: #ff1493; font-size: 0.82rem; font-weight: 800; margin-bottom: 15px;">ID: ${orderID}</p>
+                    <p style="color: #ff1493; font-size: 0.82rem; font-weight: 800; margin-bottom: 15px;">Order ID: ${orderID}</p>
                     
                     <!-- Customer Details Box -->
-                    <div style="text-align: left; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08); padding: 12px 15px; border-radius: 12px; font-size: 0.82rem; color: #e2e8f0; margin-bottom: 15px; line-height: 1.5;">
+                    <div style="text-align: left; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08); padding: 12px 15px; border-radius: 12px; font-size: 0.82rem; color: #e2e8f0; margin-bottom: 15px; line-height: 1.6;">
                         <div style="font-weight: 700; color: #ff1493; margin-bottom: 6px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;">Customer & Shipping Info</div>
-                        <strong>Name:</strong> ${orderData.name}<br>
-                        <strong>Phone:</strong> ${phone}<br>
-                        <strong>Address:</strong> ${orderData.address}
+                        <strong>Name:</strong> ${name}<br>
+                        <strong>Email:</strong> ${email}<br>
+                        <strong>Phone:</strong> ${phone}${phone2 ? ' / ' + phone2 : ''}<br>
+                        <strong>Address:</strong> ${fullAddress}<br>
+                        <strong>Payment:</strong> <span style="color:#ff1493; font-weight:700;">${paymentMethod}</span>
                     </div>
 
                     <!-- Compact Price Box -->
