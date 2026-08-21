@@ -256,17 +256,31 @@
 
         <div class="totals-box">
             <div class="total-row">
-                <span>Items Total</span>
+                <span>Items Subtotal</span>
                 <span id="s-total">Rs. 0.00</span>
             </div>
+            <div class="total-row" id="disc-inv-row" style="display: none; color: #22c55e;">
+                <span>Promo Discount <span id="coupon-code-lbl" style="font-size:0.75rem; font-weight:700;"></span></span>
+                <span id="disc-val">- Rs. 0.00</span>
+            </div>
             <div class="total-row">
-                <span>Delivery Fee</span>
-                <span id="d-fee">Rs. 350.00</span>
+                <span id="d-label">Delivery Fee</span>
+                <span id="d-fee">Rs. 450.00</span>
+            </div>
+            <div class="total-row" id="gift-inv-row" style="display: none; color: var(--primary);">
+                <span>Gift Packaging</span>
+                <span id="gift-val">+ Rs. 150.00</span>
             </div>
             <div class="total-row final">
                 <span>Grand Total</span>
                 <span id="g-total">Rs. 0.00</span>
             </div>
+        </div>
+
+        <!-- Gift Message Note Box -->
+        <div id="c-gift-container" style="display: none; margin-top: 15px; padding: 12px 15px; background: #fff0f5; border: 1.5px solid var(--primary); border-radius: 10px; font-size: 0.88rem; color: #000;">
+            <p style="font-weight: 800; color: var(--primary); margin-bottom: 4px;">🎁 Gift Message Note:</p>
+            <p id="c-gift-note" style="font-style: italic; font-weight: 600;"></p>
         </div>
 
         <div class="payment-method">
@@ -571,10 +585,46 @@
 
                 if (hasCustom) productionSheet.style.display = 'block';
 
-                const delivery = (order.delivery !== undefined) ? order.delivery : 450;
+                const delivery = (order.delivery !== undefined) ? order.delivery : 350;
+                const discount = order.discount || 0;
+                const giftWrapFee = order.giftWrapFee || (order.giftWrapActive ? 150 : 0);
+                const grandTotal = order.grandTotal || order.total || Math.max(0, sub - discount + delivery + giftWrapFee);
+
+                if (order.giftNote) {
+                    const giftContainer = document.getElementById('c-gift-container');
+                    const giftNoteEl = document.getElementById('c-gift-note');
+                    if (giftContainer && giftNoteEl) {
+                        giftNoteEl.innerText = order.giftNote;
+                        giftContainer.style.display = 'block';
+                    }
+                }
+
+                const discRow = document.getElementById('disc-inv-row');
+                const discVal = document.getElementById('disc-val');
+                const couponLbl = document.getElementById('coupon-code-lbl');
+                if (discount > 0 && discRow) {
+                    discRow.style.display = 'flex';
+                    if (discVal) discVal.innerText = `- Rs. ${discount.toLocaleString()}.00`;
+                    if (couponLbl && order.couponCode) couponLbl.innerText = `(${order.couponCode})`;
+                }
+
+                const giftRow = document.getElementById('gift-inv-row');
+                const giftVal = document.getElementById('gift-val');
+                if (giftWrapFee > 0 && giftRow) {
+                    giftRow.style.display = 'flex';
+                    if (giftVal) giftVal.innerText = `+ Rs. ${giftWrapFee.toLocaleString()}.00`;
+                }
+
+                const dLabel = document.getElementById('d-label');
+                if (dLabel && order.shippingMethod) {
+                    if (order.shippingMethod === 'pickup') dLabel.innerText = 'Store Pickup';
+                    else if (delivery === 0) dLabel.innerText = 'Delivery Fee (FREE Shipping)';
+                    else dLabel.innerText = 'Delivery Fee (Standard Delivery)';
+                }
+
                 document.getElementById('s-total').innerText = `Rs. ${sub.toLocaleString()}.00`;
                 document.getElementById('d-fee').innerText = delivery === 0 ? 'FREE' : `Rs. ${delivery.toLocaleString()}.00`;
-                document.getElementById('g-total').innerText = `Rs. ${(sub + delivery).toLocaleString()}.00`;
+                document.getElementById('g-total').innerText = `Rs. ${grandTotal.toLocaleString()}.00`;
 
             } catch (e) {
                 console.error(e);

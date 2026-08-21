@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -49,27 +49,139 @@
         <a href="cart.html">Cart</a>
     </div>
 
-    <main class="section" style="padding-top: 150px; min-height: 80vh;">
-        <div class="section-title">
-            <h2>Your <span style="color: #ff0000;">Cart</span></h2>
-        </div>
-
-        <div id="cart-items-container" style="max-width: 800px; margin: 0 auto;">
-            <div id="cart-items">
-                <!-- Items rendered by script.js -->
+    <main class="section" style="padding-top: 140px; min-height: 85vh;">
+        <div style="max-width: 1150px; margin: 0 auto; padding: 0 20px;">
+            
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h2 style="font-size: 2.2rem; font-weight: 800; letter-spacing: -0.5px;">Your Shopping <span style="color: var(--accent-pink);">Cart</span></h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Review your items, apply promo codes, and proceed to checkout.</p>
+                </div>
+                <button onclick="clearCartWithConfirm()" class="clear-cart-btn">
+                    <i data-lucide="trash-2" style="width: 15px;"></i> Clear Cart
+                </button>
             </div>
 
-            <div class="cart-summary glass" style="padding: 30px; margin-top: 30px;">
-                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                    <span>Subtotal</span>
-                    <span id="cart-total" style="font-weight: 800; color: #c8a96e;">Rs. 0.00</span>
+            <!-- Free Shipping Tracker Bar -->
+            <div class="shipping-progress-card">
+                <div class="shipping-progress-header">
+                    <span id="shipping-bar-text">Buy more than 4 items to unlock FREE Delivery!</span>
+                    <span style="color: var(--accent-pink); font-size: 0.82rem;"><i data-lucide="truck" style="width: 16px; vertical-align: middle; margin-right: 4px;"></i> Islandwide Delivery</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-                    <span>Shipping</span>
-                    <span>Free</span>
+                <div class="shipping-progress-track">
+                    <div class="shipping-progress-bar" id="shipping-bar-fill" style="width: 0%;"></div>
                 </div>
-                <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center;">Proceed to
-                    Checkout</a>
+            </div>
+
+            <div class="cart-page-grid">
+                <!-- Left Side: Cart Item List -->
+                <div>
+                    <div id="cart-items">
+                        <!-- Items rendered dynamically by script.js -->
+                    </div>
+                </div>
+
+                <!-- Right Side: Sticky Order Summary Sidebar -->
+                <div class="cart-summary glass" style="padding: 28px; border-radius: 20px; position: sticky; top: 120px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between;">
+                        <span>Order Summary</span>
+                        <i data-lucide="receipt" style="width: 20px; color: var(--accent-pink);"></i>
+                    </h3>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 14px; font-size: 0.95rem;">
+                        <span style="color: var(--text-muted);">Items Subtotal</span>
+                        <span id="cart-subtotal" style="font-weight: 800;">Rs. 0.00</span>
+                    </div>
+
+                    <!-- Discount Row (Hidden by default) -->
+                    <div id="cart-discount-row" style="display: none; justify-content: space-between; margin-bottom: 14px; font-size: 0.95rem; color: #22c55e;">
+                        <span>Promo Discount</span>
+                        <span id="cart-discount" style="font-weight: 800;">- Rs. 0.00</span>
+                    </div>
+
+                    <!-- Shipping Method Selector -->
+                    <div style="margin: 20px 0;">
+                        <label style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.8px; display: block; margin-bottom: 10px;">Select Shipping Method</label>
+                        <div class="shipping-options-grid">
+                            <div class="shipping-option-card selected" id="ship-card-standard" onclick="selectShippingMethod('standard')">
+                                <div class="shipping-option-left">
+                                    <i data-lucide="truck" style="width: 18px; color: var(--accent-pink);"></i>
+                                    <div>
+                                        <div>Standard Delivery</div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 400;">2-4 Business Days</div>
+                                    </div>
+                                </div>
+                                <span class="shipping-option-cost" id="standard-cost-lbl">Rs. 450</span>
+                            </div>
+                            <div class="shipping-option-card" id="ship-card-pickup" onclick="selectShippingMethod('pickup')">
+                                <div class="shipping-option-left">
+                                    <i data-lucide="store" style="width: 18px; color: var(--accent-gold);"></i>
+                                    <div>
+                                        <div>Store Pickup</div>
+                                        <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 400;">Collect from store</div>
+                                    </div>
+                                </div>
+                                <span class="shipping-option-cost" style="color:#22c55e;">FREE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 14px; font-size: 0.95rem;">
+                        <span style="color: var(--text-muted);">Shipping Fee</span>
+                        <span id="cart-shipping-cost" style="font-weight: 800; color: var(--accent-pink);">Rs. 450.00</span>
+                    </div>
+
+                    <!-- Gift Wrap Option -->
+                    <div class="gift-wrap-container">
+                        <label class="gift-wrap-label">
+                            <input type="checkbox" id="gift-wrap-check" onchange="toggleGiftWrap(this)" style="accent-color: var(--accent-pink); width: 16px; height: 16px;">
+                            <span><i data-lucide="gift" style="width: 16px; vertical-align: middle; margin-right: 4px; color: var(--accent-pink);"></i> Add Gift Wrapping (+Rs. 150)</span>
+                        </label>
+                        <div id="gift-note-box" style="display: none;">
+                            <textarea class="gift-note-textarea" placeholder="Write your personalized gift message here..." oninput="saveGiftNote(this.value)" rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div id="cart-gift-row" style="display: none; justify-content: space-between; margin-bottom: 14px; font-size: 0.95rem; color: var(--accent-pink);">
+                        <span>Gift Packaging</span>
+                        <span id="cart-gift-cost" style="font-weight: 800;">+ Rs. 150.00</span>
+                    </div>
+
+                    <!-- Promo Code Box -->
+                    <div class="coupon-section">
+                        <label style="font-size: 0.78rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.8px; display: block; margin-bottom: 8px;">Have a Promo Code?</label>
+                        <div class="coupon-input-group">
+                            <input type="text" id="coupon-input" placeholder="e.g. ROOHIRA10">
+                            <button type="button" onclick="applyCouponCode()">Apply</button>
+                        </div>
+                        <div id="applied-coupon-display"></div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px; padding-top: 18px; border-top: 1.5px solid var(--border-light); font-size: 1.2rem; font-weight: 800;">
+                        <span>Grand Total</span>
+                        <span id="cart-total" style="color: var(--accent-pink); font-size: 1.3rem;">Rs. 0.00</span>
+                    </div>
+
+                    <a href="checkout.html" class="btn btn-primary" style="width: 100%; text-align: center; margin-top: 24px; padding: 14px; border-radius: 50px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <span>Proceed to Checkout</span>
+                        <i data-lucide="arrow-right" style="width: 18px;"></i>
+                    </a>
+
+                    <div class="checkout-trust-badges">
+                        <div class="trust-badge-item">
+                            <i data-lucide="shield-check"></i>
+                            <span>Secure Checkout</span>
+                        </div>
+                        <div class="trust-badge-item">
+                            <i data-lucide="rotate-ccw"></i>
+                            <span>7-Day Returns</span>
+                        </div>
+                        <div class="trust-badge-item">
+                            <i data-lucide="award"></i>
+                            <span>220 GSM Cotton</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

@@ -618,6 +618,88 @@ function removeFromCart(index) {
     renderCart();
 }
 
+function moveToWishlistFromCart(index) {
+    if (index < 0 || index >= cart.length) return;
+    const item = cart[index];
+    let wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
+    const p = products.find(prod => prod.name === item.name) || {};
+    const wishlistItem = {
+        id: p.id || item.id || Date.now().toString(),
+        name: item.name,
+        price: item.price,
+        image: item.image || (p.images ? p.images[0] : ''),
+        gsm: p.gsm || '220 GSM',
+        brand: 'Roohira'
+    };
+    if (!wl.some(w => w.name === wishlistItem.name)) {
+        wl.push(wishlistItem);
+        localStorage.setItem('roohira_wishlist', JSON.stringify(wl));
+        if (typeof updateWishlistCount === 'function') updateWishlistCount();
+    }
+    cart.splice(index, 1);
+    saveCart();
+    renderCart();
+    showNotification(`Moved "${item.name}" to Wishlist! ❤️`);
+}
+
+function clearCartWithConfirm() {
+    if (cart.length === 0) return;
+    if (confirm('Are you sure you want to clear your cart?')) {
+        cart = [];
+        saveCart();
+        localStorage.removeItem('roohira_gift_wrap');
+        localStorage.removeItem('roohira_gift_note');
+        localStorage.removeItem('roohira_coupon');
+        renderCart();
+        showNotification('Cart cleared.');
+    }
+}
+
+function applyCouponCode() {
+    const input = document.getElementById('coupon-input');
+    if (!input) return;
+    const code = input.value.trim().toUpperCase();
+    if (!code) {
+        showNotification('Please enter a coupon code.', true);
+        return;
+    }
+    const validCoupons = {
+        'ROOHIRA10': { type: 'percent', value: 10, desc: '10% OFF Subtotal' },
+        'FREESHIP': { type: 'freeship', value: 0, desc: 'FREE Shipping' },
+        'ROOHIRA500': { type: 'flat', value: 500, desc: 'Rs. 500 OFF Order' },
+        'WELCOME500': { type: 'flat', value: 500, desc: 'Rs. 500 OFF Order' }
+    };
+    if (validCoupons[code]) {
+        localStorage.setItem('roohira_coupon', JSON.stringify({ code: code, ...validCoupons[code] }));
+        showNotification(`Coupon "${code}" applied successfully! 🎉`);
+        renderCart();
+    } else {
+        showNotification('Invalid coupon code. Try ROOHIRA10 or FREESHIP', true);
+    }
+}
+
+function removeCouponCode() {
+    localStorage.removeItem('roohira_coupon');
+    showNotification('Coupon removed.');
+    renderCart();
+}
+
+function selectShippingMethod(method) {
+    localStorage.setItem('roohira_shipping_method', method);
+    renderCart();
+}
+
+function toggleGiftWrap(checkbox) {
+    localStorage.setItem('roohira_gift_wrap', checkbox.checked ? 'true' : 'false');
+    const noteEl = document.getElementById('gift-note-box');
+    if (noteEl) noteEl.style.display = checkbox.checked ? 'block' : 'none';
+    renderCart();
+}
+
+function saveGiftNote(val) {
+    localStorage.setItem('roohira_gift_note', val);
+}
+
 function updateQuantity(index, delta) {
     cart[index].quantity += delta;
     if (cart[index].quantity <= 0) removeFromCart(index);
@@ -1100,38 +1182,199 @@ function filterProducts(category) {
 function renderCart() {
     const cartContainer = document.getElementById('cart-items');
     const totalElement = document.getElementById('cart-total');
+    const subtotalEl = document.getElementById('cart-subtotal');
+    const discountEl = document.getElementById('cart-discount');
+    const shippingEl = document.getElementById('cart-shipping-cost');
+    const giftWrapEl = document.getElementById('cart-gift-cost');
+    const discountRow = document.getElementById('cart-discount-row');
+    const giftWrapRow = document.getElementById('cart-gift-row');
+    const progressBar = document.getElementById('shipping-bar-fill');
+    const progressText = document.getElementById('shipping-bar-text');
+
     if (!cartContainer) return;
+
     if (cart.length === 0) {
-        cartContainer.innerHTML = '<div style="text-align: center; padding: 50px; color: var(--text-muted);">Your cart is empty.</div>';
+        cartContainer.innerHTML = `
+            <div class="glass" style="text-align: center; padding: 60px 20px; border-radius: 20px;">
+                <div style="width: 80px; height: 80px; background: rgba(255,20,147,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--accent-pink);">
+                    <i data-lucide="shopping-bag" style="width: 40px; height: 40px;"></i>
+                </div>
+                <h3 style="font-weight: 800; font-size: 1.4rem; margin-bottom: 8px;">Your Shopping Cart is Empty</h3>
+                <p style="color: var(--text-muted); max-width: 400px; margin: 0 auto 25px; font-size: 0.9rem;">Looks like you haven't added anything to your cart yet. Explore our latest streetwear & custom collections!</p>
+                <a href="shop.html" class="btn btn-primary" style="text-decoration: none; padding: 12px 30px; border-radius: 50px;">
+                    <i data-lucide="sparkles" style="width: 16px; margin-right: 6px;"></i> Shop Premium Collection
+                </a>
+            </div>
+        `;
         if (totalElement) totalElement.innerText = 'Rs. 0.00';
+        if (subtotalEl) subtotalEl.innerText = 'Rs. 0.00';
+        if (progressBar) progressBar.style.width = '0%';
+        if (progressText) progressText.innerText = 'Buy 4 or more items to unlock FREE Delivery!';
+        // Reset gift wrap state when cart is empty
+        localStorage.removeItem('roohira_gift_wrap');
+        localStorage.removeItem('roohira_gift_note');
+        lucide.createIcons();
         return;
     }
-    let html = '', total = 0;
+
+    let html = '', subtotal = 0;
+
     cart.forEach((item, index) => {
         const itemTotal = item.price * item.quantity;
-        total += itemTotal;
+        subtotal += itemTotal;
+        const colorName = colorNames[item.color] || item.color;
+        const p = products.find(prod => prod.name === item.name) || {};
+        const gsm = p.gsm || '220 GSM';
+
         html += `
-            <div class="cart-item glass" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; margin-bottom: 15px;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
-                    <div>
-                        <h4 style="margin: 0;">${item.name}</h4>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 2px 0;">Size: ${item.size} | Color: ${colorNames[item.color] || item.color}</p>
-                        <p style="color: #000; font-weight: 800; margin: 5px 0 0;">Rs. ${itemTotal.toLocaleString()}</p>
+            <div class="cart-item-card">
+                <img src="${item.image}" alt="${item.name}" class="cart-item-thumb">
+                <div class="cart-item-details">
+                    <h4 class="cart-item-title">${item.name}</h4>
+                    <div class="cart-item-tags">
+                        <span class="cart-tag"><i data-lucide="maximize-2" style="width: 12px;"></i> Size: ${item.size}</span>
+                        <span class="cart-tag">
+                            <span style="width: 10px; height: 10px; border-radius: 50%; background: ${item.color}; border: 1px solid rgba(255,255,255,0.4); display: inline-block;"></span>
+                            ${colorName}
+                        </span>
+                        <span class="cart-tag"><i data-lucide="layers" style="width: 12px;"></i> ${gsm}</span>
                     </div>
+                    <div class="cart-item-price">Rs. ${itemTotal.toLocaleString()}.00</div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 10px; border-radius: 8px;">
-                        <button onclick="updateQuantity(${index}, -1)" class="btn-qty">-</button>
-                        <span style="min-width: 20px; text-align: center; font-weight: 800;">${item.quantity}</span>
-                        <button onclick="updateQuantity(${index}, 1)" class="btn-qty">+</button>
+                <div class="cart-item-actions">
+                    <div class="qty-control">
+                        <button onclick="updateQuantity(${index}, -1)" class="qty-btn" aria-label="Decrease quantity">-</button>
+                        <span class="qty-val">${item.quantity}</span>
+                        <button onclick="updateQuantity(${index}, 1)" class="qty-btn" aria-label="Increase quantity">+</button>
                     </div>
-                    <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4444; cursor: pointer;"><i data-lucide="trash-2" style="width: 18px;"></i></button>
+                    <button onclick="moveToWishlistFromCart(${index})" class="cart-action-icon-btn wishlist" title="Move to Wishlist">
+                        <i data-lucide="heart" style="width: 16px;"></i>
+                    </button>
+                    <button onclick="removeFromCart(${index})" class="cart-action-icon-btn delete" title="Remove from Cart">
+                        <i data-lucide="trash-2" style="width: 16px;"></i>
+                    </button>
                 </div>
-            </div>`;
+            </div>
+        `;
     });
+
     cartContainer.innerHTML = html;
-    if (totalElement) totalElement.innerText = `Rs. ${total.toLocaleString()}.00`;
+
+    // Free Shipping Progress — based on item COUNT (4+ items = free)
+    const freeShippingItemTarget = 4;
+    const totalItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const isFreeShippingByCount = totalItemCount >= freeShippingItemTarget;
+    const progressPercent = Math.min(100, Math.round((totalItemCount / freeShippingItemTarget) * 100));
+    if (progressBar) progressBar.style.width = `${progressPercent}%`;
+    if (progressText) {
+        if (isFreeShippingByCount) {
+            progressText.innerHTML = `🎉 <strong style="color:#22c55e;">Congratulations!</strong> You unlocked FREE Delivery! (${totalItemCount} items)`;
+        } else {
+            const needed = freeShippingItemTarget - totalItemCount;
+            progressText.innerHTML = `Add <strong style="color:var(--accent-pink);">${needed} more item${needed > 1 ? 's' : ''}</strong> to unlock FREE Delivery!`;
+        }
+    }
+
+    // Handle Coupons
+    let coupon = null;
+    try {
+        coupon = JSON.parse(localStorage.getItem('roohira_coupon'));
+    } catch (e) { }
+
+    let discountAmount = 0;
+    const couponDisplayEl = document.getElementById('applied-coupon-display');
+    if (coupon) {
+        if (coupon.type === 'percent') {
+            discountAmount = (subtotal * coupon.value) / 100;
+        } else if (coupon.type === 'flat') {
+            discountAmount = Math.min(subtotal, coupon.value);
+        }
+        if (couponDisplayEl) {
+            couponDisplayEl.innerHTML = `
+                <div class="applied-coupon-pill">
+                    <i data-lucide="tag" style="width: 14px;"></i>
+                    <span>${coupon.code} (${coupon.desc})</span>
+                    <button onclick="removeCouponCode()" title="Remove Coupon">
+                        <i data-lucide="x" style="width: 14px;"></i>
+                    </button>
+                </div>
+            `;
+        }
+    } else {
+        if (couponDisplayEl) couponDisplayEl.innerHTML = '';
+    }
+
+    // Shipping Cost — free if >4 items or FREESHIP coupon or Store Pickup
+    const selectedShipping = localStorage.getItem('roohira_shipping_method') || 'standard';
+    let shippingCost = 450;
+
+    if (selectedShipping === 'pickup') {
+        shippingCost = 0;
+    } else { // standard
+        if (isFreeShippingByCount || (coupon && coupon.type === 'freeship')) {
+            shippingCost = 0;
+        } else {
+            shippingCost = 450;
+        }
+    }
+
+    // Gift Wrap Cost
+    const giftWrapActive = localStorage.getItem('roohira_gift_wrap') === 'true';
+    const giftCost = giftWrapActive ? 150 : 0;
+
+    const grandTotal = Math.max(0, subtotal - discountAmount + shippingCost + giftCost);
+
+    // Save summary for Checkout
+    localStorage.setItem('roohira_cart_summary', JSON.stringify({
+        subtotal: subtotal,
+        discount: discountAmount,
+        shipping: shippingCost,
+        giftWrap: giftCost,
+        grandTotal: grandTotal,
+        shippingMethod: selectedShipping
+    }));
+
+    // Toggle active selection styling on shipping option cards
+    const cardStandard = document.getElementById('ship-card-standard');
+    const cardPickup = document.getElementById('ship-card-pickup');
+    const standardCostLbl = document.getElementById('standard-cost-lbl');
+    
+    if (standardCostLbl) {
+        if (isFreeShippingByCount || (coupon && coupon.type === 'freeship')) {
+            standardCostLbl.innerText = 'FREE';
+            standardCostLbl.style.color = '#22c55e';
+        } else {
+            standardCostLbl.innerText = 'Rs. 450';
+            standardCostLbl.style.color = 'var(--accent-pink)';
+        }
+    }
+
+    if (cardStandard && cardPickup) {
+        if (selectedShipping === 'pickup') {
+            cardPickup.classList.add('selected');
+            cardStandard.classList.remove('selected');
+        } else {
+            cardStandard.classList.add('selected');
+            cardPickup.classList.remove('selected');
+        }
+    }
+
+    // Sync gift wrap checkbox to localStorage state (prevent stale state)
+    const giftWrapCheckbox = document.getElementById('gift-wrap-check');
+    if (giftWrapCheckbox) {
+        giftWrapCheckbox.checked = giftWrapActive;
+        const noteEl = document.getElementById('gift-note-box');
+        if (noteEl) noteEl.style.display = giftWrapActive ? 'block' : 'none';
+    }
+
+    if (subtotalEl) subtotalEl.innerText = `Rs. ${subtotal.toLocaleString()}.00`;
+    if (discountEl) discountEl.innerText = `- Rs. ${discountAmount.toLocaleString()}.00`;
+    if (discountRow) discountRow.style.display = discountAmount > 0 ? 'flex' : 'none';
+    if (shippingEl) shippingEl.innerText = shippingCost === 0 ? 'FREE' : `Rs. ${shippingCost.toLocaleString()}.00`;
+    if (giftWrapEl) giftWrapEl.innerText = `+ Rs. ${giftCost.toLocaleString()}.00`;
+    if (giftWrapRow) giftWrapRow.style.display = giftWrapActive ? 'flex' : 'none';
+    if (totalElement) totalElement.innerText = `Rs. ${grandTotal.toLocaleString()}.00`;
+
     lucide.createIcons();
 }
 
@@ -1459,13 +1702,38 @@ function placeOrder() {
         const orderNumber = (globalCount + 1).toString().padStart(3, '0');
         const orderID = `RC-${dd}/${mm}/${yyyy}-${orderNumber}`;
 
-        // Calculate dynamic delivery fee
-        const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
-        const deliveryFee = itemCount > 3 ? 0 : 450;
+        // Read cart summary & options saved from cart.html
+        let cartSummary = {};
+        try { cartSummary = JSON.parse(localStorage.getItem('roohira_cart_summary')) || {}; } catch(e){}
+        let appliedCoupon = {};
+        try { appliedCoupon = JSON.parse(localStorage.getItem('roohira_coupon')) || {}; } catch(e){}
+        
+        const shippingMethod = cartSummary.shippingMethod || localStorage.getItem('roohira_shipping_method') || 'standard';
         const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-        const grandTotal = subtotal + deliveryFee;
+        const totalQtyInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const isFreeByQty = totalQtyInCart >= 4;
 
-        // Prepare data for the E-Invoice
+        let deliveryFee = 450;
+        if (shippingMethod === 'pickup') deliveryFee = 0;
+        else {
+            if (isFreeByQty || appliedCoupon.type === 'freeship') deliveryFee = 0;
+            else deliveryFee = 450;
+        }
+
+        let discountAmount = 0;
+        if (appliedCoupon.type === 'percent') {
+            discountAmount = (subtotal * appliedCoupon.value) / 100;
+        } else if (appliedCoupon.type === 'flat') {
+            discountAmount = Math.min(subtotal, appliedCoupon.value);
+        }
+
+        const giftWrapActive = localStorage.getItem('roohira_gift_wrap') === 'true';
+        const giftWrapFee = giftWrapActive ? 150 : 0;
+        const giftNote = localStorage.getItem('roohira_gift_note') || '';
+
+        const grandTotal = Math.max(0, subtotal - discountAmount + deliveryFee + giftWrapFee);
+
+        // Prepare data for the E-Invoice & Database
         const orderData = {
             id: orderID,
             name: name,
@@ -1482,22 +1750,16 @@ function placeOrder() {
             targetBank: targetBankChoice,
             date: now.toLocaleDateString(),
             time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            items: cart.map(item => {
-                const p = products.find(prod => prod.name === item.name) || {};
-                return {
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity,
-                    size: item.size,
-                    color: colorNames[item.color] || item.color,
-                    image: item.image || (p.images ? p.images[0] : ''),
-                    isCustom: item.isCustom || (item.id && String(item.id).startsWith('custom-')) || false,
-                    customStickers: item.customStickers || []
-                };
-            }),
+            shippingMethod: shippingMethod,
             delivery: deliveryFee,
+            discount: discountAmount,
+            couponCode: appliedCoupon.code || '',
+            giftWrapActive: giftWrapActive,
+            giftWrapFee: giftWrapFee,
+            giftNote: giftNote,
             subtotal: subtotal,
-            grandTotal: grandTotal
+            grandTotal: grandTotal,
+            total: grandTotal
         };
 
         // Encode order data for the URL (Safe for Unicode/Sinhala)
@@ -1518,14 +1780,22 @@ function placeOrder() {
         const invoiceUrl = `${baseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
         const whatsappInvoiceUrl = `${whatsappBaseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
 
+        let shippingLabel = deliveryFee === 0 ? 'Standard Delivery (FREE Shipping)' : 'Standard Delivery (Rs. 450.00)';
+        if (shippingMethod === 'pickup') shippingLabel = '🏬 Store Pickup (FREE)';
+
         let message = `🔴 *NEW ORDER CONFIRMATION: ${orderID}*\n\n`;
         message += `👤 *Customer Name:* ${name}\n`;
         if (email) message += `✉️ *Email:* ${email}\n`;
         message += `📞 *Primary Phone:* ${phone}\n`;
         if (phone2) message += `📱 *Alt Phone:* ${phone2}\n`;
         message += `📍 *Delivery Address:* ${fullAddress}\n`;
-        if (notes) message += `📝 *Notes:* ${notes}\n`;
-        message += `💳 *Payment Method:* ${paymentMethod}\n`;
+        message += `🚚 *Shipping Option:* ${shippingLabel}\n`;
+        if (giftWrapActive) message += `🎁 *Gift Wrapping:* Yes (+Rs. 150)\n`;
+        if (giftWrapActive && giftNote && giftNote.trim() !== '') message += `📝 *Gift Message:* "${giftNote.trim()}"\n`;
+        if (discountAmount > 0) message += `🏷️ *Promo Discount:* -Rs. ${discountAmount.toLocaleString()}.00 (${appliedCoupon.code || ''})\n`;
+        message += `💳 *Payment Method:* ${paymentMethod}${targetBankChoice ? ' (' + targetBankChoice + ')' : ''}\n`;
+        if (notes) message += `📝 *Order Notes:* ${notes}\n`;
+        message += `📅 *Date & Time:* ${now.toLocaleDateString()} ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}\n\n`;
 
         if (paymentMethod.includes('People\'s Bank')) {
             message += `\n🏦 *Deposit Account (People's Bank):*\n`;
@@ -1538,8 +1808,7 @@ function placeOrder() {
             message += `• Acc No: 0840 2041 4386\n`;
         }
 
-        message += `\n📅 *Date:* ${orderData.date} | ${orderData.time}\n\n`;
-        message += `📦 *Items Ordered:*\n`;
+        message += `\n📦 *Items Ordered:*\n`;
 
         cart.forEach((item) => {
             const colorName = colorNames[item.color] || item.color;
@@ -1548,7 +1817,9 @@ function placeOrder() {
         });
 
         message += `\n💵 *Subtotal:* Rs. ${subtotal.toLocaleString()}.00\n`;
+        if (discountAmount > 0) message += `🏷️ *Discount:* -Rs. ${discountAmount.toLocaleString()}.00\n`;
         message += `🚚 *Delivery Fee:* ${deliveryFee === 0 ? 'FREE' : 'Rs. ' + deliveryFee.toLocaleString() + '.00'}\n`;
+        if (giftWrapFee > 0) message += `🎁 *Gift Packaging:* +Rs. ${giftWrapFee.toLocaleString()}.00\n`;
         message += `💰 *Grand Total: Rs. ${grandTotal.toLocaleString()}.00*\n\n`;
 
         message += `📄 *View E-Invoice:* ${whatsappInvoiceUrl}\n\n`;
@@ -1729,65 +2000,241 @@ function loadProfile() {
     const emailEl = document.getElementById('profile-email');
     const initialEl = document.getElementById('profile-initial');
     const orderCountEl = document.getElementById('order-count');
-    const historyEl = document.getElementById('order-history');
-    if (currentUser) {
-        if (nameEl) nameEl.innerText = currentUser.name;
-        if (emailEl) emailEl.innerText = currentUser.email;
-        if (initialEl) initialEl.innerText = currentUser.name.charAt(0).toUpperCase();
+    const historyEl = document.getElementById('order-history-preview');
 
-        const renderOrdersList = (ordersList) => {
+    // Pre-fill profile forms if elements exist
+    const editNameInput = document.getElementById('profile-edit-name');
+    const editPhoneInput = document.getElementById('profile-edit-phone');
+    const editPhone2Input = document.getElementById('profile-edit-phone2');
+    const editEmailInput = document.getElementById('profile-edit-email');
+    const editAddressInput = document.getElementById('profile-edit-address');
+    const editCityInput = document.getElementById('profile-edit-city');
+    const editDistrictInput = document.getElementById('profile-edit-district');
+    const editPostalInput = document.getElementById('profile-edit-postal');
+
+    if (currentUser) {
+        if (nameEl) nameEl.innerText = currentUser.name || 'User';
+        if (emailEl) emailEl.innerText = currentUser.email || '';
+        if (initialEl) initialEl.innerText = (currentUser.name || 'U').charAt(0).toUpperCase();
+
+        if (editNameInput) editNameInput.value = currentUser.name || '';
+        if (editPhoneInput) editPhoneInput.value = currentUser.phone || '';
+        if (editPhone2Input) editPhone2Input.value = currentUser.phone2 || '';
+        if (editEmailInput) editEmailInput.value = currentUser.email || '';
+        if (editAddressInput) editAddressInput.value = currentUser.address || currentUser.streetAddress || '';
+        if (editCityInput) editCityInput.value = currentUser.city || '';
+        if (editDistrictInput) editDistrictInput.value = currentUser.district || '';
+        if (editPostalInput) editPostalInput.value = currentUser.postal || '';
+
+        // Wishlist counter
+        const wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
+        const wlCountEl = document.getElementById('profile-wishlist-count');
+        if (wlCountEl) wlCountEl.innerText = wl.length;
+
+        // Active Cart items counter
+        const cartCountEl = document.getElementById('profile-cart-count');
+        if (cartCountEl) cartCountEl.innerText = cart.reduce((tot, i) => tot + i.quantity, 0);
+
+        const renderOrdersPreview = (ordersList) => {
             if (orderCountEl) orderCountEl.innerText = ordersList.length;
             if (historyEl) {
                 if (ordersList.length === 0) {
-                    historyEl.innerHTML = '<p style="color: var(--text-muted);">No orders found.</p>';
+                    historyEl.innerHTML = `
+                        <div style="text-align:center; padding:30px 10px; color:var(--text-muted);">
+                            <i data-lucide="package-open" style="width:36px; height:36px; margin-bottom:10px; stroke-width:1.5;"></i>
+                            <p style="font-size:0.9rem;">No orders placed yet.</p>
+                            <a href="shop.html" class="btn btn-outline" style="margin-top:10px; padding:6px 18px; font-size:0.8rem; text-decoration:none; display:inline-block;">Explore Shop</a>
+                        </div>
+                    `;
                 } else {
-                    historyEl.innerHTML = ordersList.map(o => {
+                    const topOrders = ordersList.slice(0, 3);
+                    historyEl.innerHTML = topOrders.map(o => {
                         const status = o.status || 'pending';
                         const statusColor = status === 'confirmed' ? '#22c55e' : status === 'cancelled' ? '#ef4444' : '#f59e0b';
                         const statusLabel = status === 'confirmed' ? '✅ Confirmed' : status === 'cancelled' ? '❌ Cancelled' : '🕐 Pending';
+                        const itemSummary = (o.items || []).map(i => `${i.name} (${i.size || 'Free'}, x${i.quantity || 1})`).join(', ');
                         return `
-                        <div class="glass" style="padding: 20px; margin-bottom: 15px; text-align: left;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
-                                <span style="font-weight: 800;">Order #${o.id.toString().slice(-6)}</span>
+                        <div class="glass" style="padding: 16px 20px; margin-bottom: 12px; border-radius:14px; text-align: left;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                                <span style="font-weight: 800; font-size:0.9rem;">Order #${(o.id || o.docId || '').toString().slice(-6)}</span>
                                 <div style="display:flex; gap:10px; align-items:center;">
-                                    <span style="background:${statusColor}22; color:${statusColor}; border:1px solid ${statusColor}44; padding:3px 10px; border-radius:20px; font-size:0.78rem; font-weight:700;">${statusLabel}</span>
-                                    <span style="color: var(--text-muted); font-size:0.85rem;">${o.date}</span>
+                                    <span style="background:${statusColor}22; color:${statusColor}; border:1px solid ${statusColor}44; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700;">${statusLabel}</span>
+                                    <span style="color: var(--text-muted); font-size:0.8rem;">${o.date || ''}</span>
                                 </div>
                             </div>
-                            <div style="font-size: 0.9rem; margin-bottom: 10px;">
-                                ${o.items.map(i => `${i.name} (${i.size}, ${i.quantity}x)`).join(', ')}
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${itemSummary}</p>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <span style="font-weight: 800; color: var(--accent-pink); font-size:0.95rem;">Rs. ${(o.total || 0).toLocaleString()}.00</span>
+                                <button onclick="reorderPastOrder('${encodeURIComponent(JSON.stringify(o.items || []))}')" class="order-action-btn reorder" style="padding:4px 12px; font-size:0.75rem;">
+                                    <i data-lucide="rotate-ccw" style="width:12px;"></i> Re-order
+                                </button>
                             </div>
-                            <div style="font-weight: 800; color: #DC143C;">Total: Rs. ${o.total.toLocaleString()}.00</div>
                         </div>`;
                     }).join('');
                 }
+                lucide.createIcons();
             }
         };
 
-        if (typeof db !== 'undefined' && db) {
+        if (typeof db !== 'undefined' && db && currentUser.email) {
             db.collection('orders')
                 .where('userEmail', '==', currentUser.email)
                 .get()
                 .then((querySnapshot) => {
                     const dbOrders = [];
                     querySnapshot.forEach((doc) => {
-                        dbOrders.push(doc.data());
+                        dbOrders.push({ docId: doc.id, ...doc.data() });
                     });
-                    // Sort descending by date/timestamp
                     dbOrders.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
-                    renderOrdersList(dbOrders);
+                    renderOrdersPreview(dbOrders);
                 })
                 .catch((err) => {
-                    console.error("Error fetching orders from Firestore:", err);
+                    console.error("Error fetching orders:", err);
                     const userOrders = orders.filter(o => o.userEmail === currentUser.email);
-                    renderOrdersList(userOrders.reverse());
+                    renderOrdersPreview(userOrders.reverse());
                 });
         } else {
             const userOrders = orders.filter(o => o.userEmail === currentUser.email);
-            renderOrdersList(userOrders.reverse());
+            renderOrdersPreview(userOrders.reverse());
         }
     } else {
         if (window.location.pathname.includes('profile.html')) { window.location.href = 'login.html'; }
+    }
+}
+
+function switchProfileTab(tabName) {
+    document.querySelectorAll('.profile-tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.profile-tab-content').forEach(tab => tab.classList.remove('active'));
+
+    const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+    const activeTab = document.getElementById(`tab-content-${tabName}`);
+
+    if (activeBtn) activeBtn.classList.add('active');
+    if (activeTab) activeTab.classList.add('active');
+}
+
+function saveUserProfile(e) {
+    if (e) e.preventDefault();
+    const nameVal = document.getElementById('profile-edit-name')?.value.trim();
+    const phoneVal = document.getElementById('profile-edit-phone')?.value.trim();
+    const phone2Val = document.getElementById('profile-edit-phone2')?.value.trim();
+
+    if (!nameVal) {
+        showNotification('Please enter your name.', true);
+        return;
+    }
+
+    currentUser = {
+        ...currentUser,
+        name: nameVal,
+        phone: phoneVal,
+        phone2: phone2Val
+    };
+
+    localStorage.setItem('roohira_user', JSON.stringify(currentUser));
+
+    if (typeof auth !== 'undefined' && auth.currentUser && typeof db !== 'undefined' && db) {
+        db.collection('users').doc(auth.currentUser.uid).set({
+            name: nameVal,
+            phone: phoneVal,
+            phone2: phone2Val
+        }, { merge: true }).then(() => {
+            showNotification('Profile updated successfully! ✨');
+            loadProfile();
+        }).catch(err => {
+            console.error(err);
+            showNotification('Profile saved locally.', false);
+            loadProfile();
+        });
+    } else {
+        showNotification('Profile updated successfully! ✨');
+        loadProfile();
+    }
+}
+
+function saveUserAddress(e) {
+    if (e) e.preventDefault();
+    const streetVal = document.getElementById('profile-edit-address')?.value.trim();
+    const cityVal = document.getElementById('profile-edit-city')?.value.trim();
+    const districtVal = document.getElementById('profile-edit-district')?.value.trim();
+    const postalVal = document.getElementById('profile-edit-postal')?.value.trim();
+
+    currentUser = {
+        ...currentUser,
+        address: streetVal,
+        streetAddress: streetVal,
+        city: cityVal,
+        district: districtVal,
+        postal: postalVal
+    };
+
+    localStorage.setItem('roohira_user', JSON.stringify(currentUser));
+
+    if (typeof auth !== 'undefined' && auth.currentUser && typeof db !== 'undefined' && db) {
+        db.collection('users').doc(auth.currentUser.uid).set({
+            address: streetVal,
+            city: cityVal,
+            district: districtVal,
+            postal: postalVal
+        }, { merge: true }).then(() => {
+            showNotification('Saved shipping address updated! 🚚');
+        }).catch(err => {
+            console.error(err);
+            showNotification('Address saved locally.', false);
+        });
+    } else {
+        showNotification('Saved shipping address updated! 🚚');
+    }
+}
+
+function sendProfilePasswordReset() {
+    if (typeof auth !== 'undefined' && auth && auth.currentUser && auth.currentUser.email) {
+        auth.sendPasswordResetEmail(auth.currentUser.email)
+            .then(() => {
+                showNotification(`Password reset email sent to ${auth.currentUser.email} 📧`);
+            })
+            .catch(err => {
+                showNotification(err.message || 'Failed to send reset email', true);
+            });
+    } else if (currentUser && currentUser.email) {
+        showNotification(`Password reset link requested for ${currentUser.email} 📧`);
+    } else {
+        showNotification('User email not found.', true);
+    }
+}
+
+function reorderPastOrder(encodedItems) {
+    try {
+        const items = JSON.parse(decodeURIComponent(encodedItems));
+        if (!Array.isArray(items) || items.length === 0) return;
+        items.forEach(it => {
+            addToCart(it.name, it.price, it.image || '', it.size || 'Free', it.color || 'Default', it.quantity || 1);
+        });
+        showNotification('Order items added to your Cart! 🛒');
+        setTimeout(() => { window.location.href = 'cart.html'; }, 800);
+    } catch (e) {
+        console.error('Failed to re-order:', e);
+        showNotification('Could not re-order items.', true);
+    }
+}
+
+function cancelUserOrder(docId) {
+    if (!confirm('Are you sure you want to cancel this order?')) return;
+    if (typeof db !== 'undefined' && db && docId) {
+        db.collection('orders').doc(docId).update({
+            status: 'cancelled'
+        }).then(() => {
+            showNotification('Order cancelled successfully.');
+            if (typeof loadProfile === 'function') loadProfile();
+            if (window.location.pathname.includes('order-history.html')) {
+                window.location.reload();
+            }
+        }).catch(err => {
+            console.error(err);
+            showNotification('Failed to cancel order.', true);
+        });
+    } else {
+        showNotification('Cannot update order status right now.', true);
     }
 }
 
