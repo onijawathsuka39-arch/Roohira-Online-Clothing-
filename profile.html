@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -51,160 +51,36 @@
         <a href="cart.html">Cart</a>
     </div>
 
-    <main class="section" style="padding-top: 140px; min-height: 85vh;">
-        <div style="max-width: 900px; margin: 0 auto; padding: 0 20px;">
-            
-            <div class="profile-dashboard-card">
-                <!-- Header & Avatar -->
-                <div style="text-align: center; margin-bottom: 25px;">
-                    <div class="profile-avatar-wrapper">
-                        <div class="profile-avatar-circle" id="profile-initial">U</div>
-                        <div class="profile-vip-badge">
-                            <i data-lucide="crown" style="width: 12px;"></i> VIP GOLD
-                        </div>
+    <main class="section" style="padding-top: 150px;">
+        <div id="profile-content" style="max-width: 800px; margin: 0 auto;">
+            <div class="glass" style="padding: 40px; text-align: center;">
+                <div style="width: 100px; height: 100px; background: var(--accent-gold); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: #0A0F1E; font-size: 3rem; font-weight: 800;"
+                    id="profile-initial">
+                    U
+                </div>
+                <h2 id="profile-name">User Name</h2>
+                <p id="profile-email" style="color: var(--text-muted);">email@example.com</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;">
+                    <div class="glass" style="padding: 20px; cursor: pointer;" onclick="window.location.href='order-history.html'">
+                        <h3 style="color: var(--accent-gold);" id="order-count">0</h3>
+                        <p>Total Orders (View History)</p>
                     </div>
-                    <h2 id="profile-name" style="font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 4px;">User Name</h2>
-                    <p id="profile-email" style="color: var(--text-muted); font-size: 0.9rem;">email@example.com</p>
-                    
-                    <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255, 20, 147, 0.1); border: 1px solid rgba(255, 20, 147, 0.25); color: var(--accent-pink); padding: 4px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; margin-top: 12px;">
-                        <i data-lucide="award" style="width: 14px;"></i> 250 Roohira Loyalty Points
+                    <div class="glass" style="padding: 20px; cursor: pointer;" onclick="window.location.href='wishlist.html'">
+                        <h3 style="color: var(--accent-gold);" id="profile-wishlist-count">0</h3>
+                        <p>Wishlist</p>
                     </div>
                 </div>
 
-                <!-- 4 Quick Stat Cards -->
-                <div class="profile-stats-grid">
-                    <div class="profile-stat-box" onclick="window.location.href='order-history.html'">
-                        <div class="profile-stat-val" id="order-count">0</div>
-                        <div class="profile-stat-label">Total Orders</div>
-                    </div>
-                    <div class="profile-stat-box" onclick="window.location.href='wishlist.html'">
-                        <div class="profile-stat-val" id="profile-wishlist-count">0</div>
-                        <div class="profile-stat-label">Saved Wishlist</div>
-                    </div>
-                    <div class="profile-stat-box" onclick="window.location.href='cart.html'">
-                        <div class="profile-stat-val" id="profile-cart-count">0</div>
-                        <div class="profile-stat-label">Cart Items</div>
-                    </div>
-                    <div class="profile-stat-box" onclick="switchProfileTab('settings')">
-                        <div class="profile-stat-val" style="color: #22c55e;">2</div>
-                        <div class="profile-stat-label">Active Coupons</div>
-                    </div>
+                <div style="margin-top: 40px;">
+                    <a href="order-history.html" class="btn btn-primary" style="text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px;">
+                        <i data-lucide="package" style="width:18px;"></i> View Detailed Order History
+                    </a>
                 </div>
 
-                <!-- Profile Tab Navigation Bar -->
-                <div class="profile-tabs-nav">
-                    <button id="tab-btn-personal" class="profile-tab-btn active" onclick="switchProfileTab('personal')">
-                        <i data-lucide="user" style="width: 16px;"></i> Personal Info
-                    </button>
-                    <button id="tab-btn-address" class="profile-tab-btn" onclick="switchProfileTab('address')">
-                        <i data-lucide="map-pin" style="width: 16px;"></i> Address Book
-                    </button>
-                    <button id="tab-btn-orders" class="profile-tab-btn" onclick="switchProfileTab('orders')">
-                        <i data-lucide="package" style="width: 16px;"></i> Recent Orders
-                    </button>
-                    <button id="tab-btn-settings" class="profile-tab-btn" onclick="switchProfileTab('settings')">
-                        <i data-lucide="settings" style="width: 16px;"></i> Account Settings
-                    </button>
-                </div>
-
-                <!-- Tab 1: Personal Info -->
-                <div id="tab-content-personal" class="profile-tab-content active">
-                    <form onsubmit="saveUserProfile(event)">
-                        <div class="profile-form-grid">
-                            <div class="profile-field-group full-width">
-                                <label>Full Name</label>
-                                <input type="text" id="profile-edit-name" placeholder="Your Name" required>
-                            </div>
-                            <div class="profile-field-group">
-                                <label>Primary Phone Number</label>
-                                <input type="tel" id="profile-edit-phone" placeholder="07X XXXXXXX">
-                            </div>
-                            <div class="profile-field-group">
-                                <label>Secondary Phone (Optional)</label>
-                                <input type="tel" id="profile-edit-phone2" placeholder="07X XXXXXXX">
-                            </div>
-                            <div class="profile-field-group full-width">
-                                <label>Account Email (Verified)</label>
-                                <input type="email" id="profile-edit-email" readonly style="opacity: 0.7; cursor: not-allowed;">
-                            </div>
-                        </div>
-                        <div style="margin-top: 25px;">
-                            <button type="submit" class="profile-save-btn">
-                                <i data-lucide="save" style="width: 18px;"></i> Save Profile Details
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Tab 2: Saved Shipping Address -->
-                <div id="tab-content-address" class="profile-tab-content">
-                    <form onsubmit="saveUserAddress(event)">
-                        <div class="profile-form-grid">
-                            <div class="profile-field-group full-width">
-                                <label>Street Address</label>
-                                <textarea id="profile-edit-address" rows="3" placeholder="House No, Street, Landmark"></textarea>
-                            </div>
-                            <div class="profile-field-group">
-                                <label>City / Town</label>
-                                <input type="text" id="profile-edit-city" placeholder="e.g. Colombo, Kandy">
-                            </div>
-                            <div class="profile-field-group">
-                                <label>District</label>
-                                <input type="text" id="profile-edit-district" placeholder="e.g. Gampaha">
-                            </div>
-                            <div class="profile-field-group">
-                                <label>Postal Code</label>
-                                <input type="text" id="profile-edit-postal" placeholder="e.g. 10100">
-                            </div>
-                        </div>
-                        <div style="margin-top: 25px;">
-                            <button type="submit" class="profile-save-btn">
-                                <i data-lucide="map-pin" style="width: 18px;"></i> Save Shipping Address
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Tab 3: Recent Orders Preview -->
-                <div id="tab-content-orders" class="profile-tab-content">
-                    <div id="order-history-preview">
-                        <!-- Preview rendered by script.js -->
-                    </div>
-                    <div style="margin-top: 20px; text-align: center;">
-                        <a href="order-history.html" class="btn btn-primary" style="text-decoration: none; padding: 12px 28px; border-radius: 50px; display: inline-flex; align-items: center; gap: 8px;">
-                            <i data-lucide="history" style="width: 18px;"></i> View Full Order History
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Tab 4: Settings & Security -->
-                <div id="tab-content-settings" class="profile-tab-content">
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        <div class="glass" style="padding: 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <h4 style="font-weight: 800; font-size: 1rem; margin-bottom: 4px;">Password & Security</h4>
-                                <p style="color: var(--text-muted); font-size: 0.82rem;">Receive a secure password reset link via email.</p>
-                            </div>
-                            <button onclick="sendProfilePasswordReset()" class="btn btn-outline" style="padding: 8px 18px; font-size: 0.85rem;">Reset Password</button>
-                        </div>
-
-                        <div class="glass" style="padding: 20px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                <h4 style="font-weight: 800; font-size: 1rem; margin-bottom: 4px;">Theme Mode</h4>
-                                <p style="color: var(--text-muted); font-size: 0.82rem;">Switch between sleek dark mode and vibrant light mode.</p>
-                            </div>
-                            <button id="theme-toggle-btn" class="btn btn-outline" style="padding: 8px 18px; font-size: 0.85rem;">Toggle Theme</button>
-                        </div>
-
-                        <div style="margin-top: 15px;">
-                            <button onclick="logout()" class="btn btn-outline" style="width: 100%; border-color: rgba(239, 68, 68, 0.4); color: #ef4444; padding: 12px; font-size: 0.95rem; border-radius: 50px;">
-                                <i data-lucide="log-out" style="width: 18px; vertical-align: middle; margin-right: 6px;"></i> Sign Out of Account
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn btn-outline" style="margin-top: 40px; width: 100%;" onclick="logout()">Sign
+                    Out</button>
             </div>
-
         </div>
     </main>
 
@@ -223,40 +99,40 @@
     <script>
         lucide.createIcons();
 
+        // Use Firebase Auth state to protect this page
         if (typeof auth !== 'undefined' && auth) {
             auth.onAuthStateChanged(function(firebaseUser) {
                 if (!firebaseUser) {
+                    // Not logged in — redirect to login
                     window.location.href = 'login.html';
                     return;
                 }
+                // Fetch profile from Firestore
                 db.collection('users').doc(firebaseUser.uid).get().then(function(doc) {
-                    const data = doc.exists ? doc.data() : {};
-                    const name = data.name || firebaseUser.email.split('@')[0];
-                    currentUser = {
-                        uid: firebaseUser.uid,
-                        name: name,
-                        email: firebaseUser.email,
-                        phone: data.phone || '',
-                        phone2: data.phone2 || '',
-                        address: data.address || '',
-                        city: data.city || '',
-                        district: data.district || '',
-                        postal: data.postal || ''
-                    };
-                    localStorage.setItem('roohira_user', JSON.stringify(currentUser));
-                    if (typeof loadProfile === 'function') loadProfile();
-                }).catch(function(err) {
-                    console.error("Firestore read error:", err);
+                    const name = doc.exists ? doc.data().name : firebaseUser.email.split('@')[0];
+                    document.getElementById('profile-name').innerText = name;
+                    document.getElementById('profile-email').innerText = firebaseUser.email;
+                    document.getElementById('profile-initial').innerText = name.charAt(0).toUpperCase();
+                    // Set dynamic wishlist length
+                    const wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
+                    document.getElementById('profile-wishlist-count').innerText = wl.length;
+                    // Load orders
                     if (typeof loadProfile === 'function') loadProfile();
                 });
             });
         } else {
+            // Fallback to localStorage if Firebase not configured yet
             document.addEventListener('DOMContentLoaded', function() {
-                if (!currentUser) {
+                const user = JSON.parse(localStorage.getItem('roohira_user'));
+                if (!user) {
                     window.location.href = 'login.html';
                     return;
                 }
-                if (typeof loadProfile === 'function') loadProfile();
+                document.getElementById('profile-name').innerText = user.name;
+                document.getElementById('profile-email').innerText = user.email;
+                document.getElementById('profile-initial').innerText = user.name.charAt(0).toUpperCase();
+                const wl = JSON.parse(localStorage.getItem('roohira_wishlist')) || [];
+                document.getElementById('profile-wishlist-count').innerText = wl.length;
             });
         }
     </script>

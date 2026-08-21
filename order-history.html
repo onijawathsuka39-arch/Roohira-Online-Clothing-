@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -106,24 +106,6 @@
             background: rgba(34, 197, 94, 0.12);
             color: #22c55e;
             border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .status-processing {
-            background: rgba(188, 140, 255, 0.12);
-            color: #bc8cff;
-            border: 1px solid rgba(188, 140, 255, 0.3);
-        }
-
-        .status-shipped {
-            background: rgba(88, 166, 255, 0.12);
-            color: #58a6ff;
-            border: 1px solid rgba(88, 166, 255, 0.3);
-        }
-
-        .status-delivered {
-            background: rgba(34, 197, 94, 0.22);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.5);
         }
 
         .status-cancelled {
@@ -288,15 +270,12 @@
         <a href="cart.html">Cart</a>
     </div>
 
-    <main class="section" style="padding-top: 140px; min-height: 85vh;">
+    <main class="section" style="padding-top: 130px; min-height: 80vh;">
         <div class="oh-container">
             <div class="oh-header">
-                <div>
-                    <h2 style="font-size: 2rem; font-weight: 800; letter-spacing: -0.5px;">My <span style="color: var(--accent-pink);">Order History</span></h2>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">Track your placed orders, download invoices, or re-order easily.</p>
-                </div>
+                <h2>My <span style="color: var(--accent-gold);">Order History</span></h2>
                 <div style="display:flex; gap:12px; align-items:center;">
-                    <button onclick="clearAllUserOrders()" class="oh-back-btn" style="color:#ef4444; border-color:rgba(239, 68, 68, 0.25); background:rgba(239, 68, 68, 0.05); cursor:pointer;">
+                    <button onclick="clearAllUserOrders()" class="oh-back-btn" style="color:#ff4444; border-color:rgba(255, 68, 68, 0.2); background:rgba(255, 68, 68, 0.05); cursor:pointer;">
                         <i data-lucide="trash-2" style="width: 16px;"></i> Clear History
                     </button>
                     <a href="profile.html" class="oh-back-btn">
@@ -305,38 +284,20 @@
                 </div>
             </div>
 
-            <!-- Search Bar & Status Filter Bar -->
-            <div class="oh-search-filter-bar">
-                <div class="oh-search-box">
-                    <i data-lucide="search"></i>
-                    <input type="text" id="oh-search-input" placeholder="Search by Order ID (e.g. #RC-101), product name, city..." oninput="filterAndRenderOrders()">
-                </div>
-                <div class="oh-filter-tabs">
-                    <button class="oh-filter-btn active" id="filter-btn-all" onclick="setOrderStatusFilter('all')">All Orders</button>
-                    <button class="oh-filter-btn" id="filter-btn-pending" onclick="setOrderStatusFilter('pending')">🕐 Pending</button>
-                    <button class="oh-filter-btn" id="filter-btn-confirmed" onclick="setOrderStatusFilter('confirmed')">✅ Confirmed</button>
-                    <button class="oh-filter-btn" id="filter-btn-cancelled" onclick="setOrderStatusFilter('cancelled')">❌ Cancelled</button>
-                </div>
-            </div>
-
             <div id="loading-spinner" class="empty-history">
-                <div class="spinner" style="width:40px; height:40px; border:3px solid rgba(255,20,147,0.15); border-top:3px solid var(--accent-pink); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 15px;"></div>
-                <p style="font-weight: 700; color: var(--text-muted);">Fetching your order history...</p>
+                <div class="spinner" style="width:40px; height:40px; border:3px solid rgba(200,169,110,0.15); border-top:3px solid var(--accent-gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 15px;"></div>
+                <p>Loading your orders...</p>
             </div>
 
             <div id="orders-history-list" style="display: none;">
                 <!-- Dynamically loaded -->
             </div>
 
-            <div id="no-orders-view" class="glass empty-history" style="display: none; border-radius: 20px; padding: 60px 20px;">
-                <div style="width: 70px; height: 70px; background: rgba(255,20,147,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: var(--accent-pink);">
-                    <i data-lucide="package-open" style="width: 36px; height: 36px;"></i>
-                </div>
-                <h3 style="font-weight: 800; font-size: 1.3rem;">No matching orders found</h3>
-                <p style="color: var(--text-muted); margin-top: 6px; font-size: 0.9rem;">Try adjusting your search query or placing a new order from our store.</p>
-                <a href="shop.html" class="btn btn-primary" style="margin-top: 20px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; padding: 12px 28px; border-radius: 50px;">
-                    <i data-lucide="shopping-bag" style="width: 18px;"></i> Shop Now
-                </a>
+            <div id="no-orders-view" class="glass empty-history" style="display: none;">
+                <i data-lucide="package-open" style="width: 48px; height: 48px; stroke-width: 1.5; color: var(--text-muted);"></i>
+                <h3 style="margin-top: 15px;">No orders placed yet</h3>
+                <p style="color: var(--text-muted); margin-top: 5px;">Your order history will appear here once you place an order.</p>
+                <a href="shop.html" class="btn btn-primary" style="margin-top: 20px; display: inline-block; text-decoration: none;">Shop Now</a>
             </div>
         </div>
     </main>
@@ -357,16 +318,16 @@
     <script>
         lucide.createIcons();
 
-        let rawUserOrders = [];
-        let activeStatusFilter = 'all';
-
         function toggleOrderAccordion(orderId) {
             const body = document.getElementById('body-' + orderId);
             const arrow = document.getElementById('arrow-' + orderId);
             if (body && arrow) {
                 const isOpen = body.classList.contains('open');
+                // Close all
                 document.querySelectorAll('.order-body').forEach(b => b.classList.remove('open'));
                 document.querySelectorAll('.order-arrow').forEach(a => a.classList.remove('open'));
+                
+                // Toggle clicked
                 if (!isOpen) {
                     body.classList.add('open');
                     arrow.classList.add('open');
@@ -374,249 +335,28 @@
             }
         }
 
+        // Helper to encode invoice data
         function buildUserInvoiceLink(o) {
-            let subtotal = o.subtotal;
-            if (!subtotal) {
-                subtotal = 0;
-                (o.items || []).forEach(it => {
-                    subtotal += (it.price || 0) * (it.quantity || 1);
-                });
-            }
-            const delivery = o.delivery !== undefined ? o.delivery : Math.max(0, (o.total || 0) - subtotal);
+            let subtotal = 0;
+            (o.items || []).forEach(it => {
+                subtotal += (it.price || 0) * (it.quantity || 1);
+            });
+            const delivery = Math.max(0, (o.total || 0) - subtotal);
             
             const orderData = {
-                id: o.id || o.docId,
+                id: o.id,
                 date: o.date || '',
                 time: o.time || '',
-                name: o.userName || o.name || 'Customer',
-                phone: o.userPhone || o.phone || '',
-                address: o.userAddress || o.address || '',
+                name: o.userName || 'Guest',
+                phone: o.userPhone || '',
+                address: o.userAddress || '',
                 items: o.items || [],
-                shippingMethod: o.shippingMethod || 'standard',
-                delivery: delivery,
-                discount: o.discount || 0,
-                couponCode: o.couponCode || '',
-                giftWrapFee: o.giftWrapFee || (o.giftWrapActive ? 150 : 0),
-                giftNote: o.giftNote || '',
-                subtotal: subtotal,
-                grandTotal: o.grandTotal || o.total
+                delivery: delivery
             };
             
             const jsonStr = JSON.stringify(orderData);
             const encodedData = btoa(unescape(encodeURIComponent(jsonStr)));
             return `invoice.html?data=${encodeURIComponent(encodedData)}`;
-        }
-
-        function setOrderStatusFilter(status) {
-            activeStatusFilter = status;
-            document.querySelectorAll('.oh-filter-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.getElementById(`filter-btn-${status}`);
-            if (activeBtn) activeBtn.classList.add('active');
-            filterAndRenderOrders();
-        }
-
-        function renderOrderStepperHtml(status) {
-            if (status === 'cancelled') {
-                return `
-                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 10px 16px; margin: 15px 0; color: #ef4444; font-size: 0.85rem; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-                        <i data-lucide="alert-triangle" style="width: 16px;"></i> Order Status: Cancelled
-                    </div>
-                `;
-            }
-
-            const steps = [
-                { id: 'placed', label: 'Placed', icon: 'package' },
-                { id: 'confirmed', label: 'Confirmed', icon: 'check-circle' },
-                { id: 'processing', label: 'Processing', icon: 'layers' },
-                { id: 'shipped', label: 'Out for Delivery', icon: 'truck' },
-                { id: 'delivered', label: 'Delivered', icon: 'smile' }
-            ];
-
-            let activeIdx = 0;
-            if (status === 'confirmed') activeIdx = 1;
-            else if (status === 'processing') activeIdx = 2;
-            else if (status === 'shipped') activeIdx = 3;
-            else if (status === 'delivered') activeIdx = 4;
-
-            const stepsHtml = steps.map((s, idx) => {
-                let stateClass = '';
-                if (idx < activeIdx) stateClass = 'completed';
-                else if (idx === activeIdx) stateClass = 'active';
-
-                return `
-                    <div class="order-step ${stateClass}">
-                        <div class="order-step-icon">
-                            <i data-lucide="${s.icon}" style="width: 14px;"></i>
-                        </div>
-                        <span>${s.label}</span>
-                    </div>
-                `;
-            }).join('');
-
-            return `<div class="order-stepper">${stepsHtml}</div>`;
-        }
-
-        function filterAndRenderOrders() {
-            const query = (document.getElementById('oh-search-input')?.value || '').toLowerCase().trim();
-
-            let filtered = rawUserOrders.filter(o => {
-                const status = (o.status || 'pending').toLowerCase();
-                if (activeStatusFilter !== 'all' && status !== activeStatusFilter) return false;
-
-                if (!query) return true;
-                const orderIdStr = (o.id || o.docId || '').toLowerCase();
-                const cityStr = (o.city || o.userAddress || '').toLowerCase();
-                const itemsStr = (o.items || []).map(i => (i.name || '').toLowerCase()).join(' ');
-
-                return orderIdStr.includes(query) || cityStr.includes(query) || itemsStr.includes(query);
-            });
-
-            const listEl = document.getElementById('orders-history-list');
-            const noOrdersEl = document.getElementById('no-orders-view');
-
-            if (filtered.length === 0) {
-                listEl.style.display = 'none';
-                noOrdersEl.style.display = 'block';
-                return;
-            }
-
-            noOrdersEl.style.display = 'none';
-            listEl.style.display = 'block';
-
-            listEl.innerHTML = filtered.map((o) => {
-                const status = (o.status || 'pending').toLowerCase();
-                let statusClass = 'status-pending';
-                let statusText = '🕐 Pending';
-                if (status === 'confirmed') {
-                    statusClass = 'status-confirmed';
-                    statusText = '✅ Confirmed';
-                } else if (status === 'processing') {
-                    statusClass = 'status-processing';
-                    statusText = '👕 Processing';
-                } else if (status === 'shipped') {
-                    statusClass = 'status-shipped';
-                    statusText = '🚚 Out for Delivery';
-                } else if (status === 'delivered') {
-                    statusClass = 'status-delivered';
-                    statusText = '🎉 Delivered';
-                } else if (status === 'cancelled') {
-                    statusClass = 'status-cancelled';
-                    statusText = '❌ Cancelled';
-                }
-
-                const subtotal = (o.items || []).reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                const deliveryFee = Math.max(0, (o.total || 0) - subtotal);
-                const invoiceUrl = buildUserInvoiceLink(o);
-                const displayId = (o.id || o.docId || '').toString();
-                const shortId = displayId.length > 8 ? displayId.slice(-8) : displayId;
-                const encodedItems = encodeURIComponent(JSON.stringify(o.items || []));
-
-                const itemsHtml = (o.items || []).map(item => `
-                    <tr>
-                        <td>
-                            <div style="display:flex; align-items:center; gap:10px;">
-                                ${item.image ? `<img src="${item.image}" style="width:36px; height:36px; object-fit:cover; border-radius:6px;">` : ''}
-                                <div>
-                                    <strong>${item.name}</strong><br>
-                                    <span style="font-size:0.75rem; color:var(--text-muted);">Color: ${item.color || 'Default'}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td>${item.size || 'Free'}</td>
-                        <td>${item.quantity || 1}</td>
-                        <td>Rs. ${(item.price || 0).toLocaleString()}</td>
-                        <td style="font-weight:700; text-align:right;">Rs. ${((item.price || 0) * (item.quantity || 1)).toLocaleString()}</td>
-                    </tr>
-                `).join('');
-
-                const waMessage = encodeURIComponent(`Hi Roohira Team, I need assistance regarding my Order #${shortId}.`);
-                const waUrl = `https://wa.me/94757218786?text=${waMessage}`;
-
-                return `
-                    <div class="order-card">
-                        <div class="order-header" onclick="toggleOrderAccordion('${o.docId}')">
-                            <div class="order-header-info">
-                                <span class="order-id-badge">#${shortId}</span>
-                                <span class="order-status ${statusClass}">${statusText}</span>
-                                <span style="color:var(--text-muted); font-size:0.85rem;">${o.date || ''} ${o.time ? '• ' + o.time : ''}</span>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <span style="font-weight:800; color:var(--accent-pink); font-size:1.05rem;">Rs. ${(o.total || 0).toLocaleString()}.00</span>
-                                <i data-lucide="chevron-down" id="arrow-${o.docId}" class="order-arrow" style="width:18px;"></i>
-                            </div>
-                        </div>
-                        <div class="order-body" id="body-${o.docId}">
-                            
-                            <!-- Visual Progress Stepper -->
-                            ${renderOrderStepperHtml(status)}
-
-                            <div class="details-grid">
-                                <div class="detail-field">
-                                    <h4>Contact Phone</h4>
-                                    <p>${o.userPhone || o.phone || '–'}</p>
-                                </div>
-                                <div class="detail-field" style="grid-column: span 2;">
-                                    <h4>Shipping Address</h4>
-                                    <p>${o.userAddress || o.address || '–'}</p>
-                                </div>
-                                <div class="detail-field">
-                                    <h4>Payment Method</h4>
-                                    <p style="color:var(--accent-pink); text-transform:capitalize;">${o.paymentMethod || 'Cash on Delivery'}</p>
-                                </div>
-                            </div>
-                            
-                            <table class="order-items-table">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Size</th>
-                                        <th>Qty</th>
-                                        <th>Price</th>
-                                        <th style="text-align:right;">Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${itemsHtml}
-                                </tbody>
-                            </table>
-
-                            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px; margin-top:15px; font-size:0.88rem;">
-                                <div style="display:flex; justify-content:space-between; width:220px;">
-                                    <span style="color:var(--text-muted);">Subtotal:</span>
-                                    <span>Rs. ${subtotal.toLocaleString()}.00</span>
-                                </div>
-                                <div style="display:flex; justify-content:space-between; width:220px;">
-                                    <span style="color:var(--text-muted);">Delivery Fee:</span>
-                                    <span>${deliveryFee === 0 ? 'FREE' : 'Rs. ' + deliveryFee.toLocaleString() + '.00'}</span>
-                                </div>
-                            </div>
-
-                            <div class="order-footer">
-                                <div class="total-amount">Grand Total: Rs. ${(o.total || 0).toLocaleString()}.00</div>
-                                
-                                <div class="order-actions-row">
-                                    <a href="${invoiceUrl}" target="_blank" class="view-bill-btn">
-                                        <i data-lucide="file-text" style="width:15px;"></i> Invoice / Bill
-                                    </a>
-                                    <button onclick="reorderPastOrder('${encodedItems}')" class="order-action-btn reorder">
-                                        <i data-lucide="rotate-ccw" style="width:15px;"></i> Re-Order
-                                    </button>
-                                    <a href="${waUrl}" target="_blank" class="order-action-btn whatsapp">
-                                        <i data-lucide="message-circle" style="width:15px;"></i> WhatsApp
-                                    </a>
-                                    ${status === 'pending' ? `
-                                        <button onclick="cancelUserOrder('${o.docId}')" class="order-action-btn cancel">
-                                            <i data-lucide="x-circle" style="width:15px;"></i> Cancel
-                                        </button>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            lucide.createIcons();
         }
 
         if (typeof auth !== 'undefined' && auth) {
@@ -626,23 +366,122 @@
                     return;
                 }
                 
+                // Load order history from Firestore
                 db.collection('orders')
                     .where('userEmail', '==', user.email)
                     .get()
                     .then(function(snapshot) {
                         document.getElementById('loading-spinner').style.display = 'none';
-                        rawUserOrders = [];
-                        snapshot.forEach(doc => rawUserOrders.push({ docId: doc.id, ...doc.data() }));
-                        rawUserOrders.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+                        const ordersList = [];
+                        snapshot.forEach(doc => ordersList.push({ docId: doc.id, ...doc.data() }));
+                        
+                        // Sort by date descending
+                        ordersList.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
-                        filterAndRenderOrders();
+                        if (ordersList.length === 0) {
+                            document.getElementById('no-orders-view').style.display = 'block';
+                            return;
+                        }
+
+                        const listEl = document.getElementById('orders-history-list');
+                        listEl.style.display = 'block';
+
+                        listEl.innerHTML = ordersList.map((o, idx) => {
+                            const status = o.status || 'pending';
+                            let statusClass = 'status-pending';
+                            let statusText = '🕐 Pending';
+                            if (status === 'confirmed') {
+                                statusClass = 'status-confirmed';
+                                statusText = '✅ Confirmed';
+                            } else if (status === 'cancelled') {
+                                statusClass = 'status-cancelled';
+                                statusText = '❌ Cancelled';
+                            }
+
+                            const subtotal = (o.items || []).reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                            const deliveryFee = Math.max(0, (o.total || 0) - subtotal);
+                            const invoiceUrl = buildUserInvoiceLink(o);
+
+                            const itemsHtml = (o.items || []).map(item => `
+                                <tr>
+                                    <td>
+                                        <strong>${item.name}</strong><br>
+                                        <span style="font-size:0.75rem; color:var(--text-muted);">Color: ${item.color}</span>
+                                    </td>
+                                    <td>${item.size || '–'}</td>
+                                    <td>${item.quantity || 1}</td>
+                                    <td>Rs. ${(item.price || 0).toLocaleString()}</td>
+                                    <td style="font-weight:700; text-align:right;">Rs. ${((item.price || 0) * (item.quantity || 1)).toLocaleString()}</td>
+                                </tr>
+                            `).join('');
+
+                            return `
+                                <div class="order-card">
+                                    <div class="order-header" onclick="toggleOrderAccordion('${o.docId}')">
+                                        <div class="order-header-info">
+                                            <span style="font-weight:800;">Order #${(o.id || o.docId).toString().slice(-6)}</span>
+                                            <span class="order-status ${statusClass}">${statusText}</span>
+                                            <span style="color:var(--text-muted); font-size:0.85rem;">${o.date || '–'}</span>
+                                        </div>
+                                        <div style="display:flex; align-items:center; gap:10px;">
+                                            <span style="font-weight:800; color:var(--green);">Rs. ${(o.total || 0).toLocaleString()}</span>
+                                            <i data-lucide="chevron-down" id="arrow-${o.docId}" class="order-arrow" style="width:18px;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="order-body" id="body-${o.docId}">
+                                        <div class="details-grid">
+                                            <div class="detail-field">
+                                                <h4>Phone Number</h4>
+                                                <p>${o.userPhone || '–'}</p>
+                                            </div>
+                                            <div class="detail-field" style="grid-column: span 2;">
+                                                <h4>Shipping Address</h4>
+                                                <p>${o.userAddress || '–'}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <table class="order-items-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Size</th>
+                                                    <th>Qty</th>
+                                                    <th>Price</th>
+                                                    <th style="text-align:right;">Subtotal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                ${itemsHtml}
+                                            </tbody>
+                                        </table>
+
+                                        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px; margin-top:15px; font-size:0.9rem;">
+                                            <div style="display:flex; justify-content:space-between; width:220px;">
+                                                <span style="color:var(--text-muted);">Items Subtotal:</span>
+                                                <span>Rs. ${subtotal.toLocaleString()}.00</span>
+                                            </div>
+                                            <div style="display:flex; justify-content:space-between; width:220px;">
+                                                <span style="color:var(--text-muted);">Delivery Fee:</span>
+                                                <span>${deliveryFee === 0 ? 'FREE' : 'Rs. ' + deliveryFee.toLocaleString() + '.00'}</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="order-footer">
+                                            <div class="total-amount">Grand Total: Rs. ${(o.total || 0).toLocaleString()}.00</div>
+                                            <a href="${invoiceUrl}" target="_blank" class="view-bill-btn">
+                                                <i data-lucide="file-text" style="width:16px;"></i> View Bill / Invoice
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+
+                        lucide.createIcons();
                     })
                     .catch(function(err) {
                         console.error(err);
-                        document.getElementById('loading-spinner').style.display = 'none';
-                        const localOrders = JSON.parse(localStorage.getItem('roohira_orders') || '[]');
-                        rawUserOrders = localOrders.filter(o => o.userEmail === user.email);
-                        filterAndRenderOrders();
+                        document.getElementById('loading-spinner').innerHTML = '<p style="color:#ef4444;">Failed to load order history.</p>';
                     });
             });
         }
@@ -673,11 +512,11 @@
                     
                     document.getElementById('loading-spinner').style.display = 'none';
                     document.getElementById('no-orders-view').style.display = 'block';
-                    showNotification('Order history successfully cleared.');
+                    alert('Order history successfully cleared.');
                 })
                 .catch(function(err) {
                     console.error("Error clearing orders:", err);
-                    showNotification("Error: Could not clear order history.", true);
+                    alert("⚠️ Error: Could not clear order history.");
                     window.location.reload();
                 });
         }
