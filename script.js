@@ -1762,9 +1762,12 @@ function placeOrder() {
             total: grandTotal
         };
 
-        // Encode order data for the URL (Safe for Unicode/Sinhala)
+        // Encode order data — URL-safe base64 (no +, /, = issues in WhatsApp links)
         const jsonStr = JSON.stringify(orderData);
+        // Standard base64 for local invoice link
         const encodedData = btoa(unescape(encodeURIComponent(jsonStr)));
+        // URL-safe base64 for WhatsApp (replace +->- /->_ =->~)
+        const encodedDataSafe = encodedData.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '~');
         
         let baseUrl = window.location.protocol + '//' + window.location.host + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
         let whatsappBaseUrl = baseUrl;
@@ -1778,7 +1781,7 @@ function placeOrder() {
         }
         
         const invoiceUrl = `${baseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
-        const whatsappInvoiceUrl = `${whatsappBaseUrl}invoice.html?data=${encodeURIComponent(encodedData)}`;
+        const whatsappInvoiceUrl = `${whatsappBaseUrl}invoice.html?data=${encodedDataSafe}`;
 
         let shippingLabel = deliveryFee === 0 ? 'Standard Delivery (FREE Shipping)' : 'Standard Delivery (Rs. 450.00)';
         if (shippingMethod === 'pickup') shippingLabel = '🏬 Store Pickup (FREE)';
