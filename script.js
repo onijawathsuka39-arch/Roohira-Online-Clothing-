@@ -1222,6 +1222,10 @@ function login(email, password, onError) {
         if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
         return;
     }
+    // Check for redirect parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTo = urlParams.get('redirect') || 'profile.html';
+
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
@@ -1239,19 +1243,19 @@ function login(email, password, onError) {
                         : { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
                     localStorage.setItem('roohira_user', JSON.stringify(userData));
                     currentUser = userData;
-                    window.location.href = 'profile.html';
+                    window.location.href = redirectTo;
                 }).catch(() => {
                     // Firestore unreachable — allow login anyway
                     const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
                     localStorage.setItem('roohira_user', JSON.stringify(quickUser));
                     currentUser = quickUser;
-                    window.location.href = 'profile.html';
+                    window.location.href = redirectTo;
                 });
             } else {
                 const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
                 localStorage.setItem('roohira_user', JSON.stringify(quickUser));
                 currentUser = quickUser;
-                window.location.href = 'profile.html';
+                window.location.href = redirectTo;
             }
         })
         .catch((error) => {
@@ -1268,6 +1272,10 @@ function signup(name, email, password, phone, address, onError) {
         if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
         return;
     }
+    // Check for redirect parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectTo = urlParams.get('redirect') || 'profile.html';
+
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
@@ -1277,7 +1285,7 @@ function signup(name, email, password, phone, address, onError) {
                     .then(() => {
                         localStorage.setItem('roohira_user', JSON.stringify(userData));
                         currentUser = userData;
-                        window.location.href = 'profile.html';
+                        window.location.href = redirectTo;
                     })
                     .catch(err => {
                         console.error('Firestore save error:', err);
@@ -1291,7 +1299,7 @@ function signup(name, email, password, phone, address, onError) {
             } else {
                 localStorage.setItem('roohira_user', JSON.stringify(userData));
                 currentUser = userData;
-                window.location.href = 'profile.html';
+                window.location.href = redirectTo;
             }
         })
         .catch((error) => {

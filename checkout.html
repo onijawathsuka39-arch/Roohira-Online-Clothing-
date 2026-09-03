@@ -390,6 +390,60 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script src="script.js"></script>
+
+    <!-- Checkout Auth Guard: Redirect if not logged in -->
+    <script>
+        // Show a brief auth-checking overlay
+        (function() {
+            const overlay = document.createElement('div');
+            overlay.id = 'checkout-auth-overlay';
+            overlay.style.cssText = 'position:fixed;inset:0;background:#0A0F1E;z-index:999999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;';
+            overlay.innerHTML = `
+                <svg viewBox="0 0 100 100" style="width:70px;height:70px;filter:drop-shadow(0 0 10px rgba(255,20,147,0.7));">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="url(#cg)" stroke-width="6" stroke-linecap="round"
+                        style="stroke-dasharray:200;animation:spin 1s linear infinite;transform-origin:center;">
+                        <defs>
+                            <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#ff1493"/>
+                                <stop offset="100%" stop-color="#c8a96e"/>
+                            </linearGradient>
+                        </defs>
+                    </circle>
+                </svg>
+                <p style="color:#fff;font-size:1rem;font-weight:700;letter-spacing:1px;">Verifying Account...</p>
+                <style>@keyframes spin{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}</style>
+            `;
+            document.body.appendChild(overlay);
+
+            // Wait for Firebase Auth to resolve
+            function removeOverlay() {
+                const el = document.getElementById('checkout-auth-overlay');
+                if (el) el.remove();
+            }
+
+            if (typeof auth !== 'undefined' && auth) {
+                auth.onAuthStateChanged(function(user) {
+                    if (!user) {
+                        // Not logged in - redirect to login with redirect param
+                        window.location.href = 'login.html?redirect=checkout.html';
+                    } else {
+                        removeOverlay();
+                    }
+                });
+            } else {
+                // Firebase not loaded yet - check localStorage fallback
+                setTimeout(function() {
+                    const localUser = localStorage.getItem('roohira_user');
+                    if (!localUser) {
+                        window.location.href = 'login.html?redirect=checkout.html';
+                    } else {
+                        removeOverlay();
+                    }
+                }, 800);
+            }
+        })();
+    </script>
     <script>
         function updatePaymentSelection(radioElem) {
             document.querySelectorAll('.payment-option-card').forEach(card => card.classList.remove('selected'));
