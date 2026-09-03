@@ -109,6 +109,31 @@
                 </div>
             </div>
 
+            <div id="print-size-wrapper" style="display: none; background: var(--surface); border: 1px solid var(--border-color); padding: 16px 18px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: 15px;">
+                <div class="option-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                        <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #DC143C;"></i> Sticker / Print Size
+                    </span>
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">Choose Print Scale</span>
+                </div>
+                <div class="print-size-options" id="detail-print-sizes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div class="print-size-card active" id="chip-a3" onclick="selectPrintSize('A3')" style="position: relative; padding: 14px; border-radius: 16px; border: 2px solid #DC143C; background: rgba(220, 20, 60, 0.06); cursor: pointer; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 0.95rem; font-weight: 900; color: var(--text-main);">A3 Print</span>
+                            <span class="print-size-badge" style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: #DC143C; color: white; padding: 3px 8px; border-radius: 20px;">Standard</span>
+                        </div>
+                        <div style="font-size: 1.05rem; font-weight: 900; color: #DC143C;">Rs. 1,800 <span style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-muted); font-weight: 600;">1,850</span></div>
+                    </div>
+                    <div class="print-size-card" id="chip-a2" onclick="selectPrintSize('A2')" style="position: relative; padding: 14px; border-radius: 16px; border: 2px solid var(--border-color); background: var(--surface); cursor: pointer; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 0.95rem; font-weight: 900; color: var(--text-main);">A2 Print</span>
+                            <span class="print-size-badge" style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: var(--border-color); color: var(--text-muted); padding: 3px 8px; border-radius: 20px;">Jumbo</span>
+                        </div>
+                        <div style="font-size: 1.05rem; font-weight: 900; color: var(--text-main);">Rs. 2,100</div>
+                    </div>
+                </div>
+            </div>
+
             <div>
                 <h4 class="option-label">Select Color</h4>
                 <div class="color-dots" id="detail-colors">
@@ -209,7 +234,7 @@
     <div id="sizeChartModal" class="modal-overlay" onclick="closeSizeChart()" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
         <div class="glass" style="max-width: 90%; max-height: 90%; position: relative; padding: 10px; background: var(--surface); border-radius: 20px; animation: modalZoom 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onclick="event.stopPropagation()">
             <span onclick="closeSizeChart()" style="position: absolute; right: -15px; top: -15px; background: #ff1493; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);">&times;</span>
-            <img src="https://i.ibb.co/pvGrdQMD/Size-Chart-01.jpg" alt="Size Chart" style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
+            <img src="https://i.ibb.co/rftkd3K0/Chat-GPT-Image-Aug-20-2026-10-17-15-PM.png" alt="Size Chart" style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
         </div>
     </div>
 
@@ -293,6 +318,7 @@
         let product;
         let selectedSize = '';
         let selectedColor = '';
+        let selectedPrintScale = 'A3';
         let currentPrice = 0;
         let currentOldPrice = 0;
         let currentQty = 1;
@@ -306,6 +332,13 @@
                 product = products.find(p => p.id === pid) || products[0];
 
                 if (product) {
+                    // Check for 220 GSM Regular Tee print size selector
+                    const is220GsmRegular = (product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
+                    const printWrapper = document.getElementById('print-size-wrapper');
+                    if (is220GsmRegular && printWrapper) {
+                        printWrapper.style.display = 'block';
+                    }
+
                     if (product.category === 'Oversized Tee (Printed)' && !product.sizeChartImg) {
                         const scSection = document.getElementById('size-chart-link');
                         if (scSection) scSection.style.display = 'none';
@@ -483,6 +516,31 @@
             });
         });
 
+        // --- Print Size Selector ---
+        function selectPrintSize(scale) {
+            selectedPrintScale = scale;
+            const chipA3 = document.getElementById('chip-a3');
+            const chipA2 = document.getElementById('chip-a2');
+            if (scale === 'A3') {
+                chipA3.classList.add('active');
+                chipA3.style.borderColor = '#DC143C';
+                chipA3.style.background = 'rgba(220, 20, 60, 0.06)';
+                
+                chipA2.classList.remove('active');
+                chipA2.style.borderColor = 'var(--border-color)';
+                chipA2.style.background = 'var(--surface)';
+            } else {
+                chipA2.classList.add('active');
+                chipA2.style.borderColor = '#DC143C';
+                chipA2.style.background = 'rgba(220, 20, 60, 0.06)';
+                
+                chipA3.classList.remove('active');
+                chipA3.style.borderColor = 'var(--border-color)';
+                chipA3.style.background = 'var(--surface)';
+            }
+            updatePriceDisplay();
+        }
+
         // --- Slideshow Auto-scroll ---
         function startAutoScroll() {
             const images = product.images || [product.img];
@@ -602,22 +660,47 @@
 
         function updatePriceDisplay() {
             const priceEl = document.getElementById('detail-price');
-            let html = `Rs. ${currentPrice.toLocaleString()}.00`;
-            if (currentOldPrice) {
-                html += ` <span class="old-price">Rs. ${currentOldPrice.toLocaleString()}</span>`;
+            const is220GsmRegular = (product && product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
+            
+            let effectivePrice = currentPrice;
+            let effectiveOldPrice = currentOldPrice;
+
+            if (is220GsmRegular) {
+                if (selectedPrintScale === 'A2') {
+                    effectivePrice = 2100;
+                    effectiveOldPrice = null;
+                } else {
+                    effectivePrice = 1800;
+                    effectiveOldPrice = 1850;
+                }
+            }
+
+            let html = `Rs. ${effectivePrice.toLocaleString()}.00`;
+            if (effectiveOldPrice) {
+                html += ` <span class="old-price">Rs. ${effectiveOldPrice.toLocaleString()}</span>`;
             }
             priceEl.innerHTML = html;
         }
 
         function addCurrentToCart() {
             const images = product.images || [product.img];
-            addToCart(product.name, currentPrice, images[0], selectedSize, selectedColor, currentQty);
+            const is220GsmRegular = (product && product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
+            
+            let finalSize = selectedSize;
+            let finalPrice = currentPrice;
+
+            if (is220GsmRegular) {
+                finalSize = `${selectedSize} (${selectedPrintScale} Print)`;
+                finalPrice = selectedPrintScale === 'A2' ? 2100 : 1800;
+            }
+
+            addToCart(product.name, finalPrice, images[0], finalSize, selectedColor, currentQty);
         }
 
         function openSizeChart() {
             const chartImg = document.querySelector('#sizeChartModal img');
-            if (chartImg && product.sizeChartImg) {
-                chartImg.src = product.sizeChartImg;
+            if (chartImg) {
+                chartImg.src = (product && product.sizeChartImg) ? product.sizeChartImg : 'https://i.ibb.co/rftkd3K0/Chat-GPT-Image-Aug-20-2026-10-17-15-PM.png';
             }
             document.getElementById('sizeChartModal').classList.add('active');
             document.body.style.overflow = 'hidden';
