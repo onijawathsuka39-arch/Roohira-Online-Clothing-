@@ -1,6 +1,20 @@
+// Maintenance Mode Guard: Redirect any other page back to index.html while under development
+(function () {
+    const currentPath = window.location.pathname.toLowerCase();
+    const isMaintenanceMode = true; // Toggle to false when development is completed
+    if (isMaintenanceMode) {
+        const isIndex = currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('\\index.html') || (!currentPath.includes('.html') && !currentPath.includes('.php'));
+        // Allow index.html and exclude external/assets
+        if (!isIndex && !currentPath.includes('logo.png')) {
+            window.location.replace('index.html');
+            return;
+        }
+    }
+})();
+
 // Apply stored theme immediately to avoid flash of light theme
 (function () {
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
@@ -699,22 +713,37 @@ function displayProducts(filteredProducts) {
 
         // Determine wishlist state
         const wished = isInWishlist(p.id);
-        const heartColor = wished ? 'color: #DC143C;' : 'color: var(--text-main);';
+        const heartColor = wished ? 'color: #DC143C;' : 'color: #6D5D53;';
+
+        // Available sizes array
+        const availableSizes = hasSizes ? Object.keys(p.sizes) : ['Free Size'];
+        const gsmText = p.gsm || (p.category && p.category.includes('Tee') ? '220 GSM' : 'Premium');
+        const sectionBadge = (p.sections && p.sections.length > 0) ? p.sections[0] : '';
 
         grid.innerHTML += `
-        <div class="product-card glass ${isOutOfStock ? 'out-of-stock' : ''}" 
+        <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" 
              onclick="window.location.href='product-detail.html?id=${p.id}'" 
              onmouseenter="startHoverSlide('${p.id}', this.querySelector('.card-slider'))"
              onmouseleave="stopHoverSlide('${p.id}', this.querySelector('.card-slider'))"
-             style="cursor: pointer; animation: fadeIn 0.5s ease forwards; overflow: hidden; display: flex; flex-direction: column; position: relative; ${isOutOfStock ? 'opacity: 0.7;' : ''}">
-            <div class="product-image" style="overflow: hidden; position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 15px;">
+             style="cursor: pointer; animation: fadeIn 0.4s ease forwards; overflow: hidden; display: flex; flex-direction: column; position: relative; background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.1); border-radius: 16px; box-shadow: 0 6px 20px rgba(60, 42, 33, 0.05); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease; padding: 12px; ${isOutOfStock ? 'opacity: 0.75;' : ''}">
+            
+            <!-- Image Area with Badges & Hover Slider -->
+            <div class="product-image" style="overflow: hidden; position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 12px; background: #F8F6F2;">
                 ${discountBadge}
+                
                 <!-- Wishlist Toggle overlay -->
                 <div class="wishlist-overlay-btn" onclick="event.stopPropagation(); handleCardWishlistToggle('${p.id}', this)" 
-                     style="position: absolute; top: 15px; right: 15px; background: var(--surface); border: 1px solid var(--border-color); width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 12; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.1);"
+                     style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border: 1px solid rgba(60, 42, 33, 0.12); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 12; cursor: pointer; transition: 0.25s; box-shadow: 0 4px 12px rgba(60,42,33,0.08);"
                      title="Add to Wishlist">
-                    <i data-lucide="heart" style="width: 18px; height: 18px; ${heartColor}" ${wished ? 'fill="#DC143C"' : ''}></i>
+                    <i data-lucide="heart" style="width: 17px; height: 17px; ${heartColor}" ${wished ? 'fill="#DC143C"' : ''}></i>
                 </div>
+
+                <!-- Fabric & Section Tag -->
+                <div style="position: absolute; bottom: 10px; left: 10px; z-index: 10; display: flex; gap: 5px;">
+                    <span style="background: rgba(26, 18, 11, 0.82); backdrop-filter: blur(6px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.5px;">${gsmText}</span>
+                    ${sectionBadge ? `<span style="background: rgba(255, 255, 255, 0.9); color: #1A120B; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(60, 42, 33, 0.1);">${sectionBadge}</span>` : ''}
+                </div>
+
                 <div class="card-slider" style="display: flex; transition: transform 0.5s ease; height: 100%; width: 100%;">
                     ${p.images.map(img => `<img src="${img}" style="width: 100%; flex-shrink: 0; height: 100%; object-fit: cover;">`).join('')}
                 </div>
@@ -724,40 +753,63 @@ function displayProducts(filteredProducts) {
                 </div>
                 ` : ''}
             </div>
-            <div class="product-info">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 5px;">
-                    <span style="font-size: 0.7rem; color: #DC143C; font-weight: 800;">${p.category || ''}</span>
-                    ${stockBadge}
+
+            <!-- Detailed Product Info Section -->
+            <div class="product-info" style="padding: 14px 6px 4px; display: flex; flex-direction: column; flex-grow: 1;">
+                
+                <!-- Category & Reviews Rating Row -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 0.72rem; color: #8B5A2B; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">${p.category || 'Roohira Apparel'}</span>
+                    <div style="display: flex; align-items: center; gap: 3px; font-size: 0.72rem; color: #B38738; font-weight: 700;">
+                        <i data-lucide="star" style="width: 12px; height: 12px; fill: #B38738;"></i>
+                        <span>4.9</span>
+                    </div>
                 </div>
-                <h3 style="margin-top: 0;">${p.name}</h3>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <p class="price">Rs. ${displayPrice.toLocaleString()}.00</p>
-                    ${displayOldPrice ? `<p style="text-decoration: line-through; color: var(--text-muted); font-size: 0.8rem;">Rs. ${displayOldPrice.toLocaleString()}</p>` : ''}
+
+                <!-- Product Name -->
+                <h3 style="margin: 0 0 8px; font-size: 1.02rem; font-weight: 700; color: #1A120B; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">${p.name}</h3>
+                
+                <!-- Price Row -->
+                <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
+                    <p class="price" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1A120B;">Rs. ${displayPrice.toLocaleString()}.00</p>
+                    ${displayOldPrice ? `<p style="text-decoration: line-through; color: #8C7D73; font-size: 0.82rem; margin: 0;">Rs. ${displayOldPrice.toLocaleString()}</p>` : ''}
                 </div>
-                ${p.colors && p.colors.length > 0 ? `
-                <div style="display: flex; gap: 6px; margin-top: 8px; align-items: center;">
-                    ${p.colors.map(c => {
-                        const imgUrl = (p.colorImages && p.colorImages[c]) ? p.colorImages[c] : null;
-                        const cName = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
-                        if (imgUrl) {
-                            return `<span style="width: 20px; height: 20px; border-radius: 50%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border: 1.5px solid rgba(0,0,0,0.2); display: inline-block;" title="${cName}"></span>`;
-                        } else {
-                            return `<span style="width: 14px; height: 14px; border-radius: 50%; background: ${c}; border: 1.5px solid rgba(0,0,0,0.2); display: inline-block;" title="${cName}"></span>`;
-                        }
-                    }).join('')}
+
+                <!-- Available Sizes Chips -->
+                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 12px; flex-wrap: wrap;">
+                    <span style="font-size: 0.7rem; color: #8C7D73; margin-right: 4px; font-weight: 600;">Sizes:</span>
+                    ${availableSizes.slice(0, 4).map(sz => `<span style="font-size: 0.68rem; font-weight: 700; color: #1A120B; background: #FAF7F2; border: 1px solid rgba(60, 42, 33, 0.12); padding: 2px 7px; border-radius: 4px;">${sz}</span>`).join('')}
+                    ${availableSizes.length > 4 ? `<span style="font-size: 0.65rem; color: #8C7D73;">+${availableSizes.length - 4}</span>` : ''}
                 </div>
-                ` : ''}
+
+                <!-- Color Swatches & Action Bar -->
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(60, 42, 33, 0.07);">
+                    <!-- Colors Preview -->
+                    <div style="display: flex; gap: 5px; align-items: center;">
+                        ${(p.colors || []).map(c => {
+                            const imgUrl = (p.colorImages && p.colorImages[c]) ? p.colorImages[c] : null;
+                            const cName = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
+                            if (imgUrl) {
+                                return `<span style="width: 17px; height: 17px; border-radius: 50%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border: 1px solid rgba(60,42,33,0.2);" title="${cName}"></span>`;
+                            } else {
+                                return `<span style="width: 13px; height: 13px; border-radius: 50%; background: ${c}; border: 1px solid rgba(60,42,33,0.25);" title="${cName}"></span>`;
+                            }
+                        }).join('')}
+                    </div>
+
+                    <!-- Quick Add Button with Feedback -->
+                    ${isOutOfStock ? `
+                        <span style="font-size: 0.72rem; color: #9b1c1c; font-weight: 700;">Sold Out</span>
+                    ` : `
+                        <button class="card-add-btn" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${p.images[0]}')" 
+                                style="background: #1A120B; color: #FFFFFF; border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.25s;"
+                                onmouseover="this.style.background='#8B5A2B'" onmouseout="this.style.background='#1A120B'">
+                            <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Add
+                        </button>
+                    `}
+                </div>
+
             </div>
-            ${isOutOfStock ? '' : `
-            <div class="add-to-cart" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${p.images[0]}')">
-                <i data-lucide="plus"></i>
-            </div>
-            `}
-            ${(p.category === 'Oversized Tee (Printed)' && !p.sizeChartImg) || isOutOfStock ? '' : `
-            <div class="size-chart-card-btn" onclick="event.stopPropagation(); openSizeChart()" title="Size Chart" style="position: absolute; bottom: 20px; right: 75px; width: 45px; height: 45px; border-radius: 50%; background: #fff; border: 1px solid #ddd; color: #000; display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(20px); transition: 0.3s; cursor: pointer; z-index: 10;">
-                <i data-lucide="ruler" style="width: 20px; height: 20px;"></i>
-            </div>
-            `}
         </div>`;
     });
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -810,10 +862,16 @@ let currentCategory = 'All';
 let currentSubcategory = 'All';
 let currentGSM = 'all';
 let searchQuery = '';
+let currentSort = 'default';
 
 // true only when a *specific* (non-All) value is chosen
 let categorySelected = false;
 let subcategorySelected = false;
+
+function handleSortChange(val) {
+    currentSort = val;
+    filterShop();
+}
 
 function handleSearch(val) {
     searchQuery = val.trim().toLowerCase();
@@ -1043,6 +1101,28 @@ function filterShop() {
             }
 
             return false;
+        });
+    }
+
+    // 5. Sort Products
+    if (typeof currentSort !== 'undefined' && currentSort !== 'default') {
+        filtered = [...filtered].sort((a, b) => {
+            const getPrice = (item) => {
+                if (item.sizes) {
+                    const firstKey = Object.keys(item.sizes)[0];
+                    if (firstKey && item.sizes[firstKey].price) return item.sizes[firstKey].price;
+                }
+                return item.price || 0;
+            };
+
+            if (currentSort === 'price-low') {
+                return getPrice(a) - getPrice(b);
+            } else if (currentSort === 'price-high') {
+                return getPrice(b) - getPrice(a);
+            } else if (currentSort === 'name-asc') {
+                return a.name.localeCompare(b.name);
+            }
+            return 0;
         });
     }
 
@@ -1664,7 +1744,7 @@ function placeOrder() {
         // Spinner loader
         successModal.innerHTML = `
             <div style="text-align: center; color: #fff;">
-                <div style="width: 55px; height: 55px; border: 4px solid rgba(255, 20, 147, 0.2); border-left-color: #ff1493; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
+                <div style="width: 55px; height: 55px; border: 4px solid rgba(139, 90, 43, 0.2); border-left-color: #8B5A2B; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
                 <p style="font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; font-family: 'Plus Jakarta Sans', sans-serif;">PROCESSING YOUR ORDER...</p>
                 <style>
                     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -1676,28 +1756,28 @@ function placeOrder() {
         // Transition to success card after 1.5s
         setTimeout(() => {
             successModal.innerHTML = `
-                <div class="glass" style="max-width: 480px; width: 100%; border-radius: 20px; padding: 25px 20px; border: 2px solid #ff1493; box-shadow: 0 15px 35px rgba(255,20,147,0.15); text-align: center; color: #fff; background: rgba(15, 20, 35, 0.98); transform: scale(0.9); opacity: 0; transition: all 0.3s ease;">
+                <div class="glass" style="max-width: 480px; width: 100%; border-radius: 20px; padding: 25px 20px; border: 2px solid #8B5A2B; box-shadow: 0 15px 35px rgba(139,90,43,0.15); text-align: center; color: #fff; background: rgba(15, 20, 35, 0.98); transform: scale(0.9); opacity: 0; transition: all 0.3s ease;">
                     <div style="width: 50px; height: 50px; background: rgba(34, 197, 94, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: #22c55e; border: 1.5px solid #22c55e;">
                         <i data-lucide="check" style="width: 28px; height: 28px;"></i>
                     </div>
                     <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; color: #fff;">Order Confirmed!</h3>
                     <p style="color: #cbd5e0; font-size: 0.85rem; margin-bottom: 5px;">Your order has been recorded successfully.</p>
-                    <p style="color: #ff1493; font-size: 0.82rem; font-weight: 800; margin-bottom: 15px;">Order ID: ${orderID}</p>
+                    <p style="color: #8B5A2B; font-size: 0.82rem; font-weight: 800; margin-bottom: 15px;">Order ID: ${orderID}</p>
                     
                     <!-- Customer Details Box -->
                     <div style="text-align: left; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.08); padding: 12px 15px; border-radius: 12px; font-size: 0.82rem; color: #e2e8f0; margin-bottom: 15px; line-height: 1.6;">
-                        <div style="font-weight: 700; color: #ff1493; margin-bottom: 6px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;">Customer & Shipping Info</div>
+                        <div style="font-weight: 700; color: #8B5A2B; margin-bottom: 6px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px;">Customer & Shipping Info</div>
                         <strong>Name:</strong> ${name}<br>
                         <strong>Email:</strong> ${email}<br>
                         <strong>Phone:</strong> ${phone}${phone2 ? ' / ' + phone2 : ''}<br>
                         <strong>Address:</strong> ${fullAddress}<br>
-                        <strong>Payment:</strong> <span style="color:#ff1493; font-weight:700;">${paymentMethod}</span>
+                        <strong>Payment:</strong> <span style="color:#8B5A2B; font-weight:700;">${paymentMethod}</span>
                     </div>
 
                     <!-- Compact Price Box -->
-                    <div style="background: rgba(255, 20, 147, 0.08); padding: 12px; border-radius: 12px; margin-bottom: 18px; border: 1px solid rgba(255, 20, 147, 0.2); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="background: rgba(139, 90, 43, 0.08); padding: 12px; border-radius: 12px; margin-bottom: 18px; border: 1px solid rgba(139, 90, 43, 0.2); display: flex; justify-content: space-between; align-items: center;">
                         <span style="font-size: 0.85rem; color: #a0aec0; font-weight: 600;">Total Amount:</span>
-                        <span style="color: #ff1493; font-size: 1.2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;">Rs. ${grandTotal.toLocaleString()}.00</span>
+                        <span style="color: #8B5A2B; font-size: 1.2rem; font-weight: 800; font-family: 'Plus Jakarta Sans', sans-serif;">Rs. ${grandTotal.toLocaleString()}.00</span>
                     </div>
 
                     <p style="color: #cbd5e0; font-size: 0.88rem; font-weight: 600; margin-bottom: 12px;">Share order details to WhatsApp?</p>
@@ -1706,7 +1786,7 @@ function placeOrder() {
                         <button id="modal-wa-btn" style="width: 100%; background: #25D366; color: white; border: none; padding: 12px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
                             <i data-lucide="message-circle" style="width: 18px;"></i> Share to WhatsApp
                         </button>
-                        <button id="modal-inv-btn" style="width: 100%; background: transparent; color: #ff1493; border: 1.5px solid #ff1493; padding: 11px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
+                        <button id="modal-inv-btn" style="width: 100%; background: transparent; color: #8B5A2B; border: 1.5px solid #8B5A2B; padding: 11px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
                             <i data-lucide="file-text" style="width: 18px;"></i> View Invoice Only
                         </button>
                         <a href="index.html" style="width: 100%; background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 11px; font-weight: 700; border-radius: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">

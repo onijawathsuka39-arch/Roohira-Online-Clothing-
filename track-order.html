@@ -17,6 +17,10 @@
     <script src="firebase-config.js"></script>
 
     <script>
+        // Maintenance Mode Guard
+        window.location.replace('index.html');
+    </script>
+    <script>
         // Apply stored theme immediately to prevent flashing
         (function () {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -85,7 +89,7 @@
         }
 
         .track-search-glass:focus-within {
-            border-color: #ff1493;
+            border-color: #8B5A2B;
         }
 
         .track-search-glass input {
@@ -107,7 +111,7 @@
         }
 
         .track-btn {
-            background: #ff1493;
+            background: #8B5A2B;
             color: #ffffff;
             border: none;
             padding: 12px 26px;
@@ -163,7 +167,7 @@
         }
 
         .feature-item i {
-            color: #ff1493;
+            color: #8B5A2B;
             width: 16px;
             height: 16px;
         }
@@ -222,7 +226,7 @@
             gap: 8px;
             background: rgba(255, 20, 147, 0.1);
             border: 1px solid rgba(255, 20, 147, 0.25);
-            color: #ff1493;
+            color: #8B5A2B;
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.85rem;
@@ -307,7 +311,7 @@
             top: 0;
             left: 0;
             height: 100%;
-            background: #ff1493;
+            background: #8B5A2B;
             border-radius: 2px;
             transition: width 0.6s ease;
         }
@@ -347,8 +351,8 @@
         }
 
         .step-node.active .step-icon-wrap {
-            background: #ff1493;
-            border-color: #ff1493;
+            background: #8B5A2B;
+            border-color: #8B5A2B;
             color: #ffffff;
         }
 
@@ -366,7 +370,7 @@
         }
 
         .step-node.active .step-label {
-            color: #ff1493;
+            color: #8B5A2B;
         }
 
         .step-time {
@@ -406,7 +410,7 @@
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #ff1493;
+            color: #8B5A2B;
         }
 
         .detail-item-row {
@@ -491,7 +495,7 @@
             height: 16px;
             border-radius: 50%;
             background: #151020;
-            border: 2px solid #ff1493;
+            border: 2px solid #8B5A2B;
         }
 
         [data-theme="light"] .timeline-dot {
@@ -499,7 +503,7 @@
         }
 
         .timeline-event:first-child .timeline-dot {
-            background: #ff1493;
+            background: #8B5A2B;
         }
 
         .timeline-event-content {
@@ -541,7 +545,7 @@
             width: 40px;
             height: 40px;
             border: 3px solid rgba(255, 20, 147, 0.2);
-            border-top-color: #ff1493;
+            border-top-color: #8B5A2B;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin: 0 auto 15px;
@@ -581,7 +585,7 @@
         }
 
         .courier-official-badge a {
-            color: #ff1493;
+            color: #8B5A2B;
             text-decoration: underline;
             font-weight: 600;
         }
@@ -603,8 +607,8 @@
 
         .action-refresh-btn:hover {
             background: rgba(255, 20, 147, 0.15);
-            border-color: #ff1493;
-            color: #ff1493;
+            border-color: #8B5A2B;
+            color: #8B5A2B;
         }
 
         /* Language Switcher Buttons */
@@ -637,7 +641,7 @@
         }
 
         .lang-btn.active {
-            background: #ff1493;
+            background: #8B5A2B;
             color: #ffffff;
             box-shadow: 0 2px 8px rgba(255, 20, 147, 0.35);
         }
@@ -679,7 +683,7 @@
     <nav id="navbar">
         <a href="index.html" class="logo">
             <img src="logo.png" alt="Roohira Logo">
-            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
+            <span style="font-family: 'Cinzel', 'Plus Jakarta Sans', serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #8B5A2B;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -691,7 +695,7 @@
             <li><a href="reviews.html">Reviews</a></li>
         </ul>
         <div class="nav-icons">
-            <a href="javascript:void(0)" id="theme-toggle-btn" title="Toggle Light/Dark Theme" style="cursor: pointer; display: flex; align-items: center; justify-content: center; color: #ff1493;">
+            <a href="javascript:void(0)" id="theme-toggle-btn" title="Toggle Light/Dark Theme" style="cursor: pointer; display: flex; align-items: center; justify-content: center; color: #8B5A2B;">
                 <i data-lucide="sun" id="theme-icon"></i>
             </a>
             <a href="https://www.instagram.com/" target="_blank"><i data-lucide="instagram"></i></a>
@@ -743,7 +747,7 @@
             <div class="track-search-container" style="margin-top: 25px;">
                 <form id="tracking-form" onsubmit="handleTrackSearch(event)">
                     <div class="track-search-glass">
-                        <i data-lucide="search" style="color: #ff1493; width: 20px; height: 20px; min-width: 20px;"></i>
+                        <i data-lucide="search" style="color: #8B5A2B; width: 20px; height: 20px; min-width: 20px;"></i>
                         <input type="text" id="track-input" placeholder="Enter Waybill ID or Order Number" required autocomplete="off">
                         <button type="submit" class="track-btn" id="track-btn-submit">
                             <span id="txt-btn-track">Track</span>
@@ -796,7 +800,7 @@
                             </div>
                             <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 4px 0;">
                                 <h2 style="font-size: 1.4rem; font-weight: 800; margin: 0;" id="res-recipient-name">-</h2>
-                                <span id="res-customer-phone-badge" style="display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 20, 147, 0.12); color: #ff1493; border: 1px solid rgba(255, 20, 147, 0.3); padding: 3px 10px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; font-family: 'Times New Roman', Times, serif;">
+                                <span id="res-customer-phone-badge" style="display: inline-flex; align-items: center; gap: 5px; background: rgba(255, 20, 147, 0.12); color: #8B5A2B; border: 1px solid rgba(255, 20, 147, 0.3); padding: 3px 10px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; font-family: 'Times New Roman', Times, serif;">
                                     <i data-lucide="phone" style="width: 12px; height: 12px;"></i>
                                     <span id="res-customer-phone-top">-</span>
                                 </span>
@@ -880,7 +884,7 @@
                             </div>
                             <div class="detail-item-row">
                                 <span class="detail-label" id="lbl-courier">Courier Partner:</span>
-                                <span class="detail-val" style="color: #ff1493;">TransExpress Logistics</span>
+                                <span class="detail-val" style="color: #8B5A2B;">TransExpress Logistics</span>
                             </div>
                             <div class="detail-item-row">
                                 <span class="detail-label" id="lbl-waybill">Waybill Number:</span>
@@ -932,7 +936,7 @@
                             </div>
                             <div class="detail-item-row">
                                 <span class="detail-label" id="lbl-cod-amount">COD Amount to Pay:</span>
-                                <span class="detail-val" id="res-cod-amount" style="font-size: 1rem; color: #ff1493;">-</span>
+                                <span class="detail-val" id="res-cod-amount" style="font-size: 1rem; color: #8B5A2B;">-</span>
                             </div>
                             <div class="detail-item-row">
                                 <span class="detail-label" id="lbl-items-desc">Items Description:</span>
@@ -948,7 +952,7 @@
                     <!-- Activity / Event History Timeline -->
                     <div class="history-timeline">
                         <div class="history-title">
-                            <i data-lucide="history" style="color: #ff1493; width: 18px; height: 18px;"></i>
+                            <i data-lucide="history" style="color: #8B5A2B; width: 18px; height: 18px;"></i>
                             <span id="lbl-history-title">Tracking History & Activity Log</span>
                         </div>
 
