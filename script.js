@@ -1,10 +1,9 @@
-// Maintenance Mode Guard: Redirect any other page back to index.html while under development
+// Maintenance Mode Guard (Disabled)
 (function () {
-    const currentPath = window.location.pathname.toLowerCase();
-    const isMaintenanceMode = true; // Toggle to false when development is completed
+    const isMaintenanceMode = false;
     if (isMaintenanceMode) {
+        const currentPath = window.location.pathname.toLowerCase();
         const isIndex = currentPath.endsWith('/') || currentPath.endsWith('/index.html') || currentPath.endsWith('\\index.html') || (!currentPath.includes('.html') && !currentPath.includes('.php'));
-        // Allow index.html and exclude external/assets
         if (!isIndex && !currentPath.includes('logo.png')) {
             window.location.replace('index.html');
             return;
@@ -12,13 +11,130 @@
     }
 })();
 
-// Apply stored theme immediately to avoid flash of light theme
+// Force pure light theme unconditionally across all devices
 (function () {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', savedTheme);
+    localStorage.setItem('theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'light');
 })();
 
 // Centralized Color Configuration (Hex to Name Mapping)
+// Comprehensive Color Name Resolver with Nearest-Color Distance
+const standardColorMap = {
+    '#000000': 'Black', '#ffffff': 'White', '#ff0000': 'Red', '#dc143c': 'Crimson Red',
+    '#0000ff': 'Blue', '#008000': 'Green', '#ffff00': 'Yellow', '#808080': 'Gray',
+    '#a9a9a9': 'Dark Gray', '#d3d3d3': 'Light Gray', '#00f2ff': 'Light Blue',
+    '#e100ff': 'Magenta Pink', '#1a2a4a': 'Midnight Blue', '#4a90e2': 'Sky Blue',
+    '#f0f0f0': 'Off-White', '#0a0f1e': 'Dark Navy', '#333333': 'Charcoal Grey',
+    '#ff91a4': 'Salmon Pink', '#800000': 'Maroon', '#900056': 'Dark Pink',
+    '#c4956a': 'Light Brown', '#f5e6c8': 'Light Yellow', '#e6a100': 'Dark Yellow',
+    '#8b4513': 'Brown', '#36454f': 'Charcoal', '#889c8a': 'Sage Green',
+    '#7f94a8': 'Dusty Blue', '#d9cdbe': 'Beige', '#a020f0': 'Purple',
+    '#ffa500': 'Orange', '#ffc0cb': 'Pink', '#808000': 'Olive',
+    '#00ffff': 'Cyan', '#008080': 'Teal', '#4b0082': 'Indigo',
+    '#ee82ee': 'Violet', '#f5f5dc': 'Beige', '#ffe4c4': 'Bisque',
+    '#faebd7': 'Antique White', '#7fffd4': 'Aquamarine', '#5f9ea0': 'Cadet Blue',
+    '#d2691e': 'Chocolate', '#ff7f50': 'Coral', '#6495ed': 'Cornflower Blue',
+    '#b8860b': 'Dark Goldenrod', '#006400': 'Dark Green', '#bdb76b': 'Dark Khaki',
+    '#8b008b': 'Dark Magenta', '#556b2f': 'Dark Olive Green', '#ff8c00': 'Dark Orange',
+    '#9932cc': 'Dark Orchid', '#8b0000': 'Dark Red', '#e9967a': 'Dark Salmon',
+    '#8fbc8f': 'Dark Sea Green', '#483d8b': 'Dark Slate Blue', '#2f4f4f': 'Dark Slate Gray',
+    '#00ced1': 'Dark Turquoise', '#9400d3': 'Dark Violet', '#ff1493': 'Deep Pink',
+    '#00bfff': 'Deep Sky Blue', '#696969': 'Dim Gray', '#1e90ff': 'Dodger Blue',
+    '#b22222': 'Firebrick', '#228b22': 'Forest Green', '#ffd700': 'Gold',
+    '#daa520': 'Goldenrod', '#adff2f': 'Green Yellow', '#f0fff0': 'Honeydew',
+    '#ff69b4': 'Hot Pink', '#cd5c5c': 'Indian Red', '#f0e68c': 'Khaki',
+    '#e6e6fa': 'Lavender', '#fff0f5': 'Lavender Blush', '#7cfc00': 'Lawn Green',
+    '#fffacd': 'Lemon Chiffon', '#add8e6': 'Light Blue', '#f08080': 'Light Coral',
+    '#e0ffff': 'Light Cyan', '#eedd82': 'Light Goldenrod', '#90ee90': 'Light Green',
+    '#ffb6c1': 'Light Pink', '#ffa07a': 'Light Salmon', '#20b2aa': 'Light Sea Green',
+    '#87cefa': 'Light Sky Blue', '#778899': 'Light Slate Gray', '#b0c4de': 'Light Steel Blue',
+    '#ffffe0': 'Light Yellow', '#00ff00': 'Lime', '#32cd32': 'Lime Green',
+    '#faf0e6': 'Linen', '#66cdaa': 'Medium Aquamarine', '#0000cd': 'Medium Blue',
+    '#ba55d3': 'Medium Orchid', '#9370db': 'Medium Purple', '#3cb371': 'Medium Sea Green',
+    '#7b68ee': 'Medium Slate Blue', '#00fa9a': 'Medium Spring Green', '#48d1cc': 'Medium Turquoise',
+    '#c71585': 'Medium Violet Red', '#191970': 'Midnight Blue', '#ffe4e1': 'Misty Rose',
+    '#ffe4b5': 'Moccasin', '#ffdead': 'Navajo White', '#000080': 'Navy',
+    '#fdf5e6': 'Old Lace', '#6b8e23': 'Olive Drab', '#ff4500': 'Orange Red',
+    '#da70d6': 'Orchid', '#eee8aa': 'Pale Goldenrod', '#98fb98': 'Pale Green',
+    '#afeeee': 'Pale Turquoise', '#db7093': 'Pale Violet Red', '#ffefd5': 'Papaya Whip',
+    '#ffdab9': 'Peach Puff', '#cd853f': 'Peru', '#dda0dd': 'Plum',
+    '#b0e0e6': 'Powder Blue', '#bc8f8f': 'Rosy Brown', '#4169e1': 'Royal Blue',
+    '#f4a460': 'Sandy Brown', '#2e8b57': 'Sea Green', '#fff5ee': 'Seashell',
+    '#a0522d': 'Sienna', '#c0c0c0': 'Silver', '#87ceeb': 'Sky Blue',
+    '#6a5acd': 'Slate Blue', '#708090': 'Slate Gray', '#fffafa': 'Snow',
+    '#00ff7f': 'Spring Green', '#4682b4': 'Steel Blue', '#d2b48c': 'Tan',
+    '#d8bfd8': 'Thistle', '#ff6347': 'Tomato', '#40e0d0': 'Turquoise',
+    '#f5deb3': 'Wheat', '#f5f5f5': 'White Smoke', '#9acd32': 'Yellow Green'
+};
+
+function hexToRgb(hex) {
+    let clean = hex.replace('#', '').trim();
+    if (clean.length === 3) {
+        clean = clean.split('').map(c => c + c).join('');
+    }
+    const num = parseInt(clean, 16);
+    return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+    };
+}
+
+function resolveFriendlyColorName(hexOrName, productContext) {
+    if (!hexOrName) return 'Standard';
+    const raw = String(hexOrName).trim();
+    
+    // Check product specific colorNames first
+    if (productContext && productContext.colorNames && typeof productContext.colorNames === 'object') {
+        const found = productContext.colorNames[raw] || productContext.colorNames[raw.toLowerCase()] || productContext.colorNames[raw.toUpperCase()];
+        if (found) return found;
+    }
+
+    // Check global colorNames dictionary
+    if (typeof colorNames !== 'undefined' && colorNames && typeof colorNames === 'object') {
+        const found = colorNames[raw] || colorNames[raw.toLowerCase()] || colorNames[raw.toUpperCase()];
+        if (found) return found;
+    }
+
+    // If it's already an English word without #, capitalize and return
+    if (!raw.startsWith('#')) {
+        return raw.charAt(0).toUpperCase() + raw.slice(1);
+    }
+
+    // Direct lookup in standardColorMap
+    const lowerHex = raw.toLowerCase();
+    if (standardColorMap[lowerHex]) {
+        return standardColorMap[lowerHex];
+    }
+
+    // Nearest Color Calculation using Euclidean distance in RGB space
+    try {
+        const targetRgb = hexToRgb(lowerHex);
+        let minDistance = Infinity;
+        let bestMatchName = 'Custom Shade';
+
+        for (const [mapHex, mapName] of Object.entries(standardColorMap)) {
+            const mapRgb = hexToRgb(mapHex);
+            const dist = Math.sqrt(
+                Math.pow(targetRgb.r - mapRgb.r, 2) +
+                Math.pow(targetRgb.g - mapRgb.g, 2) +
+                Math.pow(targetRgb.b - mapRgb.b, 2)
+            );
+            if (dist < minDistance) {
+                minDistance = dist;
+                bestMatchName = mapName;
+            }
+        }
+        return bestMatchName;
+    } catch (e) {
+        return 'Custom Shade';
+    }
+}
+
+if (typeof window !== 'undefined') {
+    window.resolveFriendlyColorName = resolveFriendlyColorName;
+}
+
 const colorNames = {
     '#ffffff': 'White',
     '#000000': 'Black',
@@ -51,377 +167,7 @@ const colorNames = {
 
 const products = [
     {
-        id: '1', name: 'Infinity Edition', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/4w34h3hZ/Python-Infinity-w.png',
-            'https://i.ibb.co/NnswC8R5/Chat-GPT-Image-Apr-30-2026-12-01-14-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'The Infinity Edition Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '2', name: 'Peace Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/ZzqQ1P97/Python-Peace.png',
-            'https://i.ibb.co/QvcG1bRY/Chat-GPT-Image-May-4-2026-03-30-55-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#000000'], stock: 10,
-        desc: 'Peace Design Regular Tee (Printed) by Roohira. Featuring a premium 220 GSM build for a sleek and meaningful streetwear look.'
-    },
-    {
-        id: '3', name: 'Nike Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/XkDb3jmB/Nike.png',
-            'https://i.ibb.co/BV3wRfLt/Chat-GPT-Image-Apr-30-2026-04-50-57-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Nike Design Regular Tee (Printed) by Roohira. A classic aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
-    },
-    {
-        id: '4', name: 'Stitch Design for Girls', category: 'Regular Tee (Printed)', sections: ['Womens'],
-        images: [
-            'https://i.ibb.co/20MCs0nk/Python-Scrich.png',
-            'https://i.ibb.co/C3SgXz87/Python-Srtich-balck.png',
-            'https://i.ibb.co/Qj1hcz4D/Gemini-Generated-Image-9ngc6s9ngc6s9ngc.png',
-            'https://i.ibb.co/sdC39Jz8/Gemini-Generated-Image-rgqfm7rgqfm7rgqf.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#000000', '#ffffff'],
-        desc: 'Stitch Design for Girls Regular Tee (Printed) by Roohira. Cute and stylish aesthetic combined with high-quality 220 GSM fabric for everyday premium style.'
-    },
-    {
-        id: '5', name: 'BMW Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/gLS0w69Y/Python-BMW.png',
-            'https://i.ibb.co/m5mSZSSB/Chat-GPT-Image-Apr-30-2026-02-48-53-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'],
-        desc: 'BMW Design Regular Tee (Printed) by Roohira. Iconic automotive styling paired with premium 220 GSM comfort.'
-    },
-    {
-        id: '6', name: 'Space Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/jZ8BbSM2/Python-Space.png',
-            'https://i.ibb.co/j9SNvjhp/Chat-GPT-Image-Apr-30-2026-12-19-43-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'],
-        desc: 'Space Design Regular Tee (Printed) by Roohira. Explore the cosmos in style with this premium 220 GSM graphic tee.'
-    },
-    {
-        id: '7', name: 'Air Jordan Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/yFQVXd3p/Chat-GPT-Image-Apr-29-2026-10-04-36-PM.png',
-            'https://i.ibb.co/fdyjtDZY/Chat-GPT-Image-Apr-30-2026-05-36-29-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#000000'], stock: 10,
-        desc: 'Air Jordan Design Regular Tee (Printed) by Roohira. Iconic basketball-inspired aesthetic meets premium 220 GSM comfort.'
-    },
-    {
-        id: '8', name: 'Urban Design Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Womens',],
-        images: [
-            'https://i.ibb.co/G4Nb8tRV/OVERSIZE-190-python.png',
-            'https://i.ibb.co/cSvDHTyx/Chat-GPT-Image-Apr-30-2026-05-10-31-PM.png'
-        ],
-        gsm: '190 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1700, oldPrice: 1900 },
-            'M': { price: 1700, oldPrice: 1900 },
-            'L': { price: 1700, oldPrice: 1900 },
-            'XL': { price: 1700, oldPrice: 1900 }
-        },
-        colors: ['#c803a4ff'],
-        desc: 'Urban Oversized Tee (Printed) by Roohira. A bold, relaxed fit in a refreshing light blue hue, crafted from premium 190 GSM fabric for the ultimate streetwear vibe.'
-    },
-    {
-        id: '9', name: 'Nike Design Oversized Tee (Printed) ', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/7d7g8Hmd/190gsm-python-nike-yellow.png',
-            'https://i.ibb.co/Y7hJ3Mjy/Chat-GPT-Image-Apr-30-2026-04-53-45-PM.png'
-        ],
-        gsm: '190 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1700, oldPrice: 1900 },
-            'M': { price: 1700, oldPrice: 1900 },
-            'L': { price: 1700, oldPrice: 1900 },
-            'XL': { price: 1700, oldPrice: 1900 }
-        },
-        colors: ['#ffff00'],
-        desc: 'Nike Design Oversized Tee (Printed) by Roohira. A high-energy, vibrant yellow design featuring iconic streetwear aesthetics and premium 190 GSM comfort.'
-    },
-    {
-        id: '10', name: 'Infinity Edition Oversized Tee (Printed)', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/yFmFFkG0/Python-Infinity-B.png',
-            'https://i.ibb.co/Y7dvR0vH/Chat-GPT-Image-Apr-30-2026-12-07-41-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1790, oldPrice: 1900 },
-            'M': { price: 1790, oldPrice: 1900 },
-            'L': { price: 1790, oldPrice: 1900 },
-            'XL': { price: 1790, oldPrice: 1900 }
-        },
-        colors: ['#00f2ff'],
-        desc: 'Infinity Edition Oversized Tee (Printed) by Roohira. A refreshing light blue design featuring the iconic infinity motif and premium 220 GSM comfort.'
-    },
-    {
-        id: '11', name: 'GTR Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/jmXL8K9/GTR-Design.png',
-            'https://i.ibb.co/N24VB8L1/Chat-GPT-Image-May-20-2026-08-42-05-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'GTR Design Regular Tee (Printed) by Roohira. Featuring an iconic Nissan GT-R Liberty Walk graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '12', name: 'F30 M3 Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/qLqb4RNj/F30-M3-Design.png',
-            'https://i.ibb.co/fzDHqJw6/Chat-GPT-Image-May-20-2026-08-51-35-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'F30 M3 Design Regular Tee (Printed) by Roohira. Featuring an iconic BMW F30 M3 graphic on the back, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '13', name: 'Samurai Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/35YkhXRs/honor-black-design.png',
-            'https://i.ibb.co/p7ftW61/honor-white-design.png',
-            'https://i.ibb.co/7NVzPVhv/Chat-GPT-Image-May-20-2026-08-47-42-PM.png',
-            'https://i.ibb.co/rK2NP38J/Chat-GPT-Image-May-20-2026-09-03-02-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#000000', '#ffffff'], stock: 10,
-        desc: 'Samurai Design Regular Tee (Printed) by Roohira. A premium 220 GSM streetwear t-shirt featuring a striking Japanese Samurai "Honor" design, available in both black and white.'
-    },
-    {
-        id: '14', name: 'Mustang Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/23M5QKKX/Mustang-desing.png',
-            'https://i.ibb.co/JRBp67cp/Chat-GPT-Image-May-20-2026-08-44-29-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Mustang Design Regular Tee (Printed) by Roohira. Featuring an iconic Ford Mustang graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '15', name: 'Angel Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/hFsMZR7s/angels-design.png',
-            'https://i.ibb.co/rR6WpLZC/Chat-GPT-Image-May-20-2026-08-54-03-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Angel Design Regular Tee (Printed) by Roohira. Featuring a unique angelic graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '16', name: 'Rock Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/gMQPpMfR/rock-desing.png',
-            'https://i.ibb.co/zV2z6pj0/Chat-GPT-Image-May-20-2026-08-57-42-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Rock Design Regular Tee (Printed) by Roohira. Featuring a striking rock-inspired graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '17', name: 'Never Give Up Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/zh9kdHYY/never-give-up-design.png',
-            'https://i.ibb.co/fcL3x12/Chat-GPT-Image-May-20-2026-08-49-40-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Never Give Up Design Regular Tee (Printed) by Roohira. Featuring a motivational graphic, crafted from premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '18', name: 'Waffle T-shirts', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/RTGD6DPx/12.png',
-            'https://i.ibb.co/cKzdSStx/23.png'
-        ],
-        sizeImages: {
-            'M': 'https://i.ibb.co/RTGD6DPx/12.png',
-            'XL': 'https://i.ibb.co/cKzdSStx/23.png'
-        },
-        colorSizes: {
-            '#c4956a': 'M',
-            '#f5e6c8': 'XL'
-        },
-        sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
-        gsm: '240 GSM', brand: 'Roohira',
-        sizes: {
-            'M':  { price: 1450, oldPrice: 1500 },
-            'XL': { price: 1450, oldPrice: 1500 }
-        },
-        colors: ['#c4956a', '#f5e6c8'], stock: 10,
-        desc: 'Waffle T-shirts by Roohira. Premium 240 GSM waffle-knit fabric for a unique texture and superior comfort. Available in Light Brown and Light Yellow. A must-have wardrobe essential.'
-    },
-    {
-        id: '19', name: 'Waffle Printed', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/7JPf15Fw/Chat-GPT-Image-Jun-5-2026-03-26-18-PM78.png',
-            'https://i.ibb.co/j9XPBYs8/Chat-GPT-Image-Jun-5-2026-03-26-18-PM24.png',
-            'https://i.ibb.co/CK4ZcVpH/Chat-GPT-Image-Jun-5-2026-04-31-07-PM.png',
-            'https://i.ibb.co/nNbt6sjK/Chat-GPT-Image-Jun-5-2026-04-29-40-PM.png'
-        ],
-        sizeImages: {
-            'M': 'https://i.ibb.co/7JPf15Fw/Chat-GPT-Image-Jun-5-2026-03-26-18-PM78.png',
-            'XL': 'https://i.ibb.co/j9XPBYs8/Chat-GPT-Image-Jun-5-2026-03-26-18-PM24.png'
-        },
-        colorSizes: {
-            '#c4956a': 'M',
-            '#f5e6c8': 'XL'
-        },
-        sizeChartImg: 'https://i.ibb.co/0RVd9brV/Size-Chart-Waffle-240-GSM-OZ-T-Shirts-01.jpg',
-        gsm: '240 GSM', brand: 'Roohira',
-        sizes: {
-            'M':  { price: 1850, oldPrice: null },
-            'XL': { price: 1850, oldPrice: null }
-        },
-        colors: ['#c4956a', '#f5e6c8'], stock: 10,
-        desc: 'Waffle Printed T-shirts by Roohira. Premium 240 GSM waffle-knit fabric for a unique texture, superior comfort, and clean prints. Features non-clickable sizes selected directly by color dots. Available in Light Brown and Light Yellow.'
-    },
-    {
-        id: '20', name: 'Colour Elephant Design', category: 'Oversized Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/67CjtFx0/Python-Infinity.png',
-            'https://i.ibb.co/WWwpQsLR/Chat-GPT-Image-Jun-6-2026-10-02-04-PM.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1790, oldPrice: 1900 },
-            'M': { price: 1790, oldPrice: 1900 },
-            'L': { price: 1790, oldPrice: 1900 },
-            'XL': { price: 1790, oldPrice: 1900 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Colour Elephant Design Oversized Tee (Printed) by Roohira. Featuring a stunning elephant artwork graphic, crafted from premium 220 GSM fabric for ultimate comfort and design definition.'
-    },
-    {
-        id: '21', name: 'Formular Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/sJJ3LhPL/F1-Design.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Formular Design Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '22', name: 'Monkey Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: [
-            'https://i.ibb.co/2GCH9zF/monke-Design.png'
-        ],
-        gsm: '220 GSM', brand: 'Roohira',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#000000'], stock: 10,
-        desc: 'Monkey Design Regular Tee (Printed) by Roohira. Crafted with premium 220 GSM fabric for ultimate comfort and durability.'
-    },
-    {
-        id: '23', name: 'Long Design Frock', category: 'Frock', sections: ['Womens'],
+        id: '23', name: 'Long Design Frock', category: 'Frock', sections: ['Womens'], isNewArrival: true, isFeatured: true,
         images: [
             'https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png',
             'https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png',
@@ -435,7 +181,7 @@ const products = [
         desc: 'Long Design Frock by Roohira. An elegant and stylish long frock crafted from soft, lightweight premium fabric. Designed with a flattering silhouette and available in Dark Yellow, Light Yellow, and Maroon in versatile Free Size.'
     },
     {
-        id: '24', name: 'Long Batik Frock', category: 'Frock', sections: ['Womens'],
+        id: '24', name: 'Long Batik Frock', category: 'Frock', sections: ['Womens'], isNewArrival: true, isFeatured: true,
         images: [
             'https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',
             'https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',
@@ -457,7 +203,7 @@ const products = [
         desc: 'Long Batik Frock by Roohira. Beautiful traditional and modern fusion long batik frock available in Blue, Dark Yellow, Brown, and Maroon in XL and 2XL sizes.'
     },
     {
-        id: '25', name: 'White Blouse with Embroidery', category: 'Blouse', sections: ['Womens'],
+        id: '25', name: 'White Blouse with Embroidery', category: 'Blouse', sections: ['Womens'], isNewArrival: true, isFeatured: true,
         images: [
             'https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png',
             'https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png',
@@ -478,171 +224,22 @@ const products = [
         },
         colors: ['#ffff00', '#a020f0', '#0000ff', '#008000'], stock: 15,
         desc: 'White Blouse with Embroidery by Roohira. A beautiful, lightweight premium blouse styled with intricate embroidery detail. Available in Yellow, Purple, Blue, and Green in XL, XXL, and XXXL sizes.'
-    },
-    {
-        id: '26', name: 'Garfield Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/4ZZkgf5d/garfilde-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Garfield Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '27', name: 'Focus Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/0VvY5PhY/Focus-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Focus Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '28', name: 'Ducati Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/KpJygRTT/ducarti-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Ducati Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '29', name: 'Dodge Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/v4wJ8PMC/doger-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Dodge Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '30', name: 'Stitch Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/0RLVSK7c/stich-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'Stitch Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '31', name: 'BMW Car Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/TqgwRzLD/BMW-tee-white.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1800, oldPrice: 1850 },
-            'M': { price: 1800, oldPrice: 1850 },
-            'L': { price: 1800, oldPrice: 1850 },
-            'XL': { price: 1800, oldPrice: 1850 }
-        },
-        colors: ['#ffffff'], stock: 10,
-        desc: 'BMW Car Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '32', name: 'Snoopy Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/SCypGfW/snoopy-tee.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: {
-            'S': { price: 1650, oldPrice: 1850 },
-            'M': { price: 1650, oldPrice: 1850 },
-            'L': { price: 1650, oldPrice: 1850 },
-            'XL': { price: 1650, oldPrice: 1850 }
-        },
-        colors: ['#000000'], stock: 10,
-        desc: 'Snoopy Design Regular Tee (Printed) by Python. Crafted with premium 220 GSM fabric and featuring a high-quality A3 DTF print for ultimate durability and comfort.'
-    },
-    {
-        id: '33', name: 'Japan Girl design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/KnYwkn7/japan-girl-desing.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#000000'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Japan Girl design Regular Tee (Printed) by Python. Featuring a premium quality A3 DTF print on 220 GSM fabric for ultimate style and comfort.'
-    },
-    {
-        id: '34', name: 'Reject design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/3YPzTCXJ/Reject-desing.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#000000'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Reject design Regular Tee (Printed) by Python. Featuring a premium quality A3 DTF print on 220 GSM fabric for ultimate style and comfort.'
-    },
-    {
-        id: '35', name: 'Yakuza design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/RpbMdjH4/yakusa-design.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#000000'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Yakuza design Regular Tee (Printed) by Python. Featuring a premium quality A3 DTF print on 220 GSM fabric for ultimate style and comfort.'
-    },
-    {
-        id: '36', name: 'Cat Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/DgfQfYXn/cat-design-blck.png', 'https://i.ibb.co/HfqPgHkd/cat-design-white.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#000000', '#ffffff'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Cat Design Regular Tee (Printed) by Python. Available in both Black and White, featuring premium quality A3 DTF print on 220 GSM fabric.'
-    },
-    {
-        id: '37', name: 'Monkey D Luffy Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/4R4ZJXNF/Monkey-d-luffy-design.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#ffffff'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Monkey D Luffy Design Regular Tee (Printed) by Python. White colour tee featuring premium quality A3 DTF print on 220 GSM fabric.'
-    },
-    {
-        id: '38', name: 'Luffy Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/4RQ4tGKM/Gear-5-design.png', 'https://i.ibb.co/jPvVmqLT/luffy-design-white.png', 'https://i.ibb.co/YTy0dxSr/luffy-design-black.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#ffffff', '#000000'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Luffy Design Regular Tee (Printed) by Python. Available in White and Black, featuring Gear 5 artwork printed on 220 GSM fabric with A3 DTF print.'
-    },
-    {
-        id: '39', name: 'Goku Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/bjsz2V1n/Goku-Design.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#ffffff'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Goku Design Regular Tee (Printed) by Python. White colour tee featuring premium quality A3 DTF print on 220 GSM fabric.'
-    },
-    {
-        id: '40', name: 'Headphone Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/4ZMh98sg/hedset-design.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#ffffff'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Headphone Design Regular Tee (Printed) by Python. White colour tee featuring premium quality A3 DTF print on 220 GSM fabric.'
-    },
-    {
-        id: '41', name: 'Kawasaki Design', category: 'Regular Tee (Printed)', sections: ['Mens', 'Womens', 'Unisexs'],
-        images: ['https://i.ibb.co/NgZjzZgn/kawasaki-design.png'],
-        gsm: '220 GSM', brand: 'Python',
-        sizes: { 'S': { price: 1800, oldPrice: 1850 }, 'M': { price: 1800, oldPrice: 1850 }, 'L': { price: 1800, oldPrice: 1850 }, 'XL': { price: 1800, oldPrice: 1850 } },
-        colors: ['#ffffff'], stock: 10, printTech: 'A3 DTF Print',
-        desc: 'Kawasaki Design Regular Tee (Printed) by Python. White colour tee featuring premium quality A3 DTF print on 220 GSM fabric.'
     }
 ];
+
+// Helper to open product details without ever flashing an old or wrong product image
+function openProductPage(productId) {
+    if (typeof products !== 'undefined' && Array.isArray(products)) {
+        const found = products.find(item => String(item.id) === String(productId));
+        if (found) {
+            try {
+                sessionStorage.setItem('roohira_selected_product_' + productId, JSON.stringify(found));
+            } catch (e) {}
+        }
+    }
+    window.location.href = 'product-detail.html?id=' + encodeURIComponent(productId);
+}
+window.openProductPage = openProductPage;
 
 // --- Cart System ---
 let cart = [];
@@ -690,129 +287,227 @@ function saveCart() {
     if(typeof updateFreeDeliveryBar === 'function') updateFreeDeliveryBar();
 }
 
+function generateProductCardHTML(p) {
+    const hasSizes = p.sizes && typeof p.sizes === 'object';
+    const displayPrice = hasSizes ? Object.values(p.sizes)[0].price : p.price;
+    const displayOldPrice = hasSizes ? Object.values(p.sizes)[0].oldPrice : p.oldPrice;
+
+    // Calculate discount percentage
+    let discountBadge = '';
+    if (displayOldPrice && displayOldPrice > displayPrice) {
+        const discountPercent = Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100);
+        discountBadge = `<span class="card-discount-badge">${discountPercent}% OFF</span>`;
+    }
+
+    const isOutOfStock = p.stock === 0;
+
+    // Determine wishlist state
+    const wished = (typeof isInWishlist === 'function') ? isInWishlist(p.id) : false;
+    const heartColor = wished ? 'color: #DC143C;' : 'color: #6D5D53;';
+
+    // Available sizes array
+    const availableSizes = hasSizes ? Object.keys(p.sizes) : ['Free Size'];
+    const gsmText = (p.gsm || p.material || '').trim();
+    const sectionBadge = (p.sections && p.sections.length > 0) ? p.sections[0] : '';
+    const imagesArr = (p.images && Array.isArray(p.images) && p.images.length) ? p.images : ['logo.png'];
+
+    return `
+    <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" 
+         onclick="openProductPage('${p.id}')" 
+         onmouseenter="startHoverSlide('${p.id}', this.querySelector('.card-slider'))"
+         onmouseleave="stopHoverSlide('${p.id}', this.querySelector('.card-slider'))">
+        
+        <!-- Image Area with Badges & Hover Slider -->
+        <div class="product-image-box">
+            ${discountBadge}
+            
+            <!-- Wishlist Toggle overlay -->
+            <button class="card-wishlist-btn" onclick="event.stopPropagation(); handleCardWishlistToggle('${p.id}', this)" title="Add to Wishlist">
+                <i data-lucide="heart" style="width: 15px; height: 15px; ${heartColor}" ${wished ? 'fill="#DC143C"' : ''}></i>
+            </button>
+
+            <!-- Fabric & Section Tag -->
+            <div class="product-card-tags">
+                ${gsmText ? `<span class="card-gsm-tag">${gsmText}</span>` : ''}
+                ${sectionBadge ? `<span class="card-section-tag">${sectionBadge}</span>` : ''}
+            </div>
+
+            <div class="card-slider">
+                ${imagesArr.map(img => `<img src="${img}" alt="${p.name}" loading="lazy">`).join('')}
+            </div>
+            ${imagesArr.length > 1 ? `
+            <div class="card-slider-indicators">
+                ${imagesArr.map((_, idx) => `<div class="card-slider-indicator-dot ${idx === 0 ? 'active' : ''}"></div>`).join('')}
+            </div>
+            ` : ''}
+        </div>
+
+        <!-- Detailed Product Info Section -->
+        <div class="product-card-body">
+            
+            <!-- Category & Reviews Rating Row -->
+            <div class="product-card-meta">
+                <span class="product-card-category">${p.category || 'Roohira Apparel'}</span>
+                <div class="product-card-rating">
+                    <i data-lucide="star" style="width: 11px; height: 11px; fill: #B38738;"></i>
+                    <span>${(p.rating || 5.0).toFixed(1)}</span>
+                </div>
+            </div>
+
+            <!-- Product Name -->
+            <h3 class="product-card-title" title="${p.name}">${p.name}</h3>
+            
+            <!-- Price Row -->
+            <div class="product-card-pricing">
+                <span class="card-price-current">Rs. ${Number(displayPrice).toLocaleString()}.00</span>
+                ${displayOldPrice ? `<span class="card-price-old">Rs. ${Number(displayOldPrice).toLocaleString()}</span>` : ''}
+            </div>
+
+            <!-- Available Sizes Chips -->
+            <div class="product-card-sizes">
+                <span class="size-label">Sizes:</span>
+                <div class="size-chips">
+                    ${availableSizes.slice(0, 4).map(sz => `<span class="size-chip">${sz}</span>`).join('')}
+                    ${availableSizes.length > 4 ? `<span class="size-chip-more">+${availableSizes.length - 4}</span>` : ''}
+                </div>
+            </div>
+
+            <!-- Color Swatches & Action Bar -->
+            <div class="product-card-footer">
+                <!-- Colors Preview -->
+                <div class="card-color-swatches">
+                    ${(p.colors || []).slice(0, 5).map(c => {
+                        const imgUrl = (p.colorImages && p.colorImages[c]) ? p.colorImages[c] : null;
+                        const cName = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
+                        if (imgUrl) {
+                            return `<span class="swatch-circle" style="background-image: url('${imgUrl}');" title="${cName}"></span>`;
+                        } else {
+                            return `<span class="swatch-circle" style="background: ${c};" title="${cName}"></span>`;
+                        }
+                    }).join('')}
+                </div>
+
+                <!-- Quick Add Button with Feedback -->
+                ${isOutOfStock ? `
+                    <span class="card-sold-out-badge">Sold Out</span>
+                ` : `
+                    <button class="card-action-btn" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${imagesArr[0]}')">
+                        <i data-lucide="shopping-bag" style="width: 13px; height: 13px;"></i> Add
+                    </button>
+                `}
+            </div>
+
+        </div>
+    </div>`;
+}
+
+function renderHomePageSections() {
+    // 1. Render EXCLUSIVE NEW ARRIVALS section (#new-arrivals-grid)
+    const newArrivalsGrid = document.getElementById('new-arrivals-grid');
+    if (newArrivalsGrid) {
+        let newArrivalItems = products.filter(p => p.isNewArrival === true);
+        if (!newArrivalItems.length) {
+            newArrivalItems = products.slice(0, 4);
+        }
+        if (newArrivalItems.length > 0) {
+            newArrivalsGrid.innerHTML = newArrivalItems.map(p => generateProductCardHTML(p)).join('');
+        } else {
+            newArrivalsGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #FAF7F2; border-radius: 4px; border: 1.5px dashed rgba(139, 90, 43, 0.3);">
+                    <h4 style="font-family: 'Playfair Display', serif; color: #1A120B; font-size: 1.1rem; margin-bottom: 6px;">New Collection Dropping Soon</h4>
+                    <p style="color: #6D5D53; font-size: 0.88rem; margin: 0;">Check back shortly for our exclusive new seasonal arrivals.</p>
+                </div>
+            `;
+        }
+    }
+
+    // 2. Render Signature Selection / Featured section (#product-grid)
+    const featuredGrid = document.getElementById('product-grid');
+    if (featuredGrid) {
+        let featuredItems = products.filter(p => p.isFeatured === true);
+        if (!featuredItems.length) {
+            featuredItems = products.slice(0, 4);
+        }
+        if (featuredItems.length > 0) {
+            featuredGrid.innerHTML = featuredItems.map(p => generateProductCardHTML(p)).join('');
+        } else {
+            featuredGrid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #FAF7F2; border-radius: 4px; border: 1.5px dashed rgba(139, 90, 43, 0.3);">
+                    <h4 style="font-family: 'Playfair Display', serif; color: #1A120B; font-size: 1.1rem; margin-bottom: 6px;">Featured Masterpieces</h4>
+                    <p style="color: #6D5D53; font-size: 0.88rem; margin: 0;">Our handpicked signature collection will be available soon.</p>
+                </div>
+            `;
+        }
+    }
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    if (typeof initFastScrollAnimations === 'function') setTimeout(initFastScrollAnimations, 40);
+}
+
+let shopCardObserver = null;
+let shopRevealFallbackBound = false;
+
+// Safety net: reveal any card that has entered the viewport.
+// Guarantees cards can never stay invisible even if IntersectionObserver is throttled.
+function shopRevealFallbackCheck() {
+    const grid = document.getElementById('product-grid');
+    if (!grid) return;
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    grid.querySelectorAll('.product-card:not(.is-visible)').forEach(card => {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < vh - 20 && rect.bottom > -20) {
+            card.classList.add('is-visible');
+        }
+    });
+}
+
+function initShopCardReveal() {
+    const grid = document.getElementById('product-grid');
+    if (!grid || !document.querySelector('.shop-page')) return;
+    const cards = Array.from(grid.querySelectorAll('.product-card'));
+    if (!cards.length) return;
+
+    // Fallback: show everything immediately if IntersectionObserver is unavailable
+    if (!('IntersectionObserver' in window)) {
+        cards.forEach(c => c.classList.add('is-visible'));
+        return;
+    }
+
+    if (shopCardObserver) shopCardObserver.disconnect();
+
+    shopCardObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { root: null, rootMargin: '0px 0px -30px 0px', threshold: 0.06 });
+
+    cards.forEach((card, index) => {
+        // Only animate cards that are not yet in view
+        card.classList.remove('is-visible');
+        card.style.transitionDelay = (index % 4) * 55 + 'ms';
+        shopCardObserver.observe(card);
+    });
+
+    // Scroll-based safety net (runs alongside the observer)
+    if (!shopRevealFallbackBound) {
+        shopRevealFallbackBound = true;
+        window.addEventListener('scroll', shopRevealFallbackCheck, { passive: true });
+        window.addEventListener('resize', shopRevealFallbackCheck);
+    }
+    requestAnimationFrame(shopRevealFallbackCheck);
+    setTimeout(shopRevealFallbackCheck, 350);
+    setTimeout(shopRevealFallbackCheck, 1200);
+}
+
 function displayProducts(filteredProducts) {
     const grid = document.getElementById('product-grid');
     if (!grid) return;
-    grid.innerHTML = '';
-    filteredProducts.forEach((p) => {
-        const hasSizes = p.sizes && typeof p.sizes === 'object';
-        const displayPrice = hasSizes ? Object.values(p.sizes)[0].price : p.price;
-        const displayOldPrice = hasSizes ? Object.values(p.sizes)[0].oldPrice : p.oldPrice;
-
-        // Calculate discount percentage
-        let discountBadge = '';
-        if (displayOldPrice && displayOldPrice > displayPrice) {
-            const discountPercent = Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100);
-            discountBadge = `<span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.7rem; font-weight: 800; z-index: 10; box-shadow: 0 4px 10px rgba(220, 20, 60, 0.3);">${discountPercent}% OFF</span>`;
-        }
-
-        const isOutOfStock = p.stock === 0;
-        const stockBadge = isOutOfStock
-            ? `<span style="background: #fdf2f2; color: #9b1c1c; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; display: inline-block; margin-left: 8px; vertical-align: middle; border: 1px solid #fbd5d5;">OUT OF STOCK</span>`
-            : `<span style="background: #f3faf7; color: #03543f; padding: 2px 8px; border-radius: 4px; font-size: 0.6rem; font-weight: 800; display: inline-block; margin-left: 8px; vertical-align: middle; border: 1px solid #def7ec;">IN STOCK</span>`;
-
-        // Determine wishlist state
-        const wished = isInWishlist(p.id);
-        const heartColor = wished ? 'color: #DC143C;' : 'color: #6D5D53;';
-
-        // Available sizes array
-        const availableSizes = hasSizes ? Object.keys(p.sizes) : ['Free Size'];
-        const gsmText = p.gsm || (p.category && p.category.includes('Tee') ? '220 GSM' : 'Premium');
-        const sectionBadge = (p.sections && p.sections.length > 0) ? p.sections[0] : '';
-
-        grid.innerHTML += `
-        <div class="product-card ${isOutOfStock ? 'out-of-stock' : ''}" 
-             onclick="window.location.href='product-detail.html?id=${p.id}'" 
-             onmouseenter="startHoverSlide('${p.id}', this.querySelector('.card-slider'))"
-             onmouseleave="stopHoverSlide('${p.id}', this.querySelector('.card-slider'))"
-             style="cursor: pointer; animation: fadeIn 0.4s ease forwards; overflow: hidden; display: flex; flex-direction: column; position: relative; background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.1); border-radius: 16px; box-shadow: 0 6px 20px rgba(60, 42, 33, 0.05); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease; padding: 12px; ${isOutOfStock ? 'opacity: 0.75;' : ''}">
-            
-            <!-- Image Area with Badges & Hover Slider -->
-            <div class="product-image" style="overflow: hidden; position: relative; width: 100%; aspect-ratio: 1/1; border-radius: 12px; background: #F8F6F2;">
-                ${discountBadge}
-                
-                <!-- Wishlist Toggle overlay -->
-                <div class="wishlist-overlay-btn" onclick="event.stopPropagation(); handleCardWishlistToggle('${p.id}', this)" 
-                     style="position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border: 1px solid rgba(60, 42, 33, 0.12); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 12; cursor: pointer; transition: 0.25s; box-shadow: 0 4px 12px rgba(60,42,33,0.08);"
-                     title="Add to Wishlist">
-                    <i data-lucide="heart" style="width: 17px; height: 17px; ${heartColor}" ${wished ? 'fill="#DC143C"' : ''}></i>
-                </div>
-
-                <!-- Fabric & Section Tag -->
-                <div style="position: absolute; bottom: 10px; left: 10px; z-index: 10; display: flex; gap: 5px;">
-                    <span style="background: rgba(26, 18, 11, 0.82); backdrop-filter: blur(6px); color: #FFFFFF; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.5px;">${gsmText}</span>
-                    ${sectionBadge ? `<span style="background: rgba(255, 255, 255, 0.9); color: #1A120B; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; border: 1px solid rgba(60, 42, 33, 0.1);">${sectionBadge}</span>` : ''}
-                </div>
-
-                <div class="card-slider" style="display: flex; transition: transform 0.5s ease; height: 100%; width: 100%;">
-                    ${p.images.map(img => `<img src="${img}" style="width: 100%; flex-shrink: 0; height: 100%; object-fit: cover;">`).join('')}
-                </div>
-                ${p.images.length > 1 ? `
-                <div class="card-slider-indicators">
-                    ${p.images.map((_, idx) => `<div class="card-slider-indicator-dot ${idx === 0 ? 'active' : ''}"></div>`).join('')}
-                </div>
-                ` : ''}
-            </div>
-
-            <!-- Detailed Product Info Section -->
-            <div class="product-info" style="padding: 14px 6px 4px; display: flex; flex-direction: column; flex-grow: 1;">
-                
-                <!-- Category & Reviews Rating Row -->
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 0.72rem; color: #8B5A2B; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">${p.category || 'Roohira Apparel'}</span>
-                    <div style="display: flex; align-items: center; gap: 3px; font-size: 0.72rem; color: #B38738; font-weight: 700;">
-                        <i data-lucide="star" style="width: 12px; height: 12px; fill: #B38738;"></i>
-                        <span>4.9</span>
-                    </div>
-                </div>
-
-                <!-- Product Name -->
-                <h3 style="margin: 0 0 8px; font-size: 1.02rem; font-weight: 700; color: #1A120B; line-height: 1.35; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.name}">${p.name}</h3>
-                
-                <!-- Price Row -->
-                <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px;">
-                    <p class="price" style="margin: 0; font-size: 1.15rem; font-weight: 800; color: #1A120B;">Rs. ${displayPrice.toLocaleString()}.00</p>
-                    ${displayOldPrice ? `<p style="text-decoration: line-through; color: #8C7D73; font-size: 0.82rem; margin: 0;">Rs. ${displayOldPrice.toLocaleString()}</p>` : ''}
-                </div>
-
-                <!-- Available Sizes Chips -->
-                <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 12px; flex-wrap: wrap;">
-                    <span style="font-size: 0.7rem; color: #8C7D73; margin-right: 4px; font-weight: 600;">Sizes:</span>
-                    ${availableSizes.slice(0, 4).map(sz => `<span style="font-size: 0.68rem; font-weight: 700; color: #1A120B; background: #FAF7F2; border: 1px solid rgba(60, 42, 33, 0.12); padding: 2px 7px; border-radius: 4px;">${sz}</span>`).join('')}
-                    ${availableSizes.length > 4 ? `<span style="font-size: 0.65rem; color: #8C7D73;">+${availableSizes.length - 4}</span>` : ''}
-                </div>
-
-                <!-- Color Swatches & Action Bar -->
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(60, 42, 33, 0.07);">
-                    <!-- Colors Preview -->
-                    <div style="display: flex; gap: 5px; align-items: center;">
-                        ${(p.colors || []).map(c => {
-                            const imgUrl = (p.colorImages && p.colorImages[c]) ? p.colorImages[c] : null;
-                            const cName = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
-                            if (imgUrl) {
-                                return `<span style="width: 17px; height: 17px; border-radius: 50%; background-image: url('${imgUrl}'); background-size: cover; background-position: center; border: 1px solid rgba(60,42,33,0.2);" title="${cName}"></span>`;
-                            } else {
-                                return `<span style="width: 13px; height: 13px; border-radius: 50%; background: ${c}; border: 1px solid rgba(60,42,33,0.25);" title="${cName}"></span>`;
-                            }
-                        }).join('')}
-                    </div>
-
-                    <!-- Quick Add Button with Feedback -->
-                    ${isOutOfStock ? `
-                        <span style="font-size: 0.72rem; color: #9b1c1c; font-weight: 700;">Sold Out</span>
-                    ` : `
-                        <button class="card-add-btn" onclick="event.stopPropagation(); addToCart('${p.name}', ${displayPrice}, '${p.images[0]}')" 
-                                style="background: #1A120B; color: #FFFFFF; border: none; padding: 7px 14px; border-radius: 8px; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.25s;"
-                                onmouseover="this.style.background='#8B5A2B'" onmouseout="this.style.background='#1A120B'">
-                            <i data-lucide="plus" style="width: 14px; height: 14px;"></i> Add
-                        </button>
-                    `}
-                </div>
-
-            </div>
-        </div>`;
-    });
+    grid.innerHTML = (filteredProducts || []).map(p => generateProductCardHTML(p)).join('');
     if (typeof lucide !== 'undefined') lucide.createIcons();
+    initShopCardReveal();
 }
 
 let hoverIntervals = {};
@@ -870,6 +565,9 @@ let subcategorySelected = false;
 
 function handleSortChange(val) {
     currentSort = val;
+    if (typeof renderDynamicShopCategories === 'function') {
+        renderDynamicShopCategories();
+    }
     filterShop();
 }
 
@@ -933,15 +631,19 @@ function selectCategory(cat, btn) {
     // Show/hide subcategory buttons depending on selected category
     const tshirtSubs = document.querySelectorAll('.t-shirt-sub');
     const frockSubs = document.querySelectorAll('.frock-sub');
+    const subRow = document.getElementById('subcategory-row');
     if (cat === 'T-Shirts') {
         tshirtSubs.forEach(b => b.style.display = '');
         frockSubs.forEach(b => b.style.display = 'none');
+        if (subRow) subRow.style.display = 'flex';
     } else if (cat === 'Frock') {
         tshirtSubs.forEach(b => b.style.display = 'none');
         frockSubs.forEach(b => b.style.display = '');
+        if (subRow) subRow.style.display = 'none';
     } else {
         tshirtSubs.forEach(b => b.style.display = 'none');
         frockSubs.forEach(b => b.style.display = 'none');
+        if (subRow) subRow.style.display = 'none';
     }
 
     // Reset subcategory buttons to 'All'
@@ -975,6 +677,73 @@ function selectCategory(cat, btn) {
     setTimeout(() => {
         scrollToActiveButtonInContainer('#category-row-wrapper .filter-scroll-container', '.category-btn.active');
     }, 100);
+}
+
+// Dynamically generate Category boxes on the Shop page from Firestore and product catalog
+// Filtered strictly by selected Section (Mens, Womens, Kids, Others) per user requirements
+function renderDynamicShopCategories() {
+    const row = document.getElementById('category-tab-row');
+    if (!row) return;
+
+    const targetSec = (currentSection || 'All').toLowerCase();
+
+    // 1. Gather all categories eligible for the active section
+    const catSet = new Set();
+
+    // From products in memory that match the current section
+    products.forEach(p => {
+        if (!p.category || typeof p.category !== 'string' || !p.category.trim()) return;
+        const pSecs = (p.sections || []).map(s => s.toLowerCase());
+        let matchesSec = (targetSec === 'all');
+        if (!matchesSec) {
+            if (targetSec === 'mens' || targetSec === 'men') {
+                matchesSec = pSecs.includes('mens') || pSecs.includes('unisexs');
+            } else if (targetSec === 'womens' || targetSec === 'women') {
+                matchesSec = pSecs.includes('womens') || pSecs.includes('unisexs') || p.category === 'Frock' || p.category === 'Blouse';
+            } else if (targetSec === 'kids' || targetSec === 'kid') {
+                matchesSec = pSecs.includes('kids');
+            } else if (targetSec === 'others' || targetSec === 'other') {
+                matchesSec = pSecs.includes('others') || pSecs.includes('other') || pSecs.includes('unisexs');
+            }
+        }
+        if (matchesSec) {
+            catSet.add(p.category.trim());
+        }
+    });
+
+    // Also inspect Firestore liveCategories section settings
+    if (typeof liveCategories !== 'undefined' && Array.isArray(liveCategories)) {
+        liveCategories.forEach(c => {
+            if (!c.name) return;
+            const cSecs = (c.sections || ['Mens', 'Womens', 'Kids', 'Others']).map(s => s.toLowerCase());
+            let matches = (targetSec === 'all');
+            if (!matches) {
+                if (targetSec === 'mens' || targetSec === 'men') matches = cSecs.includes('mens');
+                else if (targetSec === 'womens' || targetSec === 'women') matches = cSecs.includes('womens');
+                else if (targetSec === 'kids' || targetSec === 'kid') matches = cSecs.includes('kids');
+                else if (targetSec === 'others' || targetSec === 'other') matches = cSecs.includes('others');
+            }
+            if (matches) {
+                catSet.add(c.name.trim());
+            }
+        });
+    }
+
+    const categoriesList = Array.from(catSet);
+
+    // If current selected category is not in the filtered section categories list, reset to 'All'
+    if (currentCategory !== 'All' && !categoriesList.some(cat => cat.toLowerCase() === currentCategory.toLowerCase())) {
+        currentCategory = 'All';
+    }
+
+    // Build the buttons HTML
+    let html = `<button class="shop-filter-btn category-btn ${currentCategory === 'All' ? 'active' : ''}" onclick="selectCategory('All', this)">All Categories</button>`;
+    categoriesList.forEach(cat => {
+        const isActive = (currentCategory.toLowerCase() === cat.toLowerCase());
+        html += `<button class="shop-filter-btn category-btn ${isActive ? 'active' : ''}" onclick="selectCategory('${cat.replace(/'/g, "\\'")}', this)">${cat}</button>`;
+    });
+
+    row.innerHTML = html;
 }
 
 function selectSubcategory(subcat, btn) {
@@ -1022,17 +791,68 @@ function selectGSM(gsm, btn) {
     }, 100);
 }
 
+let currentSection = 'All'; // 'All', 'Mens', 'Womens', 'Kids'
+
+function selectSection(sec, btn) {
+    currentSection = sec;
+    document.querySelectorAll('.section-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        const text = (b.textContent || '').trim().toLowerCase();
+        if (onclickAttr.includes(`'${sec}'`) || (sec === 'All' && text.includes('all')) || (sec !== 'All' && text.includes(sec.toLowerCase()))) {
+            b.classList.add('active');
+        } else {
+            b.classList.remove('active');
+        }
+    });
+
+    // Update dept badge on shop page
+    const badgeRow = document.getElementById('active-dept-badge-row');
+    const badgeLabel = document.getElementById('active-dept-label');
+    if (badgeRow && badgeLabel) {
+        if (sec && sec !== 'All') {
+            const deptNames = { 'Mens': "Men's Collection", 'Womens': "Women's Collection", 'Kids': "Kids' Collection", 'Others': "Other Collections" };
+            badgeLabel.textContent = '🏷 ' + (deptNames[sec] || sec);
+            badgeRow.style.display = 'flex';
+        } else {
+            badgeRow.style.display = 'none';
+        }
+    }
+
+    // Rebuild categories for the selected section
+    if (typeof renderDynamicShopCategories === 'function') {
+        renderDynamicShopCategories();
+    }
+
+    filterShop();
+}
+
 function filterShop() {
     let filtered = products;
+
+    // 0. Filter by Department / Section (Mens, Womens, Kids)
+    if (currentSection && currentSection !== 'All') {
+        const targetSec = currentSection.toLowerCase();
+        filtered = filtered.filter(p => {
+            const secs = (p.sections || []).map(s => s.toLowerCase());
+            if (targetSec === 'mens' || targetSec === 'men') {
+                return secs.includes('mens') || secs.includes('unisexs');
+            } else if (targetSec === 'womens' || targetSec === 'women') {
+                return secs.includes('womens') || secs.includes('unisexs') || p.category === 'Frock' || p.category === 'Blouse';
+            } else if (targetSec === 'kids' || targetSec === 'kid') {
+                return secs.includes('kids');
+            } else if (targetSec === 'others' || targetSec === 'other') {
+                return secs.includes('others') || secs.includes('other') || secs.includes('unisexs');
+            }
+            return true;
+        });
+    }
 
     // 1. Filter by Category
     if (currentCategory !== 'All') {
         if (currentCategory === 'T-Shirts') {
-            filtered = filtered.filter(p => p.category.toLowerCase().includes('tee') || p.category.toLowerCase().includes('t-shirt') || p.category.toLowerCase().includes('waffle'));
-        } else if (currentCategory === 'Frock') {
-            filtered = filtered.filter(p => p.category === 'Frock');
-        } else if (currentCategory === 'Blouse') {
-            filtered = filtered.filter(p => p.category === 'Blouse');
+            filtered = filtered.filter(p => (p.category || '').toLowerCase().includes('tee') || (p.category || '').toLowerCase().includes('t-shirt') || (p.category || '').toLowerCase().includes('waffle'));
+        } else {
+            filtered = filtered.filter(p => (p.category || '').toLowerCase() === currentCategory.toLowerCase());
         }
     }
 
@@ -1128,6 +948,13 @@ function filterShop() {
 
     displayProducts(filtered);
 
+    // Results counter
+    const countEl = document.getElementById('shop-results-count');
+    if (countEl) {
+        const secLabel = (currentSection && currentSection !== 'All') ? currentSection : '';
+        countEl.textContent = filtered.length + (filtered.length === 1 ? ' product' : ' products') + (secLabel ? ' in ' + secLabel : '');
+    }
+
     // Empty State if 0 matching products
     const grid = document.getElementById('product-grid');
     if (grid && filtered.length === 0) {
@@ -1165,10 +992,10 @@ function filterProducts(category) {
         document.querySelectorAll('.gsm-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
         });
-    } else if (category === 'Frock') {
+    } else if (category === 'Frock' || category === 'Frocks') {
         currentCategory = 'Frock';
         categorySelected = true;
-        currentSubcategory = 'Frock';
+        currentSubcategory = 'All';
         subcategorySelected = false;
         currentGSM = 'all';
         // Show frock subs, hide t-shirt subs
@@ -1183,7 +1010,24 @@ function filterProducts(category) {
         document.querySelectorAll('.gsm-btn').forEach(b => {
             b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
         });
-    } else if (category === 'T-Shirts') {
+    } else if (category === 'Blouse' || category === 'Blouses') {
+        currentCategory = 'Blouse';
+        categorySelected = true;
+        currentSubcategory = 'All';
+        subcategorySelected = false;
+        currentGSM = 'all';
+        document.querySelectorAll('.t-shirt-sub').forEach(b => b.style.display = 'none');
+        document.querySelectorAll('.frock-sub').forEach(b => b.style.display = 'none');
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'Blouse'"));
+        });
+        document.querySelectorAll('.subcategory-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'All'"));
+        });
+        document.querySelectorAll('.gsm-btn').forEach(b => {
+            b.classList.toggle('active', (b.getAttribute('onclick') || '').includes("'all'"));
+        });
+    } else if (category === 'T-Shirts' || category === 't-shirts') {
         currentCategory = 'T-Shirts';
         categorySelected = true;
         currentSubcategory = 'All';
@@ -1219,6 +1063,8 @@ function filterProducts(category) {
         });
     }
     updateFilterVisibility();
+    const subRowEl = document.getElementById('subcategory-row');
+    if (subRowEl) subRowEl.style.display = (currentCategory === 'T-Shirts') ? 'flex' : 'none';
     filterShop();
 }
 
@@ -1226,69 +1072,199 @@ function filterProducts(category) {
 function renderCart() {
     const cartContainer = document.getElementById('cart-items');
     const totalElement = document.getElementById('cart-total');
+    const grandElement = document.getElementById('cart-total-grand');
     if (!cartContainer) return;
     if (cart.length === 0) {
-        cartContainer.innerHTML = '<div style="text-align: center; padding: 50px; color: var(--text-muted);">Your cart is empty.</div>';
+        cartContainer.innerHTML = `
+            <div class="cart-empty">
+                <div class="empty-ic"><i data-lucide="shopping-bag"></i></div>
+                <h3>Your Shopping Bag is Empty</h3>
+                <p>Explore handcrafted luxury pieces from our latest collection.</p>
+                <a href="shop.html" class="acct-btn acct-btn--primary">
+                    <span>Explore Shop</span>
+                    <i data-lucide="arrow-right"></i>
+                </a>
+            </div>
+        `;
         if (totalElement) totalElement.innerText = 'Rs. 0.00';
+        if (grandElement) grandElement.innerText = 'Rs. 0.00';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
         return;
     }
     let html = '', total = 0;
     cart.forEach((item, index) => {
-        const itemTotal = item.price * item.quantity;
+        const itemTotal = (item.price || 0) * (item.quantity || 1);
         total += itemTotal;
+        const colorName = typeof resolveFriendlyColorName === 'function' ? resolveFriendlyColorName(item.color) : (item.color || 'Default');
+        const imgSrc = item.image || 'logo.png';
+
         html += `
-            <div class="cart-item glass" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; margin-bottom: 15px;">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <img src="${item.image}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
-                    <div>
-                        <h4 style="margin: 0;">${item.name}</h4>
-                        <p style="color: var(--text-muted); font-size: 0.8rem; margin: 2px 0;">Size: ${item.size} | Color: ${colorNames[item.color] || item.color}</p>
-                        <p style="color: #000; font-weight: 800; margin: 5px 0 0;">Rs. ${itemTotal.toLocaleString()}</p>
+            <div class="cart-card">
+                <img src="${imgSrc}" alt="${item.name}" class="cart-thumb">
+                <div class="cart-body">
+                    <div class="cart-top">
+                        <h4 class="cart-name">${item.name}</h4>
+                        <button onclick="removeFromCart(${index})" class="cart-remove" title="Remove Item">
+                            <i data-lucide="trash-2"></i>
+                        </button>
                     </div>
-                </div>
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.05); padding: 5px 10px; border-radius: 8px;">
-                        <button onclick="updateQuantity(${index}, -1)" class="btn-qty">-</button>
-                        <span style="min-width: 20px; text-align: center; font-weight: 800;">${item.quantity}</span>
-                        <button onclick="updateQuantity(${index}, 1)" class="btn-qty">+</button>
+                    <div class="cart-tags">
+                        <span class="cart-tag">Size: ${item.size || 'Free'}</span>
+                        <span class="cart-tag cart-tag--muted">Color: ${colorName}</span>
                     </div>
-                    <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff4444; cursor: pointer;"><i data-lucide="trash-2" style="width: 18px;"></i></button>
+                    <div class="cart-foot">
+                        <div class="qty-step">
+                            <button onclick="updateQuantity(${index}, -1)" aria-label="Decrease quantity">-</button>
+                            <span class="qty-num">${item.quantity}</span>
+                            <button onclick="updateQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+                        </div>
+                        <div class="cart-line-total">Rs. ${itemTotal.toLocaleString()}.00</div>
+                    </div>
                 </div>
             </div>`;
     });
     cartContainer.innerHTML = html;
     if (totalElement) totalElement.innerText = `Rs. ${total.toLocaleString()}.00`;
-    lucide.createIcons();
+    if (grandElement) grandElement.innerText = `Rs. ${total.toLocaleString()}.00`;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 // --- Auth System ---
 let currentUser = JSON.parse(localStorage.getItem('roohira_user')) || null;
 
+// Helper: Safely resolve whether any patron is signed in (Firebase Auth, local storage session, or admin)
+function getLoggedInUser() {
+    if (currentUser && (currentUser.email || currentUser.uid)) {
+        return currentUser;
+    }
+    try {
+        const local = JSON.parse(localStorage.getItem('roohira_user') || 'null');
+        if (local && (local.email || local.uid || local.name)) {
+            currentUser = local;
+            return local;
+        }
+    } catch (e) {}
+    if (typeof auth !== 'undefined' && auth && auth.currentUser) {
+        const fbUser = {
+            uid: auth.currentUser.uid,
+            name: auth.currentUser.displayName || auth.currentUser.email.split('@')[0],
+            email: auth.currentUser.email
+        };
+        try { localStorage.setItem('roohira_user', JSON.stringify(fbUser)); } catch (e) {}
+        currentUser = fbUser;
+        return fbUser;
+    }
+    return null;
+}
+
+function isUserLoggedIn() {
+    return getLoggedInUser() !== null;
+}
+
+function closeAuthRequiredModal() {
+    const modal = document.getElementById('roohira-auth-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => {
+            if (modal && !modal.classList.contains('active')) {
+                modal.remove();
+            }
+        }, 320);
+    }
+    document.body.style.overflow = '';
+}
+
+function showAuthRequiredModal(actionText = 'place your order', redirectPage = 'checkout.html') {
+    let modal = document.getElementById('roohira-auth-modal');
+    if (modal) modal.remove();
+
+    const redirectUrl = encodeURIComponent(redirectPage);
+
+    modal = document.createElement('div');
+    modal.id = 'roohira-auth-modal';
+    modal.innerHTML = `
+        <div class="roohira-auth-backdrop" onclick="closeAuthRequiredModal()"></div>
+        <div class="roohira-auth-dialog">
+            <button class="roohira-auth-close" onclick="closeAuthRequiredModal()" aria-label="Close">&times;</button>
+            <div class="roohira-auth-badge">
+                <div class="roohira-auth-icon-circle">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="roohira-auth-brand">ROOHIRA COLLECTION</div>
+            <h3 class="roohira-auth-title">Sign In Required</h3>
+            <p class="roohira-auth-subtitle">
+                Order එක තහවුරු කිරීමට කරුණාකර ඔබගේ <b>Roohira Account</b> එකට Sign In වන්න.<br>
+                ගිණුමක් නොමැතිනම් මිනිත්තුවකින් නොමිලේ Create කරගත හැක.
+            </p>
+            <div class="roohira-auth-perks">
+                <div class="roohira-auth-perk"><span class="perk-dot">✦</span> Safe & Encrypted Checkout</div>
+                <div class="roohira-auth-perk"><span class="perk-dot">✦</span> Instant WhatsApp & E-Invoice</div>
+                <div class="roohira-auth-perk"><span class="perk-dot">✦</span> Live Order Tracking</div>
+            </div>
+            <div class="roohira-auth-actions">
+                <a href="login.html?redirect=${redirectUrl}" class="roohira-auth-btn-primary">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                    <span>Sign In to My Account</span>
+                </a>
+                <a href="signup.html?redirect=${redirectUrl}" class="roohira-auth-btn-secondary">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="8.5" cy="7" r="4"></circle>
+                        <line x1="20" y1="8" x2="20" y2="14"></line>
+                        <line x1="23" y1="11" x2="17" y2="11"></line>
+                    </svg>
+                    <span>Create New Account</span>
+                </a>
+            </div>
+            <button class="roohira-auth-cancel-btn" onclick="closeAuthRequiredModal()">Continue Browsing</button>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+        modal.classList.add('active');
+    });
+}
+
 // Sync Auth State with Firebase
 if (typeof auth !== 'undefined' && auth) {
     auth.onAuthStateChanged(user => {
         if (user) {
-            db.collection('users').doc(user.uid).get().then(doc => {
-                if (doc.exists) {
-                    const userData = doc.data();
-                    const syncedUser = { uid: user.uid, name: userData.name, email: user.email, phone: userData.phone || '', address: userData.address || '' };
-                    localStorage.setItem('roohira_user', JSON.stringify(syncedUser));
-                    currentUser = syncedUser;
-                } else {
-                    // Auto-create Firestore doc for existing Auth users who signed up before Firestore was configured
-                    const autoData = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email, phone: '', address: '', createdAt: new Date().toISOString() };
-                    db.collection('users').doc(user.uid).set(autoData).catch(err => console.warn('Auto user doc create failed:', err));
-                    localStorage.setItem('roohira_user', JSON.stringify(autoData));
-                    currentUser = autoData;
-                }
-                startNotificationListener();
-            }).catch(err => {
-                console.error("Error syncing user profile:", err);
-                startNotificationListener();
-            });
+            if (typeof db !== 'undefined' && db) {
+                db.collection('users').doc(user.uid).get().then(doc => {
+                    if (doc.exists) {
+                        const userData = doc.data();
+                        const syncedUser = { uid: user.uid, name: userData.name, email: user.email, phone: userData.phone || '', address: userData.address || '' };
+                        localStorage.setItem('roohira_user', JSON.stringify(syncedUser));
+                        currentUser = syncedUser;
+                    } else {
+                        // Auto-create Firestore doc for existing Auth users who signed up before Firestore was configured
+                        const autoData = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email, phone: '', address: '', createdAt: new Date().toISOString() };
+                        db.collection('users').doc(user.uid).set(autoData).catch(err => console.warn('Auto user doc create failed:', err));
+                        localStorage.setItem('roohira_user', JSON.stringify(autoData));
+                        currentUser = autoData;
+                    }
+                    startNotificationListener();
+                }).catch(err => {
+                    console.warn("User profile sync note:", err);
+                    startNotificationListener();
+                });
+            }
         } else {
-            localStorage.removeItem('roohira_user');
-            currentUser = null;
+            // Transient unauthenticated or initializing state from Firebase Auth.
+            // DO NOT wipe localStorage.roohira_user here because on page refresh
+            // Firebase Auth starts with user=null while restoring session from IndexedDB.
+            // Only user-initiated logout() should clear localStorage.roohira_user.
             if (notificationListenerUnsubscribe) {
                 notificationListenerUnsubscribe();
                 notificationListenerUnsubscribe = null;
@@ -1298,109 +1274,248 @@ if (typeof auth !== 'undefined' && auth) {
 }
 
 function login(email, password, onError) {
-    if (typeof auth === 'undefined' || !auth) {
-        if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanPass  = (password || '').trim();
+
+    if (!cleanEmail || !cleanPass) {
+        if (onError) onError('Email සහ Password ඇතුළත් කරන්න.');
         return;
     }
+
+    // 1. SPECIFIC ADMIN AUTHENTICATION CHECK
+    if (cleanEmail === 'adminroohira@gmail.com' && cleanPass === 'admin2008') {
+        const adminData = {
+            uid: 'admin_roohira_executive',
+            name: 'Roohira Administrator',
+            email: 'adminroohira@gmail.com',
+            phone: '0757218786',
+            role: 'admin',
+            isAdmin: true
+        };
+        localStorage.setItem('roohira_admin', 'true');
+        localStorage.setItem('roohira_user', JSON.stringify(adminData));
+        currentUser = adminData;
+
+        // Sync with Firebase Auth in background if possible
+        if (typeof auth !== 'undefined' && auth) {
+            auth.signInWithEmailAndPassword('adminroohira@gmail.com', 'admin2008').catch(() => {
+                auth.createUserWithEmailAndPassword('adminroohira@gmail.com', 'admin2008').catch(() => {});
+            });
+        }
+
+        setTimeout(() => {
+            window.location.href = 'admin.html';
+        }, 300);
+        return;
+    }
+
     // Check for redirect parameter
     const urlParams = new URLSearchParams(window.location.search);
     const redirectTo = urlParams.get('redirect') || 'profile.html';
 
-    auth.signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            // Check Firestore for blocked status before allowing entry
-            if (typeof db !== 'undefined' && db) {
-                db.collection('users').doc(user.uid).get().then(doc => {
-                    if (doc.exists && doc.data().blocked === true) {
-                        // Sign them back out immediately
-                        auth.signOut();
-                        if (onError) onError('⛔ ඔබගේ account block කර ඇත. Admin හා සම්බන්ධ වන්න.');
-                        return;
-                    }
-                    const userData = doc.exists
-                        ? { uid: user.uid, name: doc.data().name, email: user.email, phone: doc.data().phone||'', address: doc.data().address||'' }
-                        : { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
-                    localStorage.setItem('roohira_user', JSON.stringify(userData));
-                    currentUser = userData;
-                    window.location.href = redirectTo;
-                }).catch(() => {
-                    // Firestore unreachable — allow login anyway
+    // Check local accounts storage
+    let localUsers = [];
+    try { localUsers = JSON.parse(localStorage.getItem('roohira_local_users') || '[]'); } catch(e) {}
+    const foundLocal = localUsers.find(u => u.email && u.email.toLowerCase() === cleanEmail && u.password === cleanPass);
+
+    if (typeof auth !== 'undefined' && auth) {
+        auth.signInWithEmailAndPassword(cleanEmail, cleanPass)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                if (typeof db !== 'undefined' && db) {
+                    db.collection('users').doc(user.uid).get().then(doc => {
+                        if (doc.exists && doc.data().blocked === true) {
+                            auth.signOut();
+                            if (onError) onError('⛔ ඔබගේ account එක block කර ඇත. Admin හා සම්බන්ධ වන්න.');
+                            return;
+                        }
+                        const userData = doc.exists
+                            ? { uid: user.uid, name: doc.data().name || user.displayName || user.email.split('@')[0], email: user.email, phone: doc.data().phone||'', address: doc.data().address||'' }
+                            : { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+                        localStorage.setItem('roohira_user', JSON.stringify(userData));
+                        currentUser = userData;
+                        window.location.href = redirectTo;
+                    }).catch(() => {
+                        const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
+                        localStorage.setItem('roohira_user', JSON.stringify(quickUser));
+                        currentUser = quickUser;
+                        window.location.href = redirectTo;
+                    });
+                } else {
                     const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
                     localStorage.setItem('roohira_user', JSON.stringify(quickUser));
                     currentUser = quickUser;
                     window.location.href = redirectTo;
-                });
-            } else {
-                const quickUser = { uid: user.uid, name: user.displayName || user.email.split('@')[0], email: user.email };
-                localStorage.setItem('roohira_user', JSON.stringify(quickUser));
-                currentUser = quickUser;
-                window.location.href = redirectTo;
-            }
-        })
-        .catch((error) => {
-            let msg = 'Login failed. නැවත try කරන්න.';
-            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Email හෝ Password වැරදියි.';
-            else if (error.code === 'auth/invalid-email') msg = 'Email format එක වැරදියි.';
-            else if (error.code === 'auth/too-many-requests') msg = 'ඉතා වාර ගණනක් try කළා. ටිකක් wait කරලා try කරන්න.';
-            if (onError) onError(msg); else alert(msg);
-        });
+                }
+            })
+            .catch((error) => {
+                console.warn('Firebase signIn error:', error);
+                // Check if account exists in local fallback store
+                if (foundLocal) {
+                    const safeUser = { uid: foundLocal.uid, name: foundLocal.name, email: foundLocal.email, phone: foundLocal.phone, address: foundLocal.address };
+                    localStorage.setItem('roohira_user', JSON.stringify(safeUser));
+                    currentUser = safeUser;
+                    window.location.href = redirectTo;
+                    return;
+                }
+
+                let msg = 'Login කිරීම අසාර්ථක විය. නැවත උත්සාහ කරන්න.';
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    msg = 'Email හෝ Password වැරදියි. කරුණාකර නිවැරදි තොරතුරු ඇතුළත් කරන්න.';
+                } else if (error.code === 'auth/invalid-email') {
+                    msg = 'Email ලිපිනයේ ආකෘතිය වැරදියි.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    msg = 'ඉතා වාර ගණනක් උත්සාහ කර ඇත. මඳ වේලාවකින් නැවත උත්සාහ කරන්න.';
+                } else if (error.code === 'auth/operation-not-allowed') {
+                    msg = 'Firebase Authentication සක්‍රීය කර නැත. කරුණාකර Firebase Console > Authentication හි Email/Password provider සක්‍රීය කරන්න.';
+                } else if (error.code === 'auth/network-request-failed') {
+                    msg = 'අන්තර්ජාල සම්බන්ධතාවය පරීක්ෂා කර නැවත උත්සාහ කරන්න.';
+                }
+                if (onError) onError(msg); else alert(msg);
+            });
+    } else if (foundLocal) {
+        const safeUser = { uid: foundLocal.uid, name: foundLocal.name, email: foundLocal.email, phone: foundLocal.phone, address: foundLocal.address };
+        localStorage.setItem('roohira_user', JSON.stringify(safeUser));
+        currentUser = safeUser;
+        window.location.href = redirectTo;
+    } else {
+        if (onError) onError('Authentication සේවාව සම්බන්ධ කරගත නොහැක.');
+    }
 }
 
 function signup(name, email, password, phone, address, onError) {
-    if (typeof auth === 'undefined' || !auth) {
-        if (onError) onError('Firebase configure කර නැත. firebase-config.js check කරන්න.');
+    const cleanName    = (name || '').trim();
+    const cleanEmail   = (email || '').trim().toLowerCase();
+    const cleanPass    = (password || '').trim();
+    const cleanPhone   = (phone || '').trim();
+    const cleanAddress = (address || '').trim();
+
+    if (!cleanName || !cleanEmail || !cleanPass) {
+        if (onError) onError('අවශ්‍ය සියලුම තොරතුරු ඇතුළත් කරන්න.');
         return;
     }
+
     // Check for redirect parameter
     const urlParams = new URLSearchParams(window.location.search);
     const redirectTo = urlParams.get('redirect') || 'profile.html';
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            const userData = { uid: user.uid, name: name, email: email, phone: phone || '', address: address || '', createdAt: new Date().toISOString() };
-            if (typeof db !== 'undefined' && db) {
-                db.collection('users').doc(user.uid).set(userData)
-                    .then(() => {
-                        localStorage.setItem('roohira_user', JSON.stringify(userData));
-                        currentUser = userData;
-                        window.location.href = redirectTo;
-                    })
-                    .catch(err => {
-                        console.error('Firestore save error:', err);
-                        user.delete().then(() => {
-                            let msg = 'Database එකට දත්ත ඇතුලත් කිරීම අසාර්ථක විය. Firestore Rules -> read, write: if true ලෙස සකසා නැවත උත්සාහ කරන්න.';
-                            if (onError) onError(msg); else alert(msg);
-                        }).catch(() => {
-                            if (onError) onError('Database දෝෂයකි: ' + err.message); else alert('Database error: ' + err.message);
-                        });
-                    });
-            } else {
+    let localUsers = [];
+    try { localUsers = JSON.parse(localStorage.getItem('roohira_local_users') || '[]'); } catch(e) {}
+    const existingIndex = localUsers.findIndex(u => u.email && u.email.toLowerCase() === cleanEmail);
+
+    const localAccountData = {
+        uid: 'local_' + Date.now(),
+        name: cleanName,
+        email: cleanEmail,
+        password: cleanPass,
+        phone: cleanPhone,
+        address: cleanAddress,
+        createdAt: new Date().toISOString()
+    };
+
+    if (typeof auth !== 'undefined' && auth) {
+        auth.createUserWithEmailAndPassword(cleanEmail, cleanPass)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                const userData = {
+                    uid: user.uid,
+                    name: cleanName,
+                    email: cleanEmail,
+                    phone: cleanPhone,
+                    address: cleanAddress,
+                    createdAt: new Date().toISOString()
+                };
+
+                // Sync display name with Firebase Auth
+                if (user.updateProfile) {
+                    user.updateProfile({ displayName: cleanName }).catch(() => {});
+                }
+
+                // Update local accounts
+                if (existingIndex >= 0) localUsers[existingIndex] = { ...userData, password: cleanPass };
+                else localUsers.push({ ...userData, password: cleanPass });
+                localStorage.setItem('roohira_local_users', JSON.stringify(localUsers));
+
+                // Set session
                 localStorage.setItem('roohira_user', JSON.stringify(userData));
                 currentUser = userData;
-                window.location.href = redirectTo;
-            }
-        })
-        .catch((error) => {
-            let msg = 'Account create කිරීම අසාර්ථකයි.';
-            if (error.code === 'auth/email-already-in-use') msg = 'මෙම Email ලෙස දැනටමත් account තිබේ. Login කරන්න.';
-            else if (error.code === 'auth/invalid-email') msg = 'Email format එක වැරදියි.';
-            else if (error.code === 'auth/weak-password') msg = 'Password ශක්තිමත් නැත. අවම 6 characters.';
-            if (onError) onError(msg); else alert(msg);
-        });
+
+                if (typeof db !== 'undefined' && db) {
+                    db.collection('users').doc(user.uid).set(userData)
+                        .then(() => {
+                            window.location.href = redirectTo;
+                        })
+                        .catch(err => {
+                            console.warn('Firestore user save note:', err);
+                            // Do NOT delete the created auth user!
+                            window.location.href = redirectTo;
+                        });
+                } else {
+                    window.location.href = redirectTo;
+                }
+            })
+            .catch((error) => {
+                console.warn('Firebase createUser error:', error);
+
+                if (error.code === 'auth/email-already-in-use') {
+                    if (onError) onError('මෙම Email ලිපිනය දැනටමත් ලියාපදිංචි කර ඇත. කරුණාකර Login වන්න.');
+                    return;
+                }
+                if (error.code === 'auth/weak-password') {
+                    if (onError) onError('මුරපදය ප්‍රමාණවත් තරම් ශක්තිමත් නැත. අවම වශයෙන් අකුරු 6ක් භාවිතා කරන්න.');
+                    return;
+                }
+                if (error.code === 'auth/invalid-email') {
+                    if (onError) onError('ඇතුළත් කළ Email ලිපිනය වලංගු නොවේ.');
+                    return;
+                }
+
+                // If Firebase Auth provider is disabled in console or network fails, fallback to local registration
+                if (error.code === 'auth/operation-not-allowed' || error.code === 'auth/network-request-failed' || error.code === 'auth/configuration-not-found') {
+                    if (existingIndex >= 0) {
+                        if (onError) onError('මෙම Email ලිපිනය දැනටමත් ලියාපදිංචි කර ඇත. කරුණාකර Login වන්න.');
+                        return;
+                    }
+                    localUsers.push(localAccountData);
+                    localStorage.setItem('roohira_local_users', JSON.stringify(localUsers));
+                    const safeUser = { uid: localAccountData.uid, name: cleanName, email: cleanEmail, phone: cleanPhone, address: cleanAddress };
+                    localStorage.setItem('roohira_user', JSON.stringify(safeUser));
+                    currentUser = safeUser;
+
+                    if (typeof db !== 'undefined' && db) {
+                        db.collection('users').doc(safeUser.uid).set(safeUser).catch(() => {});
+                    }
+                    window.location.href = redirectTo;
+                    return;
+                }
+
+                let msg = 'Account create කිරීම අසාර්ථක විය: ' + (error.message || 'නැවත උත්සාහ කරන්න.');
+                if (onError) onError(msg);
+            });
+    } else {
+        // Fallback local registration
+        if (existingIndex >= 0) {
+            if (onError) onError('මෙම Email ලිපිනය දැනටමත් ලියාපදිංචි කර ඇත. කරුණාකර Login වන්න.');
+            return;
+        }
+        localUsers.push(localAccountData);
+        localStorage.setItem('roohira_local_users', JSON.stringify(localUsers));
+        const safeUser = { uid: localAccountData.uid, name: cleanName, email: cleanEmail, phone: cleanPhone, address: cleanAddress };
+        localStorage.setItem('roohira_user', JSON.stringify(safeUser));
+        currentUser = safeUser;
+        window.location.href = redirectTo;
+    }
 }
 
 function logout() {
+    localStorage.removeItem('roohira_admin');
+    localStorage.removeItem('roohira_user');
+    currentUser = null;
     if (typeof auth !== 'undefined' && auth) {
-        auth.signOut().then(() => {
-            localStorage.removeItem('roohira_user');
-            currentUser = null;
+        auth.signOut().finally(() => {
             window.location.href = 'login.html';
         });
     } else {
-        localStorage.removeItem('roohira_user');
-        currentUser = null;
         window.location.href = 'login.html';
     }
 }
@@ -1523,6 +1638,12 @@ let orders = JSON.parse(localStorage.getItem('roohira_orders')) || [];
 function placeOrder() {
     if (cart.length === 0) { alert('Your cart is empty!'); return; }
 
+    // AUTH GUARD: Patron must be signed in to place an order
+    if (!isUserLoggedIn()) {
+        showAuthRequiredModal('place your order', 'checkout.html');
+        return;
+    }
+
     // Check if any product in the cart is out of stock in our synced products list
     for (const item of cart) {
         const p = products.find(prod => prod.name === item.name);
@@ -1623,7 +1744,7 @@ function placeOrder() {
                     price: item.price,
                     quantity: item.quantity,
                     size: item.size,
-                    color: colorNames[item.color] || item.color,
+                    color: resolveFriendlyColorName(item.color),
                     image: item.image || (p.images ? p.images[0] : ''),
                     isCustom: item.isCustom || (item.id && String(item.id).startsWith('custom-')) || false,
                     customStickers: item.customStickers || []
@@ -1676,7 +1797,7 @@ function placeOrder() {
         message += `📦 *Items Ordered:*\n`;
 
         cart.forEach((item) => {
-            const colorName = colorNames[item.color] || item.color;
+            const colorName = resolveFriendlyColorName(item.color);
             message += `• *${item.name}* (${item.size} | ${colorName})\n`;
             message += `  Qty: ${item.quantity} x Rs. ${item.price.toLocaleString()}\n`;
         });
@@ -1690,34 +1811,48 @@ function placeOrder() {
 
         const whatsappUrl = `https://wa.me/94757218786?text=${encodeURIComponent(message)}`;
 
+        const activePatron = getLoggedInUser();
         const dbOrder = {
             id: orderID,
             date: now.toLocaleDateString(),
-            items: [...cart],
+            items: cart.map(item => {
+                const p = (products && products.find(prod => prod.name === item.name)) || {};
+                return {
+                    name: item.name || '',
+                    price: Number(item.price) || 0,
+                    quantity: Number(item.quantity) || 1,
+                    size: item.size || 'Free',
+                    color: item.color ? (resolveFriendlyColorName(item.color)) : 'Default',
+                    image: item.image || (p.images && p.images[0] ? p.images[0] : ''),
+                    isCustom: Boolean(item.isCustom || (item.id && String(item.id).startsWith('custom-'))),
+                    customStickers: Array.isArray(item.customStickers) ? item.customStickers : []
+                };
+            }),
             total: grandTotal,
             subtotal: subtotal,
             deliveryFee: deliveryFee,
             userEmail: email,
             userName: name,
+            userId: activePatron ? (activePatron.uid || activePatron.id || '') : '',
             userPhone: phone,
-            userPhone2: phone2,
+            userPhone2: phone2 || '',
             userAddress: fullAddress,
-            streetAddress: address,
-            city: city,
-            district: district,
-            postal: postal,
-            notes: notes,
+            streetAddress: address || '',
+            city: city || '',
+            district: district || '',
+            postal: postal || '',
+            notes: notes || '',
             paymentMethod: paymentMethod,
             status: 'pending',
-            timestamp: (typeof firebase !== 'undefined' ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString())
+            createdAt: new Date().toISOString(),
+            timestamp: (typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString())
         };
         orders.push(dbOrder);
         localStorage.setItem('roohira_orders', JSON.stringify(orders));
         
         if (typeof db !== 'undefined' && db) {
             db.collection('orders').add(dbOrder).catch(e => {
-                console.error("Error saving order to database:", e);
-                alert("⚠️ Error: Order could not be saved to Firestore. Firestore Rules update කරන්න (allow read, write: if true).");
+                console.warn("Order saved locally, Firestore sync note:", e);
             });
         }
 
@@ -1786,8 +1921,8 @@ function placeOrder() {
                         <button id="modal-wa-btn" style="width: 100%; background: #25D366; color: white; border: none; padding: 12px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
                             <i data-lucide="message-circle" style="width: 18px;"></i> Share to WhatsApp
                         </button>
-                        <button id="modal-inv-btn" style="width: 100%; background: transparent; color: #8B5A2B; border: 1.5px solid #8B5A2B; padding: 11px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
-                            <i data-lucide="file-text" style="width: 18px;"></i> View Invoice Only
+                        <button id="modal-inv-btn" style="width: 100%; background: #8B5A2B; color: #FFFFFF; border: none; padding: 12px; font-weight: 700; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s; box-shadow: 0 4px 12px rgba(139,90,43,0.3);">
+                            <i data-lucide="file-text" style="width: 18px;"></i> View Invoice
                         </button>
                         <a href="index.html" style="width: 100%; background: rgba(255,255,255,0.06); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 11px; font-weight: 700; border-radius: 10px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.88rem; transition: 0.2s;">
                             <i data-lucide="home" style="width: 18px;"></i> Go back to Home
@@ -1864,10 +1999,18 @@ function loadProfile() {
     const initialEl = document.getElementById('profile-initial');
     const orderCountEl = document.getElementById('order-count');
     const historyEl = document.getElementById('order-history');
+
+    // Re-check localStorage if currentUser is not loaded yet
+    if (!currentUser) {
+        try {
+            currentUser = JSON.parse(localStorage.getItem('roohira_user'));
+        } catch (e) {}
+    }
+
     if (currentUser) {
-        if (nameEl) nameEl.innerText = currentUser.name;
-        if (emailEl) emailEl.innerText = currentUser.email;
-        if (initialEl) initialEl.innerText = currentUser.name.charAt(0).toUpperCase();
+        if (nameEl) nameEl.innerText = currentUser.name || 'User';
+        if (emailEl) emailEl.innerText = currentUser.email || '';
+        if (initialEl) initialEl.innerText = (currentUser.name || 'U').charAt(0).toUpperCase();
 
         const renderOrdersList = (ordersList) => {
             if (orderCountEl) orderCountEl.innerText = ordersList.length;
@@ -1921,7 +2064,19 @@ function loadProfile() {
             renderOrdersList(userOrders.reverse());
         }
     } else {
-        if (window.location.pathname.includes('profile.html')) { window.location.href = 'login.html'; }
+        // Safe grace period: on page load/refresh, allow Firebase Auth / local storage to resolve
+        setTimeout(() => {
+            let lateUser = null;
+            try { lateUser = JSON.parse(localStorage.getItem('roohira_user')); } catch (e) {}
+            if (!lateUser && typeof auth !== 'undefined' && auth && !auth.currentUser) {
+                if (window.location.pathname.includes('profile.html')) {
+                    window.location.href = 'login.html';
+                }
+            } else if (lateUser) {
+                currentUser = lateUser;
+                loadProfile();
+            }
+        }, 1200);
     }
 }
 
@@ -1952,57 +2107,28 @@ function handleOfferNotification() {
     }
 }
 
-// Centralized Light/Dark Theme Toggle System
+// Exclusive Light Theme System (No toggle buttons)
 function initThemeToggle() {
-    const currentTheme = localStorage.getItem('theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'light');
 
-    // Header Theme Toggle Icon Button
-    const navIcons = document.querySelector('.nav-icons');
-    if (navIcons && !document.getElementById('theme-toggle')) {
-        const themeBtn = document.createElement('a');
-        themeBtn.href = '#';
-        themeBtn.id = 'theme-toggle';
-        themeBtn.title = 'Toggle Light/Dark Theme';
-        themeBtn.style.cursor = 'pointer';
-        themeBtn.style.display = 'flex';
-        themeBtn.style.alignItems = 'center';
-        themeBtn.style.justifyContent = 'center';
-        themeBtn.style.color = 'var(--accent-pink)';
-        themeBtn.innerHTML = `<i data-lucide="${currentTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
-
-        // Insert before account user icon or first child
-        const userIcon = navIcons.querySelector('a[href*="profile"], a[href*="login"]');
-        if (userIcon) {
-            navIcons.insertBefore(themeBtn, userIcon);
-        } else {
-            navIcons.insertBefore(themeBtn, navIcons.firstChild);
-        }
-
-        themeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleTheme();
-        });
-    }
+    // Remove any theme toggle buttons from DOM if present
+    const mainToggle = document.getElementById('theme-toggle');
+    if (mainToggle) mainToggle.remove();
+    const btn = document.getElementById('theme-toggle-btn');
+    if (btn) btn.remove();
+    const mobBtn = document.getElementById('mobile-theme-toggle-btn');
+    if (mobBtn) mobBtn.remove();
+    const mobTog = document.getElementById('mobile-theme-toggle');
+    if (mobTog) mobTog.remove();
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function toggleTheme() {
-    const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-    const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-
-    const mainToggle = document.getElementById('theme-toggle');
-    if (mainToggle) {
-        mainToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i>`;
-    }
-    const mobileToggle = document.getElementById('mobile-theme-toggle');
-    if (mobileToggle) {
-        mobileToggle.innerHTML = `<i data-lucide="${newTheme === 'dark' ? 'sun' : 'moon'}"></i> Theme: ${newTheme === 'dark' ? 'Light Mode' : 'Dark Mode'}`;
-    }
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+    // Light mode exclusively
+    localStorage.setItem('theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'light');
 }
 
 // --- Free Delivery Promo Bar (Disabled) ---
@@ -2133,90 +2259,239 @@ function updateWishlistCount() {
     });
 }
 
-// Function to sync products from Firestore
+// Store base catalog to merge with dynamic database updates cleanly
+const baseStaticProducts = JSON.parse(JSON.stringify(products));
+let productsListenerUnsubscribe = null;
+
+// Function to sync products from Firestore in REAL-TIME across all devices
 function syncProducts(callback) {
-    // Call the callback immediately so the UI is responsive
+    // Initial responsive callback
     if (callback) {
-        try {
-            callback();
-        } catch (e) {
-            console.error("Error in immediate syncProducts callback:", e);
-        }
+        try { callback(); } catch (e) { console.error("Callback error:", e); }
     }
 
     if (typeof db === 'undefined' || !db) {
-        console.warn("Firestore 'db' is not initialized yet. Skipping Firestore sync.");
+        console.warn("Firestore 'db' is not initialized yet.");
         return;
     }
 
-    db.collection('products').get().then(snapshot => {
-        const dbProducts = {};
+    // Unsubscribe from previous listener if one exists to prevent duplicate listeners
+    if (productsListenerUnsubscribe) {
+        productsListenerUnsubscribe();
+    }
+
+    // Real-Time onSnapshot listener: Updates immediately on all devices whenever admin modifies products
+    productsListenerUnsubscribe = db.collection('products').onSnapshot(snapshot => {
+        const dbProductsMap = {};
         snapshot.forEach(doc => {
-            dbProducts[doc.id] = doc.data();
+            dbProductsMap[doc.id] = { id: doc.id, ...doc.data() };
         });
-        
-        let changed = false;
-        // Loop backwards because we might delete elements
+
+        // Reset products array to pristine base catalog copy
+        products.length = 0;
+        baseStaticProducts.forEach(item => {
+            products.push(JSON.parse(JSON.stringify(item)));
+        });
+
+        const hasDbProducts = Object.keys(dbProductsMap).length > 0;
+
+        // 1. Apply stock, price, colors, sizes, sections & deletion updates to base products
         for (let i = products.length - 1; i >= 0; i--) {
             const p = products[i];
-            if (dbProducts[p.id]) {
-                const dbP = dbProducts[p.id];
-                if (dbP.isDeleted === true || dbP.deleted === true) {
-                    products.splice(i, 1);
-                    changed = true;
-                } else if (dbP.status === 'out_of_stock' && p.stock !== 0) {
+            const dbP = dbProductsMap[p.id];
+            if (hasDbProducts && (!dbP || dbP.isDeleted === true || dbP.deleted === true)) {
+                products.splice(i, 1);
+                continue;
+            }
+            if (dbP) {
+                if (dbP.status === 'out_of_stock') {
                     p.stock = 0;
-                    changed = true;
-                } else if (dbP.status === 'in_stock' && p.stock === 0) {
-                    p.stock = 10;
-                    changed = true;
+                    p.stockStatus = 'out_of_stock';
+                } else if (dbP.status === 'in_stock') {
+                    p.stock = dbP.stock !== undefined ? Number(dbP.stock) : 10;
+                    p.stockStatus = 'in_stock';
+                }
+                if (dbP.name) p.name = dbP.name;
+                if (dbP.category) p.category = dbP.category;
+                if (dbP.sections && Array.isArray(dbP.sections)) p.sections = dbP.sections;
+                if (dbP.desc) p.desc = dbP.desc;
+                if (dbP.description) p.desc = dbP.description;
+                if (dbP.images && Array.isArray(dbP.images) && dbP.images.length) p.images = dbP.images;
+                else if (dbP.image) p.images = [dbP.image];
+
+                // Price & Old Price Sync
+                if (dbP.price !== undefined) {
+                    p.price = Number(dbP.price);
+                }
+                if (dbP.oldPrice !== undefined) {
+                    p.oldPrice = Number(dbP.oldPrice);
+                }
+
+                // Sizes & Pricing Sync
+                if (dbP.sizes && typeof dbP.sizes === 'object' && Object.keys(dbP.sizes).length) {
+                    p.sizes = dbP.sizes;
+                } else if (dbP.price !== undefined && p.sizes && typeof p.sizes === 'object') {
+                    Object.keys(p.sizes).forEach(sz => {
+                        if (typeof p.sizes[sz] === 'object') {
+                            p.sizes[sz].price = Number(dbP.price);
+                            if (dbP.oldPrice !== undefined) p.sizes[sz].oldPrice = Number(dbP.oldPrice);
+                        } else {
+                            p.sizes[sz] = Number(dbP.price);
+                        }
+                    });
+                }
+
+                // Colors Sync
+                if (dbP.colors && Array.isArray(dbP.colors) && dbP.colors.length) {
+                    p.colors = dbP.colors;
+                }
+
+                if (dbP.gsm !== undefined) p.gsm = dbP.gsm;
+                if (dbP.material !== undefined) p.material = dbP.material;
+                if (dbP.brand) p.brand = dbP.brand;
+                if (dbP.sizeChartImg) p.sizeChartImg = dbP.sizeChartImg;
+                if (dbP.customSpecs && typeof dbP.customSpecs === 'object') p.customSpecs = dbP.customSpecs;
+                if (dbP.isNewArrival !== undefined) p.isNewArrival = (dbP.isNewArrival === true || dbP.isNewArrival === 'true');
+                if (dbP.isFeatured !== undefined) p.isFeatured = (dbP.isFeatured === true || dbP.isFeatured === 'true');
+                if (dbP.colorNames && typeof dbP.colorNames === 'object') {
+                    p.colorNames = dbP.colorNames;
+                    Object.assign(colorNames, dbP.colorNames);
                 }
             }
         }
 
-        // If something changed, trigger updates dynamically
-        if (changed) {
-            console.log("Firestore products synced. Dynamic update triggered.");
-            if (window.location.pathname.includes('shop.html')) {
-                if (typeof filterShop === 'function') filterShop();
-            }
-            if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
-                if (typeof displayProducts === 'function') displayProducts(products.slice(0, 4));
-            }
-            if (window.location.pathname.includes('wishlist.html')) {
-                if (typeof renderWishlist === 'function') renderWishlist();
-            }
-            if (window.location.pathname.includes('product-detail.html')) {
-                const urlParams = new URLSearchParams(window.location.search);
-                const pid = urlParams.get('id') || '1';
-                const currentProduct = products.find(p => p.id === pid);
-                if (!currentProduct) {
-                    alert('This product is no longer available.');
-                    window.location.href = 'shop.html';
-                } else if (currentProduct.stock === 0) {
-                    const addToCartBtn = document.getElementById('add-to-cart-btn');
-                    if (addToCartBtn) {
-                        addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
-                        addToCartBtn.disabled = true;
-                        addToCartBtn.style.background = '#555';
-                        addToCartBtn.style.opacity = '0.6';
-                        addToCartBtn.style.cursor = 'not-allowed';
-                    }
-                    const stockSection = document.getElementById('stock-urgency-section');
-                    if (stockSection) stockSection.style.display = 'none';
+        // 2. Add dynamic products added via Admin Panel or Database Hub
+        Object.keys(dbProductsMap).forEach(docId => {
+            const dbP = dbProductsMap[docId];
+            if (dbP.isDeleted === true || dbP.deleted === true) return;
+            const exists = products.find(p => String(p.id) === String(docId));
+            if (!exists) {
+                const price = Number(dbP.price) || 1800;
+                const oldPrice = Number(dbP.oldPrice) || (price + 200);
+                const stockQty = dbP.status === 'out_of_stock' ? 0 : (dbP.stock !== undefined ? Number(dbP.stock) : 10);
+                const dynamicProduct = {
+                    id: String(docId),
+                    name: dbP.name || 'Roohira Garment',
+                    category: dbP.category || 'Regular Tee (Printed)',
+                    sections: dbP.sections || ['Mens', 'Womens', 'Unisexs'],
+                    images: Array.isArray(dbP.images) && dbP.images.length ? dbP.images : [dbP.image || 'logo.png'],
+                    gsm: dbP.gsm || dbP.material || null,
+                    material: dbP.material || dbP.gsm || null,
+                    brand: dbP.brand || 'Roohira',
+                    price: price,
+                    oldPrice: oldPrice,
+                    sizes: dbP.sizes || {
+                        'Free Size': { price: price, oldPrice: oldPrice }
+                    },
+                    colors: Array.isArray(dbP.colors) && dbP.colors.length ? dbP.colors : ['#000000'],
+                    stock: stockQty,
+                    stockStatus: dbP.status || (stockQty === 0 ? 'out_of_stock' : 'in_stock'),
+                    desc: dbP.desc || dbP.description || 'Exclusive luxury collection piece handcrafted by Roohira.',
+                    sizeChartImg: dbP.sizeChartImg || '',
+                    customSpecs: dbP.customSpecs || null,
+                    colorNames: dbP.colorNames || null,
+                    isNewArrival: (dbP.isNewArrival === true || dbP.isNewArrival === 'true'),
+                    isFeatured: (dbP.isFeatured === true || dbP.isFeatured === 'true')
+                };
+                if (dbP.colorNames && typeof dbP.colorNames === 'object') {
+                    Object.assign(colorNames, dbP.colorNames);
                 }
+                products.unshift(dynamicProduct); // Show newly added products at top
+            }
+        });
+
+        console.log("⚡ [Real-Time Multi-Device Sync] Products synced successfully:", products.length);
+
+        // Immediate dynamic UI refresh without full page reload
+        const isCatalogPage = window.location.pathname.includes('shop.html') || window.location.pathname.includes('mens.html') || window.location.pathname.includes('womens.html') || window.location.pathname.includes('kids.html') || window.location.pathname.includes('other.html');
+        if (isCatalogPage) {
+            if (typeof renderDynamicShopCategories === 'function') renderDynamicShopCategories();
+            if (typeof filterShop === 'function') filterShop();
+            else if (typeof filterProducts === 'function') {
+                const urlParams = new URLSearchParams(window.location.search);
+                const catParam = urlParams.get('category');
+                filterProducts(catParam || 'All');
             }
         }
-        
-        // Trigger a custom event to notify that products are synced
-        document.dispatchEvent(new CustomEvent('productsSynced'));
-    }).catch(err => {
-        console.error("Error syncing products from Firestore:", err);
+        if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
+            if (typeof renderHomePageSections === 'function') renderHomePageSections();
+            else if (typeof displayProducts === 'function') displayProducts(products.slice(0, 4));
+            if (typeof renderHomeDepartmentProducts === 'function') renderHomeDepartmentProducts();
+        }
+        if (window.location.pathname.includes('wishlist.html')) {
+            if (typeof renderWishlist === 'function') renderWishlist();
+        }
+        if (window.location.pathname.includes('product-detail.html')) {
+            if (typeof loadAndRenderProductDetail === 'function') {
+                loadAndRenderProductDetail();
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                const pid = urlParams.get('id') || '1';
+                const currentProduct = products.find(p => String(p.id) === String(pid));
+                if (currentProduct) {
+                    const priceEl = document.getElementById('detail-price');
+                    if (priceEl) {
+                        const curP = (currentProduct.sizes && currentProduct.sizes['M']) ? currentProduct.sizes['M'].price : (currentProduct.price || 1800);
+                        const oldP = (currentProduct.sizes && currentProduct.sizes['M']) ? currentProduct.sizes['M'].oldPrice : currentProduct.oldPrice;
+                        let html = `Rs. ${curP.toLocaleString()}.00`;
+                        if (oldP) html += ` <span class="old-price">Rs. ${oldP.toLocaleString()}</span>`;
+                        priceEl.innerHTML = html;
+                    }
+                    const addToCartBtn = document.getElementById('add-to-cart-btn');
+                    if (addToCartBtn) {
+                        if (currentProduct.stock === 0) {
+                            addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
+                            addToCartBtn.disabled = true;
+                            addToCartBtn.style.background = '#888';
+                            addToCartBtn.style.opacity = '0.6';
+                            addToCartBtn.style.cursor = 'not-allowed';
+                        } else {
+                            addToCartBtn.innerHTML = '<i data-lucide="shopping-bag"></i> ADD TO CART';
+                            addToCartBtn.disabled = false;
+                            addToCartBtn.style.background = '';
+                            addToCartBtn.style.opacity = '1';
+                            addToCartBtn.style.cursor = 'pointer';
+                        }
+                    }
+                }
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        document.dispatchEvent(new CustomEvent('productsSynced', { detail: products }));
+    }, err => {
+        console.error("Firestore onSnapshot error:", err);
     });
+}
+
+window.liveCategories = window.liveCategories || [];
+var liveCategories = window.liveCategories;
+
+function syncCategoriesListener() {
+    if (typeof db === 'undefined' || !db) return;
+    db.collection('categories').onSnapshot(snap => {
+        window.liveCategories = [];
+        snap.forEach(doc => {
+            const data = doc.data();
+            if (data && data.name) window.liveCategories.push({ id: doc.id, ...data });
+        });
+        liveCategories = window.liveCategories;
+        const isCatalogPage2 = window.location.pathname.includes('shop.html') || window.location.pathname.includes('mens.html') || window.location.pathname.includes('womens.html') || window.location.pathname.includes('kids.html') || window.location.pathname.includes('other.html');
+        if (isCatalogPage2) {
+            if (typeof renderDynamicShopCategories === 'function') renderDynamicShopCategories();
+        }
+    }, err => console.warn('Categories live sync note:', err));
 }
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    // Show the correct cart / wishlist counts immediately from localStorage,
+    // without waiting for the Firestore product sync to finish. This keeps the
+    // navbar numbers consistent on every page.
+    updateCartCount();
+    updateWishlistCount();
+
+    syncCategoriesListener();
     syncProducts(() => {
         initThemeToggle();
         updateCartCount();
@@ -2225,12 +2500,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('cart.html')) { renderCart(); }
         if (window.location.pathname.includes('profile.html')) { loadProfile(); }
         if (window.location.pathname.includes('wishlist.html')) { renderWishlist(); }
-        if (window.location.pathname.includes('shop.html')) {
+        const isCatalogPage3 = window.location.pathname.includes('shop.html') || window.location.pathname.includes('mens.html') || window.location.pathname.includes('womens.html') || window.location.pathname.includes('kids.html') || window.location.pathname.includes('other.html');
+        if (isCatalogPage3) {
             const urlParams = new URLSearchParams(window.location.search);
             const catParam = urlParams.get('category');
             catParam ? filterProducts(catParam) : filterProducts('All');
+            if (typeof renderDynamicShopCategories === 'function') renderDynamicShopCategories();
         }
-        if (window.location.pathname.includes('index.html') || window.location.pathname === '/') { displayProducts(products.slice(0, 4)); }
+        if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
+            if (typeof renderHomePageSections === 'function') renderHomePageSections();
+            else if (typeof displayProducts === 'function') displayProducts(products.slice(0, 4));
+        }
         if ((window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html')) && currentUser) {
             window.location.href = 'profile.html';
         }
@@ -2372,5 +2652,330 @@ function handleNewDropWaitlist() {
             if (window.lucide) lucide.createIcons();
         }
     }
+}
+
+// ========================================================
+// HOME PAGE: 3 DEPARTMENT CARDS (MEN, WOMEN, KIDS) SHOWCASE
+// ========================================================
+let currentHomeDepartment = 'Mens'; // 'Mens', 'Womens', 'Kids'
+
+function switchHomeDepartment(dept) {
+    currentHomeDepartment = dept;
+    const norm = dept.toLowerCase();
+
+    ['mens', 'womens', 'kids'].forEach(d => {
+        const card = document.getElementById(`dept-card-${d}`);
+        const tab = document.getElementById(`dept-filter-tab-${d}`);
+        const isMatch = (norm === d);
+
+        if (card) {
+            if (isMatch) {
+                card.style.borderColor = '#1A120B';
+                card.style.boxShadow = '0 8px 30px rgba(139, 90, 43, 0.2)';
+                card.style.transform = 'translateY(-4px)';
+                const btn = card.querySelector('.dept-preview-btn');
+                if (btn) {
+                    btn.classList.add('active');
+                    btn.style.background = '#1A120B';
+                    btn.style.color = '#FFFFFF';
+                }
+            } else {
+                card.style.borderColor = 'rgba(26,18,11,0.2)';
+                card.style.boxShadow = '0 4px 15px rgba(0,0,0,0.06)';
+                card.style.transform = 'none';
+                const btn = card.querySelector('.dept-preview-btn');
+                if (btn) {
+                    btn.classList.remove('active');
+                    btn.style.background = 'transparent';
+                    btn.style.color = '#1A120B';
+                }
+            }
+        }
+        if (tab) {
+            if (isMatch) {
+                tab.style.background = '#1A120B';
+                tab.style.color = '#FFFFFF';
+            } else {
+                tab.style.background = 'transparent';
+                tab.style.color = '#1A120B';
+            }
+        }
+    });
+
+    const titleEl = document.getElementById('dept-title-label');
+    const badgeEl = document.getElementById('dept-badge-label');
+    if (titleEl && badgeEl) {
+        if (dept === 'Mens') {
+            titleEl.textContent = "Men's Apparel & Streetwear";
+            badgeEl.textContent = "Men's Selection";
+        } else if (dept === 'Womens') {
+            titleEl.textContent = "Women's Frocks, Blouses & Dresses";
+            badgeEl.textContent = "Women's Selection";
+        } else if (dept === 'Kids') {
+            titleEl.textContent = "Kids' & Teens Graphic Prints";
+            badgeEl.textContent = "Kids' Selection";
+        }
+    }
+
+    renderHomeDepartmentProducts();
+}
+
+function renderHomeDepartmentProducts() {
+    const grid = document.getElementById('home-department-grid');
+    if (!grid) return;
+
+    const target = (currentHomeDepartment || 'Mens').toLowerCase();
+    const deptProducts = products.filter(p => {
+        const secs = (p.sections || []).map(s => s.toLowerCase());
+        if (target === 'mens' || target === 'men') {
+            return secs.includes('mens') || secs.includes('unisexs');
+        } else if (target === 'womens' || target === 'women') {
+            return secs.includes('womens') || secs.includes('unisexs') || p.category === 'Frock' || p.category === 'Blouse';
+        } else if (target === 'kids' || target === 'kid') {
+            return secs.includes('kids');
+        }
+        return false;
+    });
+
+    if (deptProducts.length === 0) {
+        const dept = currentHomeDepartment || 'Mens';
+        grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; background: #FAF7F2; border: 1.5px dashed rgba(139, 90, 43, 0.35); border-radius: 4px;">
+                <div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">👕</div>
+                <h4 style="font-family: 'Playfair Display', serif; color: #1A120B; font-size: 1.1rem; margin: 0 0 8px;">No Products Yet</h4>
+                <p style="color: #6D5D53; font-size: 0.88rem; margin: 0 0 14px;">No garments have been added to the <strong>${dept}'s</strong> collection yet.</p>
+                <span style="display: inline-block; background: rgba(139, 90, 43, 0.1); color: #8B5A2B; border: 1px solid rgba(139, 90, 43, 0.3); font-size: 0.72rem; font-weight: 800; padding: 4px 12px; letter-spacing: 1px; text-transform: uppercase;">Check Back Soon</span>
+            </div>
+        `;
+        return;
+    }
+
+    grid.innerHTML = '';
+    deptProducts.slice(0, 4).forEach(p => {
+        const hasSizes = p.sizes && typeof p.sizes === 'object';
+        const displayPrice = hasSizes ? Object.values(p.sizes)[0].price : p.price;
+        const displayOldPrice = hasSizes ? Object.values(p.sizes)[0].oldPrice : p.oldPrice;
+
+        let discountBadge = '';
+        if (displayOldPrice && displayOldPrice > displayPrice) {
+            const discountPercent = Math.round(((displayOldPrice - displayPrice) / displayOldPrice) * 100);
+            discountBadge = `<span class="badge badge-sale" style="position: absolute; top: 12px; left: 12px; z-index: 10; background: #DC143C; color: white; padding: 3px 8px; font-size: 0.65rem; font-weight: 800;">${discountPercent}% OFF</span>`;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.style.background = '#FFFFFF';
+        card.style.border = '1px solid rgba(26,18,11,0.15)';
+        card.innerHTML = `
+            <div class="product-image-container" onclick="viewProduct('${p.id}')" style="cursor: pointer; position: relative;">
+                ${discountBadge}
+                <img src="${p.images[0]}" alt="${p.name}" class="product-image" loading="lazy">
+                <button class="wishlist-btn" onclick="event.stopPropagation(); toggleWishlist('${p.id}')" title="Add to Wishlist" style="position: absolute; top: 12px; right: 12px; z-index: 10;">
+                    <i data-lucide="heart" class="wishlist-icon-${p.id}"></i>
+                </button>
+            </div>
+            <div class="product-info" style="padding: 16px 14px;">
+                <div class="product-category" style="color: #8B5A2B; font-weight: 700; font-size: 0.72rem; text-transform: uppercase;">${p.category}</div>
+                <h3 class="product-title" onclick="viewProduct('${p.id}')" style="cursor: pointer; font-size: 1.05rem; margin: 4px 0 8px;">${p.name}</h3>
+                <div class="product-price" style="display: flex; align-items: baseline; gap: 8px;">
+                    <span class="current-price" style="font-weight: 800; color: #1A120B;">Rs. ${Number(displayPrice).toLocaleString()}.00</span>
+                    ${displayOldPrice ? `<span class="original-price" style="text-decoration: line-through; color: #8C7D73; font-size: 0.85rem;">Rs. ${Number(displayOldPrice).toLocaleString()}.00</span>` : ''}
+                </div>
+                <div class="product-actions" style="margin-top: 12px; display: flex; gap: 8px;">
+                    <button class="btn btn-primary" onclick="viewProduct('${p.id}')" style="flex: 1; padding: 9px; font-size: 0.8rem; font-weight: 700; background: #1A120B; color: #fff; border: 1px solid #1A120B; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 6px;">
+                        <i data-lucide="eye" style="width: 14px; height: 14px;"></i> View Details
+                    </button>
+                </div>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// Auto-parse URL department section parameter or auto-set currentSection on section pages
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const secParam = urlParams.get('section');
+    const path = window.location.pathname.toLowerCase();
+
+    if (path.includes('mens.html')) {
+        if (typeof selectSection === 'function') selectSection('Mens');
+    } else if (path.includes('womens.html')) {
+        if (typeof selectSection === 'function') selectSection('Womens');
+    } else if (path.includes('kids.html')) {
+        if (typeof selectSection === 'function') selectSection('Kids');
+    } else if (path.includes('other.html')) {
+        if (typeof selectSection === 'function') selectSection('Others');
+    } else if (secParam && typeof selectSection === 'function') {
+        const s = secParam.toLowerCase();
+        if (s === 'mens' || s === 'men') selectSection('Mens');
+        else if (s === 'womens' || s === 'women') selectSection('Womens');
+        else if (s === 'kids' || s === 'kid') selectSection('Kids');
+        else if (s === 'others' || s === 'other') selectSection('Others');
+    }
+    if (window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/')) {
+        renderHomeDepartmentProducts();
+    }
+});
+
+
+
+
+// ==========================================================================
+// FAST SCROLL REVEAL OBSERVER (Smooth, hardware-accelerated animations)
+// ==========================================================================
+function initFastScrollAnimations() {
+    if (typeof window === 'undefined') return;
+
+    // Target elements: category cards, department cards, product cards, sections
+    const selectors = [
+        '.category-square-card',
+        '.product-card',
+        '.featured-product-card',
+        '.hero-content',
+        '.exclusive-banner'
+    ];
+
+    const elements = document.querySelectorAll(selectors.join(', '));
+    if (!elements || elements.length === 0) return;
+
+    // Use fast IntersectionObserver
+    if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    obs.unobserve(entry.target); // Reveal once fast, no lagging
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px 0px -40px 0px',
+            threshold: 0.08
+        });
+
+        elements.forEach((el, index) => {
+            if (!el.classList.contains('scroll-reveal') && !el.classList.contains('revealed')) {
+                el.classList.add('scroll-reveal');
+                // Calculate stagger delay based on sibling index
+                const parent = el.parentElement;
+                let childIndex = 1;
+                if (parent) {
+                    const siblings = Array.from(parent.children);
+                    childIndex = (siblings.indexOf(el) % 8) + 1;
+                }
+                el.setAttribute('data-reveal-delay', childIndex);
+                observer.observe(el);
+            }
+        });
+    } else {
+        // Fallback for older browsers
+        elements.forEach(el => el.classList.add('revealed'));
+    }
+}
+
+// Automatically trigger on DOM load and after dynamic product renders
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(initFastScrollAnimations, 50);
+    });
+}
+
+// ==========================================================================
+// DESIGN STUDIO - UNDER DEVELOPMENT / TEMPORARILY CLOSED NOTICE MODAL
+// ==========================================================================
+function openDesignStudioNotice(e) {
+    if (e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    let modal = document.getElementById('design-studio-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'design-studio-modal';
+        modal.className = 'ds-modal-overlay';
+        modal.innerHTML = `
+            <div class="ds-modal-card" role="dialog" aria-modal="true" aria-labelledby="ds-title">
+                <button class="ds-modal-close" onclick="closeDesignStudioNotice()" aria-label="Close modal">&times;</button>
+                <div class="ds-badge-row">
+                    <span class="ds-status-pill">
+                        <span class="ds-pulse-dot"></span> Under Active Development
+                    </span>
+                </div>
+                <div class="ds-icon-bubble">
+                    <i data-lucide="wrench" class="ds-icon-tool"></i>
+                </div>
+                <h3 id="ds-title" class="ds-heading">Design Studio is Temporarily Closed</h3>
+                <p class="ds-subheading">ක්‍රියාකාරී නවීකරණයක් සිදු කෙරෙමින් පවතී</p>
+                <p class="ds-desc">
+                    අපගේ <strong>Design Studio</strong> සේවාව මේ වන විට නවීන විශේෂාංග හා උසස් තාක්ෂණය සමඟින් සංවර්ධනය (Development) වෙමින් පවතින බැවින් තාවකාලිකව වසා ඇත.
+                </p>
+                <div class="ds-highlight-box">
+                    <i data-lucide="sparkles" class="ds-sparkle-icon"></i>
+                    <div>
+                        <strong>ඉතා ඉක්මනින් ඔබ වෙත! (Launching Soon)</strong>
+                        <p>ඔබටම අනන්‍ය වූ T-Shirt ත්‍රිමාණව (3D) නිර්මාණය කර ගැනීමේ නව අත්දැකීමක් ඉතා කඩිනමින් ඔබ වෙත ලැබෙනු ඇත.</p>
+                    </div>
+                </div>
+                <div class="ds-actions">
+                    <a href="shop.html" class="ds-btn ds-btn-primary">
+                        <i data-lucide="shopping-bag" style="width: 16px; height: 16px;"></i> Browse Available Shop
+                    </a>
+                    <a href="https://wa.me/94757218786?text=Hello%20Roohira%2C%20I%20would%20like%20to%20order%20a%20custom%20design" target="_blank" class="ds-btn ds-btn-whatsapp">
+                        <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i> Custom Orders via WhatsApp
+                    </a>
+                    <button type="button" class="ds-btn ds-btn-close" onclick="closeDesignStudioNotice()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeDesignStudioNotice();
+            }
+        });
+    }
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+function closeDesignStudioNotice() {
+    const modal = document.getElementById('design-studio-modal');
+    if (modal) {
+        modal.classList.remove('active');
+    }
+    document.body.style.overflow = '';
+}
+
+window.openDesignStudioNotice = openDesignStudioNotice;
+window.closeDesignStudioNotice = closeDesignStudioNotice;
+
+// Intercept all clicks on customize.html links across all pages
+document.addEventListener('click', (e) => {
+    const targetLink = e.target.closest('a[href*="customize.html"]');
+    if (targetLink) {
+        e.preventDefault();
+        e.stopPropagation();
+        openDesignStudioNotice(e);
+    }
+}, true);
+
+// If user navigates directly to customize.html, display overlay immediately
+if (typeof window !== 'undefined' && window.location.pathname.includes('customize.html')) {
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            openDesignStudioNotice();
+        }, 150);
+    });
 }
 

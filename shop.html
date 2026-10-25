@@ -4,8 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop | Roohira</title>
-    <link rel="icon" href="logo.png">
+    <title>Shop | Roohira Collection</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -13,17 +18,19 @@
 <body>
     <nav id="navbar">
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Roohira Logo">
-            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
+            <img src="logo.png" alt="Roohira Collection Logo">
+            <div class="brand-text">
+                <span style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: var(--espresso); letter-spacing: 0.03em;">ROOHIRA</span>
+                <small style="font-family: var(--font-sans); font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600;">COLLECTION</small>
+            </div>
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html" class="active">Shop</a></li>
-            <li><a href="customize.html">Customize</a></li>
-            <li><a href="dtf.html">DTF Print</a></li>
-            <li><a href="offers.html">Offers</a></li>
-            <li><a href="track-order.html">Track Order</a></li>
-            <li><a href="reviews.html">Reviews</a></li>
+            <li><a href="shop.html" class="active">Shop All</a></li>
+            <li><a href="mens.html">Men</a></li>
+            <li><a href="womens.html">Women</a></li>
+            <li><a href="kids.html">Kids</a></li>
+            <li><a href="other.html">Others</a></li>
         </ul>
         <div class="nav-icons">
             <a href="https://www.instagram.com/" target="_blank"><i data-lucide="instagram"></i></a>
@@ -32,138 +39,123 @@
             <a href="wishlist.html" style="position: relative; margin-right: 5px;">
                 <i data-lucide="heart"></i>
                 <span id="wishlist-count"
-                    style="position: absolute; top: -10px; right: -10px; background: #ff1493; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
+                    style="position: absolute; top: -10px; right: -10px; background: #8B5A2B; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
             <a href="cart.html" style="position: relative;">
                 <i data-lucide="shopping-cart"></i>
                 <span id="cart-count"
                     style="position: absolute; top: -10px; right: -10px; background: var(--accent-gold); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <a href="#" id="mobile-menu-btn"><i data-lucide="menu"></i></a>
+            <a href="#" id="mobile-menu-btn" class="side-menu-trigger" title="All Pages & Menu"><i data-lucide="menu"></i></a>
         </div>
     </nav>
 
     <div class="menu-overlay" id="menu-overlay"></div>
     <div class="mobile-menu" id="mobile-menu">
         <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="customize.html">Customize</a>
-        <a href="dtf.html">DTF Print</a>
-        <a href="offers.html">Offers</a>
-        <a href="track-order.html">Track Order</a>
-        <a href="reviews.html">Reviews</a>
-        <a href="wishlist.html">Wishlist</a>
-        <a href="profile.html">My Account</a>
-        <a href="cart.html">Cart</a>
+        <div style="padding: 0 0.5rem 1rem; border-bottom: 2px solid #1A120B; margin-bottom: 0.5rem;">
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: #000000; margin: 0; font-weight: 700;">Navigation &amp; Pages</h3>
+            <span style="font-size: 0.72rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px;">Roohira Collection</span>
+        </div>
+        <a href="index.html"><i data-lucide="home" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Home</a>
+        <a href="shop.html"><i data-lucide="shopping-bag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Shop All</a>
+        <a href="mens.html"><i data-lucide="shirt" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Men's Collection</a>
+        <a href="womens.html"><i data-lucide="sparkles" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Women's Collection</a>
+        <a href="kids.html"><i data-lucide="smile" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Kids' Collection</a>
+        <a href="other.html"><i data-lucide="layers" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Others &amp; Specials</a>
+        <a href="track-order.html"><i data-lucide="truck" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Track Order</a>
+        <a href="customize.html"><i data-lucide="palette" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Design Studio</a>
+        <a href="dtf.html"><i data-lucide="printer" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> DTF Print Service</a>
+        <a href="offers.html"><i data-lucide="tag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Offers &amp; Discounts</a>
+        <a href="reviews.html"><i data-lucide="star" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Customer Reviews</a>
+        <a href="wishlist.html"><i data-lucide="heart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Wishlist</a>
+        <a href="cart.html"><i data-lucide="shopping-cart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Cart</a>
+        <a href="profile.html"><i data-lucide="user" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> My Account</a>
+        <a href="login.html"><i data-lucide="log-in" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Login / Register</a>
+        <a href="admin.html" style="background: rgba(139, 90, 43, 0.08); color: #8B5A2B; font-weight: 700; border-top: 1px solid rgba(139, 90, 43, 0.2);"><i data-lucide="shield" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Admin Control Center</a>
     </div>
 
-    <main class="section" style="padding-top: 150px;">
-        <div class="section-title">
-            <h2>Our <span style="color: #ff1493;">Shop</span></h2>
-            <p>Browse through our exclusive T-shirt & Frock collection</p>
+    <main class="section shop-page">
+        <div class="shop-head">
+            <span class="shop-head-eyebrow">Roohira Collection</span>
+            <h2>Our <span>Shop</span></h2>
+            <p>Premium tees, frocks &amp; handmade pieces — filter by section to find your perfect fit.</p>
         </div>
 
-        <!-- Search Bar -->
-        <div class="search-container" style="max-width: 300px; margin: 0 0 30px auto; position: relative;">
-            <input type="text" id="shop-search" placeholder="Search (e.g. t-shirt, kids)..." oninput="handleSearch(this.value)"
-                style="width: 100%; padding: 12px 15px 12px 42px; border-radius: 50px; border: 1px solid var(--border-color); background: var(--surface); color: var(--primary-dark); font-size: 0.9rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); outline: none; transition: var(--transition-smooth);">
-            <i data-lucide="search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 18px; height: 18px; pointer-events: none;"></i>
-        </div>
+        <!-- Shop Controls -->
+        <div class="shop-control-bar shop-toolbar">
+            <!-- Search + Sort -->
+            <div class="shop-search-row">
+                <div class="shop-search-wrap">
+                    <i data-lucide="search" class="shop-search-icon"></i>
+                    <input type="text" id="shop-search" placeholder="Search collection..." oninput="handleSearch(this.value)">
+                </div>
+                <div class="shop-sort-wrap">
+                    <label for="shop-sort">Sort</label>
+                    <select id="shop-sort" onchange="handleSortChange(this.value)">
+                        <option value="default">Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name-asc">Name: A to Z</option>
+                    </select>
+                </div>
+            </div>
 
-        <!-- Category Filter Row -->
-        <div class="filter-scroll-wrapper visible animate-fade-up stagger-1" id="category-row-wrapper">
-            <span class="filter-row-label">Category:</span>
-            <div class="filter-scroll-container">
-                <button class="shop-filter-btn category-btn active" onclick="selectCategory('All', this)">All Categories</button>
-                <button class="shop-filter-btn category-btn" onclick="selectCategory('T-Shirts', this)">T-Shirts</button>
-                <button class="shop-filter-btn category-btn" onclick="selectCategory('Frock', this)">Frocks</button>
-                <button class="shop-filter-btn category-btn" onclick="selectCategory('Blouse', this)">Blouses</button>
+            <!-- Section Filter -->
+            <div class="shop-filter-group">
+                <span class="shop-filter-label">Shop by Section</span>
+                <div id="section-btn-row" class="shop-chip-row">
+                    <button class="shop-filter-btn section-btn active" onclick="selectSection('All', this)">All</button>
+                    <button class="shop-filter-btn section-btn" onclick="selectSection('Mens', this)">Men</button>
+                    <button class="shop-filter-btn section-btn" onclick="selectSection('Womens', this)">Women</button>
+                    <button class="shop-filter-btn section-btn" onclick="selectSection('Kids', this)">Kids</button>
+                    <button class="shop-filter-btn section-btn" onclick="selectSection('Others', this)">Others</button>
+                </div>
+            </div>
+
+            <!-- Category Filter (Dynamic from Firestore) -->
+            <div class="shop-filter-group">
+                <span class="shop-filter-label">Category</span>
+                <div id="category-tab-row" class="shop-chip-row">
+                    <button class="shop-filter-btn category-btn active" onclick="selectCategory('All', this)">All Categories</button>
+                </div>
+            </div>
+
+            <!-- Subcategories (T-Shirts only) -->
+            <div id="subcategory-row" class="shop-chip-row shop-sub-row" style="display: none;">
+                <button class="shop-subfilter-btn subcategory-btn t-shirt-sub" onclick="selectSubcategory('Regular Tee (Printed)', this)">Regular Fit (220 GSM)</button>
+                <button class="shop-subfilter-btn subcategory-btn t-shirt-sub" onclick="selectSubcategory('Oversized Tee (Printed)', this)">Oversized Fit (220 GSM)</button>
+            </div>
+
+            <!-- Active Section Badge -->
+            <div id="active-dept-badge-row" class="shop-active-dept">
+                <span id="active-dept-label"></span>
+                <button class="shop-active-dept-clear" onclick="selectSection('All', null); document.getElementById('active-dept-badge-row').style.display = 'none';">&#10005; Clear</button>
             </div>
         </div>
 
+        <div class="shop-results-bar">
+            <span id="shop-results-count">Showing all products</span>
+        </div>
 
         <div class="product-grid" id="product-grid">
             <!-- Products will be here -->
         </div>
     </main>
 
-
-
-    <!-- Size Chart Modal -->
-    <div id="sizeChartModal" class="modal-overlay" onclick="closeSizeChart()"
-        style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
-        <div class="glass"
-            style="max-width: 90%; max-height: 90%; position: relative; padding: 10px; background: white; border-radius: 20px;"
-            onclick="event.stopPropagation()">
-            <span onclick="closeSizeChart()"
-                style="position: absolute; right: -15px; top: -15px; background: #ff1493; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);">&times;</span>
-            <img src="https://i.ibb.co/pvGrdQMD/Size-Chart-01.jpg" alt="Size Chart"
-                style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
-        </div>
-    </div>
-
-    <style>
-        /* GSM sub-category buttons — outline only, no fill */
-        .gsm-sub {
-            padding: 5px 14px !important;
-            border-radius: 50px !important;
-            border: 1.5px solid #333 !important;
-            background: transparent !important;
-            color: var(--primary-dark) !important;
-            font-size: 0.75rem !important;
-            font-weight: 700 !important;
-            box-shadow: none !important;
-            transform: none !important;
-        }
-        .gsm-sub:hover {
-            border-color: #ff1493 !important;
-            color: #ff1493 !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            transform: none !important;
-        }
-        .gsm-sub.active {
-            border-color: #ff1493 !important;
-            color: #ff1493 !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            transform: none !important;
-        }
-
-        .product-card:hover .size-chart-card-btn {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-
-        .size-chart-card-btn:hover {
-            background: #000 !important;
-            color: #fff !important;
-        }
-
-        .modal-overlay.active {
-            display: flex !important;
-        }
-
-        #shop-search:focus {
-            border-color: var(--accent-gold) !important;
-            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.15) !important;
-        }
-    </style>
-
-      <footer class="footer" style="padding: 60px 10% 30px; border-top: 2px solid rgba(255, 20, 147, 0.3); background: #ffffff !important; color: #000000 !important;">
+    <footer class="footer" style="padding: 60px 10% 30px; border-top: 1.5px solid rgba(60, 42, 33, 0.12); background: #ffffff !important; color: #000000 !important;">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; text-align: left;">
       <!-- Brand & About -->
       <div>
-        <h3 style="font-family: 'Mileast', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
-          <span style="color: #ff1493 !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
+        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
+          <span style="color: #8B5A2B !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
         </h3>
         <p style="color: #000000 !important; font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;">
           Elevate your style with our premium, high-quality clothing collection. Designed for those who appreciate excellence.
         </p>
         <div style="display: flex; gap: 12px;">
-          <a href="https://web.facebook.com/roohiraonline" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
-          <a href="https://www.instagram.com/" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://web.facebook.com/roohiraonline" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #8B5A2B !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #8B5A2B !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
           <a href="https://wa.me/94757218786" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #25D366 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="WhatsApp"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i></a>
         </div>
       </div>
@@ -186,7 +178,7 @@
         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
           <li>
             <a href="tel:0757218786" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="phone" style="width: 16px; height: 16px; color: #ff1493;"></i> Call: 0757218786
+              <i data-lucide="phone" style="width: 16px; height: 16px; color: #8B5A2B;"></i> Call: 0757218786
             </a>
           </li>
           <li>
@@ -196,12 +188,12 @@
           </li>
           <li>
             <a href="mailto:roohiraonline@gmail.com" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="mail" style="width: 16px; height: 16px; color: #ff1493;"></i> roohiraonline@gmail.com
+              <i data-lucide="mail" style="width: 16px; height: 16px; color: #8B5A2B;"></i> roohiraonline@gmail.com
             </a>
           </li>
           <li>
             <a href="https://web.facebook.com/roohiraonline" target="_blank" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="facebook" style="width: 16px; height: 16px; color: #ff1493;"></i> facebook.com/roohiraonline
+              <i data-lucide="facebook" style="width: 16px; height: 16px; color: #8B5A2B;"></i> facebook.com/roohiraonline
             </a>
           </li>
         </ul>
@@ -213,6 +205,31 @@
       <p style="color: #000000 !important;">&copy; 2026 Roohira Collection. All rights reserved.</p>
     </div>
   </footer>
+
+    <!-- App-Style Mobile Bottom Navigation Bar -->
+    <div class="mobile-bottom-bar">
+      <a href="index.html" class="mobile-bottom-item">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+      </a>
+      <a href="shop.html" class="mobile-bottom-item active">
+        <i data-lucide="shopping-bag"></i>
+        <span>Shop</span>
+      </a>
+      <a href="customize.html" class="mobile-bottom-item">
+        <i data-lucide="wand-2"></i>
+        <span>Design</span>
+      </a>
+      <a href="dtf.html" class="mobile-bottom-item">
+        <i data-lucide="printer"></i>
+        <span>DTF</span>
+      </a>
+      <a href="cart.html" class="mobile-bottom-item">
+        <i data-lucide="shopping-cart"></i>
+        <span>Cart</span>
+        <span class="badge-dot" id="mobile-bar-cart">0</span>
+      </a>
+    </div>
 
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>

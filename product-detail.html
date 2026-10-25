@@ -3,60 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details | Roohira</title>
-    <link rel="icon" href="logo.png">
+    <title>Product Details | Roohira Collection</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <nav id="navbar" class="scrolled">
+    <nav id="navbar">
         <a href="index.html" class="logo">
-            <img src="logo.png" alt="Roohira Logo">
-            <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
+            <img src="logo.png" alt="Roohira Collection Logo">
+            <div class="brand-text">
+                <span style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; color: var(--espresso); letter-spacing: 0.03em;">ROOHIRA</span>
+                <small style="font-family: var(--font-sans); font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600;">COLLECTION</small>
+            </div>
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="customize.html">Customize</a></li>
-            <li><a href="offers.html">Offers</a></li>
+            <li><a href="shop.html" class="active">Shop</a></li>
+            <li><a href="track-order.html">Track Order</a></li>
+            <li><a href="customize.html">Design Studio</a></li>
         </ul>
         <div class="nav-icons">
-            <a href="login.html"><i data-lucide="user"></i></a>
+            <a href="https://www.instagram.com/" target="_blank"><i data-lucide="instagram"></i></a>
+            <a href="https://web.facebook.com/roohiraonline" target="_blank"><i data-lucide="facebook"></i></a>
+            <a href="profile.html"><i data-lucide="user"></i></a>
+            <a href="wishlist.html" style="position: relative; margin-right: 5px;">
+                <i data-lucide="heart"></i>
+                <span id="wishlist-count"
+                    style="position: absolute; top: -10px; right: -10px; background: #8B5A2B; color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
+            </a>
             <a href="cart.html" style="position: relative;">
                 <i data-lucide="shopping-cart"></i>
-                <span id="cart-count" style="position: absolute; top: -10px; right: -10px; background: var(--accent-gold); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
+                <span id="cart-count"
+                    style="position: absolute; top: -10px; right: -10px; background: var(--accent-gold); color: white; font-size: 10px; padding: 2px 5px; border-radius: 50%; font-weight: 800;">0</span>
             </a>
-            <a href="#" id="mobile-menu-btn"><i data-lucide="menu"></i></a>
+            <a href="#" id="mobile-menu-btn" class="side-menu-trigger" title="All Pages & Menu"><i data-lucide="menu"></i></a>
         </div>
     </nav>
 
     <!-- Mobile Side Menu -->
     <div class="menu-overlay" id="menu-overlay"></div>
     <div class="mobile-menu" id="mobile-menu">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-            <div class="logo">
-                <img src="logo.png" alt="Roohira Logo" style="width: 35px;">
-                <span style="font-family: 'Mileast', 'Plus Jakarta Sans', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 1.5px;"><span style="color: #ff1493;">ROOHIRA</span> <span style="color: var(--primary-dark);">COLLECTION</span></span>
-            </div>
-            <button id="close-menu" style="background: none; border: none; color: var(--primary-dark); cursor: pointer;">
-                <i data-lucide="x"></i>
-            </button>
+        <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
+        <div style="padding: 0 0.5rem 1rem; border-bottom: 2px solid #1A120B; margin-bottom: 0.5rem;">
+            <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: #000000; margin: 0; font-weight: 700;">Navigation &amp; Pages</h3>
+            <span style="font-size: 0.72rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px;">Roohira Collection</span>
         </div>
-        <ul style="list-style: none; padding: 0;">
-            <li style="margin-bottom: 25px;"><a href="index.html" style="color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px;"><i data-lucide="home"></i> Home</a></li>
-            <li style="margin-bottom: 25px;"><a href="shop.html" style="color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px;"><i data-lucide="shopping-bag"></i> Shop</a></li>
-            <li style="margin-bottom: 25px;"><a href="customize.html" style="color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px;"><i data-lucide="edit-3"></i> Customize</a></li>
-            <li style="margin-bottom: 25px;"><a href="offers.html" style="color: var(--primary-dark); text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px;"><i data-lucide="tag"></i> Offers</a></li>
-            <li style="margin-top: 50px;"><a href="login.html" style="color: var(--accent-gold); text-decoration: none; font-size: 1.1rem; display: flex; align-items: center; gap: 15px;"><i data-lucide="user"></i> My Account</a></li>
-        </ul>
+        <a href="index.html"><i data-lucide="home" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Home</a>
+        <a href="shop.html"><i data-lucide="shopping-bag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Shop All</a>
+        <a href="track-order.html"><i data-lucide="truck" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Track Order</a>
+        <a href="customize.html"><i data-lucide="palette" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Design Studio</a>
+        <a href="dtf.html"><i data-lucide="printer" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> DTF Print Service</a>
+        <a href="offers.html"><i data-lucide="tag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Offers &amp; Discounts</a>
+        <a href="reviews.html"><i data-lucide="star" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Customer Reviews</a>
+        <a href="wishlist.html"><i data-lucide="heart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Wishlist</a>
+        <a href="cart.html"><i data-lucide="shopping-cart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Cart</a>
+        <a href="profile.html"><i data-lucide="user" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> My Account</a>
+        <a href="login.html"><i data-lucide="log-in" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Login / Register</a>
     </div>
 
-<main class="section" style="padding-top: 150px;">
+<main class="detail-section pdp-page">
+    <!-- Breadcrumbs -->
+    <div class="detail-breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="shop.html">Shop</a>
+        <span>/</span>
+        <span id="breadcrumb-product-name" style="color: #8B5A2B; font-weight: 700;">Product</span>
+    </div>
+
     <div class="detail-container">
         <!-- Product Image Gallery Slider -->
-        <div class="gallery-card animate-fade-up stagger-1" id="gallery-container">
+        <div class="gallery-card" id="gallery-container">
             <div class="slider-container">
-                <div id="image-slider" style="display: flex; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 100%;">
+                <div id="image-slider">
                     <!-- Images will be injected here -->
                 </div>
             </div>
@@ -73,34 +98,51 @@
             <div id="slider-dots" class="slider-pagination"></div>
 
             <!-- Image Thumbnails (Previews) -->
-            <div id="image-thumbnails" class="gallery-thumbnails">
+            <div id="image-thumbnails" class="gallery-thumbnails" style="display: none !important;">
                 <!-- Thumbnails will be injected here -->
             </div>
         </div>
 
         <!-- Product Details -->
-        <div class="info-col animate-fade-up stagger-2">
+        <div class="info-col">
             <div>
-                <div class="category-tag">
-                    <i data-lucide="tag" style="width: 14px; height: 14px;"></i>
-                    <span id="detail-category-label">Category</span>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                    <div class="category-tag">
+                        <i data-lucide="tag" style="width: 13px; height: 13px;"></i>
+                        <span id="detail-category-label">Category</span>
+                    </div>
+                    <span id="detail-gsm" style="display: none; font-size: 0.72rem; font-weight: 800; color: #8B5A2B; background: rgba(139, 90, 43, 0.1); border: 1px solid rgba(139, 90, 43, 0.3); padding: 3px 8px; letter-spacing: 0.5px;"></span>
+                    <span id="detail-brand" style="display: none; font-size: 0.72rem; font-weight: 800; color: #1A120B; background: #FAF7F2; border: 1px solid rgba(26, 18, 11, 0.2); padding: 3px 8px;">Roohira</span>
                 </div>
                 <h1 id="detail-name" class="detail-title">Product Name</h1>
                 <div class="detail-price-wrapper">
                     <p id="detail-price" class="current-price">Rs. 0.00</p>
                 </div>
+                
+                <!-- Product Rating Overview Header -->
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer;" onclick="scrollToReviews()">
+                    <div style="display: flex; gap: 3px; color: #C6A26B; font-size: 0.92rem;" id="pdp-header-stars">
+                        <i data-lucide="star" style="width: 15px; height: 15px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 15px; height: 15px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 15px; height: 15px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 15px; height: 15px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 15px; height: 15px; fill: currentColor;"></i>
+                    </div>
+                    <span id="pdp-header-rating-num" style="font-weight: 800; font-size: 0.88rem; color: #1A120B;">5.0</span>
+                    <span id="pdp-header-review-count" style="font-size: 0.8rem; color: #8B5A2B; font-weight: 700; text-decoration: underline;">(0 Reviews &bull; Rate Now)</span>
+                </div>
             </div>
             
-            <div class="glass" style="padding: 20px; border-radius: 20px; border: 1px solid var(--border-light); background: var(--surface);">
+            <div class="detail-desc-box">
                 <p id="detail-desc" class="detail-desc-card">
-                    Premium quality T-shirt crafted with precision and care. Designed for comfort and style that lasts.
+                    Premium handcrafted apparel by Roohira Collection. Engineered for exceptional comfort, luxury feel, and long-lasting style.
                 </p>
             </div>
 
             <div>
                 <div class="option-label">
                     <span>Select Size</span>
-                    <span id="size-chart-link" onclick="openSizeChart()" style="color: var(--accent-gold); cursor: pointer; text-transform: none; font-size: 0.8rem; font-weight: 700; text-decoration: underline; display: flex; align-items: center; gap: 5px;">
+                    <span id="size-chart-link" onclick="openSizeChart()" style="color: #8B5A2B; cursor: pointer; text-transform: none; font-size: 0.8rem; font-weight: 700; text-decoration: underline; display: flex; align-items: center; gap: 5px;">
                         <i data-lucide="ruler" style="width: 14px;"></i> Size Chart
                     </span>
                 </div>
@@ -109,52 +151,29 @@
                 </div>
             </div>
 
-            <div id="print-size-wrapper" style="display: none; background: var(--surface); border: 1px solid var(--border-color); padding: 16px 18px; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: 15px;">
-                <div class="option-label" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
-                        <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #DC143C;"></i> Sticker / Print Size
-                    </span>
-                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted);">Choose Print Scale</span>
-                </div>
-                <div class="print-size-options" id="detail-print-sizes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <div class="print-size-card active" id="chip-a3" onclick="selectPrintSize('A3')" style="position: relative; padding: 14px; border-radius: 16px; border: 2px solid #DC143C; background: rgba(220, 20, 60, 0.06); cursor: pointer; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                            <span style="font-size: 0.95rem; font-weight: 900; color: var(--text-main);">A3 Print</span>
-                            <span class="print-size-badge" style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: #DC143C; color: white; padding: 3px 8px; border-radius: 20px;">Standard</span>
-                        </div>
-                        <div style="font-size: 1.05rem; font-weight: 900; color: #DC143C;">Rs. 1,800 <span style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-muted); font-weight: 600;">1,850</span></div>
-                    </div>
-                    <div class="print-size-card" id="chip-a2" onclick="selectPrintSize('A2')" style="position: relative; padding: 14px; border-radius: 16px; border: 2px solid var(--border-color); background: var(--surface); cursor: pointer; text-align: left; display: flex; flex-direction: column; justify-content: space-between;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                            <span style="font-size: 0.95rem; font-weight: 900; color: var(--text-main);">A2 Print</span>
-                            <span class="print-size-badge" style="font-size: 0.65rem; font-weight: 800; text-transform: uppercase; background: var(--border-color); color: var(--text-muted); padding: 3px 8px; border-radius: 20px;">Jumbo</span>
-                        </div>
-                        <div style="font-size: 1.05rem; font-weight: 900; color: var(--text-main);">Rs. 2,100</div>
-                    </div>
-                </div>
-            </div>
+            <!-- Print size selector removed as requested -->
 
             <div>
-                <h4 class="option-label">Select Color</h4>
+                <h4 class="option-label">Select Color: <span id="selected-color-name" style="font-weight: 700; text-transform: none; color: #8B5A2B; font-size: 0.85rem; margin-left: 6px;"></span></h4>
                 <div class="color-dots" id="detail-colors">
                     <!-- Dynamic colors -->
                 </div>
             </div>
 
             <div class="stock-urgency-wrapper" id="stock-urgency-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: 700;">
-                    <span id="stock-urgency-text" style="color: #ff9f43; display: flex; align-items: center; gap: 6px;">
-                        <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #ff9f43; animation: pulseWidth 1.5s infinite;"></span>
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; font-weight: 700;">
+                    <span id="stock-urgency-text" style="color: #B38738; display: flex; align-items: center; gap: 6px;">
+                        <span style="display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #B38738;"></span>
                         Selling Fast! Only a few left in stock
                     </span>
-                    <span id="stock-count-display">Limited Stock</span>
+                    <span id="stock-count-display" style="color: #1A120B; font-weight: 800;">Limited Stock</span>
                 </div>
                 <div class="stock-bar-bg">
                     <div class="stock-bar-fill" id="stock-bar-fill-elem"></div>
                 </div>
             </div>
 
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
                 <div>
                     <h4 class="option-label" style="margin-bottom: 8px;">Quantity</h4>
                     <div class="qty-selector">
@@ -165,97 +184,240 @@
                 </div>
                 
                 <!-- Estimated Delivery Widget -->
-                <div class="delivery-widget" style="min-width: 260px;">
-                    <i data-lucide="truck" style="color: var(--accent-gold); width: 24px; height: 24px; flex-shrink: 0;"></i>
+                <div class="delivery-widget" style="flex: 1; min-width: 240px;">
+                    <i data-lucide="truck" style="color: #8B5A2B; width: 22px; height: 22px; flex-shrink: 0;"></i>
                     <div>
-                        <h5 id="delivery-promo-title" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main); margin-bottom: 2px;">FREE Delivery on 4+ Items</h5>
-                        <p id="est-delivery-date" style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Get it by next week</p>
+                        <h5 id="delivery-promo-title" style="font-size: 0.8rem; font-weight: 800; color: #1A120B; margin: 0 0 2px;">FREE Delivery on 4+ Items</h5>
+                        <p id="est-delivery-date" style="font-size: 0.72rem; color: #6D5D53; font-weight: 600; margin: 0;">Get it by next week</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Premium Specifications Grid -->
-            <div>
-                <h4 class="option-label" style="margin-bottom: 12px;">Specifications</h4>
-                <div class="specs-panel">
-                    <div class="spec-item" id="gsm-spec-item">
-                        <div class="spec-icon">
-                            <i data-lucide="shirt"></i>
-                        </div>
-                        <div class="spec-details">
-                            <h5>Fabric Density</h5>
-                            <p id="detail-gsm">180 GSM</p>
-                        </div>
+            <!-- Specifications (Only shown if custom specs are added for this product) -->
+            <div id="product-specs-wrapper" style="display: none;">
+                <h4 class="option-label" style="margin-bottom: 10px;">Specifications</h4>
+                <div class="specs-panel" id="product-specs-container">
+                    <!-- Injected dynamically via renderProductCustomSpecs() -->
+                </div>
+            </div>
+
+            <div class="detail-action-row">
+                <button id="add-to-cart-btn" class="detail-add-btn" onclick="addCurrentToCart()">
+                    <i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i> Add to Cart
+                </button>
+                <button id="detail-wishlist-btn" class="detail-wish-btn" onclick="toggleDetailWishlist()" title="Add to Wishlist">
+                    <i data-lucide="heart" id="detail-wishlist-icon" style="width: 22px; height: 22px; transition: 0.3s;"></i>
+                </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="pdp-trust-grid">
+                <div class="pdp-trust-item">
+                    <i data-lucide="banknote"></i>
+                    <div>
+                        <strong>Cash on Delivery</strong>
+                        <span>Pay when it arrives</span>
                     </div>
-                    <div class="spec-item">
-                        <div class="spec-icon">
-                            <i data-lucide="shield-check"></i>
-                        </div>
-                        <div class="spec-details">
-                            <h5>Original Brand</h5>
-                            <p id="detail-brand">Roohira</p>
-                        </div>
+                </div>
+                <div class="pdp-trust-item">
+                    <i data-lucide="truck"></i>
+                    <div>
+                        <strong>Islandwide Delivery</strong>
+                        <span>2–4 working days</span>
                     </div>
-                    <div class="spec-item" id="print-spec-item">
-                        <div class="spec-icon">
-                            <i data-lucide="sparkles"></i>
-                        </div>
-                        <div class="spec-details">
-                            <h5>Print Tech</h5>
-                            <p>A3 DTF print</p>
-                        </div>
+                </div>
+                <div class="pdp-trust-item">
+                    <i data-lucide="refresh-ccw"></i>
+                    <div>
+                        <strong>Easy Exchange</strong>
+                        <span>7-day size swap</span>
                     </div>
-                    <div class="spec-item">
-                        <div class="spec-icon">
-                            <i data-lucide="repeat"></i>
-                        </div>
-                        <div class="spec-details">
-                            <h5>Easy Returns</h5>
-                            <p>7 Days Guarantee</p>
-                        </div>
+                </div>
+                <div class="pdp-trust-item">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>Secure Checkout</strong>
+                        <span>100% protected</span>
                     </div>
                 </div>
             </div>
 
-            <div style="display: flex; gap: 15px; margin-top: 10px;">
-                <button id="add-to-cart-btn" class="btn btn-primary" style="flex: 1; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 12px;" onclick="addCurrentToCart()">
-                    <i data-lucide="shopping-bag" style="width: 20px;"></i> Add to Cart
-                </button>
-                <button id="detail-wishlist-btn" onclick="toggleDetailWishlist()" 
-                        style="width: 60px; height: 58px; border-radius: 16px; background: var(--surface); border: 1px solid var(--border-color); color: var(--text-main); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: var(--transition-smooth); box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
-                    <i data-lucide="heart" id="detail-wishlist-icon" style="width: 24px; height: 24px; transition: 0.3s;"></i>
-                </button>
+            <!-- Product Information Accordions -->
+            <div class="pdp-accordion">
+                <div class="pdp-accordion-item open">
+                    <button type="button" class="pdp-accordion-head" onclick="togglePdpAccordion(this)">
+                        <span><i data-lucide="shirt"></i> Fabric &amp; Care</span>
+                        <i data-lucide="chevron-down" class="pdp-acc-chevron"></i>
+                    </button>
+                    <div class="pdp-accordion-body">
+                        <p><span id="pdp-fabric-text">Premium breathable fabric, handcrafted in Sri Lanka.</span></p>
+                        <ul class="pdp-care-list">
+                            <li>Gentle machine wash, cold water</li>
+                            <li>Do not bleach &bull; Iron on reverse</li>
+                            <li>Colours may vary slightly between batches</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pdp-accordion-item">
+                    <button type="button" class="pdp-accordion-head" onclick="togglePdpAccordion(this)">
+                        <span><i data-lucide="ruler"></i> Size &amp; Fit</span>
+                        <i data-lucide="chevron-down" class="pdp-acc-chevron"></i>
+                    </button>
+                    <div class="pdp-accordion-body">
+                        <p>True to size with a comfortable relaxed fit. If you are between two sizes, we recommend selecting the larger size for a looser drape.</p>
+                        <p>Need exact measurements? Open the <strong>Size Chart</strong> link above the size selector.</p>
+                    </div>
+                </div>
+
+                <div class="pdp-accordion-item">
+                    <button type="button" class="pdp-accordion-head" onclick="togglePdpAccordion(this)">
+                        <span><i data-lucide="package-check"></i> Delivery &amp; Returns</span>
+                        <i data-lucide="chevron-down" class="pdp-acc-chevron"></i>
+                    </button>
+                    <div class="pdp-accordion-body">
+                        <p>Islandwide delivery in 2–4 working days. Cash on delivery available for every district in Sri Lanka. Free delivery on orders of 4 or more items.</p>
+                        <p>Unworn items with original tags can be exchanged within 7 days of delivery.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- You May Also Like -->
+    <section class="pdp-related-section" id="pdp-related-section" style="display: none;">
+        <div class="pdp-related-head">
+            <span>Complete Your Look</span>
+            <h2>You May Also Like</h2>
+        </div>
+        <div class="pdp-related-grid" id="pdp-related-grid"></div>
+    </section>
+
+    <!-- Product Customer Ratings & Reviews Section -->
+    <section class="pdp-reviews-section" id="pdp-reviews-section">
+        <div class="pdp-reviews-header">
+            <div>
+                <span style="font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px; color: #8B5A2B; font-weight: 800; display: block; margin-bottom: 4px;">Verified Patron Feedback</span>
+                <h2 class="pdp-reviews-title">Customer Ratings &amp; Reviews</h2>
+            </div>
+            <button class="pdp-rate-btn" onclick="toggleRateForm()">
+                <i data-lucide="star" style="width: 16px; height: 16px; fill: currentColor;"></i> Rate This Product
+            </button>
+        </div>
+
+        <!-- Rating Overview Summary Card -->
+        <div class="pdp-rating-summary-card">
+            <div class="pdp-rating-num-box">
+                <div class="pdp-rating-score" id="pdp-avg-score">5.0</div>
+                <div>
+                    <div class="pdp-rating-stars-gold" id="pdp-avg-stars-summary">
+                        <i data-lucide="star" style="width: 20px; height: 20px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 20px; height: 20px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 20px; height: 20px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 20px; height: 20px; fill: currentColor;"></i>
+                        <i data-lucide="star" style="width: 20px; height: 20px; fill: currentColor;"></i>
+                    </div>
+                    <div class="pdp-rating-count-label" id="pdp-total-count-label">Based on 0 verified ratings</div>
+                </div>
+            </div>
+            <div style="font-size: 0.85rem; color: #6D5D53; max-width: 420px; line-height: 1.6;">
+                100% Genuine reviews from verified Roohira patrons. Share your rating to help fellow patrons discover exceptional craftsmanship.
+            </div>
+        </div>
+
+        <!-- Inline Review Submission Form -->
+        <div class="pdp-review-form-panel" id="pdp-review-form-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="font-family: var(--font-serif); font-size: 1.3rem; margin: 0; color: #1A120B; font-weight: 700;">Rate &amp; Review This Garment</h3>
+                <button onclick="toggleRateForm()" style="background: none; border: none; font-size: 1.3rem; cursor: pointer; color: #6D5D53;">&times;</button>
+            </div>
+            
+            <form onsubmit="submitProductReview(event)">
+                <div style="margin-bottom: 14px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; color: #1A120B;">Your Rating *</label>
+                    <div class="pdp-star-picker" id="pdp-star-picker">
+                        <i data-lucide="star" data-val="1" onclick="setPdpRating(1)" onmouseenter="hoverPdpRating(1)" onmouseleave="clearHoverPdpRating()"></i>
+                        <i data-lucide="star" data-val="2" onclick="setPdpRating(2)" onmouseenter="hoverPdpRating(2)" onmouseleave="clearHoverPdpRating()"></i>
+                        <i data-lucide="star" data-val="3" onclick="setPdpRating(3)" onmouseenter="hoverPdpRating(3)" onmouseleave="clearHoverPdpRating()"></i>
+                        <i data-lucide="star" data-val="4" onclick="setPdpRating(4)" onmouseenter="hoverPdpRating(4)" onmouseleave="clearHoverPdpRating()"></i>
+                        <i data-lucide="star" data-val="5" onclick="setPdpRating(5)" onmouseenter="hoverPdpRating(5)" onmouseleave="clearHoverPdpRating()"></i>
+                    </div>
+                    <input type="hidden" id="pdp-rating-input" value="5">
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 14px;">
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: #1A120B;">Your Name *</label>
+                        <input type="text" id="pdp-reviewer-name" class="form-control" placeholder="e.g. Nimalka Fernando" required style="width: 100%; padding: 10px 14px; border: 1.5px solid #1A120B; background: #FAF7F2; outline: none; font-size: 0.9rem;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: #1A120B;">Email (Optional)</label>
+                        <input type="email" id="pdp-reviewer-email" class="form-control" placeholder="your@email.com" style="width: 100%; padding: 10px 14px; border: 1.5px solid #1A120B; background: #FAF7F2; outline: none; font-size: 0.9rem;">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 16px;">
+                    <label style="display: block; font-size: 0.82rem; font-weight: 700; margin-bottom: 6px; color: #1A120B;">Your Review &amp; Experience *</label>
+                    <textarea id="pdp-reviewer-comment" rows="3" required placeholder="Describe fabric quality, fit, finish, or islandwide delivery experience..." style="width: 100%; padding: 10px 14px; border: 1.5px solid #1A120B; background: #FAF7F2; outline: none; font-size: 0.9rem; resize: vertical;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button type="submit" id="pdp-submit-review-btn" class="btn btn-gold" style="padding: 10px 22px; font-weight: 700; font-size: 0.85rem;">
+                        <i data-lucide="send" style="width: 15px; height: 15px;"></i> Submit Rating
+                    </button>
+                    <button type="button" onclick="toggleRateForm()" style="background: none; border: 1px solid #1A120B; padding: 10px 18px; font-size: 0.85rem; font-weight: 700; cursor: pointer;">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Product Reviews Grid -->
+        <div class="pdp-reviews-grid" id="pdp-reviews-grid">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #8C7D73;">
+                <i data-lucide="loader" style="width: 24px; height: 24px; animation: spin 1s linear infinite;"></i>
+                <p style="margin-top: 8px; font-size: 0.88rem;">Loading verified patron reviews...</p>
+            </div>
+        </div>
+    </section>
 </main>
 
-    <!-- Size Chart Modal -->
+    <!-- Sticky Mobile Add-to-Cart Bar -->
+    <div class="pdp-sticky-bar" id="pdp-sticky-bar">
+        <div class="pdp-sticky-info">
+            <span class="pdp-sticky-price" id="pdp-sticky-price">Rs. 0.00</span>
+            <span class="pdp-sticky-name" id="pdp-sticky-name">Roohira Garment</span>
+        </div>
+        <button type="button" class="pdp-sticky-btn" id="pdp-sticky-add" onclick="addCurrentToCart()">
+            <i data-lucide="shopping-bag"></i> Add to Cart
+        </button>
+    </div>
+
+    <!-- Size Chart Modal (Product Specific Only) -->
     <div id="sizeChartModal" class="modal-overlay" onclick="closeSizeChart()" style="display:none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); align-items: center; justify-content: center;">
-        <div class="glass" style="max-width: 90%; max-height: 90%; position: relative; padding: 10px; background: var(--surface); border-radius: 20px; animation: modalZoom 0.3s cubic-bezier(0.16, 1, 0.3, 1);" onclick="event.stopPropagation()">
-            <span onclick="closeSizeChart()" style="position: absolute; right: -15px; top: -15px; background: #ff1493; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);">&times;</span>
-            <img src="https://i.ibb.co/rftkd3K0/Chat-GPT-Image-Aug-20-2026-10-17-15-PM.png" alt="Size Chart" style="width: 100%; height: auto; max-height: 80vh; border-radius: 15px; display: block;">
+        <div style="max-width: 90%; max-height: 90%; position: relative; padding: 12px; background: #FFFFFF; border: 1.5px solid #1A120B; border-radius: 0px;" onclick="event.stopPropagation()">
+            <span onclick="closeSizeChart()" style="position: absolute; right: -15px; top: -15px; background: #8B5A2B; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">&times;</span>
+            <img id="product-size-chart-img" src="" alt="Product Size Chart" style="width: 100%; height: auto; max-height: 80vh; border-radius: 0px; display: block;">
         </div>
     </div>
 
     <style>
-        @keyframes modalZoom { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .modal-overlay.active { display: flex !important; }
     </style>
 
-      <footer class="footer" style="padding: 60px 10% 30px; border-top: 2px solid rgba(255, 20, 147, 0.3); background: #ffffff !important; color: #000000 !important;">
+    <footer class="footer" style="padding: 60px 10% 30px; border-top: 1.5px solid rgba(60, 42, 33, 0.12); background: #ffffff !important; color: #000000 !important;">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 40px; text-align: left;">
       <!-- Brand & About -->
       <div>
-        <h3 style="font-family: 'Mileast', sans-serif; font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
-          <span style="color: #ff1493 !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
+        <h3 style="font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; margin-bottom: 15px; color: #000000 !important;">
+          <span style="color: #8B5A2B !important;">Roohira</span> <span style="color: #000000 !important;">Collection</span>
         </h3>
         <p style="color: #000000 !important; font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;">
           Elevate your style with our premium, high-quality clothing collection. Designed for those who appreciate excellence.
         </p>
         <div style="display: flex; gap: 12px;">
-          <a href="https://web.facebook.com/roohiraonline" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
-          <a href="https://www.instagram.com/" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #ff1493 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://web.facebook.com/roohiraonline" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #8B5A2B !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Facebook"><i data-lucide="facebook" style="width: 18px; height: 18px;"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #8B5A2B !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="Instagram"><i data-lucide="instagram" style="width: 18px; height: 18px;"></i></a>
           <a href="https://wa.me/94757218786" target="_blank" style="width: 38px; height: 38px; border-radius: 50%; background: #f0f0f5; color: #25D366 !important; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s;" title="WhatsApp"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i></a>
         </div>
       </div>
@@ -278,7 +440,7 @@
         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem;">
           <li>
             <a href="tel:0757218786" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="phone" style="width: 16px; height: 16px; color: #ff1493;"></i> Call: 0757218786
+              <i data-lucide="phone" style="width: 16px; height: 16px; color: #8B5A2B;"></i> Call: 0757218786
             </a>
           </li>
           <li>
@@ -288,12 +450,12 @@
           </li>
           <li>
             <a href="mailto:roohiraonline@gmail.com" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="mail" style="width: 16px; height: 16px; color: #ff1493;"></i> roohiraonline@gmail.com
+              <i data-lucide="mail" style="width: 16px; height: 16px; color: #8B5A2B;"></i> roohiraonline@gmail.com
             </a>
           </li>
           <li>
             <a href="https://web.facebook.com/roohiraonline" target="_blank" style="color: #000000 !important; text-decoration: none; display: flex; align-items: center; gap: 10px;">
-              <i data-lucide="facebook" style="width: 16px; height: 16px; color: #ff1493;"></i> facebook.com/roohiraonline
+              <i data-lucide="facebook" style="width: 16px; height: 16px; color: #8B5A2B;"></i> facebook.com/roohiraonline
             </a>
           </li>
         </ul>
@@ -311,6 +473,9 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
+    <!-- color-resolver.js removed: script.js already includes the full color resolver.
+         Loading both declared `const standardColorMap` twice, throwing a SyntaxError
+         that aborted script.js and broke Add to Cart / syncProducts. -->
     <script src="script.js"></script>
     <script>
         lucide.createIcons();
@@ -325,195 +490,312 @@
         let currentSlide = 0;
         let autoScrollInterval = null;
 
-        document.addEventListener('DOMContentLoaded', () => {
-            syncProducts(() => {
-                const urlParams = new URLSearchParams(window.location.search);
-                const pid = urlParams.get('id') || '1';
-                product = products.find(p => p.id === pid) || products[0];
+        function loadAndRenderProductDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const pid = urlParams.get('id');
+            let matchedProduct = null;
+            if (pid) {
+                if (typeof products !== 'undefined' && Array.isArray(products) && products.length) {
+                    matchedProduct = products.find(p => String(p.id) === String(pid));
+                }
+                if (!matchedProduct) {
+                    try {
+                        const cached = JSON.parse(sessionStorage.getItem('roohira_selected_product_' + pid));
+                        if (cached && String(cached.id) === String(pid)) matchedProduct = cached;
+                    } catch (e) {}
+                }
+            } else if (typeof products !== 'undefined' && Array.isArray(products) && products.length) {
+                matchedProduct = products[0];
+            }
 
-                if (product) {
-                    // Check for 220 GSM Regular Tee print size selector
-                    const is220GsmRegular = (product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
-                    const printWrapper = document.getElementById('print-size-wrapper');
-                    if (is220GsmRegular && printWrapper) {
-                        printWrapper.style.display = 'block';
-                    }
+            if (!matchedProduct) {
+                const slider = document.getElementById('image-slider');
+                if (slider && !slider.querySelector('.pdp-loading-skeleton')) {
+                    slider.innerHTML = '<div class="pdp-loading-skeleton" style="width: 100%; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #FAF7F2;"><div style="width: 36px; height: 36px; border: 3px solid rgba(139,90,43,0.2); border-top-color: #8B5A2B; border-radius: 50%; animation: spin 0.8s linear infinite;"></div><span style="margin-top: 12px; font-size: 0.8rem; font-weight: 700; color: #8B5A2B; letter-spacing: 1px; text-transform: uppercase;">Loading Garment...</span></div>';
+                }
+                return;
+            }
+            product = matchedProduct;
 
-                    if (product.category === 'Oversized Tee (Printed)' && !product.sizeChartImg) {
-                        const scSection = document.getElementById('size-chart-link');
-                        if (scSection) scSection.style.display = 'none';
-                    }
-                    // Hide GSM spec, Print Tech spec, and size chart for Frock category
-                    if (product.category === 'Frock') {
-                        const gsmSpec = document.getElementById('gsm-spec-item');
-                        if (gsmSpec) gsmSpec.style.display = 'none';
-                        const printSpec = document.getElementById('print-spec-item');
-                        if (printSpec) printSpec.style.display = 'none';
-                        const scSection = document.getElementById('size-chart-link');
-                        if (scSection) scSection.style.display = 'none';
-                    }
-                    // Hide GSM spec, Print Tech (DTF) spec, and size chart for Blouse category
-                    if (product.category === 'Blouse') {
-                        const gsmSpec = document.getElementById('gsm-spec-item');
-                        if (gsmSpec) gsmSpec.style.display = 'none';
-                        const printSpec = document.getElementById('print-spec-item');
-                        if (printSpec) printSpec.style.display = 'none';
-                        const scSection = document.getElementById('size-chart-link');
-                        if (scSection) scSection.style.display = 'none';
-                    }
+            if (!product) return;
 
-                    document.getElementById('detail-name').innerText = product.name;
-                    document.getElementById('detail-gsm').innerText = product.gsm || '';
-                    document.getElementById('detail-brand').innerText = product.brand || 'Roohira';
+            // Check for 220 GSM Regular Tee print size selector
+            const is220GsmRegular = (product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
+            const printWrapper = document.getElementById('print-size-wrapper');
+            if (printWrapper) {
+                printWrapper.style.display = is220GsmRegular ? 'block' : 'none';
+            }
 
-                    const catLabel = document.getElementById('detail-category-label');
-                    if (catLabel) {
-                        catLabel.innerText = product.category || 'T-Shirt';
-                    }
+            // Size Chart visibility: ONLY show if this product has its own custom sizeChartImg
+            const scSection = document.getElementById('size-chart-link');
+            if (scSection) {
+                if (product.sizeChartImg && typeof product.sizeChartImg === 'string' && product.sizeChartImg.trim() !== '') {
+                    scSection.style.display = 'inline-flex';
+                } else {
+                    scSection.style.display = 'none';
+                }
+            }
 
-                    // Image Slider & Thumbnails
-                    const slider = document.getElementById('image-slider');
-                    const dotsContainer = document.getElementById('slider-dots');
-                    const thumbContainer = document.getElementById('image-thumbnails');
-                    const images = product.images || [product.img];
+            // Custom Specifications: ONLY show if product has customSpecs configured
+            renderProductCustomSpecs(product);
 
-                    images.forEach((img, idx) => {
-                        // Slider Image
-                        const imgTag = document.createElement('img');
-                        imgTag.src = img;
-                        imgTag.style.width = '100%';
-                        imgTag.style.flexShrink = '0';
-                        imgTag.style.objectFit = 'contain';
-                        imgTag.style.maxHeight = '500px';
-                        imgTag.style.background = 'var(--surface)';
-                        slider.appendChild(imgTag);
+            const nameEl = document.getElementById('detail-name');
+            if (nameEl) nameEl.innerText = product.name || 'Roohira Garment';
 
-                        // Dot
-                        if (images.length > 1) {
-                            const dot = document.createElement('div');
-                            dot.className = `dot ${idx === 0 ? 'active' : ''}`;
-                            dot.onclick = () => goToSlide(idx);
-                            dotsContainer.appendChild(dot);
+            const bName = document.getElementById('breadcrumb-product-name');
+            if (bName) bName.innerText = product.name || 'Product Details';
 
-                            // Thumbnail
-                            const thumb = document.createElement('img');
-                            thumb.src = img;
-                            thumb.className = `thumb ${idx === 0 ? 'active' : ''}`;
-                            thumb.onclick = () => goToSlide(idx);
-                            thumbContainer.appendChild(thumb);
-                        }
-                    });
+            const gsmEl = document.getElementById('detail-gsm');
+            if (gsmEl) {
+                const materialVal = (product.gsm || product.material || '').trim();
+                if (materialVal) {
+                    gsmEl.innerText = materialVal;
+                    gsmEl.style.display = 'inline-block';
+                } else {
+                    gsmEl.style.display = 'none';
+                }
+            }
 
-                    if (images.length > 1) {
-                        document.getElementById('prev-btn').style.display = 'flex';
-                        document.getElementById('next-btn').style.display = 'flex';
-                        startAutoScroll();
+            const brandEl = document.getElementById('detail-brand');
+            if (brandEl) {
+                if (product.brand) {
+                    brandEl.innerText = product.brand;
+                    brandEl.style.display = 'inline-block';
+                } else {
+                    brandEl.style.display = 'none';
+                }
+            }
+
+            const catLabel = document.getElementById('detail-category-label');
+            if (catLabel) {
+                catLabel.innerText = product.category || 'T-Shirt';
+            }
+
+            // Image Slider & Thumbnails
+            const slider = document.getElementById('image-slider');
+            const dotsContainer = document.getElementById('slider-dots');
+            const thumbContainer = document.getElementById('image-thumbnails');
+            slider.innerHTML = '';
+            if (dotsContainer) dotsContainer.innerHTML = '';
+            if (thumbContainer) thumbContainer.innerHTML = '';
+            const images = (product.images && product.images.length) ? product.images : [product.img || 'logo.png'];
+
+            images.forEach((img, idx) => {
+                // Slider Image
+                const imgTag = document.createElement('img');
+                imgTag.src = img;
+                imgTag.style.width = '100%';
+                imgTag.style.flexShrink = '0';
+                imgTag.style.objectFit = 'contain';
+                imgTag.style.maxHeight = '500px';
+                imgTag.style.background = 'var(--surface)';
+                slider.appendChild(imgTag);
+
+                // Dot
+                if (images.length > 1) {
+                    const dot = document.createElement('div');
+                    dot.className = `dot ${idx === 0 ? 'active' : ''}`;
+                    dot.onclick = () => goToSlide(idx);
+                    if (dotsContainer) dotsContainer.appendChild(dot);
+                }
+            });
+
+            if (images.length > 1) {
+                document.getElementById('prev-btn').style.display = 'flex';
+                document.getElementById('next-btn').style.display = 'flex';
+                startAutoScroll();
+            } else {
+                if (dotsContainer) dotsContainer.style.display = 'none';
+                if (thumbContainer) thumbContainer.style.display = 'none';
+                document.getElementById('prev-btn').style.display = 'none';
+                document.getElementById('next-btn').style.display = 'none';
+            }
+
+            if (product.desc) document.getElementById('detail-desc').innerText = product.desc;
+
+            // Sizes & Pricing calculation: Only show exact sizes defined on this product
+            const sizeContainer = document.getElementById('detail-sizes');
+            sizeContainer.innerHTML = '';
+            let sizes = [];
+            if (product.sizes) {
+                if (Array.isArray(product.sizes)) {
+                    sizes = product.sizes.map(s => typeof s === 'string' ? s.trim() : (s.name || s.size || s)).filter(Boolean);
+                } else if (typeof product.sizes === 'object') {
+                    sizes = Object.keys(product.sizes).map(s => s.trim()).filter(Boolean);
+                } else if (typeof product.sizes === 'string' && product.sizes.trim()) {
+                    sizes = product.sizes.split(',').map(s => s.trim()).filter(Boolean);
+                }
+            }
+            if (!sizes.length) sizes = ['Free Size'];
+
+            // Build a reverse map: size → color (if colorSizes exists)
+            const sizeToColor = {};
+            if (product.colorSizes) {
+                Object.entries(product.colorSizes).forEach(([col, sz]) => { sizeToColor[sz] = col; });
+            }
+
+            const availableSizes = product.colorSizes
+                ? sizes.filter(s => sizeToColor[s])
+                : sizes;
+
+            if (!selectedSize || !sizes.includes(selectedSize)) {
+                selectedSize = availableSizes[0] || sizes[0];
+            }
+
+            const sizeData = (product.sizes && typeof product.sizes === 'object' && !Array.isArray(product.sizes) && product.sizes[selectedSize]) 
+                ? product.sizes[selectedSize] 
+                : { price: product.price || 1800, oldPrice: product.oldPrice };
+
+            currentPrice = (typeof sizeData === 'object' && sizeData.price !== undefined) 
+                ? Number(sizeData.price) 
+                : (Number(product.price) || 1800);
+            
+            currentOldPrice = (typeof sizeData === 'object' && sizeData.oldPrice !== undefined) 
+                ? Number(sizeData.oldPrice) 
+                : (product.oldPrice || (currentPrice + 200));
+
+            sizes.forEach(s => {
+                const btn = document.createElement('div');
+                const isUnavailable = product.colorSizes && !sizeToColor[s];
+
+                btn.className = `size-chip ${s === selectedSize ? 'active' : ''} ${isUnavailable ? 'out-of-stock-size' : ''}`;
+                btn.innerHTML = isUnavailable
+                    ? `${s} <span style="font-size:0.6rem;display:block;color:#e53935;">Out of Stock</span>`
+                    : s;
+
+                if (product.colorSizes) {
+                    btn.style.cssText += isUnavailable
+                        ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;'
+                        : 'cursor:default;pointer-events:none;';
+                    btn.title = isUnavailable
+                        ? 'Out of Stock'
+                        : 'Select the matching color to choose this size';
+                } else {
+                    if (isUnavailable) {
+                        btn.style.cssText = 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;';
                     } else {
-                        if (dotsContainer) dotsContainer.style.display = 'none';
-                        if (thumbContainer) thumbContainer.style.display = 'none';
-                        document.getElementById('prev-btn').style.display = 'none';
-                        document.getElementById('next-btn').style.display = 'none';
-                    }
-
-                    if (product.desc) document.getElementById('detail-desc').innerText = product.desc;
-
-                    // Sizes
-                    const sizeContainer = document.getElementById('detail-sizes');
-                    const sizes = product.sizes ? Object.keys(product.sizes) : ['Free'];
-
-                    // Build a reverse map: size → color (if colorSizes exists)
-                    const sizeToColor = {};
-                    if (product.colorSizes) {
-                        Object.entries(product.colorSizes).forEach(([col, sz]) => { sizeToColor[sz] = col; });
-                    }
-
-                    // Determine which sizes are actually available
-                    const availableSizes = product.colorSizes
-                        ? sizes.filter(s => sizeToColor[s])
-                        : sizes;
-
-                    selectedSize = availableSizes[0] || sizes[0];
-                    const sizeData = product.sizes ? product.sizes[selectedSize] : { price: product.price, oldPrice: product.oldPrice };
-                    currentPrice = typeof sizeData === 'object' ? sizeData.price : sizeData;
-                    currentOldPrice = typeof sizeData === 'object' ? sizeData.oldPrice : product.oldPrice;
-
-                    sizes.forEach(s => {
-                        const btn = document.createElement('div');
-                        const isUnavailable = product.colorSizes && !sizeToColor[s];
-
-                        btn.className = `size-chip ${s === selectedSize ? 'active' : ''} ${isUnavailable ? 'out-of-stock-size' : ''}`;
-                        btn.innerHTML = isUnavailable
-                            ? `${s} <span style="font-size:0.6rem;display:block;color:#e53935;">Out of Stock</span>`
-                            : s;
-
-                        if (product.colorSizes) {
-                            // Size is ONLY controlled by color — make all size chips non-clickable
-                            btn.style.cssText += isUnavailable
-                                ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;'
-                                : 'cursor:default;pointer-events:none;';
-                            btn.title = isUnavailable
-                                ? 'Out of Stock'
-                                : 'Select the matching color to choose this size';
-                        } else {
-                            // Normal products — size chips are clickable
-                            if (isUnavailable) {
-                                btn.style.cssText = 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;pointer-events:none;';
-                            } else {
-                                btn.onclick = () => selectSize(s, btn);
-                            }
-                        }
-                        sizeContainer.appendChild(btn);
-                    });
-
-                    // Colors
-                    const colorContainer = document.getElementById('detail-colors');
-                    selectedColor = product.colors ? product.colors[0] : 'Default';
-                    if (product.colors) {
-                        product.colors.forEach(c => {
-                            const btn = document.createElement('div');
-                            btn.className = `color-dot ${c === selectedColor ? 'active' : ''}`;
-                            if (product.colorImages && product.colorImages[c]) {
-                                btn.style.backgroundImage = `url('${product.colorImages[c]}')`;
-                                btn.style.backgroundSize = 'cover';
-                                btn.style.backgroundPosition = 'center';
-                            } else {
-                                btn.style.background = c;
-                            }
-                            btn.title = (typeof colorNames !== 'undefined' && colorNames[c]) ? colorNames[c] : c;
-                            btn.onclick = () => selectColor(c, btn);
-                            colorContainer.appendChild(btn);
-                        });
-                    }
-
-                    // If color→size linking exists, auto-trigger size from first color on load
-                    if (product.colorSizes && product.colors && product.colors[0]) {
-                        const initSize = product.colorSizes[product.colors[0]];
-                        if (initSize) {
-                            const initSizeBtn = [...sizeContainer.querySelectorAll('.size-chip')].find(b => b.innerText.trim().startsWith(initSize));
-                            if (initSizeBtn) selectSize(initSize, initSizeBtn);
-                        }
-                    }
-
-                    updatePriceDisplay();
-                    setEstimatedDelivery();
-                    initStockUrgency();
-
-                    const addToCartBtn = document.getElementById('add-to-cart-btn');
-                    if (product.stock === 0) {
-                        addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
-                        addToCartBtn.disabled = true;
-                        addToCartBtn.style.background = '#555';
-                        addToCartBtn.style.opacity = '0.6';
-                        addToCartBtn.style.cursor = 'not-allowed';
-
-                        // Hide stock urgency section if out of stock
-                        const stockSection = document.getElementById('stock-urgency-section');
-                        if (stockSection) stockSection.style.display = 'none';
+                        btn.onclick = () => selectSize(s, btn);
                     }
                 }
-                initWishlistState();
-                updateDeliveryPromo();
+                sizeContainer.appendChild(btn);
             });
+
+            // Dynamic Colors Rendering as interactive Color Dots
+            const colorContainer = document.getElementById('detail-colors');
+            colorContainer.innerHTML = '';
+            const productColors = (Array.isArray(product.colors) && product.colors.length) 
+                ? product.colors 
+                : ['#000000'];
+
+            if (!selectedColor || !productColors.includes(selectedColor)) {
+                selectedColor = productColors[0];
+            }
+
+            productColors.forEach(c => {
+                const btn = document.createElement('div');
+                btn.className = `color-dot ${c === selectedColor ? 'active' : ''}`;
+                if (product.colorImages && product.colorImages[c]) {
+                    btn.style.backgroundImage = `url('${product.colorImages[c]}')`;
+                    btn.style.backgroundSize = 'cover';
+                    btn.style.backgroundPosition = 'center';
+                } else {
+                    btn.style.background = c;
+                }
+                const colorTitle = resolveFriendlyColorName(c, product);
+                btn.title = colorTitle;
+                btn.onclick = () => selectColor(c, btn);
+                colorContainer.appendChild(btn);
+            });
+
+            // If color→size linking exists, auto-trigger size from first color on load
+            if (product.colorSizes && product.colors && product.colors[0]) {
+                const initSize = product.colorSizes[product.colors[0]];
+                if (initSize) {
+                    const initSizeBtn = [...sizeContainer.querySelectorAll('.size-chip')].find(b => b.innerText.trim().startsWith(initSize));
+                    if (initSizeBtn) selectSize(initSize, initSizeBtn);
+                }
+            }
+
+            updatePriceDisplay();
+            setEstimatedDelivery();
+            initStockUrgency();
+
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+            const isOutOfStock = product.stock === 0 || product.status === 'out_of_stock';
+            if (isOutOfStock) {
+                addToCartBtn.innerHTML = '<i data-lucide="slash"></i> OUT OF STOCK';
+                addToCartBtn.disabled = true;
+                addToCartBtn.style.background = '#555';
+                addToCartBtn.style.opacity = '0.6';
+                addToCartBtn.style.cursor = 'not-allowed';
+
+                // Hide stock urgency section if out of stock
+                const stockSection = document.getElementById('stock-urgency-section');
+                if (stockSection) stockSection.style.display = 'none';
+            } else {
+                addToCartBtn.innerHTML = '<i data-lucide="shopping-bag" style="width: 18px; height: 18px;"></i> Add to Cart';
+                addToCartBtn.disabled = false;
+                addToCartBtn.style.background = '';
+                addToCartBtn.style.opacity = '';
+                addToCartBtn.style.cursor = 'pointer';
+
+                const stockSection = document.getElementById('stock-urgency-section');
+                if (stockSection) stockSection.style.display = 'block';
+            }
+
+            // Size Chart Link: Only show if product has sizeChartImg
+            const sizeChartLink = document.getElementById('size-chart-link');
+            if (sizeChartLink) {
+                if (product && product.sizeChartImg) {
+                    sizeChartLink.style.display = 'inline-flex';
+                } else {
+                    sizeChartLink.style.display = 'none';
+                }
+            }
+
+            // Custom Specifications: Only show if entered
+            renderProductCustomSpecs(product);
+
+            // Display current selected color name
+            const colorNameSpan = document.getElementById('selected-color-name');
+            if (colorNameSpan && selectedColor) {
+                const cLower = selectedColor.toLowerCase();
+                const cName = resolveFriendlyColorName(selectedColor, product);
+                colorNameSpan.textContent = cName;
+            }
+
+            initWishlistState();
+            updateDeliveryPromo();
+            renderRelatedProducts();
+            updateStickyBar();
+
+            const fabricEl = document.getElementById('pdp-fabric-text');
+            if (fabricEl) {
+                const mat = (product.gsm || product.material || '').trim();
+                fabricEl.innerText = mat
+                    ? mat + ' — premium handcrafted fabric, made in Sri Lanka.'
+                    : 'Premium breathable fabric, handcrafted in Sri Lanka.';
+            }
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAndRenderProductDetail();
+            syncProducts(() => {
+                // If the product was not loaded initially, re-render
+                if (!product) {
+                    loadAndRenderProductDetail();
+                }
+            });
+        });
+
+        // Listen for real-time products updates from Firestore
+        document.addEventListener('productsSynced', () => {
+            if (!product) {
+                loadAndRenderProductDetail();
+            }
         });
 
         // --- Print Size Selector ---
@@ -523,20 +805,20 @@
             const chipA2 = document.getElementById('chip-a2');
             if (scale === 'A3') {
                 chipA3.classList.add('active');
-                chipA3.style.borderColor = '#DC143C';
-                chipA3.style.background = 'rgba(220, 20, 60, 0.06)';
+                chipA3.style.borderColor = '#8B5A2B';
+                chipA3.style.background = 'rgba(179, 135, 56, 0.08)';
                 
                 chipA2.classList.remove('active');
-                chipA2.style.borderColor = 'var(--border-color)';
-                chipA2.style.background = 'var(--surface)';
+                chipA2.style.borderColor = '#1A120B';
+                chipA2.style.background = '#FFFFFF';
             } else {
                 chipA2.classList.add('active');
-                chipA2.style.borderColor = '#DC143C';
-                chipA2.style.background = 'rgba(220, 20, 60, 0.06)';
+                chipA2.style.borderColor = '#8B5A2B';
+                chipA2.style.background = 'rgba(179, 135, 56, 0.08)';
                 
                 chipA3.classList.remove('active');
-                chipA3.style.borderColor = 'var(--border-color)';
-                chipA3.style.background = 'var(--surface)';
+                chipA3.style.borderColor = '#1A120B';
+                chipA3.style.background = '#FFFFFF';
             }
             updatePriceDisplay();
         }
@@ -604,15 +886,18 @@
 
         function selectSize(size, btn) {
             selectedSize = size;
-            const sizeData = product.sizes ? product.sizes[size] : { price: product.price, oldPrice: product.oldPrice };
-            currentPrice = typeof sizeData === 'object' ? sizeData.price : sizeData;
-            currentOldPrice = typeof sizeData === 'object' ? sizeData.oldPrice : product.oldPrice;
+            const sizeData = (product && product.sizes && typeof product.sizes === 'object' && !Array.isArray(product.sizes) && product.sizes[size]) 
+                ? product.sizes[size] 
+                : { price: product ? product.price : currentPrice, oldPrice: product ? product.oldPrice : currentOldPrice };
+            
+            currentPrice = (typeof sizeData === 'object' && sizeData.price !== undefined) ? Number(sizeData.price) : Number((product && product.price) || 1800);
+            currentOldPrice = (typeof sizeData === 'object' && sizeData.oldPrice !== undefined) ? Number(sizeData.oldPrice) : ((product && product.oldPrice) || (currentPrice + 200));
 
             document.querySelectorAll('.size-chip').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            if (btn) btn.classList.add('active');
             updatePriceDisplay();
 
-            if (product.sizeImages && product.sizeImages[size]) {
+            if (product && product.sizeImages && product.sizeImages[size]) {
                 const images = product.images || [];
                 const targetUrl = product.sizeImages[size];
                 const idx = images.indexOf(targetUrl);
@@ -627,10 +912,18 @@
         function selectColor(color, btn) {
             selectedColor = color;
             document.querySelectorAll('.color-dot').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            if (btn) btn.classList.add('active');
+
+            // Update color name text next to label in real-time
+            const colorNameSpan = document.getElementById('selected-color-name');
+            if (colorNameSpan) {
+                const cLower = (color || '').toLowerCase();
+                const cName = resolveFriendlyColorName(color, product);
+                colorNameSpan.textContent = cName;
+            }
 
             // If product has colorImages, slide to the matching image when color is selected
-            if (product.colorImages && product.colorImages[color]) {
+            if (product && product.colorImages && product.colorImages[color]) {
                 const images = product.images || [];
                 const targetUrl = product.colorImages[color];
                 const idx = images.indexOf(targetUrl);
@@ -642,12 +935,14 @@
             }
 
             // If this product links colors to sizes, auto-select the matching size
-            if (product.colorSizes && product.colorSizes[color]) {
+            if (product && product.colorSizes && product.colorSizes[color]) {
                 const linkedSize = product.colorSizes[color];
                 const sizeContainer = document.getElementById('detail-sizes');
-                const sizeBtn = [...sizeContainer.querySelectorAll('.size-chip:not(.out-of-stock-size)')]
-                    .find(b => b.innerText.trim().startsWith(linkedSize));
-                if (sizeBtn) selectSize(linkedSize, sizeBtn);
+                if (sizeContainer) {
+                    const sizeBtn = [...sizeContainer.querySelectorAll('.size-chip:not(.out-of-stock-size)')]
+                        .find(b => b.innerText.trim().startsWith(linkedSize));
+                    if (sizeBtn) selectSize(linkedSize, sizeBtn);
+                }
             }
         }
 
@@ -658,49 +953,127 @@
             updateDeliveryPromo();
         }
 
-        function updatePriceDisplay() {
-            const priceEl = document.getElementById('detail-price');
-            const is220GsmRegular = (product && product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
-            
-            let effectivePrice = currentPrice;
-            let effectiveOldPrice = currentOldPrice;
+        let previousAnimatedPrice = null;
+        let priceCountUpInterval = null;
 
-            if (is220GsmRegular) {
-                if (selectedPrintScale === 'A2') {
-                    effectivePrice = 2100;
-                    effectiveOldPrice = null;
+        function animatePriceCountdown(targetEl, startVal, endVal, oldPriceVal) {
+            if (priceCountUpInterval) {
+                cancelAnimationFrame(priceCountUpInterval);
+                priceCountUpInterval = null;
+            }
+
+            // Duration in ms: 1800ms gives a smooth, clearly noticeable countdown
+            const duration = 1100;
+            const startTime = performance.now();
+
+            function frame(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out cubic: starts brisk and clearly slows down to landing
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                const currentVal = Math.round(startVal - (startVal - endVal) * easeProgress);
+
+                let html = `<span class="price-counter-num dropping">Rs. ${currentVal.toLocaleString()}.00</span>`;
+                if (oldPriceVal) {
+                    html += ` <span class="old-price">Rs. ${oldPriceVal.toLocaleString()}</span>`;
+                }
+                if (oldPriceVal && oldPriceVal > endVal) {
+                    const pct = Math.round(((oldPriceVal - endVal) / oldPriceVal) * 100);
+                    html += ` <span class="pdp-save-badge flash">Save ${pct}%</span>`;
+                }
+                targetEl.innerHTML = html;
+
+                if (progress < 1) {
+                    priceCountUpInterval = requestAnimationFrame(frame);
                 } else {
-                    effectivePrice = 1800;
-                    effectiveOldPrice = 1850;
+                    renderPriceStatic(targetEl, endVal, oldPriceVal);
                 }
             }
 
-            let html = `Rs. ${effectivePrice.toLocaleString()}.00`;
-            if (effectiveOldPrice) {
-                html += ` <span class="old-price">Rs. ${effectiveOldPrice.toLocaleString()}</span>`;
+            // Small 150ms delay on initial mount so the user sees the original price first before dropping!
+            setTimeout(() => {
+                priceCountUpInterval = requestAnimationFrame(frame);
+            }, 60);
+        }
+
+        function renderPriceStatic(targetEl, finalPrice, oldPriceVal) {
+            let html = `<span class="price-counter-num landed">Rs. ${finalPrice.toLocaleString()}.00</span>`;
+            if (oldPriceVal) {
+                html += ` <span class="old-price">Rs. ${oldPriceVal.toLocaleString()}</span>`;
             }
-            priceEl.innerHTML = html;
+            if (oldPriceVal && oldPriceVal > finalPrice) {
+                const pct = Math.round(((oldPriceVal - finalPrice) / oldPriceVal) * 100);
+                html += ` <span class="pdp-save-badge">Save ${pct}%</span>`;
+            }
+            targetEl.innerHTML = html;
+        }
+
+        function updatePriceDisplay() {
+            const priceEl = document.getElementById('detail-price');
+            if (!priceEl) return;
+            let effectivePrice = currentPrice;
+            let effectiveOldPrice = currentOldPrice;
+
+            // Start drop animation from original higher price down to current discounted price
+            let startVal = effectiveOldPrice;
+            if (!startVal || startVal <= effectivePrice) {
+                startVal = effectivePrice + 450;
+            }
+
+            animatePriceCountdown(priceEl, startVal, effectivePrice, effectiveOldPrice);
+            previousAnimatedPrice = effectivePrice;
+
+            if (typeof updateStickyBar === 'function') updateStickyBar();
         }
 
         function addCurrentToCart() {
             const images = product.images || [product.img];
-            const is220GsmRegular = (product && product.category === 'Regular Tee (Printed)' && (product.gsm === '220 GSM' || !product.gsm));
-            
             let finalSize = selectedSize;
             let finalPrice = currentPrice;
-
-            if (is220GsmRegular) {
-                finalSize = `${selectedSize} (${selectedPrintScale} Print)`;
-                finalPrice = selectedPrintScale === 'A2' ? 2100 : 1800;
-            }
 
             addToCart(product.name, finalPrice, images[0], finalSize, selectedColor, currentQty);
         }
 
+        function renderProductCustomSpecs(prod) {
+            const wrapper = document.getElementById('product-specs-wrapper');
+            const container = document.getElementById('product-specs-container');
+            if (!wrapper || !container) return;
+
+            // Only display specifications if the product has customSpecs configured
+            if (!prod || !prod.customSpecs || typeof prod.customSpecs !== 'object' || !Object.keys(prod.customSpecs).length) {
+                wrapper.style.display = 'none';
+                container.innerHTML = '';
+                return;
+            }
+
+            const entries = Object.entries(prod.customSpecs);
+            if (!entries.length) {
+                wrapper.style.display = 'none';
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = entries.map(([title, val]) => `
+                <div class="spec-item">
+                    <div class="spec-icon">
+                        <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: var(--gold-primary);"></i>
+                    </div>
+                    <div class="spec-details">
+                        <h5>${title}</h5>
+                        <p>${val}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            wrapper.style.display = 'block';
+            if (window.lucide) lucide.createIcons();
+        }
+
         function openSizeChart() {
+            if (!product || !product.sizeChartImg) return;
             const chartImg = document.querySelector('#sizeChartModal img');
             if (chartImg) {
-                chartImg.src = (product && product.sizeChartImg) ? product.sizeChartImg : 'https://i.ibb.co/rftkd3K0/Chat-GPT-Image-Aug-20-2026-10-17-15-PM.png';
+                chartImg.src = product.sizeChartImg;
             }
             document.getElementById('sizeChartModal').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -725,10 +1098,16 @@
         function initStockUrgency() {
             const stockBar = document.getElementById('stock-bar-fill-elem');
             const stockCountDisplay = document.getElementById('stock-count-display');
-            if (stockBar && stockCountDisplay) {
-                const pseudoStock = (parseInt(product.id) % 5) + 3;
+            if (stockBar && stockCountDisplay && product) {
+                let pseudoStock = 5;
+                if (typeof product.stock === 'number' && product.stock > 0) {
+                    pseudoStock = Math.min(product.stock, 10);
+                } else {
+                    const parsed = parseInt(String(product.id).replace(/\D/g, ''));
+                    pseudoStock = (!isNaN(parsed) && parsed > 0) ? (parsed % 5) + 3 : 5;
+                }
                 stockCountDisplay.innerText = `${pseudoStock} items left!`;
-                const percentage = (pseudoStock / 10) * 100;
+                const percentage = Math.min(Math.max((pseudoStock / 10) * 100, 10), 100);
                 stockBar.style.width = `${percentage}%`;
             }
         }
@@ -738,15 +1117,15 @@
             const btn = document.getElementById('detail-wishlist-btn');
             if (icon && btn) {
                 if (isInWishlist(product.id)) {
-                    icon.setAttribute('fill', '#ff1493');
-                    icon.style.color = '#ff1493';
-                    btn.style.borderColor = '#ff1493';
-                    btn.style.background = 'rgba(255, 20, 147, 0.05)';
+                    icon.setAttribute('fill', '#DC143C');
+                    icon.style.color = '#DC143C';
+                    btn.style.borderColor = '#DC143C';
+                    btn.style.background = '#FAF7F2';
                 } else {
                     icon.removeAttribute('fill');
-                    icon.style.color = 'var(--text-main)';
-                    btn.style.borderColor = 'var(--border-color)';
-                    btn.style.background = 'var(--surface)';
+                    icon.style.color = '#1A120B';
+                    btn.style.borderColor = '#1A120B';
+                    btn.style.background = '#FAF7F2';
                 }
             }
         }
@@ -757,16 +1136,16 @@
             const btn = document.getElementById('detail-wishlist-btn');
             if (icon && btn) {
                 if (added) {
-                    icon.setAttribute('fill', '#ff1493');
-                    icon.style.color = '#ff1493';
-                    btn.style.borderColor = '#ff1493';
-                    btn.style.background = 'rgba(255, 20, 147, 0.05)';
+                    icon.setAttribute('fill', '#DC143C');
+                    icon.style.color = '#DC143C';
+                    btn.style.borderColor = '#DC143C';
+                    btn.style.background = '#FAF7F2';
                     showNotification('Added to Wishlist!');
                 } else {
                     icon.removeAttribute('fill');
-                    icon.style.color = 'var(--text-main)';
-                    btn.style.borderColor = 'var(--border-color)';
-                    btn.style.background = 'var(--surface)';
+                    icon.style.color = '#1A120B';
+                    btn.style.borderColor = '#1A120B';
+                    btn.style.background = '#FAF7F2';
                     showNotification('Removed from Wishlist!');
                 }
             }
@@ -784,6 +1163,318 @@
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
         }
+
+        // ==========================================
+        // PDP UI HELPERS: accordions, sticky bar, related products
+        // ==========================================
+        function togglePdpAccordion(headBtn) {
+            const item = headBtn ? headBtn.parentElement : null;
+            if (!item) return;
+            item.classList.toggle('open');
+        }
+
+        function updateStickyBar() {
+            const priceEl = document.getElementById('pdp-sticky-price');
+            const nameEl = document.getElementById('pdp-sticky-name');
+            const btn = document.getElementById('pdp-sticky-add');
+
+            if (priceEl) priceEl.innerText = 'Rs. ' + Number(currentPrice || 0).toLocaleString() + '.00';
+            if (nameEl && product) nameEl.innerText = product.name || 'Roohira Garment';
+
+            if (btn && product) {
+                const isOut = product.stock === 0 || product.status === 'out_of_stock';
+                btn.disabled = isOut;
+                btn.classList.toggle('is-disabled', isOut);
+                btn.innerHTML = isOut
+                    ? '<i data-lucide="slash"></i> Out of Stock'
+                    : '<i data-lucide="shopping-bag"></i> Add to Cart';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        }
+
+        function renderRelatedProducts() {
+            const section = document.getElementById('pdp-related-section');
+            const grid = document.getElementById('pdp-related-grid');
+            if (!section || !grid || !product || typeof products === 'undefined' || !Array.isArray(products)) return;
+
+            const currentId = String(product.id);
+            const pool = products.filter(p => String(p.id) !== currentId);
+            const sameCategory = pool.filter(p => p.category === product.category);
+            const sameSection = pool.filter(p => (p.sections || []).some(s => (product.sections || []).includes(s)));
+
+            const ordered = [...sameCategory, ...sameSection, ...pool];
+            const seen = new Set();
+            const picked = [];
+            ordered.forEach(p => {
+                const key = String(p.id);
+                if (!seen.has(key) && picked.length < 4) {
+                    seen.add(key);
+                    picked.push(p);
+                }
+            });
+
+            if (!picked.length) {
+                section.style.display = 'none';
+                return;
+            }
+
+            grid.innerHTML = picked.map(p => generateProductCardHTML(p)).join('');
+            section.style.display = 'block';
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // ==========================================
+        // PRODUCT SPECIFIC REVIEWS & RATINGS SYSTEM
+        // ==========================================
+        let currentPdpRating = 5;
+
+        function scrollToReviews() {
+            const sec = document.getElementById('pdp-reviews-section');
+            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleRateForm() {
+            const formPanel = document.getElementById('pdp-review-form-panel');
+            if (formPanel) {
+                formPanel.classList.toggle('active');
+                if (formPanel.classList.contains('active')) {
+                    formPanel.scrollIntoView({ behavior: 'smooth' });
+                    // Pre-fill name and email if user is logged in
+                    try {
+                        const localUser = JSON.parse(localStorage.getItem('roohira_user'));
+                        if (localUser) {
+                            if (localUser.name) document.getElementById('pdp-reviewer-name').value = localUser.name;
+                            if (localUser.email) document.getElementById('pdp-reviewer-email').value = localUser.email;
+                        }
+                    } catch(e) {}
+                    if (typeof auth !== 'undefined' && auth && auth.currentUser) {
+                        const u = auth.currentUser;
+                        if (u.displayName) document.getElementById('pdp-reviewer-name').value = u.displayName;
+                        if (u.email) document.getElementById('pdp-reviewer-email').value = u.email;
+                    }
+                }
+            }
+        }
+
+        function setPdpRating(rating) {
+            currentPdpRating = rating;
+            document.getElementById('pdp-rating-input').value = rating;
+            updatePdpStarUI();
+        }
+
+        function hoverPdpRating(rating) {
+            const stars = document.querySelectorAll('#pdp-star-picker i, #pdp-star-picker svg');
+            stars.forEach((star, idx) => {
+                if (idx < rating) {
+                    star.classList.add('hovered');
+                } else {
+                    star.classList.remove('hovered');
+                }
+            });
+        }
+
+        function clearHoverPdpRating() {
+            const stars = document.querySelectorAll('#pdp-star-picker i, #pdp-star-picker svg');
+            stars.forEach(star => star.classList.remove('hovered'));
+            updatePdpStarUI();
+        }
+
+        function updatePdpStarUI() {
+            const stars = document.querySelectorAll('#pdp-star-picker i, #pdp-star-picker svg');
+            stars.forEach((star, idx) => {
+                if (idx < currentPdpRating) {
+                    star.classList.add('selected');
+                    star.setAttribute('fill', 'currentColor');
+                } else {
+                    star.classList.remove('selected');
+                    star.removeAttribute('fill');
+                }
+            });
+        }
+
+        function submitProductReview(e) {
+            e.preventDefault();
+            if (!product || !product.id) return;
+
+            const ratingVal = parseInt(document.getElementById('pdp-rating-input').value) || 5;
+            const nameVal = document.getElementById('pdp-reviewer-name').value.trim();
+            const emailVal = document.getElementById('pdp-reviewer-email').value.trim();
+            const commentVal = document.getElementById('pdp-reviewer-comment').value.trim();
+            const submitBtn = document.getElementById('pdp-submit-review-btn');
+
+            if (!nameVal || !commentVal) {
+                alert('Please enter your name and review details / කරුණාකර නම සහ විස්තරය ඇතුළත් කරන්න.');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="spinner" style="display:inline-block; width:14px; height:14px; border:2px solid #fff; border-top-color:transparent; border-radius:50%; animation:spin 0.8s linear infinite;"></i> Saving...';
+
+            const reviewObj = {
+                productId: String(product.id),
+                productName: product.name,
+                rating: ratingVal,
+                name: nameVal,
+                email: emailVal,
+                comment: commentVal,
+                timestamp: (typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()),
+                device: window.innerWidth < 768 ? 'Mobile Phone' : 'Desktop / Laptop'
+            };
+
+            const onSaveComplete = () => {
+                showNotification('Thank you! Your rating has been recorded.');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i data-lucide="send" style="width: 15px; height: 15px;"></i> Submit Rating';
+                document.getElementById('pdp-reviewer-comment').value = '';
+                toggleRateForm();
+                loadProductReviews();
+            };
+
+            if (typeof db !== 'undefined' && db) {
+                db.collection('reviews').add(reviewObj)
+                    .then(() => onSaveComplete())
+                    .catch(err => {
+                        console.warn("Firestore reviews collection error, saving locally:", err);
+                        saveProductReviewLocally(reviewObj);
+                        onSaveComplete();
+                    });
+            } else {
+                saveProductReviewLocally(reviewObj);
+                onSaveComplete();
+            }
+        }
+
+        function saveProductReviewLocally(review) {
+            try {
+                let local = JSON.parse(localStorage.getItem('roohira_product_reviews')) || [];
+                review.timestampLocal = new Date().toISOString();
+                local.unshift(review);
+                localStorage.setItem('roohira_product_reviews', JSON.stringify(local));
+            } catch(e) {}
+        }
+
+        function loadProductReviews() {
+            if (!product || !product.id) return;
+            const container = document.getElementById('pdp-reviews-grid');
+            if (!container) return;
+
+            let reviewsList = [];
+
+            const renderReviews = (list) => {
+                const filtered = list.filter(r => String(r.productId) === String(product.id));
+                
+                // Calculate average rating
+                const totalCount = filtered.length;
+                let avg = 5.0;
+                if (totalCount > 0) {
+                    const sum = filtered.reduce((acc, curr) => acc + (Number(curr.rating) || 5), 0);
+                    avg = (sum / totalCount).toFixed(1);
+                } else {
+                    avg = (product.rating || 5.0).toFixed(1);
+                }
+
+                // Update UI badges
+                const avgScoreEl = document.getElementById('pdp-avg-score');
+                const totalCountLabel = document.getElementById('pdp-total-count-label');
+                const headerRatingNum = document.getElementById('pdp-header-rating-num');
+                const headerReviewCount = document.getElementById('pdp-header-review-count');
+
+                if (avgScoreEl) avgScoreEl.innerText = avg;
+                if (headerRatingNum) headerRatingNum.innerText = avg;
+                if (totalCountLabel) totalCountLabel.innerText = `Based on ${totalCount} verified rating${totalCount === 1 ? '' : 's'}`;
+                if (headerReviewCount) headerReviewCount.innerText = `(${totalCount} Reviews • Rate Now)`;
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: #FFFFFF; border: 1.5px dashed var(--border);">
+                            <i data-lucide="sparkles" style="width: 32px; height: 32px; color: var(--gold); margin-bottom: 8px;"></i>
+                            <h4 style="font-size: 1.1rem; color: var(--espresso); margin-bottom: 6px;">Be the first to rate this garment!</h4>
+                            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">Share your experience with fit, comfort and craftsmanship.</p>
+                            <button class="pdp-rate-btn" onclick="toggleRateForm()" style="margin: 0 auto;">Write a Review</button>
+                        </div>
+                    `;
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                    return;
+                }
+
+                container.innerHTML = filtered.map(r => {
+                    const starsCount = Number(r.rating) || 5;
+                    const starsHtml = Array.from({length: 5}).map((_, i) => 
+                        `<i data-lucide="star" style="width: 14px; height: 14px; ${i < starsCount ? 'color:#C6A26B; fill:#C6A26B;' : 'color:#D3C7BD;'}"></i>`
+                    ).join('');
+
+                    const initial = (r.name || 'P')[0].toUpperCase();
+                    let dateStr = 'Recently';
+                    if (r.timestamp && r.timestamp.seconds) {
+                        dateStr = new Date(r.timestamp.seconds * 1000).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    } else if (r.timestampLocal) {
+                        dateStr = new Date(r.timestampLocal).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                    }
+
+                    return `
+                        <div class="pdp-review-bubble">
+                            <div class="pdp-review-user">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <div class="pdp-review-avatar">${initial}</div>
+                                    <div>
+                                        <h5 style="margin: 0; font-size: 0.88rem; font-weight: 700; color: var(--espresso);">${r.name || 'Verified Patron'}</h5>
+                                        <span style="font-size: 0.72rem; color: #2e7d32; font-weight: 700; display: inline-flex; align-items: center; gap: 3px;">
+                                            <i data-lucide="check-circle-2" style="width: 11px; height: 11px;"></i> Verified Buyer
+                                        </span>
+                                    </div>
+                                </div>
+                                <span style="font-size: 0.72rem; color: var(--text-muted);">${dateStr}</span>
+                            </div>
+                            <div style="display: flex; gap: 3px;">
+                                ${starsHtml}
+                            </div>
+                            <p style="margin: 0; font-size: 0.88rem; line-height: 1.6; color: var(--espresso); white-space: pre-line;">${r.comment}</p>
+                        </div>
+                    `;
+                }).join('');
+
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            };
+
+            if (typeof db !== 'undefined' && db) {
+                db.collection('reviews').get().then(snap => {
+                    const list = [];
+                    snap.forEach(doc => list.push({ id: doc.id, ...doc.data() }));
+                    
+                    // Merge local reviews
+                    try {
+                        const local = JSON.parse(localStorage.getItem('roohira_product_reviews')) || [];
+                        local.forEach(l => {
+                            if (!list.find(r => r.id === l.id && l.id)) list.push(l);
+                        });
+                    } catch(e) {}
+
+                    // Sort newest first
+                    list.sort((a,b) => {
+                        const ta = a.timestamp?.seconds || (a.timestampLocal ? new Date(a.timestampLocal).getTime() : 0);
+                        const tb = b.timestamp?.seconds || (b.timestampLocal ? new Date(b.timestampLocal).getTime() : 0);
+                        return tb - ta;
+                    });
+
+                    renderReviews(list);
+                }).catch(err => {
+                    console.warn("Error fetching reviews from Firestore:", err);
+                    let local = [];
+                    try { local = JSON.parse(localStorage.getItem('roohira_product_reviews')) || []; } catch(e) {}
+                    renderReviews(local);
+                });
+            } else {
+                let local = [];
+                try { local = JSON.parse(localStorage.getItem('roohira_product_reviews')) || []; } catch(e) {}
+                renderReviews(local);
+            }
+        }
+
+        // Initialize product reviews on load
+        window.addEventListener('load', () => {
+            setTimeout(loadProductReviews, 300);
+            updatePdpStarUI();
+        });
     </script>
 </body>
 </html>

@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Management Hub | Roohira Collection</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg: #F8F5F0;
+      --surface: #FFFFFF;
+      --surface-card: #FAF7F2;
+      --surface-hover: #F2ECE4;
+      --border: rgba(198, 162, 107, 0.28);
+      --border-accent: #C6A26B;
+      --text: #1A0F0A;
+      --text-muted: #6B5B52;
+      --gold: #8B5A2B;
+      --gold-dark: #6D441E;
+      --gold-light: #C6A26B;
+      --gold-glow: rgba(139, 90, 43, 0.18);
+      --green: #15803d;
+      --green-bg: rgba(34, 197, 94, 0.12);
+      --amber: #b45309;
+      --amber-bg: rgba(245, 158, 11, 0.12);
+      --red: #b91c1c;
+      --red-bg: rgba(239, 68, 68, 0.12);
+      --blue: #1d4ed8;
+      --blue-bg: rgba(59, 130, 246, 0.12);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(26, 15, 10, 0.05);
+      --shadow-lg: 0 12px 35px rgba(26, 15, 10, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation */
+    .topbar {
+      height: 72px;
+      background: var(--surface);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(26, 15, 10, 0.04);
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+    .brand-wrap img {
+      height: 44px;
+      width: auto;
+      border-radius: 6px;
+    }
+    .brand-titles h1 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .brand-titles h1 span { color: var(--gold); }
+    .brand-titles small {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .conn-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--green-bg);
+      color: var(--green);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      font-family: var(--font-mono);
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      border: 1px solid transparent;
+    }
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #FFFFFF;
+      font-weight: 800;
+      box-shadow: 0 4px 15px rgba(139, 90, 43, 0.2);
+    }
+    .btn-gold:hover {
+      background: linear-gradient(135deg, #d4b27d, #9c6833);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover {
+      background: var(--surface-hover);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .btn-seed {
+      background: linear-gradient(135deg, #8B5A2B, #6D441E);
+      color: #FFF;
+      border: 1px solid var(--border-accent);
+    }
+    .btn-seed:hover {
+      background: linear-gradient(135deg, #a66d35, #7d4d23);
+      box-shadow: 0 4px 15px rgba(139, 90, 43, 0.25);
+    }
+    .btn-sm { padding: 6px 12px; font-size: 0.76rem; }
+    .btn-danger {
+      background: var(--red-bg);
+      color: var(--red);
+      border-color: rgba(239, 68, 68, 0.3);
+    }
+    .btn-danger:hover {
+      background: var(--red);
+      color: #fff;
+    }
+
+    /* Main Container */
+    .db-container {
+      flex: 1;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* Top Stats Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+    .kpi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-muted);
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .kpi-val {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .kpi-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    /* Navigation Tabs */
+    .tab-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      padding: 6px;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      box-shadow: 0 2px 8px rgba(26, 15, 10, 0.04);
+    }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      background: var(--surface-hover);
+      color: var(--text);
+    }
+    .tab-btn.active {
+      background: #FAF7F2;
+      color: var(--gold);
+      box-shadow: 0 2px 8px rgba(26, 15, 10, 0.08);
+      border: 1px solid var(--border-accent);
+    }
+    .tab-count {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(26, 15, 10, 0.08);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .tab-btn.active .tab-count {
+      background: var(--gold);
+      color: #FFFFFF;
+      font-weight: 800;
+    }
+
+    /* Content Pane */
+    .tab-pane {
+      display: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pane Header & Toolbar */
+    .pane-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .pane-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+      font-family: var(--font-serif);
+    }
+    .search-filter-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-input {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      min-width: 220px;
+    }
+    .search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1); }
+    .filter-select {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+    }
+    .filter-select:focus { border-color: var(--gold); }
+
+    /* Table Styling */
+    .table-responsive {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #FFFFFF;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.84rem;
+    }
+    thead th {
+      background: #FAF7F2;
+      padding: 12px 16px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gold);
+      border-bottom: 1.5px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(198, 162, 107, 0.18);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: #FAF7F2; }
+    tbody td {
+      padding: 14px 16px;
+      vertical-align: middle;
+      color: var(--text);
+    }
+
+    /* Badges & Status */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .status-pill.in-stock { background: var(--green-bg); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-pill.out-of-stock { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+    .status-pill.pending { background: var(--amber-bg); color: var(--amber); border: 1px solid rgba(245, 158, 11, 0.3); }
+    .status-pill.confirmed { background: var(--green-bg); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.3); }
+    .status-pill.cancelled { background: var(--red-bg); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 15, 10, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(26, 15, 10, 0.25);
+    }
+    .modal-card.modal-lg {
+      max-width: 820px;
+    }
+    .modal-header {
+      padding: 18px 24px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #FAF7F2;
+    }
+    .modal-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      color: var(--gold);
+    }
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: #FFFFFF;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      border-top: 1.5px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      background: #FAF7F2;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--gold);
+    }
+    .form-input, .form-textarea, .form-select {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
+    }
+
+    .dropzone-box {
+      border: 2px dashed rgba(198, 162, 107, 0.6);
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+      background: rgba(198, 162, 107, 0.04);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .dropzone-box:hover, .dropzone-box.drag-over {
+      border-color: var(--gold);
+      background: rgba(198, 162, 107, 0.12);
+      transform: scale(1.01);
+    }
+
+    /* Toast */
+    .toast-box {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      box-shadow: 0 10px 30px rgba(26, 15, 10, 0.15);
+      padding: 14px 22px;
+      border-radius: 8px;
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+      max-width: 420px;
+    }
+    .toast-box.show { display: flex; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* Migration Progress Bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: #FAF7F2;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+      border: 1px solid var(--border);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      transition: width 0.3s ease;
+    }
+
+    @media (max-width: 900px) {
+      .topbar { padding: 0 14px; height: auto; padding-top: 10px; padding-bottom: 10px; }
+      .db-container { padding: 14px; }
+      .pane-toolbar { flex-direction: column; align-items: stretch; }
+      .search-filter-box { flex-direction: column; width: 100%; }
+      .search-input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="index.html" class="brand-wrap">
+      <img src="logo.png" alt="Roohira Collection Logo">
+      <div class="brand-titles">
+        <h1>ROOHIRA <span>DATABASE</span></h1>
+        <small>FIRESTORE CENTRAL HUB &amp; MANAGEMENT</small>
+      </div>
+    </a>
+
+    <div class="topbar-actions">
+      <div class="conn-badge" id="connStatusBadge" title="Firebase Project: roohira-collection">
+        <span class="pulse-dot"></span>
+        <span id="connStatusText">Firestore Live: roohira-collection</span>
+      </div>
+      <button onclick="openSeedModal()" class="btn btn-seed btn-sm" title="Import all pre-existing baseline products &amp; local data to Firebase">
+        <i class="fa-solid fa-cloud-arrow-up"></i> <span>Seed Base Data</span>
+      </button>
+      <a href="admin.html" class="btn btn-outline btn-sm" title="Open Admin Executive Suite">
+        <i class="fa-solid fa-shield-halved"></i> <span>Executive Admin</span>
+      </a>
+      <a href="index.html" class="btn btn-gold btn-sm" target="_blank" title="Preview boutique">
+        <i class="fa-solid fa-store"></i> <span>Storefront</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <main class="db-container">
+
+    <!-- KPI Summary Grid -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span>Products Catalog</span>
+          <i class="fa-solid fa-shirt" style="color:var(--gold);"></i>
+        </div>
+        <div class="kpi-val" id="kpiProducts">0</div>
+        <div class="kpi-sub" id="kpiProductsSub">Syncing with Firestore...</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span>Total Orders</span>
+          <i class="fa-solid fa-boxes-stacked" style="color:var(--gold);"></i>
+        </div>
+        <div class="kpi-val" id="kpiOrders">0</div>
+        <div class="kpi-sub" id="kpiOrdersSub">Pending: 0 | Confirmed: 0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span>Registered Patrons</span>
+          <i class="fa-solid fa-users" style="color:var(--gold);"></i>
+        </div>
+        <div class="kpi-val" id="kpiCustomers">0</div>
+        <div class="kpi-sub">Firebase Users + Local Store</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span>Customer Reviews</span>
+          <i class="fa-solid fa-star" style="color:#eab308;"></i>
+        </div>
+        <div class="kpi-val" id="kpiReviews">0</div>
+        <div class="kpi-sub" id="kpiReviewsSub">Avg Rating: 5.0 / 5.0</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span>Drop Waitlist</span>
+          <i class="fa-solid fa-bell" style="color:var(--gold);"></i>
+        </div>
+        <div class="kpi-val" id="kpiWaitlist">0</div>
+        <div class="kpi-sub">Subscribed for drops</div>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tab-bar">
+      <button class="tab-btn active" onclick="switchDbTab('products', this)">
+        <i class="fa-solid fa-shirt"></i>
+        <span>Products</span>
+        <span class="tab-count" id="countProducts">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('orders', this)">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>Orders</span>
+        <span class="tab-count" id="countOrders">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('customers', this)">
+        <i class="fa-solid fa-users"></i>
+        <span>Customers</span>
+        <span class="tab-count" id="countCustomers">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('reviews', this)">
+        <i class="fa-solid fa-star"></i>
+        <span>Reviews &amp; Ratings</span>
+        <span class="tab-count" id="countReviews">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('waitlist', this)">
+        <i class="fa-solid fa-bell"></i>
+        <span>Waitlist</span>
+        <span class="tab-count" id="countWaitlist">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('categories', this)">
+        <i class="fa-solid fa-tags"></i>
+        <span>Categories</span>
+        <span class="tab-count" id="countCategories">0</span>
+      </button>
+      <button class="tab-btn" onclick="switchDbTab('tools', this)">
+        <i class="fa-solid fa-screwdriver-wrench"></i>
+        <span>Database Tools &amp; Migration</span>
+      </button>
+    </nav>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: PRODUCTS MANAGEMENT -->
+    <!-- ======================================================== -->
+    <section id="tab-products" class="tab-pane active">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-shirt" style="color: var(--gold);"></i>
+          <span>Products Catalog Management</span>
+        </div>
+        <div class="search-filter-box">
+          <input type="text" id="prodSearchInput" class="search-input" placeholder="Search by name, GSM, brand..." oninput="renderProductsTable()">
+          <select id="prodSectionFilter" class="filter-select" onchange="onProductSectionFilterChange()" style="font-weight:700; color:var(--gold);">
+            <option value="all">All Sections (Departments)</option>
+            <option value="Mens">Men's Section</option>
+            <option value="Womens">Women's Section</option>
+            <option value="Kids">Kids' Section</option>
+            <option value="Others">Others Section</option>
+            <option value="Unisexs">Unisex</option>
+          </select>
+          <select id="prodCategoryFilter" class="filter-select" onchange="renderProductsTable()">
+            <option value="all">All Categories</option>
+            <option value="Regular Tee (Printed)">Regular Tee (Printed)</option>
+            <option value="Oversized Tee (Printed)">Oversized Tee (Printed)</option>
+            <option value="DTF Custom">DTF Custom</option>
+          </select>
+          <select id="prodStockFilter" class="filter-select" onchange="renderProductsTable()">
+            <option value="all">All Stock Statuses</option>
+            <option value="in_stock">In Stock</option>
+            <option value="out_of_stock">Out of Stock</option>
+          </select>
+          <button class="btn btn-gold btn-sm" onclick="openProductModal()">
+            <i class="fa-solid fa-plus"></i> Add Product
+          </button>
+          <button class="btn btn-seed btn-sm" onclick="seedBaselineProductsToFirestore()">
+            <i class="fa-solid fa-sync"></i> Sync All Base Products
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>GSM</th>
+              <th>Colors</th>
+              <th>Sizes &amp; Prices</th>
+              <th>Stock Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="productsTbody">
+            <tr>
+              <td colspan="8" style="text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading catalog products...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: ORDERS MANAGEMENT -->
+    <!-- ======================================================== -->
+    <section id="tab-orders" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-boxes-stacked" style="color: var(--gold);"></i>
+          <span>Orders Management &amp; Invoicing</span>
+        </div>
+        <div class="search-filter-box">
+          <input type="text" id="orderSearchInput" class="search-input" placeholder="Search Order #, Patron, Phone..." oninput="renderOrdersTable()">
+          <select id="orderStatusFilter" class="filter-select" onchange="renderOrdersTable()">
+            <option value="all">All Orders</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="exportOrdersCSV()">
+            <i class="fa-solid fa-file-csv"></i> Export CSV
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Patron &amp; Contact</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTbody">
+            <tr>
+              <td colspan="7" style="text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading real-time orders...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: CUSTOMERS MANAGEMENT -->
+    <!-- ======================================================== -->
+    <section id="tab-customers" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-users" style="color: var(--gold);"></i>
+          <span>Customer &amp; User Accounts</span>
+        </div>
+        <div class="search-filter-box">
+          <input type="text" id="custSearchInput" class="search-input" placeholder="Search name, email, phone..." oninput="renderCustomersTable()">
+          <select id="custStatusFilter" class="filter-select" onchange="renderCustomersTable()">
+            <option value="all">All Patrons</option>
+            <option value="active">Active</option>
+            <option value="blocked">Blocked</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Patron</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Shipping Address</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="customersTbody">
+            <tr>
+              <td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading customer accounts...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: REVIEWS & RATINGS -->
+    <!-- ======================================================== -->
+    <section id="tab-reviews" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-star" style="color: var(--gold);"></i>
+          <span>Customer Feedback &amp; Product Ratings</span>
+        </div>
+        <div class="search-filter-box">
+          <input type="text" id="reviewSearchInput" class="search-input" placeholder="Search product or reviewer..." oninput="renderReviewsTable()">
+          <select id="reviewRatingFilter" class="filter-select" onchange="renderReviewsTable()">
+            <option value="all">All Ratings</option>
+            <option value="5">★★★★★ (5 Stars)</option>
+            <option value="4">★★★★☆ (4 Stars)</option>
+            <option value="3">★★★☆☆ (3 Stars)</option>
+            <option value="2">★★☆☆☆ (2 Stars)</option>
+            <option value="1">★☆☆☆☆ (1 Star)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Rating</th>
+              <th>Review Text</th>
+              <th>Customer</th>
+              <th>Date</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="reviewsTbody">
+            <tr>
+              <td colspan="6" style="text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading reviews...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: WAITLIST -->
+    <!-- ======================================================== -->
+    <section id="tab-waitlist" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-bell" style="color: var(--gold);"></i>
+          <span>New Drop Waitlist Subscriptions</span>
+        </div>
+        <div class="search-filter-box">
+          <input type="text" id="waitlistSearchInput" class="search-input" placeholder="Search name or phone..." oninput="renderWaitlistTable()">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Subscribed Date</th>
+              <th>WhatsApp Notify</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="waitlistTbody">
+            <tr>
+              <td colspan="5" style="text-align:center; padding: 40px; color: var(--text-muted);">
+                <i class="fa-solid fa-spinner fa-spin"></i> Loading waitlist...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 6: DATABASE TOOLS & MIGRATION -->
+    <!-- ======================================================== -->
+    <section id="tab-tools" class="tab-pane">
+      <div class="pane-title" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-screwdriver-wrench" style="color: var(--gold);"></i>
+        <span>Database Migration, Backup &amp; Health</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        <!-- Seeder Card -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+          <h4 style="color: var(--gold); font-size: 1.05rem; margin-bottom: 8px;">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Baseline Data Migration to Firebase
+          </h4>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+            Import all 41 baseline catalog products, existing local orders, registered customers, and waitlist subscribers directly into Firestore. This ensures all historical data is safely stored in the cloud.
+          </p>
+          <button class="btn btn-seed" onclick="seedBaselineProductsToFirestore()">
+            <i class="fa-solid fa-rocket"></i> Run Complete Data Migration
+          </button>
+        </div>
+
+        <!-- Backup Card -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+          <h4 style="color: var(--gold); font-size: 1.05rem; margin-bottom: 8px;">
+            <i class="fa-solid fa-download"></i> Full Database JSON Export
+          </h4>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+            Download a complete, offline JSON backup of all Firestore collections (Products, Orders, Users, Reviews, and Waitlist) to keep your records safe and transportable.
+          </p>
+          <button class="btn btn-outline" onclick="exportFullDatabaseJson()">
+            <i class="fa-solid fa-file-arrow-down"></i> Export Full Backup JSON
+          </button>
+        </div>
+
+        <!-- Connection Diagnostics -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+          <h4 style="color: var(--gold); font-size: 1.05rem; margin-bottom: 8px;">
+            <i class="fa-solid fa-network-wired"></i> Connection Diagnostics
+          </h4>
+          <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5;">
+            Verify live latency, security rules, and read/write permissions for your Firestore and Authentication configuration.
+          </p>
+          <button class="btn btn-outline" onclick="testDatabaseConnection()">
+            <i class="fa-solid fa-heart-pulse"></i> Ping Firestore Database
+          </button>
+          <div id="pingResult" style="margin-top: 12px; font-size: 0.8rem; font-family: var(--font-mono); color: var(--green);"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 7: CATEGORIES MANAGEMENT -->
+    <!-- ======================================================== -->
+    <section id="tab-categories" class="tab-pane">
+      <div class="pane-toolbar">
+        <div class="pane-title">
+          <i class="fa-solid fa-tags" style="color: var(--gold);"></i>
+          <span>Dynamic Product Categories Management</span>
+        </div>
+        <div class="search-filter-box" style="display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 650px;">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <input type="text" id="newCategoryInput" class="form-input" placeholder="New Category Name (e.g. Frocks, Blouses, Oversized Tees)..." style="flex: 1; min-width: 200px; padding: 8px 12px; font-size: 0.85rem;">
+            <button class="btn btn-gold btn-sm" onclick="handleAddNewCategoryFromTab()">
+              <i class="fa-solid fa-plus"></i> Add Category
+            </button>
+            <button class="btn btn-outline btn-sm" onclick="syncExistingCategoriesToFirestore(true)" title="Extract and sync all existing categories from products into Firestore">
+              <i class="fa-solid fa-arrows-rotate"></i> Sync Legacy
+            </button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.03); padding: 8px 12px; border-radius: 6px; border: 1px dashed var(--border); flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; font-weight: 700; color: var(--gold); text-transform: uppercase;">Assign Sections:</span>
+            <label style="font-size: 0.82rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <input type="checkbox" id="catSecMens" value="Mens" checked> Men
+            </label>
+            <label style="font-size: 0.82rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <input type="checkbox" id="catSecWomens" value="Womens" checked> Women
+            </label>
+            <label style="font-size: 0.82rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <input type="checkbox" id="catSecKids" value="Kids"> Kids
+            </label>
+            <label style="font-size: 0.82rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+              <input type="checkbox" id="catSecOthers" value="Others"> Others
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; color: var(--gold); margin-bottom: 6px;">
+          <i class="fa-solid fa-cloud"></i> Real-Time Multi-Device Category Sync
+        </h4>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0; line-height: 1.5;">
+          Categories added here are stored instantly in Firebase Firestore. When you add a new category, all customer devices, the shop filter, and product modals immediately update across all browsers in real-time.
+        </p>
+      </div>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Category Name</th>
+              <th>Assigned Sections (Tick to Show)</th>
+              <th>Product Count</th>
+              <th>Status</th>
+              <th style="text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="categoriesTbody">
+            <!-- Populated via renderCategoriesTable() -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: ADD / EDIT PRODUCT -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="productModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="productModalTitle">Add New Product to Database</h3>
+        <button class="modal-close" onclick="closeProductModal()">&times;</button>
+      </div>
+      <form id="productForm" onsubmit="saveProduct(event)">
+        <div class="modal-body">
+          <input type="hidden" id="pId">
+
+          <div class="form-group">
+            <label>Product Name</label>
+            <input type="text" id="pName" class="form-input" required placeholder="e.g. Infinity Edition">
+          </div>
+
+          <!-- Target Departments / Sections -->
+          <div class="form-group" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; margin-bottom: 4px;">
+            <label style="font-weight: 700; font-size: 0.78rem; margin-bottom: 8px; display: block; color: var(--gold);">
+              <i class="fa-solid fa-layer-group"></i> Target Department(s) / Section(s)
+            </label>
+            <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="secMens" value="Mens" checked style="accent-color: var(--gold);" onchange="onModalSectionChange()"> Men
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="secWomens" value="Womens" checked style="accent-color: var(--gold);" onchange="onModalSectionChange()"> Women
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="secKids" value="Kids" style="accent-color: var(--gold);" onchange="onModalSectionChange()"> Kids
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="secOthers" value="Others" style="accent-color: var(--gold);" onchange="onModalSectionChange()"> Others
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="secUnisex" value="Unisexs" checked style="accent-color: var(--gold);" onchange="onModalSectionChange()"> Unisex
+              </label>
+            </div>
+          </div>
+
+          <!-- Homepage Placements: Exclusive New Arrivals & Signature Selection -->
+          <div class="form-group" style="background: rgba(198, 162, 107, 0.08); border: 1px solid rgba(198, 162, 107, 0.3); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 16px;">
+            <label style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--gold); margin-bottom: 8px;">
+              <i class="fa-solid fa-star"></i> Homepage Placements (මුල් පිටුවේ පෙන්වීම)
+            </label>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+              <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="pNewArrival" style="accent-color: var(--gold); width: 16px; height: 16px;">
+                <span>Show in <strong>EXCLUSIVE NEW ARRIVALS</strong></span>
+              </label>
+              <label style="display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.82rem; font-weight: 600;">
+                <input type="checkbox" id="pFeatured" style="accent-color: var(--gold); width: 16px; height: 16px;">
+                <span>Show in <strong>Signature Selection (Featured Masterpieces)</strong></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                <label style="margin: 0;">Category</label>
+                <button type="button" onclick="quickAddCategoryPrompt()" style="background: none; border: none; color: var(--gold); font-size: 0.74rem; font-weight: 700; cursor: pointer; padding: 0;">
+                  <i class="fa-solid fa-plus-circle"></i> + New Category
+                </button>
+              </div>
+              <select id="pCategory" class="form-select">
+                <option value="Regular Tee (Printed)">Regular Tee (Printed)</option>
+                <option value="Oversized Tee (Printed)">Oversized Tee (Printed)</option>
+                <option value="Frock">Frock</option>
+                <option value="Blouse">Blouse</option>
+                <option value="DTF Custom">DTF Custom</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>GSM / Fabric Material <small style="color:var(--text-muted); font-size:0.72rem;">(Leave blank to hide from product)</small></label>
+              <input type="text" id="pGsm" class="form-input" placeholder="e.g. 220 GSM or Pure Cotton" value="">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label>Price (LKR)</label>
+              <input type="number" id="pPrice" class="form-input" required placeholder="1800" value="1800">
+            </div>
+            <div class="form-group">
+              <label>Old / Strike Price (LKR)</label>
+              <input type="number" id="pOldPrice" class="form-input" placeholder="1850" value="1850">
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div class="form-group">
+              <label>Stock Status</label>
+              <select id="pStockStatus" class="form-select">
+                <option value="in_stock">In Stock</option>
+                <option value="out_of_stock">Out of Stock</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Quantity in Stock</label>
+              <input type="number" id="pStock" class="form-input" value="10">
+            </div>
+          </div>
+
+          <!-- Main Product Image with ImgBB Drag and Drop Uploader -->
+          <div class="form-group">
+            <label style="font-weight: 700; margin-bottom: 4px; display: block;">Main Product Image</label>
+            <div id="dropzoneMain" class="dropzone-box" onclick="document.getElementById('fileMain').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'pImage', 'previewMain', 'statusMain')">
+              <i class="fa-solid fa-cloud-arrow-up" style="font-size: 22px; color: var(--gold); margin-bottom: 4px;"></i>
+              <div style="font-size: 0.82rem; font-weight: 700; color: var(--text);">Drag &amp; Drop Image here, or <span style="color: var(--gold); text-decoration: underline;">Browse File</span></div>
+              <small style="color: var(--text-muted); font-size: 0.7rem;">Auto-uploads directly to ImgBB (API: 05f9ffbbbadb71e449b28e2d1adf8975)</small>
+              <input type="file" id="fileMain" accept="image/*" style="display: none;" onchange="handleFileSelect(event, 'pImage', 'previewMain', 'statusMain')">
+            </div>
+            <div id="statusMain" style="display: none; font-size: 0.78rem; font-weight: 700; margin: 4px 0;"></div>
+
+            <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+              <input type="url" id="pImage" class="form-input" required placeholder="https://i.ibb.co/..." style="flex: 1;" oninput="updateImagePreview('pImage', 'previewMain')">
+              <img id="previewMain" src="" alt="Preview" style="display: none; width: 40px; height: 40px; object-fit: contain; border: 1px solid var(--border); border-radius: 6px; background: #fff;">
+            </div>
+          </div>
+
+          <!-- Secondary / Gallery Images (Unlimited Upload via ImgBB) -->
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label style="font-weight: 600; margin: 0;">Secondary / Gallery Images (Add as many as you want)</label>
+              <button type="button" class="btn btn-outline btn-sm" onclick="addExtraImageUrlInput()" style="padding: 2px 8px; font-size: 0.72rem;">
+                <i class="fa-solid fa-plus"></i> + Add Another Image URL
+              </button>
+            </div>
+            <div id="dropzoneSec" class="dropzone-box" onclick="document.getElementById('fileSec').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleMultiDrop(event)">
+              <i class="fa-solid fa-images" style="font-size: 20px; color: var(--gold); margin-bottom: 4px;"></i>
+              <div style="font-size: 0.8rem; font-weight: 600;">Drop Multiple Images here or <span style="color: var(--gold); text-decoration: underline;">Browse Multiple Files</span></div>
+              <small style="color: var(--text-muted); font-size: 0.7rem;">Select multiple files at once — auto-uploads to ImgBB and adds to product gallery</small>
+              <input type="file" id="fileSec" accept="image/*" multiple style="display: none;" onchange="handleMultiFileSelect(event)">
+            </div>
+            <div id="statusSec" style="display: none; font-size: 0.78rem; font-weight: 700; margin: 4px 0;"></div>
+
+            <!-- List of secondary image URLs with thumbnails and delete buttons -->
+            <div id="secondaryImagesContainer" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;"></div>
+          </div>
+
+          <!-- Product-Specific Size Chart Image (Optional) -->
+          <div class="form-group" style="background: rgba(198,162,107,0.06); border: 1px dashed var(--gold); border-radius: 8px; padding: 12px;">
+            <label style="font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+              <span><i class="fa-solid fa-ruler"></i> Product-Specific Size Chart Image (Optional)</span>
+              <small style="color: var(--text-muted); font-size: 0.72rem; text-transform: none;">Only shown if you upload/provide an image here</small>
+            </label>
+            <div id="dropzoneSizeChart" class="dropzone-box" onclick="document.getElementById('fileSizeChart').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'pSizeChartImg', 'previewSizeChart', 'statusSizeChart')" style="margin-top: 6px;">
+              <i class="fa-solid fa-file-image" style="font-size: 18px; color: var(--gold); margin-bottom: 4px;"></i>
+              <div style="font-size: 0.78rem; font-weight: 600;">Drop Size Chart Image or <span style="color: var(--gold); text-decoration: underline;">Browse</span></div>
+              <input type="file" id="fileSizeChart" accept="image/*" style="display: none;" onchange="handleFileSelect(event, 'pSizeChartImg', 'previewSizeChart', 'statusSizeChart')">
+            </div>
+            <div id="statusSizeChart" style="display: none; font-size: 0.78rem; font-weight: 700; margin: 4px 0;"></div>
+            <div style="display: flex; gap: 10px; align-items: center; margin-top: 6px;">
+              <input type="url" id="pSizeChartImg" class="form-input" placeholder="https://i.ibb.co/..." style="flex: 1;" oninput="updateImagePreview('pSizeChartImg', 'previewSizeChart')">
+              <img id="previewSizeChart" src="" alt="Size Chart Preview" style="display: none; width: 40px; height: 40px; object-fit: contain; border: 1px solid var(--border); border-radius: 6px; background: #fff;">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <label style="margin: 0;">Available Sizes (Exact sizes shown on product page)</label>
+              <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('Free Size')" style="padding: 2px 7px; font-size: 0.72rem;">+ Free Size</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('XS')" style="padding: 2px 7px; font-size: 0.72rem;">+ XS</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('S')" style="padding: 2px 7px; font-size: 0.72rem;">+ S</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('M')" style="padding: 2px 7px; font-size: 0.72rem;">+ M</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('L')" style="padding: 2px 7px; font-size: 0.72rem;">+ L</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('XL')" style="padding: 2px 7px; font-size: 0.72rem;">+ XL</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="quickAppendSize('2XL')" style="padding: 2px 7px; font-size: 0.72rem;">+ 2XL</button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('pSizes').value=''; showToast('Sizes cleared');" style="padding: 2px 7px; font-size: 0.72rem; color: #ef4444; border-color: rgba(239, 68, 68, 0.4);">Clear</button>
+              </div>
+            </div>
+            <input type="text" id="pSizes" class="form-input" value="Free Size" placeholder="e.g. Free Size OR S, M, L, XL">
+            <small style="color: var(--text-muted); font-size: 0.72rem;">Only the exact sizes you enter here will appear on the product page chips for customers to select.</small>
+          </div>
+
+          <div class="form-group">
+            <label style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Garment Colors (Site Color Dots)</span>
+              <small style="color:var(--text-muted); font-size:0.75rem;">Click chips or enter custom hex &amp; custom name</small>
+            </label>
+            <div id="modalPresetChips" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;"></div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;">
+              <input type="color" id="modalCustomColorPicker" value="#000000" style="width: 40px; height: 34px; padding: 0; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; background: transparent;">
+              <input type="text" id="modalCustomColorHex" placeholder="#000000" style="width: 90px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: var(--font-mono); font-size: 0.8rem;">
+              <input type="text" id="modalCustomColorName" placeholder="Color Name (e.g. Navy Blue, Emerald)" style="flex: 1; min-width: 150px; padding: 6px 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-size: 0.8rem;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="addSelectedColorFromInput()">
+                <i class="fa-solid fa-plus"></i> Add Color
+              </button>
+            </div>
+            <div style="background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; padding: 8px 10px; min-height: 42px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px;" id="modalSelectedColorsList"></div>
+          </div>
+
+          <!-- Other Custom Specifications (Admin types custom specs; only appear if entered) -->
+          <div class="form-group" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label style="margin: 0; font-weight: 700; color: var(--gold);"><i class="fa-solid fa-list-check"></i> Other Specifications (Optional - Typed by You)</label>
+              <button type="button" class="btn btn-outline btn-sm" onclick="addCustomSpecRow('', '')" style="padding: 2px 8px; font-size: 0.72rem;">
+                <i class="fa-solid fa-plus"></i> + Add Spec
+              </button>
+            </div>
+            <small style="color: var(--text-muted); font-size: 0.72rem; display: block; margin-bottom: 8px;">
+              Add any custom specifications you want (e.g., Fabric Density: 220 GSM, Material: 100% Combed Cotton, Care: Machine Wash). If you leave this empty, NO specifications section will appear on the product page.
+            </small>
+            <div id="customSpecsContainer" style="display: flex; flex-direction: column; gap: 6px;"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea id="pDesc" class="form-textarea" rows="3" placeholder="Crafted with premium fabric for ultimate comfort and durability."></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeProductModal()">Cancel</button>
+          <button type="submit" class="btn btn-gold" id="btnSaveProduct">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Save to Database
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: VIEW ORDER DETAILS -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="orderDetailsModal">
+    <div class="modal-card modal-lg">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--surface) 0%, var(--surface-card) 100%);">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+            <h3 id="odModalId" style="margin: 0; font-family: var(--font-mono); font-size: 1.25rem; color: var(--gold);">#RC-ORDER</h3>
+            <span id="odModalStatusBadge" class="status-pill pending">● PENDING</span>
+          </div>
+          <small id="odModalDateTime" style="color: var(--text-muted); font-size: 0.8rem;">Placed on Oct 19, 2026</small>
+        </div>
+        <button class="modal-close" onclick="closeOrderDetailsModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" style="gap: 18px; padding: 22px;">
+
+        <!-- Quick Action Bar -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <label style="font-size: 0.74rem; font-weight: 800; color: var(--gold); text-transform: uppercase;">Status:</label>
+            <select id="odStatusSelect" class="filter-select" style="padding: 5px 12px; font-weight: 700;" onchange="changeOrderDetailsStatus(this.value)">
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <a id="odWaBtn" href="#" target="_blank" class="btn btn-sm" style="background: #25D366; color: #fff; text-decoration: none;">
+              <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp
+            </a>
+            <a id="odCallBtn" href="#" class="btn btn-sm btn-outline" style="text-decoration: none;">
+              <i class="fa-solid fa-phone"></i> Call Patron
+            </a>
+            <a id="odInvoiceBtn" href="#" target="_blank" class="btn btn-sm btn-gold" style="text-decoration: none;">
+              <i class="fa-solid fa-file-invoice"></i> View Official Invoice (HTML)
+            </a>
+          </div>
+        </div>
+
+        <!-- 2-Column Info: Customer & Shipping Details + Payment & Order Overview -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
+          <!-- Card 1: Customer & Shipping Details -->
+          <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;">
+            <div style="font-size: 0.78rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-user"></i> Patron & Shipping Information
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+              <div><span style="color: var(--text-muted);">Name:</span> <strong id="odCustName" style="color: var(--text);">–</strong></div>
+              <div><span style="color: var(--text-muted);">Email:</span> <span id="odCustEmail" style="color: var(--text);">–</span></div>
+              <div><span style="color: var(--text-muted);">Phone:</span> <a id="odCustPhoneLink" href="#" style="color: var(--gold); font-family: var(--font-mono); text-decoration: underline;">–</a></div>
+              <div id="odCustPhone2Row" style="display:none;"><span style="color: var(--text-muted);">Alt Phone:</span> <a id="odCustPhone2Link" href="#" style="color: var(--gold); font-family: var(--font-mono);">–</a></div>
+              <div><span style="color: var(--text-muted);">Full Address:</span> <span id="odCustAddress" style="color: var(--text); line-height: 1.4;">–</span></div>
+              <div id="odCustNotesRow" style="display:none; background: rgba(198, 162, 107, 0.08); border-left: 3px solid var(--gold); padding: 8px 10px; border-radius: 4px; margin-top: 4px;">
+                <span style="color: var(--gold); font-size: 0.74rem; font-weight: 700; text-transform: uppercase; display: block;">Special Instructions / Notes:</span>
+                <span id="odCustNotes" style="font-size: 0.82rem; color: var(--text);">–</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Payment & Financial Summary -->
+          <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;">
+            <div style="font-size: 0.78rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; display: flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-credit-card"></i> Payment & Order Overview
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+              <div><span style="color: var(--text-muted);">Order ID:</span> <span id="odFullId" style="font-family: var(--font-mono); color: var(--gold);">–</span></div>
+              <div><span style="color: var(--text-muted);">Order Date:</span> <span id="odOrderDate" style="color: var(--text);">–</span></div>
+              <div><span style="color: var(--text-muted);">Payment Method:</span> <strong id="odPaymentMethod" style="color: var(--gold);">–</strong></div>
+              <div><span style="color: var(--text-muted);">Current Status:</span> <span id="odCurrentStatus" style="font-weight: 700; text-transform: uppercase;">–</span></div>
+              <div style="margin-top: 6px; border-top: 1px solid var(--border); padding-top: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                  <span style="color: var(--text-muted);">Subtotal:</span>
+                  <span id="odSubtotal" style="font-family: var(--font-mono);">Rs. 0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                  <span style="color: var(--text-muted);">Delivery Fee:</span>
+                  <span id="odDeliveryFee" style="font-family: var(--font-mono);">Rs. 0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 1.05rem; font-weight: 800; color: var(--gold); padding-top: 6px; border-top: 1px dashed var(--border);">
+                  <span>Grand Total:</span>
+                  <span id="odGrandTotal" style="font-family: var(--font-mono); color: var(--green);">Rs. 0.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ordered Items Table Card -->
+        <div style="background: var(--surface-card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;">
+          <div style="padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.82rem; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; justify-content: space-between; background: #FAF7F2;">
+            <span><i class="fa-solid fa-shirt"></i> Ordered Items (<span id="odItemsCount">0</span>)</span>
+            <span style="color: var(--text-muted); font-size: 0.75rem; text-transform: none; font-weight: 500;">Bespoke Heavyweight Quality</span>
+          </div>
+          <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+              <thead>
+                <tr style="background: #FFFFFF; border-bottom: 1px solid var(--border); text-align: left; color: var(--text-muted); font-size: 0.74rem; text-transform: uppercase;">
+                  <th style="padding: 10px 14px;">Garment</th>
+                  <th style="padding: 10px 14px;">Size</th>
+                  <th style="padding: 10px 14px;">Color</th>
+                  <th style="padding: 10px 14px;">Unit Price</th>
+                  <th style="padding: 10px 14px; text-align: center;">Qty</th>
+                  <th style="padding: 10px 14px; text-align: right;">Total</th>
+                </tr>
+              </thead>
+              <tbody id="odItemsTbody">
+                <!-- Items injected dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer" style="display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-danger btn-sm" id="odDeleteBtn" onclick="deleteCurrentOpenedOrder()">
+          <i class="fa-solid fa-trash"></i> Delete Order
+        </button>
+        <button type="button" class="btn btn-outline" onclick="closeOrderDetailsModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL: DATA SEEDING WIZARD -->
+  <!-- ======================================================== -->
+  <div class="modal-backdrop" id="seedModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-cloud-arrow-up"></i> Baseline Data Migration Wizard</h3>
+        <button class="modal-close" onclick="closeSeedModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--text); line-height: 1.5;">
+          This wizard uploads all <strong>41 baseline catalog products</strong> from the system directly into your Firebase Firestore <code>products</code> collection, along with any existing customer orders, waitlist entries, and local user records.
+        </p>
+
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" id="seedProgressBar"></div>
+        </div>
+        <div id="seedStatusText" style="font-size: 0.82rem; color: var(--gold); font-family: var(--font-mono);">Ready to start migration...</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" onclick="closeSeedModal()">Close</button>
+        <button type="button" class="btn btn-seed" id="btnRunSeed" onclick="executeSeedMigration()">
+          <i class="fa-solid fa-bolt"></i> Start Migration
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="dbToast" class="toast-box">
+    <i class="fa-solid fa-circle-check" style="color:var(--gold); font-size:1.2rem;"></i>
+    <span id="toastMessage">Notification</span>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="script.js"></script>
+
+  <!-- Database Logic Script -->
+  <script>
+    // Global in-memory states
+    let liveDbProducts = [];
+    let liveDbOrders = [];
+    let liveDbCustomers = [];
+    let liveDbReviews = [];
+    let liveDbWaitlist = [];
+
+    // Toast alert helper
+    function showToast(msg, isError = false) {
+      const toast = document.getElementById('dbToast');
+      const text = document.getElementById('toastMessage');
+      text.innerText = msg;
+      toast.style.borderLeftColor = isError ? 'var(--red)' : 'var(--gold)';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Tab Switching
+    function switchDbTab(tabName, btn) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      
+      const pane = document.getElementById('tab-' + tabName);
+      if (pane) pane.classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    // Color Builder State & Helpers
+    let modalSelectedColors = ['#000000'];
+    const presetPalette = [
+      { name: 'Black', hex: '#000000' },
+      { name: 'White', hex: '#FFFFFF' },
+      { name: 'Red', hex: '#DC143C' },
+      { name: 'Navy', hex: '#001F5B' },
+      { name: 'Blue', hex: '#1E90FF' },
+      { name: 'Forest Green', hex: '#228B22' },
+      { name: 'Yellow', hex: '#FFD700' },
+      { name: 'Salmon Pink', hex: '#FA8072' },
+      { name: 'Brown', hex: '#8B4513' },
+      { name: 'Sage', hex: '#77815C' },
+      { name: 'Purple', hex: '#6A0DAD' },
+      { name: 'Beige', hex: '#F5F5DC' },
+      { name: 'Orange', hex: '#FF6B35' },
+      { name: 'Grey', hex: '#808080' }
+    ];
+
+    function renderPresetChips() {
+      const container = document.getElementById('modalPresetChips');
+      if (!container) return;
+      container.innerHTML = presetPalette.map(c => {
+        const isSel = modalSelectedColors.some(hex => hex.toLowerCase() === c.hex.toLowerCase());
+        return `
+          <button type="button" onclick="toggleColorSelection('${c.hex}')" 
+            style="display:inline-flex; align-items:center; gap:5px; background:var(--surface); border:1px solid ${isSel ? 'var(--gold)' : 'var(--border)'}; border-radius:20px; padding:3px 9px; cursor:pointer; color:var(--text); font-size:0.75rem; transition:all 0.15s ease;">
+            <span style="width:12px; height:12px; border-radius:50%; background:${c.hex}; border:1px solid rgba(0,0,0,0.18); display:inline-block;"></span>
+            <span>${c.name}</span>
+            ${isSel ? '<i class="fa-solid fa-check" style="font-size:0.65rem; color:var(--gold);"></i>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    let modalColorNames = {};
+    let modalSecondaryImages = [];
+    let customSpecsCount = 0;
+
+    function renderSelectedColors() {
+      const list = document.getElementById('modalSelectedColorsList');
+      if (!list) return;
+      if (!modalSelectedColors.length) {
+        list.innerHTML = '<span style="color:var(--text-muted); font-size:0.75rem;">No colors selected yet. Click a chip above or add custom color.</span>';
+        return;
+      }
+      list.innerHTML = modalSelectedColors.map(hex => {
+        const lower = hex.toLowerCase();
+        const customName = modalColorNames[lower] || '';
+        const preset = presetPalette.find(p => p.hex.toLowerCase() === lower);
+        const displayName = customName || (preset ? preset.name : hex.toUpperCase());
+        return `
+          <span style="display:inline-flex; align-items:center; gap:5px; background:var(--surface-card); border:1px solid var(--border-accent); border-radius:18px; padding:2px 8px; font-size:0.75rem; color:var(--text);">
+            <span style="width:13px; height:13px; border-radius:50%; background:${hex}; border:1px solid rgba(0,0,0,0.18); display:inline-block;"></span>
+            <span style="font-family:var(--font-mono); font-size:0.72rem;">${displayName}</span>
+            <button type="button" onclick="removeColorSelection('${hex}')" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.85rem; padding:0 2px; line-height:1;" title="Remove">&times;</button>
+          </span>
+        `;
+      }).join('');
+    }
+
+    function toggleColorSelection(hex) {
+      const lower = hex.toLowerCase();
+      const idx = modalSelectedColors.findIndex(h => h.toLowerCase() === lower);
+      if (idx > -1) {
+        modalSelectedColors.splice(idx, 1);
+      } else {
+        modalSelectedColors.push(hex);
+      }
+      renderPresetChips();
+      renderSelectedColors();
+    }
+
+    function removeColorSelection(hex) {
+      const lower = hex.toLowerCase();
+      modalSelectedColors = modalSelectedColors.filter(h => h.toLowerCase() !== lower);
+      delete modalColorNames[lower];
+      renderPresetChips();
+      renderSelectedColors();
+    }
+
+    function addSelectedColorFromInput() {
+      const hexInput = document.getElementById('modalCustomColorHex');
+      const picker = document.getElementById('modalCustomColorPicker');
+      const nameInput = document.getElementById('modalCustomColorName');
+      let val = (hexInput.value || (picker ? picker.value : '') || '').trim();
+      let name = (nameInput ? nameInput.value : '').trim();
+      if (!val.startsWith('#')) val = '#' + val;
+      if (/^#[0-9A-Fa-f]{6}$/.test(val) || /^#[0-9A-Fa-f]{3}$/.test(val)) {
+        val = val.toUpperCase();
+        if (!modalSelectedColors.some(h => h.toUpperCase() === val)) {
+          modalSelectedColors.push(val);
+        }
+        if (name) {
+          modalColorNames[val.toLowerCase()] = name;
+        }
+        renderPresetChips();
+        renderSelectedColors();
+        hexInput.value = '';
+        if (nameInput) nameInput.value = '';
+        showToast(`Color ${name || val} added!`);
+      } else {
+        showToast('Please enter a valid Hex color code (e.g. #FF5733)', true);
+      }
+    }
+
+    // Secondary Gallery Images (Multi / Unlimited)
+    function renderSecondaryImages() {
+      const container = document.getElementById('secondaryImagesContainer');
+      if (!container) return;
+      if (!modalSecondaryImages.length) {
+        container.innerHTML = '<span style="color:var(--text-muted); font-size:0.72rem;">No secondary images added yet. You can upload or paste as many as you need.</span>';
+        return;
+      }
+      container.innerHTML = modalSecondaryImages.map((url, idx) => `
+        <div style="display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:4px 8px;">
+          <span style="font-size:0.72rem; color:var(--gold); font-weight:700; width:18px;">#${idx + 1}</span>
+          <input type="url" class="form-input" value="${url}" placeholder="https://..." style="flex:1; padding:4px 8px; font-size:0.78rem;" oninput="updateSecondaryImageUrl(${idx}, this.value)">
+          <img src="${url}" alt="Thumb" style="width:32px; height:32px; object-fit:contain; border-radius:4px; border:1px solid var(--border); background:#fff;" onerror="this.style.display='none'" onload="this.style.display='block'">
+          <button type="button" onclick="removeSecondaryImage(${idx})" class="btn btn-sm btn-danger" style="padding:2px 7px; font-size:0.7rem;" title="Remove image">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function addExtraImageUrlInput(url = '') {
+      modalSecondaryImages.push(url);
+      renderSecondaryImages();
+    }
+
+    function removeSecondaryImage(idx) {
+      modalSecondaryImages.splice(idx, 1);
+      renderSecondaryImages();
+    }
+
+    function updateSecondaryImageUrl(idx, val) {
+      modalSecondaryImages[idx] = val.trim();
+    }
+
+    function handleMultiDrop(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.currentTarget.classList.remove('drag-over');
+      const files = Array.from(e.dataTransfer.files || []).filter(f => f.type.startsWith('image/'));
+      if (files.length) {
+        uploadMultipleFilesToImgBB(files);
+      } else {
+        showToast('Please drop valid image files.', true);
+      }
+    }
+
+    function handleMultiFileSelect(e) {
+      const files = Array.from(e.target.files || []).filter(f => f.type.startsWith('image/'));
+      if (files.length) {
+        uploadMultipleFilesToImgBB(files);
+      }
+      e.target.value = '';
+    }
+
+    async function uploadMultipleFilesToImgBB(files) {
+      const statusEl = document.getElementById('statusSec');
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = 'var(--amber)';
+        statusEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading ${files.length} images to ImgBB...`;
+      }
+      let successCount = 0;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (statusEl) statusEl.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Uploading image ${i + 1}/${files.length} to ImgBB...`;
+        try {
+          const formData = new FormData();
+          formData.append('image', file);
+          const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+            method: 'POST',
+            body: formData
+          });
+          const data = await res.json();
+          if (data.success) {
+            const url = data.data.url || data.data.display_url;
+            modalSecondaryImages.push(url);
+            successCount++;
+            renderSecondaryImages();
+          }
+        } catch (err) {
+          console.warn('ImgBB multi-upload error:', err);
+        }
+      }
+      if (statusEl) {
+        statusEl.style.color = 'var(--green)';
+        statusEl.innerHTML = `<i class="fa-solid fa-check-circle"></i> Successfully uploaded ${successCount}/${files.length} images!`;
+        setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+      }
+      showToast(`Added ${successCount} secondary gallery images!`);
+    }
+
+    // Quick Size Helper
+    function quickAppendSize(sizeName) {
+      const input = document.getElementById('pSizes');
+      if (!input) return;
+      const current = input.value.split(',').map(s => s.trim()).filter(Boolean);
+      if (!current.includes(sizeName)) {
+        current.push(sizeName);
+        input.value = current.join(', ');
+        showToast(`Added ${sizeName} to sizes`);
+      }
+    }
+
+    // Custom Specifications Builder
+    function addCustomSpecRow(key = '', val = '') {
+      const container = document.getElementById('customSpecsContainer');
+      if (!container) return;
+      const rowId = 'spec_row_' + (++customSpecsCount);
+      const row = document.createElement('div');
+      row.id = rowId;
+      row.style.cssText = 'display:flex; gap:8px; align-items:center;';
+      row.innerHTML = `
+        <input type="text" class="form-input spec-key" placeholder="Feature / Spec (e.g. Fabric Density)" value="${key.replace(/"/g, '&quot;')}" style="flex:1; font-size:0.8rem; padding:5px 8px;">
+        <input type="text" class="form-input spec-val" placeholder="Value (e.g. 220 GSM Cotton)" value="${val.replace(/"/g, '&quot;')}" style="flex:1; font-size:0.8rem; padding:5px 8px;">
+        <button type="button" onclick="document.getElementById('${rowId}').remove()" class="btn btn-sm btn-danger" style="padding:4px 8px; font-size:0.75rem;" title="Remove this spec">&times;</button>
+      `;
+      container.appendChild(row);
+    }
+
+    function collectCustomSpecs() {
+      const container = document.getElementById('customSpecsContainer');
+      if (!container) return null;
+      const rows = container.children;
+      const specs = {};
+      let count = 0;
+      for (let r of rows) {
+        const kEl = r.querySelector('.spec-key');
+        const vEl = r.querySelector('.spec-val');
+        const k = (kEl ? kEl.value : '').trim();
+        const v = (vEl ? vEl.value : '').trim();
+        if (k && v) {
+          specs[k] = v;
+          count++;
+        }
+      }
+      return count > 0 ? specs : null;
+    }
+
+    // Modal helpers
+    function openProductModal(prod = null) {
+      const modal = document.getElementById('productModal');
+      const title = document.getElementById('productModalTitle');
+      document.getElementById('productForm').reset();
+
+      if (prod) {
+        title.innerText = 'Edit Garment Product: ' + prod.name;
+        document.getElementById('pId').value = prod.id || '';
+        document.getElementById('pName').value = prod.name || '';
+        // Set sections first so category dropdown matches sections
+        const pSecs = prod.sections || ['Mens', 'Womens'];
+        document.getElementById('secMens').checked = pSecs.includes('Mens');
+        document.getElementById('secWomens').checked = pSecs.includes('Womens');
+        document.getElementById('secKids').checked = pSecs.includes('Kids');
+        document.getElementById('secOthers').checked = pSecs.includes('Others');
+        document.getElementById('secUnisex').checked = pSecs.includes('Unisexs') || (pSecs.includes('Mens') && pSecs.includes('Womens'));
+        populateModalCategoryDropdown(prod.category || 'Regular Tee (Printed)');
+        document.getElementById('pGsm').value = (prod.gsm || prod.material || '');
+        document.getElementById('pPrice').value = prod.price || (prod.sizes && prod.sizes['M'] ? prod.sizes['M'].price : 1800);
+        document.getElementById('pOldPrice').value = prod.oldPrice || (prod.sizes && prod.sizes['M'] ? prod.sizes['M'].oldPrice : 1850);
+        document.getElementById('pStockStatus').value = prod.status || 'in_stock';
+        document.getElementById('pStock').value = prod.stock !== undefined ? prod.stock : 10;
+        document.getElementById('pImage').value = (prod.images && prod.images[0]) ? prod.images[0] : '';
+        
+        // Multi secondary images
+        modalSecondaryImages = (prod.images && prod.images.length > 1) ? prod.images.slice(1) : [];
+        renderSecondaryImages();
+
+        // Product-specific size chart
+        document.getElementById('pSizeChartImg').value = prod.sizeChartImg || '';
+        updateImagePreview('pSizeChartImg', 'previewSizeChart');
+
+        // Color names & selected colors
+        modalSelectedColors = (prod.colors && Array.isArray(prod.colors) && prod.colors.length) ? [...prod.colors] : ['#000000'];
+        modalColorNames = prod.colorNames ? { ...prod.colorNames } : {};
+
+        // Custom specs
+        const specsContainer = document.getElementById('customSpecsContainer');
+        if (specsContainer) specsContainer.innerHTML = '';
+        if (prod.customSpecs && typeof prod.customSpecs === 'object') {
+          Object.entries(prod.customSpecs).forEach(([k, v]) => addCustomSpecRow(k, v));
+        }
+
+        let existingSizes = 'Free Size';
+        if (prod.sizes) {
+          if (Array.isArray(prod.sizes)) {
+            existingSizes = prod.sizes.join(', ');
+          } else if (typeof prod.sizes === 'object') {
+            existingSizes = Object.keys(prod.sizes).join(', ');
+          } else if (typeof prod.sizes === 'string') {
+            existingSizes = prod.sizes;
+          }
+        }
+        document.getElementById('pSizes').value = existingSizes;
+        document.getElementById('pDesc').value = prod.desc || '';
+
+        // Sections checkboxes
+        const secs = (prod && prod.sections && Array.isArray(prod.sections)) ? prod.sections.map(s => s.toLowerCase()) : ['mens', 'womens', 'unisexs'];
+        document.getElementById('secMens').checked = secs.includes('mens') || secs.includes('men');
+        document.getElementById('secWomens').checked = secs.includes('womens') || secs.includes('women');
+        document.getElementById('secKids').checked = secs.includes('kids') || secs.includes('kid');
+        document.getElementById('secOthers').checked = secs.includes('others') || secs.includes('other');
+        document.getElementById('secUnisex').checked = secs.includes('unisexs') || secs.includes('unisex');
+        document.getElementById('pNewArrival').checked = (prod && (prod.isNewArrival === true || prod.isNewArrival === 'true' || prod.newArrival === true));
+        document.getElementById('pFeatured').checked = (prod && (prod.isFeatured === true || prod.isFeatured === 'true' || prod.featured === true || prod.isSignature === true));
+      } else {
+        title.innerText = 'Add New Garment to Catalog';
+        document.getElementById('pId').value = '';
+        document.getElementById('pGsm').value = '';
+        document.getElementById('pSizes').value = 'Free Size';
+        modalSelectedColors = ['#000000'];
+        modalColorNames = {};
+        modalSecondaryImages = [];
+        renderSecondaryImages();
+        document.getElementById('pSizeChartImg').value = '';
+        updateImagePreview('pSizeChartImg', 'previewSizeChart');
+        const specsContainer = document.getElementById('customSpecsContainer');
+        if (specsContainer) specsContainer.innerHTML = '';
+
+        document.getElementById('secMens').checked = true;
+        document.getElementById('secWomens').checked = true;
+        document.getElementById('secKids').checked = false;
+        document.getElementById('secOthers').checked = false;
+        document.getElementById('secUnisex').checked = true;
+        if (document.getElementById('pNewArrival')) document.getElementById('pNewArrival').checked = false;
+        if (document.getElementById('pFeatured')) document.getElementById('pFeatured').checked = false;
+      }
+      updateImagePreview('pImage', 'previewMain');
+      if (document.getElementById('statusMain')) document.getElementById('statusMain').style.display = 'none';
+      if (document.getElementById('statusSec')) document.getElementById('statusSec').style.display = 'none';
+      if (document.getElementById('statusSizeChart')) document.getElementById('statusSizeChart').style.display = 'none';
+      renderPresetChips();
+      renderSelectedColors();
+      modal.classList.add('open');
+    }
+    function closeProductModal() {
+      document.getElementById('productModal').classList.remove('open');
+    }
+
+    function openSeedModal() {
+      document.getElementById('seedModal').classList.add('open');
+    }
+    function closeSeedModal() {
+      document.getElementById('seedModal').classList.remove('open');
+    }
+
+    // ========================================================
+    // REAL-TIME FIRESTORE LISTENERS
+    // ========================================================
+    function initDatabaseListeners() {
+      if (typeof db === 'undefined' || !db) {
+        console.warn("Firestore db is not initialized.");
+        document.getElementById('connStatusText').innerText = "Offline / Local Storage Mode";
+        document.getElementById('connStatusBadge').style.color = "var(--amber)";
+        renderFromLocalBaseline();
+        return;
+      }
+
+      // 1. PRODUCTS LISTENER
+      db.collection('products').onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          list.push({ id: doc.id, ...doc.data() });
+        });
+
+        // When Firestore has products, use Firestore as true catalog
+        const baseStatic = (typeof baseStaticProducts !== 'undefined' && Array.isArray(baseStaticProducts)) ? baseStaticProducts : [];
+        const mergedList = [];
+        if (!snapshot.empty) {
+          list.forEach(p => {
+            if (p.isDeleted === true || p.deleted === true) return;
+            const staticMatch = baseStatic.find(bp => String(bp.id) === String(p.id)) || {};
+            mergedList.push({ ...staticMatch, ...p, id: p.id });
+          });
+        } else {
+          baseStatic.forEach(bp => mergedList.push(bp));
+        }
+
+        // Filter out deleted
+        liveDbProducts = mergedList.filter(p => !p.isDeleted && !p.deleted);
+        document.getElementById('kpiProducts').innerText = liveDbProducts.length;
+        document.getElementById('countProducts').innerText = liveDbProducts.length;
+        const outCount = liveDbProducts.filter(p => p.status === 'out_of_stock').length;
+        document.getElementById('kpiProductsSub').innerText = `${liveDbProducts.length - outCount} In Stock | ${outCount} Out of Stock`;
+
+        renderProductsTable();
+      }, err => {
+        console.warn("Products sync note:", err);
+        renderFromLocalBaseline();
+      });
+
+      // 2. ORDERS LISTENER
+      db.collection('orders').onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          list.push({ _docId: doc.id, id: doc.id, ...doc.data() });
+        });
+        list.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        liveDbOrders = list;
+
+        const pending = list.filter(o => o.status === 'pending' || !o.status).length;
+        const confirmed = list.filter(o => o.status === 'confirmed').length;
+        document.getElementById('kpiOrders').innerText = list.length;
+        document.getElementById('countOrders').innerText = list.length;
+        document.getElementById('kpiOrdersSub').innerText = `Pending: ${pending} | Confirmed: ${confirmed}`;
+
+        renderOrdersTable();
+      }, err => console.warn("Orders sync note:", err));
+
+      // 3. CUSTOMERS LISTENER
+      db.collection('users').onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          list.push({ _docId: doc.id, ...doc.data() });
+        });
+
+        // Include any local accounts
+        try {
+          const locals = JSON.parse(localStorage.getItem('roohira_local_users') || '[]');
+          const emailMap = new Set(list.map(u => (u.email||'').toLowerCase()));
+          locals.forEach(loc => {
+            if (loc.email && !emailMap.has(loc.email.toLowerCase())) {
+              list.push({ _docId: loc.uid || 'loc_' + Math.random(), ...loc });
+            }
+          });
+        } catch(e) {}
+
+        liveDbCustomers = list;
+        document.getElementById('kpiCustomers').innerText = list.length;
+        document.getElementById('countCustomers').innerText = list.length;
+        renderCustomersTable();
+      }, err => console.warn("Customers sync note:", err));
+
+      // 4. REVIEWS LISTENER
+      db.collection('reviews').onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          list.push({ _docId: doc.id, ...doc.data() });
+        });
+        liveDbReviews = list;
+        document.getElementById('kpiReviews').innerText = list.length;
+        document.getElementById('countReviews').innerText = list.length;
+        if (list.length > 0) {
+          const avg = (list.reduce((acc, r) => acc + (parseFloat(r.rating) || 5), 0) / list.length).toFixed(1);
+          document.getElementById('kpiReviewsSub').innerText = `Avg Rating: ${avg} / 5.0 (${list.length} Verified)`;
+        }
+        renderReviewsTable();
+      }, err => console.warn("Reviews sync note:", err));
+
+      // 5. WAITLIST LISTENER
+      db.collection('waitlist').onSnapshot(snapshot => {
+        const list = [];
+        snapshot.forEach(doc => {
+          list.push({ _docId: doc.id, ...doc.data() });
+        });
+        liveDbWaitlist = list;
+        document.getElementById('kpiWaitlist').innerText = list.length;
+        document.getElementById('countWaitlist').innerText = list.length;
+        renderWaitlistTable();
+      }, err => console.warn("Waitlist sync note:", err));
+    }
+
+    function renderFromLocalBaseline() {
+      if (typeof baseStaticProducts !== 'undefined') {
+        liveDbProducts = JSON.parse(JSON.stringify(baseStaticProducts));
+        document.getElementById('kpiProducts').innerText = liveDbProducts.length;
+        document.getElementById('countProducts').innerText = liveDbProducts.length;
+        renderProductsTable();
+      }
+    }
+
+    // ========================================================
+    // TABLE RENDERING FUNCTIONS
+    // ========================================================
+
+    // Products Table
+    function renderProductsTable() {
+      const tbody = document.getElementById('productsTbody');
+      const q = (document.getElementById('prodSearchInput').value || '').toLowerCase();
+      const cat = document.getElementById('prodCategoryFilter').value;
+      const st = document.getElementById('prodStockFilter').value;
+
+      let filtered = liveDbProducts.filter(p => {
+        const matchQ = (p.name || '').toLowerCase().includes(q) || (p.gsm || '').toLowerCase().includes(q) || (p.category || '').toLowerCase().includes(q);
+        const matchCat = cat === 'all' || p.category === cat;
+        const matchSt = st === 'all' || (st === 'out_of_stock' ? p.status === 'out_of_stock' : p.status !== 'out_of_stock');
+        return matchQ && matchCat && matchSt;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:30px; color:var(--text-muted);">No products match your search.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(p => {
+        const isOut = p.status === 'out_of_stock';
+        const img = (p.images && p.images[0]) ? p.images[0] : 'logo.png';
+        const sizesStr = p.sizes ? Object.entries(p.sizes).map(([sz, sData]) => `${sz}: LKR ${sData.price || sData}`).join(' | ') : 'LKR 1,800';
+        const colorDots = (p.colors && p.colors.length)
+          ? `<div style="display:flex; flex-wrap:wrap; gap:4px; max-width:90px;">` + p.colors.map(c => `<span style="display:inline-block; width:13px; height:13px; border-radius:50%; background:${c}; border:1px solid rgba(0,0,0,0.18);" title="${c}"></span>`).join('') + `</div>`
+          : '<span style="color:var(--text-muted); font-size:0.75rem;">–</span>';
+
+        return `
+          <tr>
+            <td>
+              <img src="${img}" alt="${p.name}" style="width: 44px; height: 44px; object-fit: contain; background: #FAF7F2; border-radius: 6px; border: 1px solid var(--border);">
+            </td>
+            <td>
+              <strong>${p.name}</strong><br>
+              <small style="color:var(--text-muted); font-size:0.75rem;">ID: #${p.id}</small>
+            </td>
+            <td>${p.category || 'Regular Tee (Printed)'}</td>
+            <td><span style="font-family:var(--font-mono); font-size:0.78rem;">${p.gsm || '220 GSM'}</span></td>
+            <td>${colorDots}</td>
+            <td style="font-size:0.78rem; color:var(--gold);">${sizesStr}</td>
+            <td>
+              <span class="status-pill ${isOut ? 'out-of-stock' : 'in-stock'}">
+                ${isOut ? '● Out of Stock' : '● In Stock'}
+              </span>
+            </td>
+            <td style="text-align: right; white-space: nowrap;">
+              <button class="btn btn-sm ${isOut ? 'btn-gold' : 'btn-outline'}" onclick="toggleProductStock('${p.id}', '${isOut ? 'in_stock' : 'out_of_stock'}')" title="Toggle stock availability">
+                ${isOut ? 'Set In-Stock' : 'Set Out-of-Stock'}
+              </button>
+              <button class="btn btn-sm btn-outline" onclick='openProductModal(${JSON.stringify(p).replace(/'/g, "&#39;")})' title="Edit product details">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="deleteProduct('${p.id}', '${p.name.replace(/'/g, "\\'")}')" title="Delete garment">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Orders Table
+    function renderOrdersTable() {
+      const tbody = document.getElementById('ordersTbody');
+      const q = (document.getElementById('orderSearchInput').value || '').toLowerCase();
+      const statusFilter = document.getElementById('orderStatusFilter').value;
+
+      let filtered = liveDbOrders.filter(o => {
+        const orderId = (o.id || o._docId || '').toString().toLowerCase();
+        const patron = (o.userName || o.name || '').toLowerCase();
+        const phone = (o.userPhone || o.phone || '').toLowerCase();
+        const matchQ = orderId.includes(q) || patron.includes(q) || phone.includes(q);
+        const matchStatus = statusFilter === 'all' || (o.status || 'pending') === statusFilter;
+        return matchQ && matchStatus;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding:30px; color:var(--text-muted);">No orders found.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(o => {
+        const status = o.status || 'pending';
+        const docId = o._docId || o.id;
+        const total = (o.total || 0).toLocaleString();
+        const itemsSummary = (o.items || []).map(i => `${i.name} (${i.size}, ${i.quantity}x)`).join(', ') || 'Custom Garments';
+        const phone = (o.userPhone || o.phone || '').replace(/[^0-9]/g, '');
+        const waMsg = encodeURIComponent(`Hello ${o.userName || 'Valued Customer'}, thank you for shopping with Roohira Collection! Your order #${(o.id||docId).slice(-6)} total is Rs. ${total}. We are processing your delivery!`);
+
+        return `
+          <tr>
+            <td>
+              <a href="javascript:void(0)" onclick="viewOrderDetails('${docId}')" style="font-family:var(--font-mono); color:var(--gold); font-weight:800; text-decoration:underline; cursor:pointer;" title="Click to view full order details">
+                #${(o.id || docId).slice(-6)}
+              </a>
+            </td>
+            <td>
+              <strong style="cursor:pointer;" onclick="viewOrderDetails('${docId}')">${o.userName || o.name || 'Customer'}</strong><br>
+              <small style="color:var(--text-muted); font-size:0.75rem;">${o.userPhone || o.phone || '–'} | ${o.userEmail || o.email || '–'}</small>
+            </td>
+            <td style="font-size:0.78rem; max-width: 240px;">${itemsSummary}</td>
+            <td><strong style="color:var(--green); font-family:var(--font-mono);">LKR ${total}</strong></td>
+            <td>
+              <span class="status-pill ${status}">● ${status}</span>
+            </td>
+            <td style="font-size:0.75rem; color:var(--text-muted);">${o.date || 'Recent'}</td>
+            <td style="text-align: right; white-space: nowrap;">
+              <button class="btn btn-sm btn-gold" onclick="viewOrderDetails('${docId}')" title="View Full Order Details" style="font-weight:700;">
+                <i class="fa-solid fa-eye"></i> View
+              </button>
+              <select class="filter-select" style="padding: 4px 8px; font-size: 0.74rem;" onchange="updateOrderStatus('${docId}', this.value, '${(o.userEmail||'').replace(/'/g, "\\'")}')">
+                <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pending</option>
+                <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>Confirmed</option>
+                <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+              </select>
+              <a href="https://wa.me/${phone}?text=${waMsg}" target="_blank" class="btn btn-sm" style="background:#25D366; color:#fff;" title="Send WhatsApp Confirmation">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+              <button class="btn btn-sm btn-danger" onclick="deleteOrder('${docId}')" title="Delete Order">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Customers Table
+    function renderCustomersTable() {
+      const tbody = document.getElementById('customersTbody');
+      const q = (document.getElementById('custSearchInput').value || '').toLowerCase();
+      const statusFilter = document.getElementById('custStatusFilter').value;
+
+      let filtered = liveDbCustomers.filter(c => {
+        const name = (c.name || '').toLowerCase();
+        const email = (c.email || '').toLowerCase();
+        const phone = (c.phone || '').toLowerCase();
+        const matchQ = name.includes(q) || email.includes(q) || phone.includes(q);
+        const matchStatus = statusFilter === 'all' || (statusFilter === 'blocked' ? c.blocked === true : c.blocked !== true);
+        return matchQ && matchStatus;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">No customers found.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(c => {
+        const isBlocked = c.blocked === true;
+        const initial = (c.name || 'U').charAt(0).toUpperCase();
+
+        return `
+          <tr>
+            <td>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:34px; height:34px; border-radius:50%; background:var(--gold-dark); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85rem;">
+                  ${initial}
+                </div>
+                <strong>${c.name || 'Valued Patron'}</strong>
+              </div>
+            </td>
+            <td><a href="mailto:${c.email}" style="color:var(--gold); text-decoration:none;">${c.email || '–'}</a></td>
+            <td>${c.phone || '–'}</td>
+            <td style="font-size:0.78rem; max-width:200px;">${c.address || '–'}</td>
+            <td>
+              <span class="status-pill ${isBlocked ? 'out-of-stock' : 'in-stock'}">
+                ${isBlocked ? '● Blocked' : '● Active'}
+              </span>
+            </td>
+            <td style="text-align: right; white-space: nowrap;">
+              <button class="btn btn-sm ${isBlocked ? 'btn-gold' : 'btn-outline'}" onclick="toggleCustomerBlock('${c._docId}', ${!isBlocked})">
+                ${isBlocked ? 'Unblock' : 'Block'}
+              </button>
+              <button class="btn btn-sm btn-outline" onclick="sendPasswordReset('${c.email}')" title="Send Password Reset Email">
+                <i class="fa-solid fa-key"></i> Reset
+              </button>
+              <button class="btn btn-sm btn-danger" onclick="deleteCustomer('${c._docId}')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Reviews Table
+    function renderReviewsTable() {
+      const tbody = document.getElementById('reviewsTbody');
+      const q = (document.getElementById('reviewSearchInput').value || '').toLowerCase();
+      const rFilter = document.getElementById('reviewRatingFilter').value;
+
+      let filtered = liveDbReviews.filter(r => {
+        const prod = (r.productName || r.productId || '').toLowerCase();
+        const user = (r.userName || r.userEmail || '').toLowerCase();
+        const matchQ = prod.includes(q) || user.includes(q);
+        const matchRating = rFilter === 'all' || r.rating == rFilter;
+        return matchQ && matchRating;
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--text-muted);">No reviews submitted yet.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(r => {
+        const stars = '★'.repeat(r.rating || 5) + '☆'.repeat(5 - (r.rating || 5));
+        const dateStr = r.timestamp && r.timestamp.toDate ? r.timestamp.toDate().toLocaleDateString() : 'Recent';
+
+        return `
+          <tr>
+            <td>
+              <strong>${r.productName || 'Garment #' + (r.productId || '–')}</strong>
+            </td>
+            <td>
+              <span style="color:#eab308; font-size:1rem; letter-spacing:1px;">${stars}</span>
+              <small style="color:var(--text-muted); font-size:0.75rem;">(${r.rating}/5)</small>
+            </td>
+            <td style="font-size:0.82rem; max-width: 280px; color:var(--text);">"${r.comment || ''}"</td>
+            <td>
+              <strong>${r.userName || 'Verified Buyer'}</strong><br>
+              <small style="color:var(--text-muted); font-size:0.72rem;">${r.userEmail || ''}</small>
+            </td>
+            <td style="font-size:0.75rem; color:var(--text-muted);">${dateStr}</td>
+            <td style="text-align: right;">
+              <button class="btn btn-sm btn-danger" onclick="deleteReview('${r._docId}')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Waitlist Table
+    function renderWaitlistTable() {
+      const tbody = document.getElementById('waitlistTbody');
+      const q = (document.getElementById('waitlistSearchInput').value || '').toLowerCase();
+
+      let filtered = liveDbWaitlist.filter(w => {
+        const name = (w.name || '').toLowerCase();
+        const phone = (w.phone || '').toLowerCase();
+        return name.includes(q) || phone.includes(q);
+      });
+
+      if (!filtered.length) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:30px; color:var(--text-muted);">No drop subscribers on waitlist.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(w => {
+        const phone = (w.phone || '').replace(/[^0-9]/g, '');
+        const dateStr = w.joinedAt ? new Date(w.joinedAt).toLocaleDateString() : 'Recent';
+        const waMsg = encodeURIComponent(`Hello ${w.name || 'Patron'}, the Roohira Collection Exclusive Drop is live! Check our store: https://roohira.com`);
+
+        return `
+          <tr>
+            <td><strong>${w.name || 'Patron'}</strong></td>
+            <td><a href="tel:${w.phone}" style="color:var(--gold); font-family:var(--font-mono);">${w.phone || '–'}</a></td>
+            <td style="font-size:0.75rem; color:var(--text-muted);">${dateStr}</td>
+            <td>
+              <a href="https://wa.me/${phone}?text=${waMsg}" target="_blank" class="btn btn-sm" style="background:#25D366; color:#fff;">
+                <i class="fa-brands fa-whatsapp"></i> Notify Drop
+              </a>
+            </td>
+            <td style="text-align: right;">
+              <button class="btn btn-sm btn-danger" onclick="deleteWaitlist('${w._docId}')">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // ========================================================
+    // DATABASE ACTIONS & CRUD
+    // ========================================================
+
+    // Product CRUD
+    function saveProduct(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSaveProduct');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+      const id = document.getElementById('pId').value.trim() || ('roohira_' + Date.now());
+      const name = document.getElementById('pName').value.trim();
+      const category = document.getElementById('pCategory').value;
+      const gsmVal = (document.getElementById('pGsm') ? document.getElementById('pGsm').value : '').trim();
+      const gsm = gsmVal || null;
+      const price = parseFloat(document.getElementById('pPrice').value) || 1800;
+      const oldPrice = parseFloat(document.getElementById('pOldPrice').value) || (price + 200);
+      const stockStatus = document.getElementById('pStockStatus').value;
+      const stock = parseInt(document.getElementById('pStock').value) || (stockStatus === 'out_of_stock' ? 0 : 10);
+      const image1 = (document.getElementById('pImage') ? document.getElementById('pImage').value : '').trim();
+      const secondaryImgs = (modalSecondaryImages || []).map(s => (s || '').trim()).filter(Boolean);
+      const images = [];
+      if (image1) images.push(image1);
+      secondaryImgs.forEach(img => {
+        if (!images.includes(img)) images.push(img);
+      });
+      if (!images.length) images.push('https://i.ibb.co/vzR0jYd/placeholder.jpg');
+
+      const sizeChartImg = (document.getElementById('pSizeChartImg') ? document.getElementById('pSizeChartImg').value : '').trim();
+      const customSpecs = collectCustomSpecs();
+      const colorNames = (modalColorNames && Object.keys(modalColorNames).length) ? modalColorNames : null;
+
+      const sizesStr = document.getElementById('pSizes').value.trim();
+      const desc = document.getElementById('pDesc').value.trim();
+
+      const sizesObj = {};
+      sizesStr.split(',').map(s => s.trim()).filter(Boolean).forEach(sz => {
+        sizesObj[sz] = { price, oldPrice };
+      });
+
+      // Read sections from checkboxes
+      const sections = [];
+      if (document.getElementById('secMens').checked) sections.push('Mens');
+      if (document.getElementById('secWomens').checked) sections.push('Womens');
+      if (document.getElementById('secKids').checked) sections.push('Kids');
+      if (document.getElementById('secOthers').checked) sections.push('Others');
+      if (document.getElementById('secUnisex').checked) sections.push('Unisexs');
+      if (sections.length === 0) sections.push('Mens', 'Womens', 'Unisexs');
+
+      const payload = {
+        id,
+        name,
+        category,
+        sections,
+        images,
+        sizeChartImg: sizeChartImg || '',
+        customSpecs: customSpecs || null,
+        colorNames: colorNames || null,
+        gsm,
+        material: gsm,
+        brand: 'Roohira',
+        sizes: Object.keys(sizesObj).length ? sizesObj : { 'Free Size': { price, oldPrice } },
+        price,
+        oldPrice,
+        stock: stockStatus === 'out_of_stock' ? 0 : stock,
+        status: stockStatus,
+        colors: modalSelectedColors.length ? modalSelectedColors : ['#000000'],
+        desc,
+        isDeleted: false,
+        isNewArrival: document.getElementById('pNewArrival') ? document.getElementById('pNewArrival').checked : false,
+        isFeatured: document.getElementById('pFeatured') ? document.getElementById('pFeatured').checked : false,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      db.collection('products').doc(id).set(payload, { merge: true })
+        .then(() => {
+          closeProductModal();
+          showToast(`Garment "${name}" saved to Firestore successfully!`);
+        })
+        .catch(err => {
+          showToast('Failed to save: ' + err.message, true);
+        })
+        .finally(() => {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save to Database';
+        });
+    }
+
+    function toggleProductStock(productId, newStatus) {
+      if (!db) return;
+      db.collection('products').doc(productId).set({
+        id: productId,
+        status: newStatus,
+        stock: newStatus === 'out_of_stock' ? 0 : 10,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true })
+        .then(() => showToast(`Stock updated to ${newStatus.replace('_', ' ').toUpperCase()}`))
+        .catch(err => showToast(err.message, true));
+    }
+
+    function deleteProduct(productId, name) {
+      if (!confirm(`Delete garment "${name}" from store database? It will be permanently deleted from Firebase and all devices.`)) return;
+      if (!db) return;
+      db.collection('products').doc(productId).delete()
+        .then(() => showToast(`Garment permanently deleted from Firebase!`))
+        .catch(err => showToast(err.message, true));
+    }
+
+    // Orders CRUD
+    let currentOpenedOrder = null;
+
+    function buildInvoiceUrl(o) {
+      const delivery = o.deliveryFee !== undefined ? o.deliveryFee : (o.delivery !== undefined ? o.delivery : (o.items && o.items.length > 3 ? 0 : 450));
+      const subtotal = o.subtotal || (o.items || []).reduce((acc, it) => acc + (Number(it.price) || 0) * (Number(it.quantity) || 1), 0);
+      const grandTotal = o.total || (subtotal + delivery);
+
+      const orderData = {
+        id: o.id || o._docId,
+        name: o.userName || o.name || 'Patron',
+        email: o.userEmail || o.email || '',
+        phone: o.userPhone || o.phone || '',
+        phone2: o.userPhone2 || '',
+        address: o.userAddress || o.address || '',
+        streetAddress: o.streetAddress || o.userAddress || o.address || '',
+        city: o.city || '',
+        district: o.district || '',
+        postal: o.postal || '',
+        notes: o.notes || '',
+        paymentMethod: o.paymentMethod || 'Cash on Delivery',
+        date: o.date || new Date().toLocaleDateString(),
+        time: o.time || '',
+        items: o.items || [],
+        subtotal: subtotal,
+        deliveryFee: delivery,
+        delivery: delivery,
+        grandTotal: grandTotal
+      };
+
+      const jsonStr = JSON.stringify(orderData);
+      const encodedData = btoa(unescape(encodeURIComponent(jsonStr)));
+      return `invoice.html?data=${encodeURIComponent(encodedData)}&source=database`;
+    }
+
+    function viewOrderDetails(docId) {
+      const o = liveDbOrders.find(item => (item._docId === docId || item.id === docId));
+      if (!o) {
+        showToast('Order not found in database memory.', true);
+        return;
+      }
+      currentOpenedOrder = o;
+
+      const orderId = o.id || o._docId || 'RC-ORDER';
+      const status = o.status || 'pending';
+      const dateStr = o.date || 'Recent Date';
+      const timeStr = o.time ? ` at ${o.time}` : '';
+      const customerName = o.userName || o.name || 'Valued Patron';
+      const customerEmail = o.userEmail || o.email || 'No email provided';
+      const rawPhone = o.userPhone || o.phone || '';
+      const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+      const phone2 = o.userPhone2 || '';
+      const cleanPhone2 = phone2.replace(/[^0-9]/g, '');
+      const address = o.userAddress || o.address || 'Standard Islandwide Delivery';
+      const notes = o.notes || '';
+      const paymentMethod = o.paymentMethod || 'Cash on Delivery';
+
+      const deliveryFee = o.deliveryFee !== undefined ? o.deliveryFee : (o.delivery !== undefined ? o.delivery : (o.items && o.items.length > 3 ? 0 : 450));
+      const subtotal = o.subtotal || (o.items || []).reduce((acc, it) => acc + (Number(it.price) || 0) * (Number(it.quantity) || 1), 0);
+      const grandTotal = o.total || (subtotal + deliveryFee);
+
+      // Set IDs & badges
+      document.getElementById('odModalId').innerText = `#${orderId}`;
+      document.getElementById('odFullId').innerText = orderId;
+      const statusBadge = document.getElementById('odModalStatusBadge');
+      statusBadge.className = `status-pill ${status}`;
+      statusBadge.innerText = `● ${status.toUpperCase()}`;
+
+      document.getElementById('odModalDateTime').innerText = `Placed on ${dateStr}${timeStr}`;
+      document.getElementById('odOrderDate').innerText = `${dateStr}${timeStr}`;
+      document.getElementById('odCurrentStatus').innerText = status;
+      document.getElementById('odStatusSelect').value = status;
+
+      // Customer info
+      document.getElementById('odCustName').innerText = customerName;
+      document.getElementById('odCustEmail').innerText = customerEmail;
+
+      const phoneLink = document.getElementById('odCustPhoneLink');
+      phoneLink.innerText = rawPhone || '–';
+      phoneLink.href = rawPhone ? `tel:${cleanPhone}` : '#';
+
+      const phone2Row = document.getElementById('odCustPhone2Row');
+      if (phone2) {
+        phone2Row.style.display = 'block';
+        const p2Link = document.getElementById('odCustPhone2Link');
+        p2Link.innerText = phone2;
+        p2Link.href = `tel:${cleanPhone2}`;
+      } else {
+        phone2Row.style.display = 'none';
+      }
+
+      document.getElementById('odCustAddress').innerText = address;
+
+      const notesRow = document.getElementById('odCustNotesRow');
+      if (notes) {
+        notesRow.style.display = 'block';
+        document.getElementById('odCustNotes').innerText = notes;
+      } else {
+        notesRow.style.display = 'none';
+      }
+
+      document.getElementById('odPaymentMethod').innerText = paymentMethod;
+
+      // Financials
+      document.getElementById('odSubtotal').innerText = `Rs. ${subtotal.toLocaleString()}.00`;
+      document.getElementById('odDeliveryFee').innerText = deliveryFee === 0 ? 'FREE (Islandwide Promotion)' : `Rs. ${deliveryFee.toLocaleString()}.00`;
+      document.getElementById('odGrandTotal').innerText = `Rs. ${grandTotal.toLocaleString()}.00`;
+
+      // Action links
+      const invoiceUrl = buildInvoiceUrl(o);
+      document.getElementById('odInvoiceBtn').href = invoiceUrl;
+
+      const waMsg = encodeURIComponent(`Hello ${customerName}, thank you for your order #${orderId.slice(-6)} at Roohira Collection! Total is Rs. ${grandTotal.toLocaleString()}.00. We are processing your delivery!`);
+      const waBtn = document.getElementById('odWaBtn');
+      waBtn.href = cleanPhone ? `https://wa.me/${cleanPhone}?text=${waMsg}` : `https://wa.me/94757218786?text=${waMsg}`;
+
+      const callBtn = document.getElementById('odCallBtn');
+      callBtn.href = rawPhone ? `tel:${cleanPhone}` : '#';
+
+      // Items list
+      const items = o.items || [];
+      document.getElementById('odItemsCount').innerText = items.length;
+      const tbody = document.getElementById('odItemsTbody');
+      
+      if (!items.length) {
+        tbody.innerHTML = '<tr><td colspan="6" style="padding: 20px; text-align: center; color: var(--text-muted);">No items recorded in this order.</td></tr>';
+      } else {
+        tbody.innerHTML = items.map(it => {
+          const img = it.image || 'logo.png';
+          const colorVal = it.color || 'Default';
+          const isHex = String(colorVal).startsWith('#');
+          const unitPrice = Number(it.price) || 0;
+          const qty = Number(it.quantity) || 1;
+          const itemTot = unitPrice * qty;
+
+          return `
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 12px 14px; display: flex; align-items: center; gap: 10px;">
+                <img src="${img}" alt="${it.name}" style="width: 42px; height: 42px; object-fit: contain; background: #FAF7F2; border-radius: 6px; border: 1px solid var(--border);">
+                <div>
+                  <strong style="color: var(--text);">${it.name || 'Garment'}</strong>
+                  ${it.isCustom ? '<br><small style="color:var(--gold); font-size:0.72rem;">★ Custom DTF Print</small>' : ''}
+                </div>
+              </td>
+              <td style="padding: 12px 14px;"><span style="background: var(--surface); border: 1px solid var(--border); padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.78rem;">${it.size || 'Free'}</span></td>
+              <td style="padding: 12px 14px;">
+                <span style="display: inline-flex; align-items: center; gap: 6px;">
+                  ${isHex ? `<span style="width: 13px; height: 13px; border-radius: 50%; background: ${colorVal}; border: 1px solid rgba(0,0,0,0.18); display: inline-block;"></span>` : ''}
+                  <span style="font-size: 0.8rem;">${colorVal}</span>
+                </span>
+              </td>
+              <td style="padding: 12px 14px; font-family: var(--font-mono); color: var(--text-muted);">Rs. ${unitPrice.toLocaleString()}</td>
+              <td style="padding: 12px 14px; text-align: center; font-weight: 700;">${qty}</td>
+              <td style="padding: 12px 14px; text-align: right; font-weight: 800; color: var(--gold); font-family: var(--font-mono);">Rs. ${itemTot.toLocaleString()}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      document.getElementById('orderDetailsModal').classList.add('open');
+    }
+
+    function closeOrderDetailsModal() {
+      document.getElementById('orderDetailsModal').classList.remove('open');
+      currentOpenedOrder = null;
+    }
+
+    function changeOrderDetailsStatus(newStatus) {
+      if (!currentOpenedOrder) return;
+      const docId = currentOpenedOrder._docId || currentOpenedOrder.id;
+      const userEmail = currentOpenedOrder.userEmail || currentOpenedOrder.email || '';
+      updateOrderStatus(docId, newStatus, userEmail);
+
+      const statusBadge = document.getElementById('odModalStatusBadge');
+      if (statusBadge) {
+        statusBadge.className = `status-pill ${newStatus}`;
+        statusBadge.innerText = `● ${newStatus.toUpperCase()}`;
+      }
+      const currentSt = document.getElementById('odCurrentStatus');
+      if (currentSt) currentSt.innerText = newStatus;
+      currentOpenedOrder.status = newStatus;
+    }
+
+    function deleteCurrentOpenedOrder() {
+      if (!currentOpenedOrder) return;
+      const docId = currentOpenedOrder._docId || currentOpenedOrder.id;
+      closeOrderDetailsModal();
+      deleteOrder(docId);
+    }
+
+    function updateOrderStatus(docId, newStatus, userEmail) {
+      if (!db) return;
+      db.collection('orders').doc(docId).update({
+        status: newStatus,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        showToast(`Order status set to ${newStatus.toUpperCase()}`);
+
+        // If confirmed or cancelled, send user notification in Firestore
+        if (userEmail && (newStatus === 'confirmed' || newStatus === 'cancelled')) {
+          const msg = newStatus === 'confirmed' 
+            ? `Your order #${docId.slice(-6)} has been CONFIRMED by Roohira Collection! We are dispatching your garments.` 
+            : `Your order #${docId.slice(-6)} has been cancelled.`;
+          
+          db.collection('notifications').add({
+            userEmail,
+            message: msg,
+            status: newStatus,
+            read: false,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          }).catch(err => console.warn("Notification write note:", err));
+        }
+      }).catch(err => showToast(err.message, true));
+    }
+
+    function deleteOrder(docId) {
+      if (!confirm('Permanently delete this order from database?')) return;
+      if (!db) return;
+      db.collection('orders').doc(docId).delete()
+        .then(() => showToast('Order record deleted from Firestore.'))
+        .catch(err => showToast(err.message, true));
+    }
+
+    function exportOrdersCSV() {
+      if (!liveDbOrders.length) {
+        showToast('No orders to export.', true);
+        return;
+      }
+      let csv = 'Order ID,Customer Name,Phone,Email,Status,Total,Date\n';
+      liveDbOrders.forEach(o => {
+        csv += `"${o.id || o._docId}","${o.userName || o.name || ''}","${o.userPhone || o.phone || ''}","${o.userEmail || o.email || ''}","${o.status || 'pending'}","${o.total || 0}","${o.date || ''}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Roohira_Orders_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Customer CRUD
+    function toggleCustomerBlock(docId, blocked) {
+      if (!db) return;
+      db.collection('users').doc(docId).update({ blocked })
+        .then(() => showToast(blocked ? 'Customer account blocked.' : 'Customer account unblocked.'))
+        .catch(err => showToast(err.message, true));
+    }
+
+    function sendPasswordReset(email) {
+      if (!email || !auth) {
+        showToast('Valid customer email not found.', true);
+        return;
+      }
+      auth.sendPasswordResetEmail(email)
+        .then(() => showToast(`Password reset link sent to ${email}!`))
+        .catch(err => showToast('Password reset note: ' + err.message, true));
+    }
+
+    function deleteCustomer(docId) {
+      if (!confirm('Delete this customer account from database?')) return;
+      if (!db) return;
+      db.collection('users').doc(docId).delete()
+        .then(() => showToast('Customer account deleted.'))
+        .catch(err => showToast(err.message, true));
+    }
+
+    // Review CRUD
+    function deleteReview(docId) {
+      if (!confirm('Permanently delete this review from Firestore?')) return;
+      if (!db) return;
+      db.collection('reviews').doc(docId).delete()
+        .then(() => showToast('Review deleted from database.'))
+        .catch(err => showToast(err.message, true));
+    }
+
+    // Waitlist CRUD
+    function deleteWaitlist(docId) {
+      if (!confirm('Delete subscriber from waitlist?')) return;
+      if (!db) return;
+      db.collection('waitlist').doc(docId).delete()
+        .then(() => showToast('Waitlist entry deleted.'))
+        .catch(err => showToast(err.message, true));
+    }
+
+    // ========================================================
+    // SEED & MIGRATION ENGINE
+    // ========================================================
+    function seedBaselineProductsToFirestore() {
+      openSeedModal();
+    }
+
+    async function executeSeedMigration() {
+      const btn = document.getElementById('btnRunSeed');
+      const bar = document.getElementById('seedProgressBar');
+      const statusEl = document.getElementById('seedStatusText');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Migrating...';
+
+      if (!db) {
+        statusEl.innerText = "Error: Firestore is not connected.";
+        btn.disabled = false;
+        return;
+      }
+
+      // Catalog products to migrate
+      const sourceList = (typeof baseStaticProducts !== 'undefined' && baseStaticProducts.length) 
+        ? baseStaticProducts 
+        : ((typeof products !== 'undefined' && products.length) ? products : []);
+
+      if (!sourceList.length) {
+        statusEl.innerText = "No baseline products found in memory.";
+        btn.disabled = false;
+        return;
+      }
+
+      const totalItems = sourceList.length;
+      let completed = 0;
+
+      for (let i = 0; i < totalItems; i++) {
+        const p = sourceList[i];
+        statusEl.innerText = `Migrating Garment ${i + 1}/${totalItems}: "${p.name}"...`;
+        
+        try {
+          await db.collection('products').doc(p.id).set({
+            id: p.id,
+            name: p.name,
+            category: p.category || 'Regular Tee (Printed)',
+            sections: p.sections || ['Mens', 'Womens', 'Unisexs'],
+            images: p.images || [],
+            gsm: p.gsm || '220 GSM',
+            brand: p.brand || 'Roohira',
+            sizes: p.sizes || { 'M': { price: 1800, oldPrice: 1850 } },
+            colors: p.colors || ['#000000', '#ffffff'],
+            stock: p.stock !== undefined ? p.stock : 10,
+            status: p.status || 'in_stock',
+            desc: p.desc || '',
+            seededAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        } catch(e) {
+          console.warn("Product seed error on doc " + p.id, e);
+        }
+
+        completed++;
+        bar.style.width = Math.round((completed / totalItems) * 100) + '%';
+      }
+
+      // Also migrate any local orders if present
+      try {
+        const localOrders = JSON.parse(localStorage.getItem('roohira_orders') || '[]');
+        for (const lo of localOrders) {
+          const docId = lo.id ? lo.id.toString() : ('ord_' + Date.now() + Math.random().toString(36).substring(7));
+          await db.collection('orders').doc(docId).set({ ...lo, migratedFromLocal: true }, { merge: true });
+        }
+      } catch(e) {
+        console.warn("Local orders migration note:", e);
+      }
+
+      statusEl.innerText = `✨ Migration Complete! Successfully synced ${completed} baseline garments and local records to Firestore!`;
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Migration Finished';
+      showToast('All baseline catalog data is now live on Firestore!');
+      setTimeout(() => closeSeedModal(), 2000);
+    }
+
+    // Export Full JSON Backup
+    function exportFullDatabaseJson() {
+      const backupData = {
+        exportedAt: new Date().toISOString(),
+        projectId: 'roohira-collection',
+        products: liveDbProducts,
+        orders: liveDbOrders,
+        customers: liveDbCustomers,
+        reviews: liveDbReviews,
+        waitlist: liveDbWaitlist
+      };
+      const jsonStr = JSON.stringify(backupData, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Roohira_Firestore_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Full database JSON backup downloaded.');
+    }
+
+    // Connection ping test
+    function testDatabaseConnection() {
+      const res = document.getElementById('pingResult');
+      res.style.color = 'var(--text-muted)';
+      res.innerText = 'Pinging Firestore...';
+      const start = Date.now();
+
+      if (!db) {
+        res.style.color = 'var(--red)';
+        res.innerText = 'Offline: Firebase Firestore not initialized.';
+        return;
+      }
+
+      db.collection('products').limit(1).get()
+        .then(() => {
+          const latency = Date.now() - start;
+          res.style.color = 'var(--green)';
+          res.innerText = `✅ Connected to "roohira-collection". Read latency: ${latency}ms. Read & Write rules active.`;
+        })
+        .catch(err => {
+          res.style.color = 'var(--red)';
+          res.innerText = `❌ Connection Error: ${err.message}`;
+        });
+    }
+
+    // ========================================================
+    // IMGBB DRAG & DROP + FILE SELECT UPLOAD (API: 05f9ffbbbadb71e449b28e2d1adf8975)
+    // ========================================================
+    const IMGBB_API_KEY = '05f9ffbbbadb71e449b28e2d1adf8975';
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.currentTarget.classList.add('drag-over');
+    }
+    function handleDragLeave(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.currentTarget.classList.remove('drag-over');
+    }
+    function handleDrop(e, inputId, previewId, statusId) {
+      e.preventDefault();
+      e.stopPropagation();
+      e.currentTarget.classList.remove('drag-over');
+      const file = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        uploadToImgBB(file, inputId, previewId, statusId);
+      } else {
+        showToast('Please drop a valid image file.', true);
+      }
+    }
+    function handleFileSelect(e, inputId, previewId, statusId) {
+      const file = e.target.files && e.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        uploadToImgBB(file, inputId, previewId, statusId);
+      }
+    }
+    function uploadToImgBB(file, inputId, previewId, statusId) {
+      const statusEl = document.getElementById(statusId);
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.color = 'var(--amber)';
+        statusEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading to ImgBB...';
+      }
+      const formData = new FormData();
+      formData.append('image', file);
+      fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          const url = data.data.url || data.data.display_url;
+          const inputEl = document.getElementById(inputId);
+          if (inputEl) { inputEl.value = url; updateImagePreview(inputId, previewId); }
+          if (statusEl) {
+            statusEl.style.color = 'var(--green)';
+            statusEl.innerHTML = '<i class="fa-solid fa-check-circle"></i> Uploaded successfully! URL filled below.';
+            setTimeout(() => { statusEl.style.display = 'none'; }, 3000);
+          }
+          showToast('Image uploaded to ImgBB successfully!');
+        } else {
+          throw new Error(data.error ? data.error.message : 'Upload failed');
+        }
+      })
+      .catch(err => {
+        if (statusEl) {
+          statusEl.style.color = 'var(--red)';
+          statusEl.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Upload failed: ' + err.message;
+        }
+        showToast('ImgBB upload failed: ' + err.message, true);
+      });
+    }
+    function updateImagePreview(inputId, previewId) {
+      const val = (document.getElementById(inputId) || {}).value || '';
+      const img = document.getElementById(previewId);
+      if (!img) return;
+      if (val && val.startsWith('http')) {
+        img.style.display = 'block';
+        img.src = val;
+      } else {
+        img.style.display = 'none';
+        img.src = '';
+      }
+    }
+
+    // ========================================================
+    // DYNAMIC CATEGORY MANAGEMENT (Firestore Realtime)
+    // ========================================================
+    window.liveCategories = (window.liveCategories && window.liveCategories.length) ? window.liveCategories : [
+      { id: 'Regular Tee (Printed)', name: 'Regular Tee (Printed)' },
+      { id: 'Oversized Tee (Printed)', name: 'Oversized Tee (Printed)' },
+      { id: 'Frock', name: 'Frock' },
+      { id: 'Blouse', name: 'Blouse' },
+      { id: 'DTF Custom', name: 'DTF Custom' }
+    ];
+    var liveCategories = window.liveCategories;
+
+    
+    function getModalSelectedSections() {
+      const secs = [];
+      if (document.getElementById('secMens') && document.getElementById('secMens').checked) secs.push('Mens');
+      if (document.getElementById('secWomens') && document.getElementById('secWomens').checked) secs.push('Womens');
+      if (document.getElementById('secKids') && document.getElementById('secKids').checked) secs.push('Kids');
+      if (document.getElementById('secOthers') && document.getElementById('secOthers').checked) secs.push('Others');
+      if (document.getElementById('secUnisex') && document.getElementById('secUnisex').checked) secs.push('Unisexs');
+      return secs;
+    }
+
+    function onModalSectionChange() {
+      const pCat = document.getElementById('pCategory');
+      const curVal = pCat ? pCat.value : '';
+      populateModalCategoryDropdown(curVal);
+    }
+
+    function populateModalCategoryDropdown(preselectVal = '') {
+      const el = document.getElementById('pCategory');
+      if (!el) return;
+      const selectedSections = getModalSelectedSections();
+
+      // Filter liveCategories based on selected sections in the modal
+      const availableCats = liveCategories.filter(c => {
+        if (!selectedSections.length) return true;
+        const catSecs = (c.sections || ['Mens', 'Womens', 'Kids', 'Others']).map(s => s.toLowerCase());
+        return selectedSections.some(sec => {
+          const sLower = sec.toLowerCase();
+          if (sLower === 'unisexs') return catSecs.includes('mens') || catSecs.includes('womens');
+          return catSecs.includes(sLower);
+        });
+      });
+
+      const previousVal = preselectVal || el.value;
+      el.innerHTML = '';
+
+      if (!availableCats.length) {
+        const opt = document.createElement('option');
+        opt.value = 'General';
+        opt.textContent = 'General (Default)';
+        el.appendChild(opt);
+      } else {
+        availableCats.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.name;
+          opt.textContent = c.name;
+          el.appendChild(opt);
+        });
+      }
+
+      // Check if previousVal exists in the filtered options
+      const hasVal = Array.from(el.options).some(o => o.value === previousVal);
+      if (hasVal) {
+        el.value = previousVal;
+      } else if (previousVal) {
+        // Also keep previous value as valid selection so editing doesn't break
+        const customOpt = document.createElement('option');
+        customOpt.value = previousVal;
+        customOpt.textContent = previousVal;
+        el.prepend(customOpt);
+        el.value = previousVal;
+      }
+    }
+
+    function onProductSectionFilterChange() {
+      const secFilter = document.getElementById('prodSectionFilter');
+      const catFilter = document.getElementById('prodCategoryFilter');
+      if (!secFilter || !catFilter) return;
+
+      const secVal = secFilter.value;
+      const curCatVal = catFilter.value;
+
+      // Filter categories in filter dropdown based on chosen section
+      catFilter.innerHTML = '<option value="all">All Categories</option>';
+      const filteredCats = liveCategories.filter(c => {
+        if (secVal === 'all') return true;
+        const catSecs = (c.sections || ['Mens', 'Womens', 'Kids', 'Others']).map(s => s.toLowerCase());
+        if (secVal.toLowerCase() === 'unisexs') return catSecs.includes('mens') || catSecs.includes('womens');
+        return catSecs.includes(secVal.toLowerCase());
+      });
+
+      filteredCats.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.name;
+        opt.textContent = c.name;
+        catFilter.appendChild(opt);
+      });
+
+      const exists = Array.from(catFilter.options).some(o => o.value === curCatVal);
+      catFilter.value = exists ? curCatVal : 'all';
+
+      renderProductsTable();
+    }
+
+    function populateCategoryDropdowns(cats) {
+      populateModalCategoryDropdown();
+      const catFilter = document.getElementById('prodCategoryFilter');
+      if (catFilter) {
+        const secFilter = document.getElementById('prodSectionFilter');
+        const secVal = secFilter ? secFilter.value : 'all';
+        const curCat = catFilter.value;
+        catFilter.innerHTML = '<option value="all">All Categories</option>';
+        const filtered = cats.filter(c => {
+          if (secVal === 'all') return true;
+          const catSecs = (c.sections || ['Mens', 'Womens', 'Kids', 'Others']).map(s => s.toLowerCase());
+          return catSecs.includes(secVal.toLowerCase());
+        });
+        filtered.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.name;
+          opt.textContent = c.name;
+          catFilter.appendChild(opt);
+        });
+        const has = Array.from(catFilter.options).some(o => o.value === curCat);
+        catFilter.value = has ? curCat : 'all';
+      }
+      const countEl = document.getElementById('countCategories');
+      if (countEl) countEl.textContent = cats.length;
+    }
+
+    function initCategoryListener() {
+      if (!db) return;
+      db.collection('categories').onSnapshot(snap => {
+        if (!snap.empty) {
+          liveCategories = [];
+          snap.forEach(doc => liveCategories.push({ id: doc.id, ...doc.data() }));
+        } else {
+          // If Firestore categories collection is empty, auto-seed defaults & existing categories
+          syncExistingCategoriesToFirestore(false);
+        }
+        populateCategoryDropdowns(liveCategories);
+        renderCategoriesTable();
+      }, err => {
+        console.warn('Categories listener error:', err);
+        populateCategoryDropdowns(liveCategories);
+        renderCategoriesTable();
+      });
+    }
+
+    async function syncExistingCategoriesToFirestore(showFeedback = false) {
+      if (!db) {
+        if (showFeedback) showToast('Firestore not connected', true);
+        return;
+      }
+      const existingCategories = new Set([
+        'Regular Tee (Printed)',
+        'Oversized Tee (Printed)',
+        'Frock',
+        'Blouse',
+        'DTF Custom'
+      ]);
+
+      // Collect categories from live products
+      if (typeof liveDbProducts !== 'undefined' && Array.isArray(liveDbProducts)) {
+        liveDbProducts.forEach(p => {
+          if (p.category && typeof p.category === 'string' && p.category.trim()) {
+            existingCategories.add(p.category.trim());
+          }
+        });
+      }
+      // Collect categories from baseStaticProducts
+      if (typeof baseStaticProducts !== 'undefined' && Array.isArray(baseStaticProducts)) {
+        baseStaticProducts.forEach(p => {
+          if (p.category && typeof p.category === 'string' && p.category.trim()) {
+            existingCategories.add(p.category.trim());
+          }
+        });
+      }
+
+      let addedCount = 0;
+      for (const catName of existingCategories) {
+        const slug = catName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        const exists = liveCategories.some(c => c.name.toLowerCase() === catName.toLowerCase());
+        if (!exists) {
+          try {
+            await db.collection('categories').doc(slug).set({
+              name: catName,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              isLegacySynced: true
+            }, { merge: true });
+            addedCount++;
+          } catch(e) {
+            console.warn('Sync category error:', catName, e);
+          }
+        }
+      }
+      if (showFeedback) {
+        showToast(`Synced ${addedCount} categories from existing products to Firestore!`);
+      }
+    }
+
+    
+    function toggleCategorySection(catId, sectionName, isChecked) {
+      const cat = liveCategories.find(c => c.id === catId);
+      if (!cat) return;
+      let secs = Array.isArray(cat.sections) ? [...cat.sections] : ['Mens', 'Womens', 'Kids', 'Others'];
+      if (isChecked) {
+        if (!secs.some(s => s.toLowerCase() === sectionName.toLowerCase())) secs.push(sectionName);
+      } else {
+        secs = secs.filter(s => s.toLowerCase() !== sectionName.toLowerCase());
+      }
+      cat.sections = secs;
+      if (db) {
+        db.collection('categories').doc(catId).set({ sections: secs }, { merge: true })
+          .then(() => showToast(`Section "${sectionName}" updated for "${cat.name}"!`))
+          .catch(e => showToast('Update error: ' + e.message, true));
+      }
+      renderCategoriesTable();
+    }
+
+    function renderCategoriesTable() {
+      const tbody = document.getElementById('categoriesTbody');
+      if (!tbody) return;
+      const cats = liveCategories;
+      if (!cats.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:30px; color:var(--text-muted);">No categories found.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = cats.map(c => {
+        const productCount = (typeof liveDbProducts !== 'undefined' ? liveDbProducts : []).filter(p => p.category === c.name).length;
+        const isDefault = ['Regular Tee (Printed)', 'Oversized Tee (Printed)', 'Frock', 'Blouse', 'DTF Custom'].includes(c.name);
+        const sections = (c.sections || ['Mens', 'Womens', 'Kids', 'Others']);
+        const hasSec = (s) => sections.some(sec => sec.toLowerCase() === s.toLowerCase());
+        return `
+          <tr>
+            <td><strong style="font-size: 0.95rem;">${c.name}</strong></td>
+            <td>
+              <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <label style="font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" ${hasSec('Mens') ? 'checked' : ''} onchange="toggleCategorySection('${c.id}', 'Mens', this.checked)"> Men
+                </label>
+                <label style="font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" ${hasSec('Womens') ? 'checked' : ''} onchange="toggleCategorySection('${c.id}', 'Womens', this.checked)"> Women
+                </label>
+                <label style="font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" ${hasSec('Kids') ? 'checked' : ''} onchange="toggleCategorySection('${c.id}', 'Kids', this.checked)"> Kids
+                </label>
+                <label style="font-size: 0.78rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                  <input type="checkbox" ${hasSec('Others') ? 'checked' : ''} onchange="toggleCategorySection('${c.id}', 'Others', this.checked)"> Others
+                </label>
+              </div>
+            </td>
+            <td><span style="font-family:var(--font-mono); color:var(--gold);">${productCount}</span> products</td>
+            <td>${isDefault ? '<span class="status-pill in-stock">Default</span>' : '<span class="status-pill confirmed">Custom</span>'}</td>
+            <td style="text-align: right;">
+              ${isDefault ? '<span style="font-size:0.75rem; color:var(--text-muted);">Built-in</span>' : `<button class="btn btn-sm btn-danger" onclick="deleteCategory('${c.id}', '${c.name}')"><i class="fa-solid fa-trash"></i> Delete</button>`}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function handleAddNewCategoryFromTab() {
+      const input = document.getElementById('newCategoryInput');
+      const name = (input ? input.value : '').trim();
+      if (!name) { showToast('Category name cannot be empty.', true); return; }
+      
+      const secs = [];
+      if (document.getElementById('catSecMens')?.checked) secs.push('Mens');
+      if (document.getElementById('catSecWomens')?.checked) secs.push('Womens');
+      if (document.getElementById('catSecKids')?.checked) secs.push('Kids');
+      if (document.getElementById('catSecOthers')?.checked) secs.push('Others');
+      if (!secs.length) secs.push('Mens', 'Womens', 'Kids', 'Others');
+
+      addNewCategoryToFirestore(name, () => { if (input) input.value = ''; }, secs);
+    }
+
+    function quickAddCategoryPrompt() {
+      const selectedSecs = getModalSelectedSections();
+      const secHint = selectedSecs.length ? selectedSecs.join(', ') : 'All Sections';
+      const name = prompt(`Enter new category name (Will be assigned to: ${secHint}):`);
+      if (name && name.trim()) {
+        addNewCategoryToFirestore(name.trim(), () => {
+          populateModalCategoryDropdown(name.trim());
+        }, selectedSecs.length ? selectedSecs : ['Mens', 'Womens', 'Kids', 'Others']);
+      }
+    }
+
+    function addNewCategoryToFirestore(name, callback, sections) {
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      if (liveCategories.some(c => c.name.toLowerCase() === name.toLowerCase())) {
+        showToast(`Category "${name}" already exists.`, true);
+        return;
+      }
+      const secs = Array.isArray(sections) && sections.length ? sections : ['Mens', 'Womens', 'Kids', 'Others'];
+      const saveFn = () => {
+        const catData = { name, sections: secs, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
+        db.collection('categories').doc(slug).set(catData)
+          .then(() => {
+            showToast(`Category "${name}" added to Firestore!`);
+            if (typeof callback === 'function') callback();
+          })
+          .catch(err => showToast('Failed to add category: ' + err.message, true));
+      };
+      if (db) {
+        saveFn();
+      } else {
+        liveCategories.push({ id: slug, name });
+        populateCategoryDropdowns(liveCategories);
+        renderCategoriesTable();
+        showToast(`Category "${name}" added locally (offline mode).`);
+        if (typeof callback === 'function') callback();
+      }
+    }
+
+    function deleteCategory(id, name) {
+      if (!confirm(`Delete category "${name}"? Products using this category will keep their current value.`)) return;
+      if (!db) { showToast('Offline mode: cannot delete from Firestore.', true); return; }
+      db.collection('categories').doc(id).delete()
+        .then(() => showToast(`Category "${name}" deleted.`))
+        .catch(err => showToast('Delete failed: ' + err.message, true));
+    }
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      initDatabaseListeners();
+      initCategoryListener();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

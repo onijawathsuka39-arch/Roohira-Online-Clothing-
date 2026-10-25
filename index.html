@@ -9,7 +9,7 @@
   <link rel="icon" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,43 +17,6 @@
 
 <body>
 
-  <!-- Under Development / Maintenance Overlay -->
-  <div id="maintenance-overlay" class="maintenance-overlay">
-    <div class="maintenance-card">
-      <div class="maintenance-badge">
-        <span class="pulse-dot"></span>
-        Under Development &bull; සංවර්ධන කටයුතු සිදුවේ
-      </div>
-      <img src="logo.png" alt="Roohira Collection" class="maintenance-logo">
-      <h2 class="maintenance-title">Roohira Collection</h2>
-      <p class="maintenance-desc-si">
-        වෙබ් අඩවියේ වැඩිදියුණු කිරීමේ කටයුත්තක් (Development) සිදුවන බැවින් වෙබ් අඩවිය තාවකාලිකව වසා ඇත.
-      </p>
-      <p class="maintenance-desc-en">
-        Our website is currently undergoing planned upgrades and development. We will be back online shortly. Thank you for your patience!
-      </p>
-
-      <div class="maintenance-contact-box">
-        <div class="maintenance-contact-row">
-          <i class="fa-solid fa-phone" style="color: #8B5A2B;"></i>
-          <span>විමසීම් / Orders: <a href="tel:0757218786" style="color: #1A0F0A; text-decoration: underline;">075 721 8786</a></span>
-        </div>
-        <div class="maintenance-contact-row" style="font-size: 0.82rem; color: #6E6157;">
-          <i class="fa-solid fa-truck-fast"></i>
-          <span>WhatsApp / Call මගින් ඇණවුම් ලබාගත හැක</span>
-        </div>
-      </div>
-
-      <div class="maintenance-actions">
-        <a href="https://wa.me/94757218786?text=Hello%20Roohira%2C%20I%20would%20like%20to%20place%20an%20order" target="_blank" class="maintenance-btn maintenance-btn-primary">
-          <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem; color: #25D366;"></i> WhatsApp ඔස්සේ සම්බන්ධ වන්න
-        </a>
-        <a href="https://web.facebook.com/roohiraonline" target="_blank" class="maintenance-btn maintenance-btn-secondary">
-          <i class="fa-brands fa-facebook"></i> Facebook Page
-        </a>
-      </div>
-    </div>
-  </div>
 
   <!-- Announcement Bar -->
   <div class="announcement-bar">
@@ -75,14 +38,14 @@
         <small style="font-family: var(--font-sans); font-size: 0.55rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dark); font-weight: 600;">COLLECTION</small>
       </div>
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="primary-nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="customize.html">Customize</a></li>
-      <li><a href="dtf.html">DTF Print</a></li>
-      <li><a href="offers.html">Offers</a></li>
-      <li><a href="track-order.html">Track Order</a></li>
-      <li><a href="reviews.html">Reviews</a></li>
+      <li><a href="mens.html">Men</a></li>
+      <li><a href="womens.html">Women</a></li>
+      <li><a href="kids.html">Kids</a></li>
+      <li><a href="other.html">Others</a></li>
+      <li><a href="customize.html">Design Studio</a></li>
     </ul>
     <div class="nav-icons">
       <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i data-lucide="instagram"></i></a>
@@ -96,101 +59,122 @@
         <i data-lucide="shopping-cart"></i>
         <span id="cart-count">0</span>
       </a>
-      <a href="#" id="mobile-menu-btn" title="Menu"><i data-lucide="menu"></i></a>
+      <!-- Side Menu Bar Button (Desktop & Mobile) -->
+      <a href="#" id="mobile-menu-btn" class="side-menu-trigger" title="All Pages & Menu">
+        <i data-lucide="menu"></i>
+      </a>
     </div>
   </nav>
 
   <div class="menu-overlay" id="menu-overlay"></div>
   <div class="mobile-menu" id="mobile-menu">
     <div class="close-menu" id="close-menu"><i data-lucide="x"></i></div>
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="customize.html">Customize</a>
-    <a href="dtf.html">DTF Print</a>
-    <a href="offers.html">Offers</a>
-    <a href="track-order.html">Track Order</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="wishlist.html">Wishlist</a>
-    <a href="profile.html">My Account</a>
-    <a href="cart.html">Cart</a>
+    <div style="padding: 0 0.5rem 1rem; border-bottom: 2px solid #1A120B; margin-bottom: 0.5rem;">
+      <h3 style="font-family: var(--font-serif); font-size: 1.15rem; color: #000000; margin: 0; font-weight: 700;">Navigation &amp; Pages</h3>
+      <span style="font-size: 0.72rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px;">Roohira Collection</span>
+    </div>
+    <a href="index.html"><i data-lucide="home" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Home</a>
+    <a href="shop.html"><i data-lucide="shopping-bag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Shop All</a>
+    <a href="mens.html"><i data-lucide="shirt" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Men's Collection</a>
+    <a href="womens.html"><i data-lucide="sparkles" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Women's Collection</a>
+    <a href="kids.html"><i data-lucide="smile" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Kids' Collection</a>
+    <a href="other.html"><i data-lucide="layers" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Others &amp; Specials</a>
+    <a href="track-order.html"><i data-lucide="truck" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Track Order</a>
+    <a href="customize.html"><i data-lucide="palette" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Design Studio</a>
+    <a href="dtf.html"><i data-lucide="printer" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> DTF Print Service</a>
+    <a href="offers.html"><i data-lucide="tag" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Offers &amp; Discounts</a>
+    <a href="reviews.html"><i data-lucide="star" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Customer Reviews</a>
+    <a href="wishlist.html"><i data-lucide="heart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Wishlist</a>
+    <a href="cart.html"><i data-lucide="shopping-cart" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Cart</a>
+    <a href="profile.html"><i data-lucide="user" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> My Account</a>
+    <a href="login.html"><i data-lucide="log-in" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Login / Register</a>
+    <a href="admin.html" style="background: rgba(139, 90, 43, 0.08); color: #8B5A2B; font-weight: 700; border-top: 1px solid rgba(139, 90, 43, 0.2);"><i data-lucide="shield" style="width: 17px; height: 17px; margin-right: 10px; display: inline-block; vertical-align: middle;"></i> Admin Control Center</a>
   </div>
 
   <main>
-    <!-- Hero Section - Full Width Background Image (dark overlay on fashion photo) -->
-    <section class="hero-luxury" style="padding: 130px 6% 80px;">
-      <div style="max-width: 1200px; width: 100%; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3.5rem; align-items: center;">
+    <!-- Hero Section - Ultra-Modern Luxury Atelier Layout (No Banner Background Image, Fully Mobile Responsive) -->
+    <section class="hero-luxury" style="padding: clamp(90px, 12vh, 130px) 6% clamp(50px, 8vh, 80px);">
+      <div style="max-width: 1200px; width: 100%; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center;">
         <div style="color: var(--white);">
-          <span style="font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.85rem; font-weight: 700; color: var(--gold-light); display: inline-block; margin-bottom: 1.25rem;">
-            Sri Lanka's Premier Fashion House
-          </span>
-          <h1 style="color: var(--white); margin-bottom: 1.5rem; text-shadow: 0 4px 20px rgba(0,0,0,0.4); font-family: var(--font-serif); font-size: clamp(2.3rem, 5vw, 3.8rem); line-height: 1.2;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(198, 162, 107, 0.12); border: 1px solid rgba(198, 162, 107, 0.35); padding: 6px 14px; margin-bottom: 1.25rem;">
+            <i data-lucide="crown" style="width: 14px; height: 14px; color: #DFCA9B;"></i>
+            <span style="font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.76rem; font-weight: 700; color: #DFCA9B;">
+              Sri Lanka's Premier Fashion House
+            </span>
+          </div>
+          <h1 style="color: #FFFFFF; margin-bottom: 1.25rem; font-family: var(--font-serif); font-size: clamp(2.2rem, 5.2vw, 3.8rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em;">
             Timeless Elegance &amp; Contemporary Grace
           </h1>
-          <p style="color: #E2D7CE; font-size: 1.1rem; margin-bottom: 2.5rem; line-height: 1.8; max-width: 600px;">
+
+          <!-- Mobile-Only Hero Banner Image (Displayed exclusively on Mobile Screens) -->
+          <div class="hero-mobile-image-wrap">
+            <img src="https://i.ibb.co/TDtzCMCp/Roohira-Collection-Fashion-for-Everyone.png" alt="Roohira Collection - Fashion for Everyone" loading="eager">
+          </div>
+
+          <p style="color: #E2D7CE; font-size: clamp(0.95rem, 2vw, 1.12rem); margin-bottom: 2.2rem; line-height: 1.75; max-width: 580px; font-weight: 400;">
             Immerse yourself in our curated collection of heavyweight luxury tees, authentic designer frocks, custom embroidery, and high-precision DTF printing.
           </p>
 
           <!-- Action Buttons Bar -->
-          <div style="display: flex; gap: 15px; flex-wrap: wrap; align-items: center; margin-bottom: 40px;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 35px;">
             <a href="shop.html" class="btn btn-gold btn-lg">
               <i data-lucide="compass" style="width: 18px; height: 18px;"></i> Explore Collection
             </a>
             <a href="customize.html" class="btn btn-outline-white btn-lg">
-              <i data-lucide="edit-3" style="width: 18px; height: 18px;"></i> Custom Studio
+              <i data-lucide="edit-3" style="width: 18px; height: 18px;"></i> Design Studio
             </a>
-            <a href="dtf.html" style="color: var(--gold-light); padding: 14px 20px; font-weight: 700; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;">
-              <i data-lucide="printer" style="width: 17px; height: 17px;"></i> DTF Prints &rarr;
+            <a href="dtf.html" style="color: #DFCA9B; padding: 12px 16px; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;">
+              <i data-lucide="printer" style="width: 16px; height: 16px;"></i> DTF Prints &rarr;
             </a>
           </div>
 
           <!-- Quick Metrics Bar -->
-          <div style="display: flex; gap: 35px; border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 25px;">
+          <div style="display: flex; gap: clamp(15px, 4vw, 35px); border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 22px; flex-wrap: wrap;">
             <div>
-              <h4 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--gold-light); margin: 0;">5,000+</h4>
-              <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Orders Delivered</p>
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">5,000+</h4>
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Orders Delivered</p>
             </div>
-            <div style="border-left: 1px solid rgba(60, 42, 33, 0.1); padding-left: 35px;">
-              <h4 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--gold-light); margin: 0;">220 GSM</h4>
-              <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Heavy Cotton Luxury</p>
+            <div style="border-left: 1px solid rgba(255, 255, 255, 0.15); padding-left: clamp(15px, 4vw, 35px);">
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">220 GSM</h4>
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Heavy Cotton Luxury</p>
             </div>
-            <div style="border-left: 1px solid rgba(60, 42, 33, 0.1); padding-left: 35px;">
-              <h4 style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: var(--gold-light); margin: 0;">100%</h4>
-              <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">COD Islandwide</p>
+            <div style="border-left: 1px solid rgba(255, 255, 255, 0.15); padding-left: clamp(15px, 4vw, 35px);">
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">100%</h4>
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">COD Islandwide</p>
             </div>
           </div>
         </div>
 
-        <!-- Right: Modern Visual Hero Card with Floating Highlights -->
-        <div style="position: relative; display: flex; justify-content: center;">
-          <div style="position: relative; width: 100%; max-width: 440px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(179, 135, 56, 0.25); box-shadow: 0 20px 50px rgba(60, 42, 33, 0.12); background: #FFFFFF;">
-            <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Roohira Luxury Collection" style="width: 100%; height: 500px; object-fit: cover; display: block;">
+        <!-- Right: Modern Visual Hero Card (Hidden on Mobile for Fast Clean User Experience) -->
+        <div class="hero-image-col" style="position: relative; display: flex; justify-content: center; width: 100%;">
+          <div style="position: relative; width: 100%; max-width: 440px; border-radius: 0px; overflow: hidden; border: 2px solid #C6A26B; box-shadow: 0 25px 50px rgba(0,0,0,0.4); background: #FAF7F2;">
+            <img src="https://i.ibb.co/ycc98fZ9/Roohira-Family-Fashion-Collection.png" alt="Roohira Family Fashion Collection" style="width: 100%; height: auto; max-height: 500px; object-fit: cover; display: block; margin: 0 auto;">
             
-            <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 20px; background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.98) 75%);">
-              <span style="font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; color: #8B5A2B; font-weight: 800;">Signature Line</span>
-              <h3 style="font-size: 1.25rem; font-family: 'Cinzel', serif; color: #1A120B; margin: 4px 0 8px;">Handcrafted Heritage Frocks</h3>
-              <p style="font-size: 0.85rem; color: #6D5D53; margin: 0;">Exquisite silhouettes tailored for special celebrations.</p>
+            <div style="background: #1A120B; padding: 14px 18px; border-top: 1.5px solid #C6A26B; text-align: center;">
+              <span style="font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: #DFCA9B; font-weight: 800; display: block; margin-bottom: 2px;">Signature Heritage Line</span>
+              <h3 style="font-size: 1.15rem; font-family: 'Playfair Display', Georgia, serif; color: #FFFFFF; margin: 0; font-weight: 700;">Family &amp; Luxury Fashion Collection</h3>
             </div>
           </div>
 
-          <!-- Floating Badge 1: Quality Tag -->
-          <div style="position: absolute; top: 30px; left: -25px; background: #FFFFFF; border: 1px solid rgba(179, 135, 56, 0.25); padding: 12px 18px; border-radius: 12px; box-shadow: 0 15px 35px rgba(60, 42, 33, 0.1); display: flex; align-items: center; gap: 12px;">
-            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(179, 135, 56, 0.12); display: flex; align-items: center; justify-content: center; color: #8B5A2B;">
-              <i data-lucide="award" style="width: 20px; height: 20px;"></i>
+          <!-- Floating Badge 1: Quality Tag (Desktop only) -->
+          <div class="d-none-sm" style="position: absolute; top: 20px; left: -15px; background: #FFFFFF; border: 1.5px solid #1A120B; padding: 10px 16px; border-radius: 0px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; z-index: 5;">
+            <div style="width: 32px; height: 32px; background: #FAF7F2; display: flex; align-items: center; justify-content: center; color: #8B5A2B;">
+              <i data-lucide="award" style="width: 18px; height: 18px;"></i>
             </div>
             <div>
-              <div style="font-size: 0.85rem; font-weight: 800; color: #1A120B;">Premium Quality</div>
-              <div style="font-size: 0.72rem; color: #8B5A2B; font-weight: 600;">Verified 5-Star Craft</div>
+              <div style="font-size: 0.8rem; font-weight: 800; color: #1A120B;">Premium Quality</div>
+              <div style="font-size: 0.68rem; color: #8B5A2B; font-weight: 700;">Verified 5-Star Craft</div>
             </div>
           </div>
 
-          <!-- Floating Badge 2: Delivery -->
-          <div style="position: absolute; bottom: 40px; right: -25px; background: #FFFFFF; border: 1px solid rgba(179, 135, 56, 0.25); padding: 12px 18px; border-radius: 12px; box-shadow: 0 15px 35px rgba(60, 42, 33, 0.1); display: flex; align-items: center; gap: 12px;">
-            <div style="width: 38px; height: 38px; border-radius: 50%; background: rgba(179, 135, 56, 0.12); display: flex; align-items: center; justify-content: center; color: #8B5A2B;">
-              <i data-lucide="truck" style="width: 20px; height: 20px;"></i>
+          <!-- Floating Badge 2: Delivery (Desktop only) -->
+          <div class="d-none-sm" style="position: absolute; bottom: 65px; right: -15px; background: #FFFFFF; border: 1.5px solid #1A120B; padding: 10px 16px; border-radius: 0px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: flex; align-items: center; gap: 10px; z-index: 5;">
+            <div style="width: 32px; height: 32px; background: #FAF7F2; display: flex; align-items: center; justify-content: center; color: #8B5A2B;">
+              <i data-lucide="truck" style="width: 18px; height: 18px;"></i>
             </div>
             <div>
-              <div style="font-size: 0.85rem; font-weight: 800; color: #1A120B;">Fast Islandwide</div>
-              <div style="font-size: 0.72rem; color: #8B5A2B; font-weight: 600;">Cash on Delivery</div>
+              <div style="font-size: 0.8rem; font-weight: 800; color: #1A120B;">Fast Islandwide</div>
+              <div style="font-size: 0.68rem; color: #8B5A2B; font-weight: 700;">Cash on Delivery</div>
             </div>
           </div>
         </div>
@@ -226,198 +210,388 @@
       </div>
     </section>
 
-    <!-- Quick Category Portal Strip (Clean Light Design) -->
-    <section style="padding: 25px 6%; background: var(--white); border-bottom: 1px solid rgba(60, 42, 33, 0.08);">
-      <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
-        <a href="shop.html" style="background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.08); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A120B; box-shadow: 0 4px 15px rgba(60, 42, 33, 0.03); transition: all 0.3s ease;">
-          <i data-lucide="shirt" style="width: 22px; height: 22px; color: #B38738;"></i>
-          <div>
-            <div style="font-size: 0.88rem; font-weight: 700;">Graphic Tees</div>
-            <div style="font-size: 0.72rem; color: #6D5D53;">220 GSM Heavy</div>
-          </div>
-        </a>
-        <a href="shop.html" style="background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.08); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A120B; box-shadow: 0 4px 15px rgba(60, 42, 33, 0.03); transition: all 0.3s ease;">
-          <i data-lucide="heart" style="width: 22px; height: 22px; color: #B38738;"></i>
-          <div>
-            <div style="font-size: 0.88rem; font-weight: 700;">Frocks & Dresses</div>
-            <div style="font-size: 0.72rem; color: #6D5D53;">Batik & Modern</div>
-          </div>
-        </a>
-        <a href="customize.html" style="background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.08); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A120B; box-shadow: 0 4px 15px rgba(60, 42, 33, 0.03); transition: all 0.3s ease;">
-          <i data-lucide="wand-2" style="width: 22px; height: 22px; color: #B38738;"></i>
-          <div>
-            <div style="font-size: 0.88rem; font-weight: 700;">Custom Studio</div>
-            <div style="font-size: 0.72rem; color: #6D5D53;">Design Live</div>
-          </div>
-        </a>
-        <a href="dtf.html" style="background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.08); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A120B; box-shadow: 0 4px 15px rgba(60, 42, 33, 0.03); transition: all 0.3s ease;">
-          <i data-lucide="layers" style="width: 22px; height: 22px; color: #B38738;"></i>
-          <div>
-            <div style="font-size: 0.88rem; font-weight: 700;">DTF Gang Sheet</div>
-            <div style="font-size: 0.72rem; color: #6D5D53;">Instant Auto Price</div>
-          </div>
-        </a>
-        <a href="track-order.html" style="background: #FFFFFF; border: 1px solid rgba(60, 42, 33, 0.08); padding: 14px 20px; border-radius: 12px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A120B; box-shadow: 0 4px 15px rgba(60, 42, 33, 0.03); transition: all 0.3s ease;">
-          <i data-lucide="map-pin" style="width: 22px; height: 22px; color: #B38738;"></i>
-          <div>
-            <div style="font-size: 0.88rem; font-weight: 700;">Live Tracking</div>
-            <div style="font-size: 0.72rem; color: #6D5D53;">Order Status</div>
-          </div>
-        </a>
+    <!-- Shop by Section: 4 Cards for Men, Women, Kids & Others -->
+    <section class="section" id="department-section" style="padding: 50px 6% 40px; background: #FAF7F2; border-bottom: 1px solid rgba(60, 42, 33, 0.08);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        
+        <div style="text-align: center; margin-bottom: 28px;">
+          <span style="background: rgba(179, 135, 56, 0.12); color: #8B5A2B; padding: 5px 16px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; border: 1.5px solid rgba(179, 135, 56, 0.35); text-transform: uppercase;">COLLECTIONS FOR ALL</span>
+          <h2 style="font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; font-family: 'Playfair Display', Georgia, serif; margin-top: 10px; color: #1A120B;">
+            Shop By Section: <span style="color: #8B5A2B;">Men, Women, Kids &amp; Others</span>
+          </h2>
+          <p style="color: #6D5D53; font-size: 0.92rem; margin-top: 6px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Choose a section below to browse garments crafted exclusively for you.
+          </p>
+        </div>
+
+        <!-- 4 Section Cards Grid (2x2 on Mobile, 4x1 on Desktop) -->
+        <div class="department-cards-grid">
+
+          <!-- Card 1: Men -->
+          <a href="mens.html" class="dept-card" id="dept-card-mens">
+            <div class="dept-card-thumb">
+              <span class="dept-card-badge" style="background: #1A120B;">MEN</span>
+              <img class="dept-default-img" src="https://uptownsrilanka.com/uploads/82702337bb3ed3a8ebe8ad09c9be963b.webp" alt="Men's Collection" loading="eager" decoding="async">
+              
+              <!-- Auto-Scroll Products Showcase on Hover -->
+              <div class="dept-scroll-showcase">
+                <div class="dept-scroll-track">
+                  <!-- Set 1: Large Product Images -->
+                  <div class="dept-preview-item">
+                    <img src="https://uptownsrilanka.com/uploads/82702337bb3ed3a8ebe8ad09c9be963b.webp" alt="Heavyweight Cotton Tee">
+                    <div class="dept-preview-item-info">
+                      <span>Heavyweight Tee</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/NnQrQr7y/T-Shirt.png" alt="Oversized Streetwear Tee">
+                    <div class="dept-preview-item-info">
+                      <span>Oversized Cut</span>
+                      <small>Rs. 1,650</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Boxy Drop-Shoulder">
+                    <div class="dept-preview-item-info">
+                      <span>Drop-Shoulder</span>
+                      <small>Rs. 1,850</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" alt="Sartorial Pure Cotton">
+                    <div class="dept-preview-item-info">
+                      <span>220 GSM Cotton</span>
+                      <small>Rs. 1,950</small>
+                    </div>
+                  </div>
+                  <!-- Set 2: Seamless Continuous Loop -->
+                  <div class="dept-preview-item">
+                    <img src="https://uptownsrilanka.com/uploads/82702337bb3ed3a8ebe8ad09c9be963b.webp" alt="Heavyweight Cotton Tee">
+                    <div class="dept-preview-item-info">
+                      <span>Heavyweight Tee</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/NnQrQr7y/T-Shirt.png" alt="Oversized Streetwear Tee">
+                    <div class="dept-preview-item-info">
+                      <span>Oversized Cut</span>
+                      <small>Rs. 1,650</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" alt="Boxy Drop-Shoulder">
+                    <div class="dept-preview-item-info">
+                      <span>Drop-Shoulder</span>
+                      <small>Rs. 1,850</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&q=80" alt="Sartorial Pure Cotton">
+                    <div class="dept-preview-item-info">
+                      <span>220 GSM Cotton</span>
+                      <small>Rs. 1,950</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="dept-scroll-badge">Explore Men &rarr;</span>
+            </div>
+            <div class="dept-card-info">
+              <h3>Men's Collection</h3>
+              <p>Heavyweight Cotton Tees, Oversized Cuts &amp; Streetwear Drops.</p>
+              <span class="dept-explore-link">Explore &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 2: Women -->
+          <a href="womens.html" class="dept-card" id="dept-card-womens">
+            <div class="dept-card-thumb" style="background: #FAF7F2;">
+              <span class="dept-card-badge" style="background: #8B5A2B;">WOMEN</span>
+              <img class="dept-default-img" src="https://uptownsrilanka.com/uploads/a1c39fd8038b431aef357cca5b2448b2.webp" alt="Women's Collection" loading="eager" decoding="async" style="object-fit: contain !important; width: 100%; height: 100%; padding: 4px;">
+              
+              <!-- Auto-Scroll Products Showcase on Hover (Exact Products in Women's Section) -->
+              <div class="dept-scroll-showcase">
+                <div class="dept-scroll-track">
+                  <!-- Set 1: Real Catalog Products Large Images -->
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock">
+                    <div class="dept-preview-item-info">
+                      <span>Long Design Frock</span>
+                      <small>Rs. 2,250</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock">
+                    <div class="dept-preview-item-info">
+                      <span>Long Batik Frock</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" alt="White Blouse with Embroidery">
+                    <div class="dept-preview-item-info">
+                      <span>White Blouse</span>
+                      <small>Rs. 1,490</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" alt="Design Frock (Maroon)">
+                    <div class="dept-preview-item-info">
+                      <span>Design Frock (Maroon)</span>
+                      <small>Rs. 2,250</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" alt="Batik Frock (Yellow)">
+                    <div class="dept-preview-item-info">
+                      <span>Batik Frock (Yellow)</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png" alt="Embroidered Blouse (Blue)">
+                    <div class="dept-preview-item-info">
+                      <span>Embroidered Blouse</span>
+                      <small>Rs. 1,490</small>
+                    </div>
+                  </div>
+
+                  <!-- Set 2: Seamless Continuous Loop -->
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock">
+                    <div class="dept-preview-item-info">
+                      <span>Long Design Frock</span>
+                      <small>Rs. 2,250</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock">
+                    <div class="dept-preview-item-info">
+                      <span>Long Batik Frock</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" alt="White Blouse with Embroidery">
+                    <div class="dept-preview-item-info">
+                      <span>White Blouse</span>
+                      <small>Rs. 1,490</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" alt="Design Frock (Maroon)">
+                    <div class="dept-preview-item-info">
+                      <span>Design Frock (Maroon)</span>
+                      <small>Rs. 2,250</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" alt="Batik Frock (Yellow)">
+                    <div class="dept-preview-item-info">
+                      <span>Batik Frock (Yellow)</span>
+                      <small>Rs. 1,500</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png" alt="Embroidered Blouse (Blue)">
+                    <div class="dept-preview-item-info">
+                      <span>Embroidered Blouse</span>
+                      <small>Rs. 1,490</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="dept-scroll-badge">Explore Women &rarr;</span>
+            </div>
+            <div class="dept-card-info">
+              <h3>Women's Collection</h3>
+              <p>Handcrafted Batik Frocks, Traditional Fusion &amp; Embroidered Blouses.</p>
+              <span class="dept-explore-link">Explore &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 3: Kids -->
+          <a href="kids.html" class="dept-card" id="dept-card-kids">
+            <div class="dept-card-thumb">
+              <span class="dept-card-badge" style="background: #DC143C;">KIDS</span>
+              <img class="dept-default-img" src="https://wearportstore.com/cdn/shop/collections/ChatGPT_Image_May_11_2026_08_46_39_PM.png?v=1778515258&width=1254" alt="Kids' Collection" loading="eager" decoding="async">
+              
+              <!-- Auto-Scroll Products Showcase on Hover -->
+              <div class="dept-scroll-showcase">
+                <div class="dept-scroll-track">
+                  <!-- Set 1: Large Product Images -->
+                  <div class="dept-preview-item">
+                    <img src="https://wearportstore.com/cdn/shop/collections/ChatGPT_Image_May_11_2026_08_46_39_PM.png?v=1778515258&width=1254" alt="Cartoon Print Tees">
+                    <div class="dept-preview-item-info">
+                      <span>Cartoon Tees</span>
+                      <small>Rs. 1,150</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80" alt="Snoopy & Garfield">
+                    <div class="dept-preview-item-info">
+                      <span>Graphic Tees</span>
+                      <small>Rs. 1,200</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=600&q=80" alt="Kids Soft Cotton">
+                    <div class="dept-preview-item-info">
+                      <span>Soft Cotton</span>
+                      <small>Rs. 950</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=600&q=80" alt="Anime Print Tees">
+                    <div class="dept-preview-item-info">
+                      <span>Anime Drops</span>
+                      <small>Rs. 1,250</small>
+                    </div>
+                  </div>
+                  <!-- Set 2: Seamless Continuous Loop -->
+                  <div class="dept-preview-item">
+                    <img src="https://wearportstore.com/cdn/shop/collections/ChatGPT_Image_May_11_2026_08_46_39_PM.png?v=1778515258&width=1254" alt="Cartoon Print Tees">
+                    <div class="dept-preview-item-info">
+                      <span>Cartoon Tees</span>
+                      <small>Rs. 1,150</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80" alt="Snoopy & Garfield">
+                    <div class="dept-preview-item-info">
+                      <span>Graphic Tees</span>
+                      <small>Rs. 1,200</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?auto=format&fit=crop&w=600&q=80" alt="Kids Soft Cotton">
+                    <div class="dept-preview-item-info">
+                      <span>Soft Cotton</span>
+                      <small>Rs. 950</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=600&q=80" alt="Anime Print Tees">
+                    <div class="dept-preview-item-info">
+                      <span>Anime Drops</span>
+                      <small>Rs. 1,250</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="dept-scroll-badge">Explore Kids &rarr;</span>
+            </div>
+            <div class="dept-card-info">
+              <h3>Kids' Collection</h3>
+              <p>Playful Cartoon Graphics, Garfield, Snoopy, Stitch &amp; Anime Tees.</p>
+              <span class="dept-explore-link">Explore &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Card 4: Others -->
+          <a href="other.html" class="dept-card" id="dept-card-others">
+            <div class="dept-card-thumb">
+              <span class="dept-card-badge" style="background: #2E5A88;">OTHERS</span>
+              <img class="dept-default-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRge7gNtQcD8n4JpMftwar1TdajpeRLXDXtKhE__hHakvjKgPTa0iAeKb8&s=10" alt="Others Collection" loading="eager" decoding="async">
+              
+              <!-- Auto-Scroll Products Showcase on Hover -->
+              <div class="dept-scroll-showcase">
+                <div class="dept-scroll-track">
+                  <!-- Set 1: Large Product Images -->
+                  <div class="dept-preview-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRge7gNtQcD8n4JpMftwar1TdajpeRLXDXtKhE__hHakvjKgPTa0iAeKb8&s=10" alt="Bespoke Apparel">
+                    <div class="dept-preview-item-info">
+                      <span>Bespoke Wear</span>
+                      <small>Custom Order</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" alt="DTF Custom Prints">
+                    <div class="dept-preview-item-info">
+                      <span>DTF Print Service</span>
+                      <small>Per Meter</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80" alt="Embroidery Art">
+                    <div class="dept-preview-item-info">
+                      <span>Embroidery Art</span>
+                      <small>Bespoke</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&w=600&q=80" alt="Seasonal Drops">
+                    <div class="dept-preview-item-info">
+                      <span>Seasonal Drops</span>
+                      <small>Exclusive</small>
+                    </div>
+                  </div>
+                  <!-- Set 2: Seamless Continuous Loop -->
+                  <div class="dept-preview-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRge7gNtQcD8n4JpMftwar1TdajpeRLXDXtKhE__hHakvjKgPTa0iAeKb8&s=10" alt="Bespoke Apparel">
+                    <div class="dept-preview-item-info">
+                      <span>Bespoke Wear</span>
+                      <small>Custom Order</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=600&q=80" alt="DTF Custom Prints">
+                    <div class="dept-preview-item-info">
+                      <span>DTF Print Service</span>
+                      <small>Per Meter</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?auto=format&fit=crop&w=600&q=80" alt="Embroidery Art">
+                    <div class="dept-preview-item-info">
+                      <span>Embroidery Art</span>
+                      <small>Bespoke</small>
+                    </div>
+                  </div>
+                  <div class="dept-preview-item">
+                    <img src="https://images.unsplash.com/photo-1523381294911-8d3cead13475?auto=format&fit=crop&w=600&q=80" alt="Seasonal Drops">
+                    <div class="dept-preview-item-info">
+                      <span>Seasonal Drops</span>
+                      <small>Exclusive</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <span class="dept-scroll-badge">Explore Others &rarr;</span>
+            </div>
+            <div class="dept-card-info">
+              <h3>Others</h3>
+              <p>Bespoke Accessories, Unisex Drops &amp; Exclusive Seasonal Specials.</p>
+              <span class="dept-explore-link">Explore &rarr;</span>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- Exclusive New Arrivals Section -->
-    <section class="section" style="padding: 70px 6% 60px; background: #FFFFFF; border-bottom: 1px solid rgba(60, 42, 33, 0.08);">
-      <div style="text-align: center; margin-bottom: 45px;">
-        <span style="background: rgba(179, 135, 56, 0.12); color: #8B5A2B; padding: 6px 18px; border-radius: 50px; font-size: 0.78rem; font-weight: 800; letter-spacing: 1.5px; border: 1px solid rgba(179, 135, 56, 0.28);">EXCLUSIVE NEW ARRIVALS</span>
-        <h2 style="font-size: 2.3rem; font-weight: 700; font-family: 'Cinzel', serif; margin-top: 12px; color: #1A120B;">New <span style="color: #8B5A2B;">Frocks & Blouses</span> Collection</h2>
-        <p style="color: #6D5D53; font-size: 0.95rem; margin-top: 6px;">Handcrafted traditional motifs blended with modern Sri Lankan silhouette design</p>
-      </div>
+    <!-- Exclusive New Arrivals Section (Dynamic Products Linked with Shop & Database) -->
+    <section class="section-padding bg-cream" style="padding: 4.5rem 6%; border-bottom: 1px solid rgba(60, 42, 33, 0.08);">
+      <div style="max-width: var(--container-max); margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 2.5rem;">
+          <div>
+            <span style="background: rgba(179, 135, 56, 0.12); color: #8B5A2B; padding: 5px 16px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1.5px; border: 1.5px solid rgba(179, 135, 56, 0.35); text-transform: uppercase;">EXCLUSIVE NEW ARRIVALS</span>
+            <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.8rem, 3.5vw, 2.5rem); color: #1A120B; margin: 10px 0 6px; font-weight: 700;">
+              Fresh Season <span style="color: #8B5A2B;">Releases</span>
+            </h2>
+            <p style="color: #6D5D53; font-size: 0.95rem; margin: 0; max-width: 600px;">
+              Handcrafted traditional Sri Lankan motifs blended with contemporary silhouettes and luxury cuts.
+            </p>
+          </div>
+          <a href="shop.html" class="btn btn-outline" style="padding: 0.75rem 1.75rem; font-size: 0.85rem; font-weight: 700;">
+            <span>Browse Shop</span>
+            <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
+          </a>
+        </div>
 
-      <!-- Card 1: Long Design Frock -->
-      <div class="product-highlight-card" style="max-width: 1050px; margin: 0 auto; padding: 32px; border-radius: 20px; border: 1px solid rgba(60, 42, 33, 0.1); background: #FAF7F2; box-shadow: 0 10px 30px rgba(60, 42, 33, 0.05); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
-        <div>
-          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #fdfdfd; box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">13% OFF</span>
-            <img id="na-img-1" src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" alt="Long Design Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
-          </div>
-          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
-            <img src="https://i.ibb.co/CKNLnKPW/Chat-GPT-Image-Aug-3-2026-12-13-02-PM.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #8B5A2B; transition: 0.3s;">
-            <img src="https://i.ibb.co/5WMrGVJn/Chat-GPT-Image-Aug-3-2026-12-07-29-PM.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
-            <img src="https://i.ibb.co/twtnzycD/Chat-GPT-Image-Aug-3-2026-12-04-41-PM-1.png" onclick="naSwapImg('na-img-1',this.src,this)" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid var(--border-color); transition: 0.3s;">
-          </div>
-        </div>
-        <div>
-          <span style="color: #8B5A2B; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">Frock Category</span>
-          <h3 style="font-size: 1.8rem; font-weight: 800; margin: 5px 0 10px;">Long Design Frock</h3>
-          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
-            <span style="font-size: 1.6rem; font-weight: 800; color: var(--primary-dark);">Rs. 2,250.00</span>
-            <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1rem;">Rs. 2,600.00</span>
-          </div>
-          <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px;">An elegant, high-quality long frock featuring a graceful silhouette and comfortable fit. Perfect for any special occasion or stylish outing.</p>
-          <div style="margin-bottom: 15px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Size:</label>
-            <span style="display: inline-block; padding: 8px 18px; border-radius: 12px; background: #8B5A2B; color: white; font-weight: 700; font-size: 0.85rem;">Free Size</span>
-          </div>
-          <div style="margin-bottom: 25px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px;">Color: <span id="na-frock-color-label" style="color: #8B5A2B;">Dark Yellow</span></label>
-            <div id="frock-color-circles" style="display: flex; gap: 12px; align-items: center;">
-              <div onclick="naPickColor('#e6a100','Dark Yellow','na-frock-color-label',this)" title="Dark Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #e6a100; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 2px #8B5A2B; transition: 0.2s;"></div>
-              <div onclick="naPickColor('#f5e6c8','Light Yellow','na-frock-color-label',this)" title="Light Yellow" style="width: 32px; height: 32px; border-radius: 50%; background: #f5e6c8; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
-              <div onclick="naPickColor('#800000','Maroon','na-frock-color-label',this)" title="Maroon" style="width: 32px; height: 32px; border-radius: 50%; background: #800000; cursor: pointer; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--border-color); transition: 0.2s;"></div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button onclick="naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
-            </button>
-            <button onclick="naOrder('Long Design Frock',2250,'na-img-1','Free Size','na-frock-color-label',true)" class="btn" style="flex: 1; background: var(--primary-dark); color: white; padding: 14px 20px; font-weight: 700; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <i data-lucide="zap" style="width: 18px; color: var(--accent-gold);"></i> Buy Now
-            </button>
-            <a href="product-detail.html?id=23" class="btn btn-outline" style="padding: 14px 18px; border-radius: 12px; font-weight: 700;">Details</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: Long Batik Frock -->
-      <div class="product-highlight-card" style="max-width: 1050px; margin: 35px auto 0; padding: 32px; border-radius: 20px; border: 1px solid rgba(60, 42, 33, 0.1); background: #FAF7F2; box-shadow: 0 10px 30px rgba(60, 42, 33, 0.05); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
-        <div>
-          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #FFFFFF; box-shadow: 0 10px 30px rgba(60,42,33,0.06); display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">19% OFF</span>
-            <img id="na-img-2" src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" alt="Long Batik Frock" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
-          </div>
-          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
-            <img src="https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #8B5A2B; transition: 0.3s;">
-            <img src="https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-            <img src="https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-            <img src="https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png" onclick="naSwapImg('na-img-2',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-          </div>
-        </div>
-        <div>
-          <span style="color: #8B5A2B; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Batik Frock Category</span>
-          <h3 style="font-size: 1.8rem; font-weight: 700; color: #1A120B; font-family: 'Cinzel', serif; margin: 5px 0 10px;">Long Batik Frock</h3>
-          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
-            <span style="font-size: 1.6rem; font-weight: 800; color: #1A120B;">Rs. 1,500.00</span>
-            <span style="text-decoration: line-through; color: #8C7D73; font-size: 1rem;">Rs. 1,850.00</span>
-          </div>
-          <p style="color: #6D5D53; font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">Beautiful traditional and modern fusion long batik frock featuring unique patterns. Available in Blue, Dark Yellow, Brown, and Maroon.</p>
-          <div style="margin-bottom: 15px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #1A120B;">Size:</label>
-            <div style="display: flex; gap: 8px;">
-              <span id="na-batik-sz-xl" onclick="naPickSize('XL','na-batik-sz-xl','na-batik-sz-2xl')" style="padding: 8px 18px; border-radius: 8px; background: #1A120B; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XL</span>
-              <span id="na-batik-sz-2xl" onclick="naPickSize('2XL','na-batik-sz-2xl','na-batik-sz-xl')" style="padding: 8px 18px; border-radius: 8px; background: #FFFFFF; color: #1A120B; border: 1px solid rgba(60,42,33,0.18); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">2XL</span>
-            </div>
-          </div>
-          <div style="margin-bottom: 25px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #1A120B;">Color: <span id="na-batik-color-label" style="color: #8B5A2B;">Blue</span></label>
-            <div id="batik-color-circles" style="display: flex; gap: 12px; align-items: center;">
-              <div onclick="naPickColorImg('#0000ff','Blue','na-batik-color-label','na-img-2','https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png',this)" title="Blue" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/cdSLGG9/Chat-GPT-Image-Aug-3-2026-04-59-27-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 2px #8B5A2B; transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#e6a100','Dark Yellow','na-batik-color-label','na-img-2','https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png',this)" title="Dark Yellow" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/yFMBjFbf/Chat-GPT-Image-Aug-3-2026-04-56-51-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#8B4513','Brown','na-batik-color-label','na-img-2','https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png',this)" title="Brown" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/20B313Xw/Aug-3-2026-04-53-46-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#800000','Maroon','na-batik-color-label','na-img-2','https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png',this)" title="Maroon" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/s9mgQnHb/Chat-GPT-Image-Aug-3-2026-04-46-45-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button onclick="naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
-            </button>
-            <button onclick="naOrder('Long Batik Frock',1500,'na-img-2',window.naBatikSize||'XL','na-batik-color-label',true)" style="flex: 1; background: #FFFFFF; color: #1A120B; border: 1.5px solid rgba(60,42,33,0.25); padding: 14px 20px; font-weight: 700; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
-              <i data-lucide="zap" style="width: 18px; color: #B38738;"></i> Buy Now
-            </button>
-            <a href="product-detail.html?id=24" class="btn btn-outline" style="padding: 14px 18px; border-radius: 8px; font-weight: 700; color: #1A120B; border-color: rgba(60,42,33,0.2);">Details</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: White Blouse with Embroidery -->
-      <div class="product-highlight-card" style="max-width: 1050px; margin: 35px auto 0; padding: 32px; border-radius: 20px; border: 1px solid rgba(60, 42, 33, 0.1); background: #FAF7F2; box-shadow: 0 10px 30px rgba(60, 42, 33, 0.05); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
-        <div>
-          <div style="position: relative; width: 100%; aspect-ratio: 3/4; max-height: 480px; border-radius: 18px; overflow: hidden; background: #FFFFFF; box-shadow: 0 10px 30px rgba(60,42,33,0.06); display: flex; align-items: center; justify-content: center;">
-            <span style="position: absolute; top: 15px; left: 15px; background: #DC143C; color: white; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; z-index: 5;">12% OFF</span>
-            <img id="na-img-3" src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" alt="White Blouse with Embroidery" style="width: 100%; height: 100%; object-fit: contain; transition: opacity 0.4s ease;">
-          </div>
-          <div style="display: flex; gap: 10px; margin-top: 15px; justify-content: center;">
-            <img src="https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid #8B5A2B; transition: 0.3s;">
-            <img src="https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-            <img src="https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-            <img src="https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png" onclick="naSwapImg('na-img-3',this.src,this)" style="width: 55px; height: 55px; border-radius: 10px; object-fit: cover; cursor: pointer; border: 2px solid rgba(60,42,33,0.15); transition: 0.3s;">
-          </div>
-        </div>
-        <div>
-          <span style="color: #8B5A2B; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">Blouse Category</span>
-          <h3 style="font-size: 1.8rem; font-weight: 700; color: #1A120B; font-family: 'Cinzel', serif; margin: 5px 0 10px;">White Blouse with Embroidery</h3>
-          <div style="display: flex; align-items: baseline; gap: 12px; margin-bottom: 15px;">
-            <span style="font-size: 1.6rem; font-weight: 800; color: #1A120B;">Rs. 1,490.00</span>
-            <span style="text-decoration: line-through; color: #8C7D73; font-size: 1rem;">Rs. 1,700.00</span>
-          </div>
-          <p style="color: #6D5D53; font-size: 0.92rem; line-height: 1.6; margin-bottom: 20px;">Intricately designed premium white blouse styled with beautiful embroidery detail. Available in Yellow, Purple, Blue, and Green.</p>
-          <div style="margin-bottom: 15px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #1A120B;">Size:</label>
-            <div style="display: flex; gap: 8px;">
-              <span id="na-blouse-sz-xl" onclick="naPickBlouseSize('XL','na-blouse-sz-xl','na-blouse-sz-xxl','na-blouse-sz-xxxl')" style="padding: 8px 18px; border-radius: 8px; background: #1A120B; color: white; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XL</span>
-              <span id="na-blouse-sz-xxl" onclick="naPickBlouseSize('XXL','na-blouse-sz-xxl','na-blouse-sz-xl','na-blouse-sz-xxxl')" style="padding: 8px 18px; border-radius: 8px; background: #FFFFFF; color: #1A120B; border: 1px solid rgba(60,42,33,0.18); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XXL</span>
-              <span id="na-blouse-sz-xxxl" onclick="naPickBlouseSize('XXXL','na-blouse-sz-xxxl','na-blouse-sz-xl','na-blouse-sz-xxl')" style="padding: 8px 18px; border-radius: 8px; background: #FFFFFF; color: #1A120B; border: 1px solid rgba(60,42,33,0.18); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s;">XXXL</span>
-            </div>
-          </div>
-          <div style="margin-bottom: 25px;">
-            <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 6px; color: #1A120B;">Color: <span id="na-blouse-color-label" style="color: #8B5A2B;">Yellow</span></label>
-            <div id="blouse-color-circles" style="display: flex; gap: 12px; align-items: center;">
-              <div onclick="naPickColorImg('#ffff00','Yellow','na-blouse-color-label','na-img-3','https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png',this)" title="Yellow" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/dzYtF9G/Chat-GPT-Image-Aug-4-2026-12-25-15-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 2px #8B5A2B; transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#a020f0','Purple','na-blouse-color-label','na-img-3','https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png',this)" title="Purple" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/TBM1752f/Chat-GPT-Image-Aug-4-2026-12-28-42-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#0000ff','Blue','na-blouse-color-label','na-img-3','https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png',this)" title="Blue" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/BH7rkYFB/Chat-GPT-Image-Aug-4-2026-12-36-48-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-              <div onclick="naPickColorImg('#008000','Green','na-blouse-color-label','na-img-3','https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png',this)" title="Green" style="width: 38px; height: 38px; border-radius: 50%; background-image: url('https://i.ibb.co/1tzMntQr/Chat-GPT-Image-Aug-4-2026-12-38-24-PM.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px rgba(60,42,33,0.15); transition: 0.2s;"></div>
-            </div>
-          </div>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button onclick="naOrder('White Blouse with Embroidery',1490,'na-img-3',window.naBlouseSize||'XL','na-blouse-color-label',false)" class="btn btn-primary" style="flex: 1; padding: 14px 20px; font-weight: 700; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-              <i data-lucide="shopping-bag" style="width: 18px;"></i> Add to Cart
-            </button>
-            <button onclick="naOrder('White Blouse with Embroidery',1490,'na-img-3',window.naBlouseSize||'XL','na-blouse-color-label',true)" style="flex: 1; background: #FFFFFF; color: #1A120B; border: 1.5px solid rgba(60,42,33,0.25); padding: 14px 20px; font-weight: 700; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;">
-              <i data-lucide="zap" style="width: 18px; color: #B38738;"></i> Buy Now
-            </button>
-            <a href="product-detail.html?id=25" class="btn btn-outline" style="padding: 14px 18px; border-radius: 8px; font-weight: 700; color: #1A120B; border-color: rgba(60,42,33,0.2);">Details</a>
-          </div>
+        <div class="product-grid home-cards-grid" id="new-arrivals-grid">
+          <!-- Injected dynamically via script.js renderHomePageSections() -->
         </div>
       </div>
     </section>
@@ -436,7 +610,7 @@
             <i class="fa-solid fa-arrow-right" style="margin-left: 6px;"></i>
           </a>
         </div>
-        <div class="product-grid" id="product-grid">
+        <div class="product-grid home-cards-grid" id="product-grid">
           <!-- Injected dynamically via script.js displayProducts() -->
         </div>
       </div>
@@ -949,28 +1123,46 @@
       if (!imgEl) return;
       imgEl.style.opacity = '0.3';
       setTimeout(() => { imgEl.src = src; imgEl.style.opacity = '1'; }, 150);
-      // Highlight active thumb
-      const siblings = thumbEl.parentElement ? thumbEl.parentElement.querySelectorAll('img') : [];
-      siblings.forEach(s => {
-        s.style.border = '2px solid rgba(255,255,255,0.7)';
-        s.style.opacity = '0.75';
-      });
-      thumbEl.style.border = '2px solid #8B5A2B';
-      thumbEl.style.opacity = '1';
+      
+      if (thumbEl && thumbEl.tagName === 'IMG') {
+        const siblings = thumbEl.parentElement ? thumbEl.parentElement.querySelectorAll('img') : [];
+        siblings.forEach(s => {
+          s.style.border = '1px solid rgba(60,42,33,0.2)';
+          s.style.opacity = '0.75';
+        });
+        thumbEl.style.border = '1.5px solid #8B5A2B';
+        thumbEl.style.opacity = '1';
+      } else {
+        const card = imgEl.closest('div[style*="border: 1.5px solid"]');
+        if (card) {
+          const thumbs = card.querySelectorAll('img[onclick*="naSwapImg"]');
+          thumbs.forEach(t => {
+            if (t.src === src) {
+              t.style.border = '1.5px solid #8B5A2B';
+              t.style.opacity = '1';
+            } else {
+              t.style.border = '1px solid rgba(60,42,33,0.2)';
+              t.style.opacity = '0.75';
+            }
+          });
+        }
+      }
     }
 
     function naPickColor(hex, name, labelId, el) {
-      document.getElementById(labelId).innerText = name;
+      const lbl = document.getElementById(labelId);
+      if (lbl) lbl.innerText = name;
       const siblings = el.parentElement ? el.parentElement.querySelectorAll('div') : [];
-      siblings.forEach(s => s.style.boxShadow = '0 0 0 1px #ccc');
+      siblings.forEach(s => s.style.boxShadow = 'none');
       el.style.boxShadow = '0 0 0 2px #8B5A2B';
     }
 
     function naPickColorImg(hex, name, labelId, imgId, imgSrc, el) {
-      document.getElementById(labelId).innerText = name;
+      const lbl = document.getElementById(labelId);
+      if (lbl) lbl.innerText = name;
       naSwapImg(imgId, imgSrc, el);
       const siblings = el.parentElement ? el.parentElement.querySelectorAll('div') : [];
-      siblings.forEach(s => s.style.boxShadow = '0 0 0 1px #ccc');
+      siblings.forEach(s => s.style.boxShadow = 'none');
       el.style.boxShadow = '0 0 0 2px #8B5A2B';
     }
 
