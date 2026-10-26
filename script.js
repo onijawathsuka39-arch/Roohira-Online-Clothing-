@@ -441,6 +441,7 @@ function renderHomePageSections() {
     }
 
     if (typeof lucide !== 'undefined') lucide.createIcons();
+    initShopCardReveal();
     if (typeof initFastScrollAnimations === 'function') setTimeout(initFastScrollAnimations, 40);
 }
 
@@ -450,26 +451,31 @@ let shopRevealFallbackBound = false;
 // Safety net: reveal any card that has entered the viewport.
 // Guarantees cards can never stay invisible even if IntersectionObserver is throttled.
 function shopRevealFallbackCheck() {
-    const grid = document.getElementById('product-grid');
-    if (!grid) return;
+    const grids = document.querySelectorAll('#product-grid, #new-arrivals-grid, .product-grid');
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    grid.querySelectorAll('.product-card:not(.is-visible)').forEach(card => {
-        const rect = card.getBoundingClientRect();
-        if (rect.top < vh - 20 && rect.bottom > -20) {
-            card.classList.add('is-visible');
-        }
+    grids.forEach(grid => {
+        grid.querySelectorAll('.product-card:not(.is-visible)').forEach(card => {
+            const rect = card.getBoundingClientRect();
+            if (rect.top < vh - 10 && rect.bottom > -20) {
+                card.classList.add('is-visible');
+            }
+        });
     });
 }
 
 function initShopCardReveal() {
-    const grid = document.getElementById('product-grid');
-    if (!grid || !document.querySelector('.shop-page')) return;
-    const cards = Array.from(grid.querySelectorAll('.product-card'));
-    if (!cards.length) return;
+    const grids = document.querySelectorAll('#product-grid, #new-arrivals-grid, .product-grid');
+    if (!grids.length) return;
+
+    let allCards = [];
+    grids.forEach(grid => {
+        allCards = allCards.concat(Array.from(grid.querySelectorAll('.product-card')));
+    });
+    if (!allCards.length) return;
 
     // Fallback: show everything immediately if IntersectionObserver is unavailable
     if (!('IntersectionObserver' in window)) {
-        cards.forEach(c => c.classList.add('is-visible'));
+        allCards.forEach(c => c.classList.add('is-visible'));
         return;
     }
 
@@ -482,13 +488,19 @@ function initShopCardReveal() {
                 obs.unobserve(entry.target);
             }
         });
-    }, { root: null, rootMargin: '0px 0px -30px 0px', threshold: 0.06 });
+    }, { root: null, rootMargin: '0px 0px -20px 0px', threshold: 0.05 });
 
-    cards.forEach((card, index) => {
-        // Only animate cards that are not yet in view
-        card.classList.remove('is-visible');
-        card.style.transitionDelay = (index % 4) * 55 + 'ms';
-        shopCardObserver.observe(card);
+    allCards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        // If already inside viewport when rendered/scrolled to, reveal smoothly
+        if (rect.top < vh - 20 && rect.bottom > 0) {
+            card.classList.add('is-visible');
+        } else {
+            card.classList.remove('is-visible');
+            card.style.transitionDelay = ((index % 4) * 60) + 'ms';
+            shopCardObserver.observe(card);
+        }
     });
 
     // Scroll-based safety net (runs alongside the observer)
@@ -498,8 +510,8 @@ function initShopCardReveal() {
         window.addEventListener('resize', shopRevealFallbackCheck);
     }
     requestAnimationFrame(shopRevealFallbackCheck);
-    setTimeout(shopRevealFallbackCheck, 350);
-    setTimeout(shopRevealFallbackCheck, 1200);
+    setTimeout(shopRevealFallbackCheck, 300);
+    setTimeout(shopRevealFallbackCheck, 900);
 }
 
 function displayProducts(filteredProducts) {
@@ -2987,7 +2999,7 @@ if (typeof window !== 'undefined' && window.location.pathname.includes('customiz
     function initRoohiraAnimations() {
         // Elements to observe for in-view reveal animations on scroll
         const targets = document.querySelectorAll(
-            '.section-title, .section-subtitle, .product-card, .footer-col, .feature-card, .review-card, .cat-tile, .dept-card'
+            '.section-title, .section-subtitle, .footer-col, .feature-card, .review-card, .cat-tile, .dept-card, .category-square-card, .banner-box'
         );
 
         if ('IntersectionObserver' in window) {
@@ -2999,17 +3011,22 @@ if (typeof window !== 'undefined' && window.location.pathname.includes('customiz
                     }
                 });
             }, {
-                rootMargin: '0px 0px -40px 0px',
-                threshold: 0.1
+                rootMargin: '0px 0px -35px 0px',
+                threshold: 0.08
             });
 
             targets.forEach((el) => {
-                // If element is already near top of viewport, reveal immediately
                 const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 30) {
+                if (rect.top < window.innerHeight - 30 && rect.bottom > 0) {
                     el.classList.add('rh-reveal-on-scroll', 'rh-revealed');
                 } else {
                     el.classList.add('rh-reveal-on-scroll');
+                    const parent = el.parentElement;
+                    if (parent) {
+                        const siblings = Array.from(parent.children);
+                        const idx = (siblings.indexOf(el) % 8) + 1;
+                        el.setAttribute('data-reveal-delay', idx);
+                    }
                     observer.observe(el);
                 }
             });
@@ -3017,10 +3034,18 @@ if (typeof window !== 'undefined' && window.location.pathname.includes('customiz
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initRoohiraAnimations);
+        document.addEventListener('DOMContentLoaded', () => {
+            initRoohiraAnimations();
+            setTimeout(initShopCardReveal, 80);
+        });
     } else {
         initRoohiraAnimations();
+        setTimeout(initShopCardReveal, 80);
     }
+
+    window.addEventListener('scroll', () => {
+        shopRevealFallbackCheck();
+    }, { passive: true });
 })();
 
 
