@@ -2979,3 +2979,48 @@ if (typeof window !== 'undefined' && window.location.pathname.includes('customiz
     });
 }
 
+/* ==========================================================================
+   PAGE REFRESH & SCROLL REVEAL ANIMATION CONTROLLER
+   Applies smooth fade-up & stagger animations to texts, cards, and sections
+   ========================================================================== */
+(function() {
+    function initRoohiraAnimations() {
+        // Elements to observe for in-view reveal animations on scroll
+        const targets = document.querySelectorAll(
+            '.section-title, .section-subtitle, .product-card, .footer-col, .feature-card, .review-card, .cat-tile, .dept-card'
+        );
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('rh-revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px -40px 0px',
+                threshold: 0.1
+            });
+
+            targets.forEach((el) => {
+                // If element is already near top of viewport, reveal immediately
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 30) {
+                    el.classList.add('rh-reveal-on-scroll', 'rh-revealed');
+                } else {
+                    el.classList.add('rh-reveal-on-scroll');
+                    observer.observe(el);
+                }
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initRoohiraAnimations);
+    } else {
+        initRoohiraAnimations();
+    }
+})();
+
+
