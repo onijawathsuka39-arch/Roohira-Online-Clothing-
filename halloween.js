@@ -225,23 +225,17 @@
   }
 
   function addFestivePill() {
-    if (document.getElementById('halloween-festive-badge')) return;
-    const badge = document.createElement('div');
-    badge.id = 'halloween-festive-badge';
-    badge.className = 'halloween-festive-badge';
-    badge.title = 'Halloween Special Festive Mood is active!';
-    badge.innerHTML = `
-      <span class="badge-icon">🎃</span>
-      <span>Halloween Edition</span>
-    `;
-    document.body.appendChild(badge);
+    // Badge hidden per user request; function kept dormant to avoid breaking references
+    const badge = document.getElementById('halloween-festive-badge');
+    if (badge && badge.parentNode) {
+      badge.parentNode.removeChild(badge);
+    }
   }
 
   function syncEffectState() {
     if (isFestivalActive(currentSettings)) {
       injectStyles();
       startFallingAnimation();
-      addFestivePill();
     } else {
       stopFallingAnimation();
     }
