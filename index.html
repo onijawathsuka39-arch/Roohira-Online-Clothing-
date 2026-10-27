@@ -239,9 +239,7 @@
         </div>
 
         <!-- 16:9 Banner Slider Viewport -->
-        <div class="home-banner-viewport" id="homeBannerViewport" 
-             onmouseenter="pauseHomeBannerAutoScroll()" 
-             onmouseleave="resumeHomeBannerAutoScroll()">
+        <div class="home-banner-viewport" id="homeBannerViewport">
           <div class="home-banner-track" id="homeBannerTrack">
             <!-- Banners injected dynamically via initHomeBanners() -->
           </div>
@@ -1312,10 +1310,10 @@
         return `
           <div class="home-banner-slide" onclick="handleBannerClick('${img}', '${link.replace(/'/g, "\\'")}', '${title.replace(/'/g, "\\'")}')">
             <div class="home-banner-img-box">
-              <img src="${img}" alt="${title}" loading="${idx === 0 ? 'eager' : 'lazy'}">
+              <img src="${img}" alt="${title}" loading="${idx < 3 ? 'eager' : 'lazy'}">
               <div class="home-banner-overlay">
                 <span class="home-banner-zoom-badge">
-                  <i class="fa-solid fa-magnifying-glass-plus"></i> View Fullscreen
+                  <i class="fa-solid fa-magnifying-glass-plus"></i> View
                 </span>
                 ${title ? `<div class="home-banner-caption"><h3>${title}</h3></div>` : ''}
               </div>
@@ -1324,9 +1322,12 @@
         `;
       }).join('');
 
+      // Determine items visible per page based on window width
+      const totalSteps = getMaxBannerSteps();
+
       // Dots
       if (dotsContainer) {
-        dotsContainer.innerHTML = homeBannersList.map((_, idx) => `
+        dotsContainer.innerHTML = Array.from({ length: totalSteps }).map((_, idx) => `
           <button class="home-banner-dot ${idx === 0 ? 'active' : ''}" onclick="goToHomeBanner(${idx})" aria-label="Go to banner ${idx + 1}"></button>
         `).join('');
       }
@@ -1337,15 +1338,39 @@
       startHomeBannerAutoScroll();
     }
 
+    function getItemsPerView() {
+      const w = window.innerWidth;
+      if (w <= 480) return 1.15; // Shows single compact banner + sneak peek of next
+      if (w <= 768) return 1.5;  // 1.5 banners on tablets / large phones
+      if (w <= 1024) return 2;   // 2 compact banners on laptops
+      return 2.5;                // 2.5 banners on desktop
+    }
+
+    function getMaxBannerSteps() {
+      if (!homeBannersList.length) return 0;
+      const itemsPerView = Math.floor(getItemsPerView());
+      return Math.max(1, homeBannersList.length - itemsPerView + 1);
+    }
+
     function updateHomeBannerSlide() {
       const track = document.getElementById('homeBannerTrack');
       const dots = document.querySelectorAll('.home-banner-dot');
       if (!track || !homeBannersList.length) return;
 
-      if (homeBannerIndex >= homeBannersList.length) homeBannerIndex = 0;
-      if (homeBannerIndex < 0) homeBannerIndex = homeBannersList.length - 1;
+      const maxSteps = getMaxBannerSteps();
+      if (homeBannerIndex >= maxSteps) homeBannerIndex = 0;
+      if (homeBannerIndex < 0) homeBannerIndex = maxSteps - 1;
 
-      track.style.transform = `translateX(-${homeBannerIndex * 100}%)`;
+      // Calculate shift percentage per step based on slide width + gap
+      const slideEl = track.querySelector('.home-banner-slide');
+      if (slideEl) {
+        const slideWidth = slideEl.offsetWidth;
+        const gap = 16;
+        const shiftX = homeBannerIndex * (slideWidth + gap);
+        track.style.transform = `translateX(-${shiftX}px)`;
+      } else {
+        track.style.transform = `translateX(-${homeBannerIndex * 100}%)`;
+      }
 
       dots.forEach((dot, idx) => {
         if (idx === homeBannerIndex) {
@@ -1357,13 +1382,15 @@
     }
 
     function homeBannerNext() {
-      homeBannerIndex = (homeBannerIndex + 1) % homeBannersList.length;
+      const maxSteps = getMaxBannerSteps();
+      homeBannerIndex = (homeBannerIndex + 1) % maxSteps;
       updateHomeBannerSlide();
       resetHomeBannerAutoScroll();
     }
 
     function homeBannerPrev() {
-      homeBannerIndex = (homeBannerIndex - 1 + homeBannersList.length) % homeBannersList.length;
+      const maxSteps = getMaxBannerSteps();
+      homeBannerIndex = (homeBannerIndex - 1 + maxSteps) % maxSteps;
       updateHomeBannerSlide();
       resetHomeBannerAutoScroll();
     }
@@ -1378,13 +1405,14 @@
       if (homeBannerAutoTimer) clearInterval(homeBannerAutoTimer);
       if (homeBannersList.length <= 1) return;
       homeBannerAutoTimer = setInterval(() => {
-        homeBannerIndex = (homeBannerIndex + 1) % homeBannersList.length;
+        const maxSteps = getMaxBannerSteps();
+        homeBannerIndex = (homeBannerIndex + 1) % maxSteps;
         updateHomeBannerSlide();
-      }, 4200);
+      }, 2600); // Continuous & frequent auto-scroll every 2.6s
     }
 
     function pauseHomeBannerAutoScroll() {
-      if (homeBannerAutoTimer) clearInterval(homeBannerAutoTimer);
+      // Kept empty so banners continuously auto-scroll at all times without pausing
     }
 
     function resumeHomeBannerAutoScroll() {
@@ -1392,7 +1420,6 @@
     }
 
     function resetHomeBannerAutoScroll() {
-      pauseHomeBannerAutoScroll();
       startHomeBannerAutoScroll();
     }
 
@@ -1481,6 +1508,10 @@
     // Trigger on document ready
     document.addEventListener('DOMContentLoaded', () => {
       initHomeBanners();
+    });
+
+    window.addEventListener('resize', () => {
+      updateHomeBannerSlide();
     });
   </script>
   <!-- Halloween Atmospheric Festival Effects -->

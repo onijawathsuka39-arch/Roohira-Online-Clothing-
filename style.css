@@ -5350,42 +5350,48 @@ h1,
 .rh-reveal-on-scroll[data-reveal-delay="8"] { transition-delay: 0.40s; }
 
 /* ==========================================================================
-   HOME AUTO-SCROLLING 16:9 PROMO BANNERS STYLES
+   HOME AUTO-SCROLLING 16:9 PROMO BANNERS STYLES (COMPACT CAROUSEL)
    ========================================================================== */
 .home-banner-viewport {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: 4px;
   overflow: hidden;
-  background: #110D0A;
-  box-shadow: 0 8px 24px rgba(26, 18, 11, 0.12);
-  border: 1.5px solid #1A120B;
   user-select: none;
   cursor: grab;
+  padding: 4px 0;
 }
 .home-banner-viewport:active {
   cursor: grabbing;
 }
 .home-banner-track {
   display: flex;
-  height: 100%;
   width: 100%;
-  transition: transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+  gap: 16px;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
   will-change: transform;
 }
+/* Compact banner slides: ~2.5 slides visible on desktop, 2 on laptop, 1.15 on mobile */
 .home-banner-slide {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
+  flex: 0 0 calc((100% - (16px * 1.5)) / 2.5);
+  min-width: 0;
   position: relative;
+  cursor: pointer;
 }
 .home-banner-img-box {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   position: relative;
   overflow: hidden;
   background: #110D0A;
+  border-radius: 4px;
+  border: 1.5px solid #1A120B;
+  box-shadow: 0 4px 14px rgba(26, 18, 11, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.home-banner-slide:hover .home-banner-img-box {
+  transform: translateY(-4px);
+  border-color: #8B5A2B;
+  box-shadow: 0 10px 22px rgba(26, 18, 11, 0.14);
 }
 .home-banner-img-box img {
   width: 100%;
@@ -5393,10 +5399,10 @@ h1,
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.5s ease;
 }
 .home-banner-slide:hover .home-banner-img-box img {
-  transform: scale(1.025);
+  transform: scale(1.04);
 }
 .home-banner-overlay {
   position: absolute;
@@ -5404,48 +5410,49 @@ h1,
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0) 65%, rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.65) 100%);
   pointer-events: none;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
+  padding: 10px 12px;
 }
 .home-banner-zoom-badge {
   align-self: flex-end;
-  background: rgba(26, 18, 11, 0.82);
+  background: rgba(26, 18, 11, 0.85);
   backdrop-filter: blur(4px);
   color: #FFFFFF;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 20px;
   border: 1px solid rgba(198, 162, 107, 0.4);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  letter-spacing: 0.5px;
+  gap: 4px;
+  letter-spacing: 0.4px;
 }
 .home-banner-caption {
   color: #FFFFFF;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  text-shadow: 0 2px 5px rgba(0,0,0,0.7);
 }
 .home-banner-caption h3 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-size: clamp(0.85rem, 1.3vw, 1.05rem);
   font-weight: 700;
   margin: 0;
   color: #FFFFFF;
+  line-height: 1.25;
 }
 
 /* Dots */
 .home-banner-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background: rgba(26, 18, 11, 0.25);
-  border: 1.5px solid #1A120B;
+  border: 1px solid #1A120B;
   cursor: pointer;
   padding: 0;
   transition: all 0.3s ease;
@@ -5453,12 +5460,12 @@ h1,
 .home-banner-dot.active {
   background: #8B5A2B;
   border-color: #8B5A2B;
-  width: 26px;
+  width: 22px;
   border-radius: 12px;
 }
 
 /* ==========================================================================
-   BANNER LIGHTBOX MODAL (Full-Screen Zoom View with Close Option)
+   BANNER LIGHTBOX MODAL (Compact Modal Preview with Close Option)
    ========================================================================== */
 .banner-lightbox-backdrop {
   position: fixed;
@@ -5466,15 +5473,15 @@ h1,
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(14, 10, 8, 0.94);
-  backdrop-filter: blur(8px);
+  background: rgba(14, 10, 8, 0.78);
+  backdrop-filter: blur(5px);
   z-index: 999999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.22s ease;
   cursor: zoom-out;
 }
 .banner-lightbox-backdrop.open {
@@ -5482,28 +5489,33 @@ h1,
 }
 .banner-lightbox-content {
   position: relative;
-  max-width: 1100px;
-  width: 100%;
+  max-width: 580px; /* Compact, balanced preview window on screen */
+  width: 90%;
   background: #110D0A;
-  border: 1.5px solid rgba(198, 162, 107, 0.4);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
-  border-radius: 4px;
+  border: 1.5px solid rgba(198, 162, 107, 0.45);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+  border-radius: 8px;
   overflow: hidden;
   cursor: default;
   display: flex;
   flex-direction: column;
+  animation: bannerModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes bannerModalPop {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 .banner-lightbox-close {
   position: absolute;
-  top: 10px;
-  right: 12px;
-  width: 40px;
-  height: 40px;
-  background: rgba(26, 18, 11, 0.85);
-  border: 1.5px solid #8B5A2B;
+  top: 8px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
+  background: rgba(26, 18, 11, 0.88);
+  border: 1px solid #8B5A2B;
   color: #FFFFFF;
   border-radius: 50%;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -5515,7 +5527,7 @@ h1,
 .banner-lightbox-close:hover {
   background: #DC143C;
   border-color: #DC143C;
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 .banner-lightbox-img-wrapper {
   width: 100%;
@@ -5529,11 +5541,11 @@ h1,
 .banner-lightbox-img-wrapper img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 .banner-lightbox-footer {
-  padding: 12px 18px;
+  padding: 10px 14px;
   background: #1A120B;
   border-top: 1px solid rgba(198, 162, 107, 0.2);
 }
@@ -5541,22 +5553,33 @@ h1,
   margin: 0;
   color: #FFFFFF;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
-/* Mobile responsive adjustments */
+/* Responsive Breakpoints for Compact Multi-Banner Carousel */
+@media (max-width: 1024px) {
+  .home-banner-slide {
+    flex: 0 0 calc((100% - 16px) / 2); /* Exactly 2 banners on laptops/tablets */
+  }
+}
+
 @media (max-width: 768px) {
   #home-banners-section {
-    padding: 28px 4% 24px !important;
+    padding: 24px 4% 20px !important;
   }
-  .home-banner-viewport {
-    aspect-ratio: 16 / 9 !important;
-    border-radius: 2px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  .home-banner-track {
+    gap: 12px;
+  }
+  .home-banner-slide {
+    flex: 0 0 calc(100% - 50px); /* 1 compact banner + preview peek of next */
+  }
+  .home-banner-img-box {
+    border-radius: 4px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
   }
   .home-banner-zoom-badge {
-    font-size: 0.65rem;
-    padding: 3px 8px;
+    font-size: 0.6rem;
+    padding: 2px 7px;
   }
   .banner-lightbox-backdrop {
     padding: 10px;
@@ -5567,6 +5590,18 @@ h1,
     font-size: 1.3rem;
     top: 8px;
     right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-banner-slide {
+    flex: 0 0 calc(100% - 35px); /* Mobile view */
+  }
+  .home-banner-overlay {
+    padding: 8px 10px;
+  }
+  .home-banner-caption h3 {
+    font-size: 0.85rem;
   }
 }
 
