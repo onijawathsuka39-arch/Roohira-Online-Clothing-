@@ -466,52 +466,9 @@ function shopRevealFallbackCheck() {
 function initShopCardReveal() {
     const grids = document.querySelectorAll('#product-grid, #new-arrivals-grid, .product-grid');
     if (!grids.length) return;
-
-    let allCards = [];
     grids.forEach(grid => {
-        allCards = allCards.concat(Array.from(grid.querySelectorAll('.product-card')));
+        grid.querySelectorAll('.product-card').forEach(card => card.classList.add('is-visible'));
     });
-    if (!allCards.length) return;
-
-    // Fallback: show everything immediately if IntersectionObserver is unavailable
-    if (!('IntersectionObserver' in window)) {
-        allCards.forEach(c => c.classList.add('is-visible'));
-        return;
-    }
-
-    if (shopCardObserver) shopCardObserver.disconnect();
-
-    shopCardObserver = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { root: null, rootMargin: '0px 0px -20px 0px', threshold: 0.05 });
-
-    allCards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        // If already inside viewport when rendered/scrolled to, reveal smoothly
-        if (rect.top < vh - 20 && rect.bottom > 0) {
-            card.classList.add('is-visible');
-        } else {
-            card.classList.remove('is-visible');
-            card.style.transitionDelay = ((index % 4) * 60) + 'ms';
-            shopCardObserver.observe(card);
-        }
-    });
-
-    // Scroll-based safety net (runs alongside the observer)
-    if (!shopRevealFallbackBound) {
-        shopRevealFallbackBound = true;
-        window.addEventListener('scroll', shopRevealFallbackCheck, { passive: true });
-        window.addEventListener('resize', shopRevealFallbackCheck);
-    }
-    requestAnimationFrame(shopRevealFallbackCheck);
-    setTimeout(shopRevealFallbackCheck, 300);
-    setTimeout(shopRevealFallbackCheck, 900);
 }
 
 function displayProducts(filteredProducts) {
@@ -3036,16 +2993,12 @@ if (typeof window !== 'undefined' && window.location.pathname.includes('customiz
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             initRoohiraAnimations();
-            setTimeout(initShopCardReveal, 80);
+            initShopCardReveal();
         });
     } else {
         initRoohiraAnimations();
-        setTimeout(initShopCardReveal, 80);
+        initShopCardReveal();
     }
-
-    window.addEventListener('scroll', () => {
-        shopRevealFallbackCheck();
-    }, { passive: true });
 })();
 
 

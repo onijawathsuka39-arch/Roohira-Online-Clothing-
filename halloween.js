@@ -90,14 +90,9 @@
         top: -60px;
         user-select: none;
         cursor: default;
-        pointer-events: auto;
-        will-change: transform, opacity;
-        filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
-        transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-      }
-      .halloween-floater:hover {
-        transform: scale(1.4) rotate(15deg) !important;
-        opacity: 0.85 !important;
+        pointer-events: none;
+        will-change: transform;
+        transition: opacity 0.3s ease;
       }
       @keyframes halloweenFall {
         0% {
