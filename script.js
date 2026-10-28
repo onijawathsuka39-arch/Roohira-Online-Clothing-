@@ -445,30 +445,168 @@ function renderHomePageSections() {
     if (typeof initFastScrollAnimations === 'function') setTimeout(initFastScrollAnimations, 40);
 }
 
+/* ==========================================================================
+   PRODUCT CARD FADE IN / FADE OUT ON SCROLL (HOME + SHOP)
+   - Cards fade in softly (with a gentle lift + per-row stagger) when they
+     enter the viewport while scrolling down or up
+   - Cards fade back out once they leave the viewport
+   - Fade re-plays every time a card comes back into view
+   ========================================================================== */
 let shopCardObserver = null;
-let shopRevealFallbackBound = false;
+let shopRevealScrollBound = false;
+let lastScrollY = window.scrollY || window.pageYOffset || 0;
+let scrollDirection = 'down';
+const rhCardDelayTimers = new WeakMap();
 
-// Safety net: reveal any card that has entered the viewport.
-// Guarantees cards can never stay invisible even if IntersectionObserver is throttled.
-function shopRevealFallbackCheck() {
-    const grids = document.querySelectorAll('#product-grid, #new-arrivals-grid, .product-grid');
-    const vh = window.innerHeight || document.documentElement.clientHeight;
-    grids.forEach(grid => {
-        grid.querySelectorAll('.product-card:not(.is-visible)').forEach(card => {
-            const rect = card.getBoundingClientRect();
-            if (rect.top < vh - 10 && rect.bottom > -20) {
-                card.classList.add('is-visible');
-            }
+const RH_CARD_SELECTOR = '.product-grid .product-card, .home-cards-grid .product-card';
+
+function getRhCards() {
+    return Array.prototype.slice.call(document.querySelectorAll(RH_CARD_SELECTOR));
+}
+
+// Stagger per row: left-to-right going down, right-to-left going up
+function applyCardStagger(cards, reverse) {
+    const rows = [];
+    let lastTop = null;
+
+    cards.forEach(card => {
+        const top = Math.round(card.offsetTop);
+        if (top !== lastTop) {
+            rows.push([]);
+            lastTop = top;
+        }
+        rows[rows.length - 1].push(card);
+    });
+
+    rows.forEach(row => {
+        const maxIndex = row.length - 1;
+        row.forEach((card, index) => {
+            const step = reverse ? (maxIndex - index) : index;
+            const delay = Math.min(step, 6) * 65;
+            card.style.setProperty('--rh-delay', delay + 'ms');
+
+            // Clear the delay once the reveal has finished so hover feels instant
+            const existing = rhCardDelayTimers.get(card);
+            if (existing) clearTimeout(existing);
+            rhCardDelayTimers.set(card, setTimeout(() => {
+                card.style.setProperty('--rh-delay', '0ms');
+            }, delay + 1000));
         });
     });
 }
 
-function initShopCardReveal() {
-    const grids = document.querySelectorAll('#product-grid, #new-arrivals-grid, .product-grid');
-    if (!grids.length) return;
-    grids.forEach(grid => {
-        grid.querySelectorAll('.product-card').forEach(card => card.classList.add('is-visible'));
+function markCardVisible(card) {
+    card.classList.remove('is-above');
+    card.classList.add('is-visible');
+}
+
+function markCardHidden(card, above) {
+    card.classList.remove('is-visible');
+    card.classList.toggle('is-above', !!above);
+}
+
+// Scroll-driven reveal + cleanup.
+// The IntersectionObserver handles the initial paint, this keeps the fade
+// perfectly in sync with fast scrolling and acts as a fallback.
+function checkCardScrollVisibility() {
+    const cards = getRhCards();
+    if (!cards.length) return;
+
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const currentScrollY = window.scrollY || window.pageYOffset || 0;
+    if (Math.abs(currentScrollY - lastScrollY) > 2) {
+        scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+    }
+    lastScrollY = currentScrollY;
+
+    const entering = [];
+
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const inView = rect.top < vh - 8 && rect.bottom > 8;
+
+        if (inView) {
+            if (!card.classList.contains('is-visible')) entering.push(card);
+        } else {
+            markCardHidden(card, rect.bottom <= 0);
+        }
     });
+
+    if (entering.length) {
+        applyCardStagger(entering, scrollDirection === 'up');
+        entering.forEach(markCardVisible);
+    }
+}
+
+function initShopCardReveal() {
+    const cards = getRhCards();
+    if (!cards.length) return;
+
+    if (shopCardObserver) shopCardObserver.disconnect();
+
+    cards.forEach(card => card.classList.add('rh-motion'));
+
+    // Older browsers: just show everything in place
+    if (!('IntersectionObserver' in window)) {
+        cards.forEach(markCardVisible);
+        return;
+    }
+
+    shopCardObserver = new IntersectionObserver((entries) => {
+        const entering = [];
+        const reverse = scrollDirection === 'up';
+
+        entries.forEach(entry => {
+            const card = entry.target;
+            const rect = entry.boundingClientRect;
+            const vh = window.innerHeight || document.documentElement.clientHeight;
+
+            if (entry.isIntersecting) {
+                entering.push(card);
+            } else if (rect.bottom <= 24) {
+                markCardHidden(card, true);   // passed the top edge
+            } else if (rect.top >= vh - 24) {
+                markCardHidden(card, false);  // reset below the fold
+            }
+        });
+
+        if (entering.length) {
+            applyCardStagger(entering, reverse);
+            entering.forEach(markCardVisible);
+        }
+    }, {
+        root: null,
+        rootMargin: '-4% 0px -4% 0px',
+        threshold: 0.01
+    });
+
+    cards.forEach(card => {
+        card.style.setProperty('--rh-delay', '0ms');
+        shopCardObserver.observe(card);
+    });
+
+    if (!shopRevealScrollBound) {
+        shopRevealScrollBound = true;
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(() => {
+                checkCardScrollVisibility();
+                ticking = false;
+            });
+        }, { passive: true });
+
+        window.addEventListener('resize', () => {
+            window.requestAnimationFrame(() => {
+                checkCardScrollVisibility();
+                applyCardStagger(getRhCards(), false);
+            });
+        }, { passive: true });
+    }
+
+    // Reveal whatever is already on screen (with stagger)
+    checkCardScrollVisibility();
 }
 
 function displayProducts(filteredProducts) {
@@ -2798,10 +2936,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function initFastScrollAnimations() {
     if (typeof window === 'undefined') return;
 
-    // Target elements: category cards, department cards, product cards, sections
+    // Target elements: category cards, department cards, sections
+    // (product cards are handled by the dedicated bidirectional motion controller)
     const selectors = [
         '.category-square-card',
-        '.product-card',
         '.featured-product-card',
         '.hero-content',
         '.exclusive-banner'

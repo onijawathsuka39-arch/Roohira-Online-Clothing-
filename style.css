@@ -331,11 +331,139 @@ nav#navbar.scrolled { box-shadow: var(--shadow-md); }
   display: flex; align-items: center; justify-content: center;
 }
 
-/* Hero Section: Clean Rich Solid/Gradient without Background Image */
+/* Hero Section: Clean, borderless light canvas (no background colour) */
 .hero-luxury {
   position: relative; min-height: 85vh; display: flex; align-items: center;
-  background: radial-gradient(circle at 80% 20%, #2A1A10 0%, #160D08 60%, #0E0704 100%) !important;
+  background: transparent !important;
   overflow: hidden;
+}
+
+/* Fine square grid, masked so it melts away toward the edges */
+.hero-luxury::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(139, 90, 43, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 90, 43, 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 42%, #000 18%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 42%, #000 18%, rgba(0, 0, 0, 0.55) 55%, transparent 100%);
+}
+
+/* Large square tiles that slowly rise into view and dissolve away */
+.hero-tiles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-tile {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(139, 90, 43, 0.34);
+  opacity: 0;
+  transform: translate3d(0, 34px, 0) rotate(0deg) scale(0.82);
+  animation: heroTileRise 18s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+.hero-tile.fill {
+  background: rgba(198, 162, 107, 0.12);
+  border-color: rgba(198, 162, 107, 0.26);
+}
+.hero-tile.t1 { width: 150px; height: 150px; top: 10%; left: 2%; animation-duration: 19s; animation-delay: -3s; }
+.hero-tile.t2 { width: 90px;  height: 90px;  top: 58%; left: 36%; animation-duration: 15s; animation-delay: -7s; }
+.hero-tile.t3 { width: 230px; height: 230px; top: 6%;  right: 5%; animation-duration: 22s; animation-delay: -11s; }
+.hero-tile.t4 { width: 120px; height: 120px; bottom: 6%; right: 28%; animation-duration: 17s; animation-delay: -5s; }
+.hero-tile.t5 { width: 64px;  height: 64px;  top: 38%; left: 8%; animation-duration: 13s; animation-delay: -9s; }
+.hero-tile.t6 { width: 160px; height: 160px; bottom: 12%; left: 44%; animation-duration: 20s; animation-delay: -14s; }
+.hero-tile.t7 { width: 46px;  height: 46px;  top: 26%; right: 18%; animation-duration: 12s; animation-delay: -2s; }
+
+@keyframes heroTileRise {
+  0%   { opacity: 0;    transform: translate3d(0, 34px, 0) rotate(0deg) scale(0.82); }
+  22%  { opacity: 0.5; }
+  50%  { opacity: 0.85; transform: translate3d(0, 0, 0) rotate(9deg) scale(1); }
+  72%  { opacity: 0.4; }
+  100% { opacity: 0;    transform: translate3d(0, -48px, 0) rotate(16deg) scale(1.06); }
+}
+
+/* Hero typewriter title + soft reveal choreography */
+.hero-type-title {
+  position: relative;
+}
+/* Invisible full-text copy reserves the exact final height (no layout jump) */
+.hero-type-ghost {
+  display: block;
+  visibility: hidden;
+}
+/* The typed text sits on top of the reserved space */
+.hero-type-live {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.hero-type-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  margin-left: 5px;
+  vertical-align: -0.06em;
+  background: #B38738;
+  box-shadow: 0 0 10px rgba(179, 135, 56, 0.55);
+  opacity: 0;
+}
+.hero-type-title.is-typing .hero-type-caret {
+  opacity: 1;
+  animation: heroCaretBlink 0.72s steps(1, end) infinite;
+}
+.hero-type-title.typing-done .hero-type-caret { display: none; }
+
+/* Gold flourish that draws itself once the title finishes typing */
+.hero-type-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -12px;
+  width: 92px;
+  height: 2px;
+  background: linear-gradient(90deg, #8B5A2B 0%, #C6A26B 70%, rgba(198, 162, 107, 0) 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-type-title.typing-done::after { transform: scaleX(1); }
+
+@keyframes heroCaretBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Subtitle, buttons and metrics wait for the title, then rise in sequence */
+.hero-copy.hero-sequencing .hero-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.hero-copy.hero-sequencing.hero-revealed .hero-reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-type-caret,
+  .hero-type-title::after { display: none !important; transition: none !important; }
+  .hero-tile { animation: none !important; opacity: 0 !important; }
+  .hero-copy.hero-sequencing .hero-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 .category-banner { display: block; position: relative; overflow: hidden; border-radius: 0; }
@@ -349,16 +477,16 @@ nav#navbar.scrolled { box-shadow: var(--shadow-md); }
   border-radius: 0px !important;
   overflow: hidden;
   position: relative;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.2s ease;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
   cursor: pointer;
-  content-visibility: auto;
-  contain-intrinsic-size: 300px 420px;
+  will-change: opacity, transform;
 }
 
 .product-card:hover {
@@ -3972,32 +4100,47 @@ footer *, .footer * { color: inherit; }
 }
 
 /* ==========================================================================
-   SCROLL REVEAL FOR ALL PRODUCT CARDS (HOME, SHOP, MEN, WOMEN, KIDS, OTHER)
+   PRODUCT CARD FADE IN / FADE OUT ON SCROLL — HOME & SHOP
+   Cards fade in softly as they enter the viewport (with a gentle lift and
+   row stagger) and fade out again when scrolling past them, in either
+   direction. Scrolling back re-triggers the fade.
    ========================================================================== */
-.product-grid .product-card,
-.home-cards-grid .product-card,
-.shop-page .product-grid .product-card {
+.product-card.rh-motion {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  transition-delay: var(--rh-delay, 0ms);
+  backface-visibility: hidden;
+  will-change: opacity, transform;
+}
+
+/* Faded in — card is inside the viewport */
+.product-card.rh-motion.is-visible {
   opacity: 1;
-  transform: none;
+  transform: translate3d(0, 0, 0);
 }
-.product-grid .product-card.is-visible,
-.home-cards-grid .product-card.is-visible,
-.shop-page .product-grid .product-card.is-visible {
-  opacity: 1 !important;
-  transform: none !important;
+
+/* Faded out — card has passed the top of the viewport */
+.product-card.rh-motion.is-above {
+  opacity: 0;
+  transform: translate3d(0, -18px, 0);
 }
-.product-grid .product-card:hover,
-.home-cards-grid .product-card:hover,
-.shop-page .product-grid .product-card:hover {
-  transform: translateY(-6px) !important;
+
+/* Revealed cards keep the luxury hover lift */
+.product-card.rh-motion.is-visible:hover {
+  transform: translate3d(0, -8px, 0) !important;
+  box-shadow: 0 22px 44px rgba(26, 18, 11, 0.16), 0 6px 16px rgba(184, 135, 56, 0.18) !important;
+  border-color: #8B5A2B !important;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .product-grid .product-card,
-  .product-grid .product-card.is-visible,
-  .home-cards-grid .product-card,
-  .home-cards-grid .product-card.is-visible,
-  .shop-page .product-grid .product-card,
-  .shop-page .product-grid .product-card.is-visible {
+  .product-card.rh-motion,
+  .product-card.rh-motion.is-visible,
+  .product-card.rh-motion.is-above {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
@@ -5266,28 +5409,24 @@ h1,
   animation: roohiraTextFadeUp 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
 }
 
-/* Product Cards & Catalog Items Gentle Cascade */
-.product-grid > .product-card:nth-child(1),
+/* Product Cards & Catalog Items Gentle Cascade
+   (home/shop .product-grid cards are handled by the scroll fade controller) */
 .products-grid > .product-card:nth-child(1),
 .shop-grid > .product-card:nth-child(1) {
   animation: roohiraItemSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
-.product-grid > .product-card:nth-child(2),
 .products-grid > .product-card:nth-child(2),
 .shop-grid > .product-card:nth-child(2) {
   animation: roohiraItemSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
-.product-grid > .product-card:nth-child(3),
 .products-grid > .product-card:nth-child(3),
 .shop-grid > .product-card:nth-child(3) {
   animation: roohiraItemSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
 }
-.product-grid > .product-card:nth-child(4),
 .products-grid > .product-card:nth-child(4),
 .shop-grid > .product-card:nth-child(4) {
   animation: roohiraItemSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.30s both;
 }
-.product-grid > .product-card:nth-child(n+5),
 .products-grid > .product-card:nth-child(n+5),
 .shop-grid > .product-card:nth-child(n+5) {
   animation: roohiraItemSlideUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.36s both;

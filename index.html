@@ -94,16 +94,27 @@
   <main>
     <!-- Hero Section - Ultra-Modern Luxury Atelier Layout (No Banner Background Image, Fully Mobile Responsive) -->
     <section class="hero-luxury" style="padding: clamp(90px, 12vh, 130px) 6% clamp(50px, 8vh, 80px);">
+      <!-- Decorative square grid + floating tiles (purely visual) -->
+      <div class="hero-tiles" aria-hidden="true">
+        <span class="hero-tile t1"></span>
+        <span class="hero-tile t2 fill"></span>
+        <span class="hero-tile t3"></span>
+        <span class="hero-tile t4 fill"></span>
+        <span class="hero-tile t5"></span>
+        <span class="hero-tile t6 fill"></span>
+        <span class="hero-tile t7"></span>
+      </div>
       <div style="max-width: 1200px; width: 100%; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 3rem; align-items: center;">
-        <div style="color: var(--white);">
+        <div class="hero-copy" style="color: #3A2416;">
           <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(198, 162, 107, 0.12); border: 1px solid rgba(198, 162, 107, 0.35); padding: 6px 14px; margin-bottom: 1.25rem;">
-            <i data-lucide="crown" style="width: 14px; height: 14px; color: #DFCA9B;"></i>
-            <span style="font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.76rem; font-weight: 700; color: #DFCA9B;">
+            <i data-lucide="crown" style="width: 14px; height: 14px; color: #8B5A2B;"></i>
+            <span style="font-family: var(--font-sans); text-transform: uppercase; letter-spacing: 0.22em; font-size: 0.76rem; font-weight: 700; color: #8B5A2B;">
               Sri Lanka's Premier Fashion House
             </span>
           </div>
-          <h1 style="color: #FFFFFF; margin-bottom: 1.25rem; font-family: var(--font-serif); font-size: clamp(2.2rem, 5.2vw, 3.8rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em;">
-            Timeless Elegance &amp; Contemporary Grace
+          <h1 class="hero-type-title" aria-label="Timeless Elegance and Contemporary Grace" style="color: #4A2C17; margin-bottom: 1.25rem; font-family: var(--font-serif); font-size: clamp(2.2rem, 5.2vw, 3.8rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.01em;">
+            <span class="hero-type-ghost" aria-hidden="true">Timeless Elegance &amp; Contemporary Grace</span>
+            <span class="hero-type-live" aria-hidden="true"><span class="hero-type-caret"></span></span>
           </h1>
 
           <!-- Mobile-Only Hero Banner Image (Displayed exclusively on Mobile Screens) -->
@@ -111,36 +122,36 @@
             <img src="https://i.ibb.co/TDtzCMCp/Roohira-Collection-Fashion-for-Everyone.png" alt="Roohira Collection - Fashion for Everyone" loading="eager">
           </div>
 
-          <p style="color: #E2D7CE; font-size: clamp(0.95rem, 2vw, 1.12rem); margin-bottom: 2.2rem; line-height: 1.75; max-width: 580px; font-weight: 400;">
+          <p class="hero-reveal" style="--d: 0.05s; color: #6D5D53; font-size: clamp(0.95rem, 2vw, 1.12rem); margin-bottom: 2.2rem; line-height: 1.75; max-width: 580px; font-weight: 400;">
             Immerse yourself in our curated collection of heavyweight luxury tees, authentic designer frocks, custom embroidery, and high-precision DTF printing.
           </p>
 
           <!-- Action Buttons Bar -->
-          <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 35px;">
+          <div class="hero-reveal" style="--d: 0.15s; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 35px;">
             <a href="shop.html" class="btn btn-gold btn-lg">
               <i data-lucide="compass" style="width: 18px; height: 18px;"></i> Explore Collection
             </a>
-            <a href="customize.html" class="btn btn-outline-white btn-lg">
+            <a href="customize.html" class="btn btn-outline btn-lg">
               <i data-lucide="edit-3" style="width: 18px; height: 18px;"></i> Design Studio
             </a>
-            <a href="dtf.html" style="color: #DFCA9B; padding: 12px 16px; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;">
+            <a href="dtf.html" style="color: #8B5A2B; padding: 12px 16px; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 6px; transition: 0.2s;">
               <i data-lucide="printer" style="width: 16px; height: 16px;"></i> DTF Prints &rarr;
             </a>
           </div>
 
           <!-- Quick Metrics Bar -->
-          <div style="display: flex; gap: clamp(15px, 4vw, 35px); border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 22px; flex-wrap: wrap;">
+          <div class="hero-reveal" style="--d: 0.25s; display: flex; gap: clamp(15px, 4vw, 35px); border-top: 1px solid rgba(26, 15, 10, 0.14); padding-top: 22px; flex-wrap: wrap;">
             <div>
-              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">5,000+</h4>
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Orders Delivered</p>
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #8B5A2B; margin: 0;">5,000+</h4>
+              <p style="font-size: 0.75rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Orders Delivered</p>
             </div>
-            <div style="border-left: 1px solid rgba(255, 255, 255, 0.15); padding-left: clamp(15px, 4vw, 35px);">
-              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">220 GSM</h4>
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Heavy Cotton Luxury</p>
+            <div style="border-left: 1px solid rgba(26, 15, 10, 0.14); padding-left: clamp(15px, 4vw, 35px);">
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #8B5A2B; margin: 0;">220 GSM</h4>
+              <p style="font-size: 0.75rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">Heavy Cotton Luxury</p>
             </div>
-            <div style="border-left: 1px solid rgba(255, 255, 255, 0.15); padding-left: clamp(15px, 4vw, 35px);">
-              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #DFCA9B; margin: 0;">100%</h4>
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">COD Islandwide</p>
+            <div style="border-left: 1px solid rgba(26, 15, 10, 0.14); padding-left: clamp(15px, 4vw, 35px);">
+              <h4 style="font-family: var(--font-sans); font-size: 1.7rem; font-weight: 800; color: #8B5A2B; margin: 0;">100%</h4>
+              <p style="font-size: 0.75rem; color: #6D5D53; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600;">COD Islandwide</p>
             </div>
           </div>
         </div>
@@ -182,6 +193,59 @@
       </div>
     </section>
 
+    <!-- Hero title typewriter animation -->
+    <script>
+      (function () {
+        var title = document.querySelector('.hero-luxury .hero-type-title');
+        var copy = document.querySelector('.hero-luxury .hero-copy');
+        if (!title) return;
+
+        var ghost = title.querySelector('.hero-type-ghost');
+        var live = title.querySelector('.hero-type-live');
+        var caret = title.querySelector('.hero-type-caret');
+        var fullText = ((ghost && ghost.textContent) || title.textContent || '').trim();
+        var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!live) return;
+
+        // Typing target stays empty until the animation starts
+        var textNode = document.createTextNode('');
+        live.insertBefore(textNode, caret);
+
+        if (reduceMotion) {
+          textNode.textContent = fullText;
+          title.classList.add('typing-done');
+          if (copy) copy.classList.add('hero-revealed');
+          return;
+        }
+
+        if (copy) copy.classList.add('hero-sequencing');
+        title.classList.add('is-typing');
+
+        var index = 0;
+        var speed = 52;
+
+        function typeNext() {
+          index++;
+          textNode.textContent = fullText.slice(0, index);
+
+          if (index < fullText.length) {
+            var ch = fullText.charAt(index - 1);
+            var pause = ch === ' ' ? 90 : (ch === '&' ? 260 : speed + Math.random() * 45);
+            window.setTimeout(typeNext, pause);
+          } else {
+            window.setTimeout(function () {
+              title.classList.remove('is-typing');
+              title.classList.add('typing-done');
+              if (copy) copy.classList.add('hero-revealed');
+            }, 650);
+          }
+        }
+
+        window.setTimeout(typeNext, 420);
+      })();
+    </script>
+
     <!-- Luxury Value Pillars (Matching Roohira Collection Web) -->
     <section class="section-padding-sm bg-cream" style="border-bottom: 1px solid var(--border); padding: 3rem 0;">
       <div style="max-width: var(--container-max); margin: 0 auto; padding: 0 1.5rem;">
@@ -207,49 +271,6 @@
             <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">Direct WhatsApp care, personalized sizing consultations, and 100% satisfaction assurance.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ======================================================== -->
-    <!-- HOME AUTO-SCROLLING 16:9 PROMO BANNERS SECTION -->
-    <!-- (Placed directly before COLLECTIONS FOR ALL) -->
-    <!-- ======================================================== -->
-    <section id="home-banners-section" style="display: none; padding: 40px 6% 35px; background: #FFFFFF; border-bottom: 1px solid rgba(60, 42, 33, 0.08); overflow: hidden;">
-      <div style="max-width: 1200px; margin: 0 auto;">
-        
-        <!-- Section Header -->
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <span style="background: rgba(179, 135, 56, 0.12); color: #8B5A2B; padding: 4px 14px; font-size: 0.72rem; font-weight: 800; letter-spacing: 1.5px; border: 1.5px solid rgba(179, 135, 56, 0.35); text-transform: uppercase;">
-              FEATURED PROMOTIONS
-            </span>
-            <h2 style="font-size: clamp(1.4rem, 2.8vw, 1.9rem); font-weight: 700; font-family: 'Playfair Display', Georgia, serif; margin-top: 8px; color: #1A120B; margin-bottom: 0;">
-              Exclusive Highlights &amp; Seasonal Drops
-            </h2>
-          </div>
-          <!-- Slider Navigation Arrows -->
-          <div style="display: flex; gap: 8px;">
-            <button id="bannerPrevBtn" onclick="homeBannerPrev()" class="btn btn-outline" style="width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid #1A120B;" aria-label="Previous Banner">
-              <i class="fa-solid fa-chevron-left" style="font-size: 0.85rem;"></i>
-            </button>
-            <button id="bannerNextBtn" onclick="homeBannerNext()" class="btn btn-outline" style="width: 38px; height: 38px; padding: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1.5px solid #1A120B;" aria-label="Next Banner">
-              <i class="fa-solid fa-chevron-right" style="font-size: 0.85rem;"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- 16:9 Banner Slider Viewport -->
-        <div class="home-banner-viewport" id="homeBannerViewport">
-          <div class="home-banner-track" id="homeBannerTrack">
-            <!-- Banners injected dynamically via initHomeBanners() -->
-          </div>
-        </div>
-
-        <!-- Dots Indicator -->
-        <div class="home-banner-dots" id="homeBannerDots" style="display: flex; justify-content: center; gap: 8px; margin-top: 14px;">
-          <!-- Dots injected dynamically -->
-        </div>
-
       </div>
     </section>
 
@@ -1245,274 +1266,6 @@
       naScrollToCard(next);
     }
 
-    // ========================================================
-    // HOME AUTO-SCROLLING 16:9 PROMO BANNERS CONTROLLER
-    // ========================================================
-    let homeBannersList = [];
-    let homeBannerIndex = 0;
-    let homeBannerAutoTimer = null;
-    let homeBannerTouchStartX = 0;
-    let homeBannerTouchEndX = 0;
-
-    function initHomeBanners() {
-      // 1. Try to load from Firebase Firestore
-      if (typeof db !== 'undefined' && db) {
-        db.collection('banners').onSnapshot(snapshot => {
-          const list = [];
-          snapshot.forEach(doc => {
-            const data = doc.data();
-            if (data.active !== false && data.active !== 'false') {
-              list.push({ id: doc.id, ...data });
-            }
-          });
-          list.sort((a, b) => (Number(a.order) || 1) - (Number(b.order) || 1));
-          homeBannersList = list;
-          try { localStorage.setItem('roohira_home_banners', JSON.stringify(list)); } catch (e) {}
-          renderHomeBannersUI();
-        }, err => {
-          console.warn('Home banners Firestore error:', err);
-          loadCachedHomeBanners();
-        });
-      } else {
-        loadCachedHomeBanners();
-      }
-    }
-
-    function loadCachedHomeBanners() {
-      try {
-        const stored = localStorage.getItem('roohira_home_banners');
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          homeBannersList = parsed.filter(b => b.active !== false && b.active !== 'false');
-        }
-      } catch (e) {}
-      renderHomeBannersUI();
-    }
-
-    function renderHomeBannersUI() {
-      const section = document.getElementById('home-banners-section');
-      const track = document.getElementById('homeBannerTrack');
-      const dotsContainer = document.getElementById('homeBannerDots');
-      if (!section || !track) return;
-
-      if (!homeBannersList || homeBannersList.length === 0) {
-        section.style.display = 'none';
-        if (homeBannerAutoTimer) clearInterval(homeBannerAutoTimer);
-        return;
-      }
-
-      section.style.display = 'block';
-
-      track.innerHTML = homeBannersList.map((b, idx) => {
-        const img = b.imageUrl || b.image || '';
-        const title = b.title || 'Special Promotion';
-        const link = b.link ? b.link.trim() : '';
-        return `
-          <div class="home-banner-slide" onclick="handleBannerClick('${img}', '${link.replace(/'/g, "\\'")}', '${title.replace(/'/g, "\\'")}')">
-            <div class="home-banner-img-box">
-              <img src="${img}" alt="${title}" loading="${idx < 3 ? 'eager' : 'lazy'}">
-              <div class="home-banner-overlay">
-                <span class="home-banner-zoom-badge">
-                  <i class="fa-solid fa-magnifying-glass-plus"></i> View
-                </span>
-                ${title ? `<div class="home-banner-caption"><h3>${title}</h3></div>` : ''}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      // Determine items visible per page based on window width
-      const totalSteps = getMaxBannerSteps();
-
-      // Dots
-      if (dotsContainer) {
-        dotsContainer.innerHTML = Array.from({ length: totalSteps }).map((_, idx) => `
-          <button class="home-banner-dot ${idx === 0 ? 'active' : ''}" onclick="goToHomeBanner(${idx})" aria-label="Go to banner ${idx + 1}"></button>
-        `).join('');
-      }
-
-      homeBannerIndex = 0;
-      updateHomeBannerSlide();
-      setupHomeBannerSwipe();
-      startHomeBannerAutoScroll();
-    }
-
-    function getItemsPerView() {
-      const w = window.innerWidth;
-      if (w <= 480) return 1.15; // Shows single compact banner + sneak peek of next
-      if (w <= 768) return 1.5;  // 1.5 banners on tablets / large phones
-      if (w <= 1024) return 2;   // 2 compact banners on laptops
-      return 2.5;                // 2.5 banners on desktop
-    }
-
-    function getMaxBannerSteps() {
-      if (!homeBannersList.length) return 0;
-      const itemsPerView = Math.floor(getItemsPerView());
-      return Math.max(1, homeBannersList.length - itemsPerView + 1);
-    }
-
-    function updateHomeBannerSlide() {
-      const track = document.getElementById('homeBannerTrack');
-      const dots = document.querySelectorAll('.home-banner-dot');
-      if (!track || !homeBannersList.length) return;
-
-      const maxSteps = getMaxBannerSteps();
-      if (homeBannerIndex >= maxSteps) homeBannerIndex = 0;
-      if (homeBannerIndex < 0) homeBannerIndex = maxSteps - 1;
-
-      // Calculate shift percentage per step based on slide width + gap
-      const slideEl = track.querySelector('.home-banner-slide');
-      if (slideEl) {
-        const slideWidth = slideEl.offsetWidth;
-        const gap = 16;
-        const shiftX = homeBannerIndex * (slideWidth + gap);
-        track.style.transform = `translateX(-${shiftX}px)`;
-      } else {
-        track.style.transform = `translateX(-${homeBannerIndex * 100}%)`;
-      }
-
-      dots.forEach((dot, idx) => {
-        if (idx === homeBannerIndex) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
-      });
-    }
-
-    function homeBannerNext() {
-      const maxSteps = getMaxBannerSteps();
-      homeBannerIndex = (homeBannerIndex + 1) % maxSteps;
-      updateHomeBannerSlide();
-      resetHomeBannerAutoScroll();
-    }
-
-    function homeBannerPrev() {
-      const maxSteps = getMaxBannerSteps();
-      homeBannerIndex = (homeBannerIndex - 1 + maxSteps) % maxSteps;
-      updateHomeBannerSlide();
-      resetHomeBannerAutoScroll();
-    }
-
-    function goToHomeBanner(idx) {
-      homeBannerIndex = idx;
-      updateHomeBannerSlide();
-      resetHomeBannerAutoScroll();
-    }
-
-    function startHomeBannerAutoScroll() {
-      if (homeBannerAutoTimer) clearInterval(homeBannerAutoTimer);
-      if (homeBannersList.length <= 1) return;
-      homeBannerAutoTimer = setInterval(() => {
-        const maxSteps = getMaxBannerSteps();
-        homeBannerIndex = (homeBannerIndex + 1) % maxSteps;
-        updateHomeBannerSlide();
-      }, 2600); // Continuous & frequent auto-scroll every 2.6s
-    }
-
-    function pauseHomeBannerAutoScroll() {
-      // Kept empty so banners continuously auto-scroll at all times without pausing
-    }
-
-    function resumeHomeBannerAutoScroll() {
-      startHomeBannerAutoScroll();
-    }
-
-    function resetHomeBannerAutoScroll() {
-      startHomeBannerAutoScroll();
-    }
-
-    function setupHomeBannerSwipe() {
-      const viewport = document.getElementById('homeBannerViewport');
-      if (!viewport) return;
-
-      viewport.addEventListener('touchstart', (e) => {
-        homeBannerTouchStartX = e.changedTouches[0].screenX;
-        pauseHomeBannerAutoScroll();
-      }, { passive: true });
-
-      viewport.addEventListener('touchend', (e) => {
-        homeBannerTouchEndX = e.changedTouches[0].screenX;
-        handleHomeBannerSwipe();
-        resumeHomeBannerAutoScroll();
-      }, { passive: true });
-    }
-
-    function handleHomeBannerSwipe() {
-      const swipeDiff = homeBannerTouchEndX - homeBannerTouchStartX;
-      if (Math.abs(swipeDiff) > 40) {
-        if (swipeDiff < 0) {
-          homeBannerNext();
-        } else {
-          homeBannerPrev();
-        }
-      }
-    }
-
-    // Interactive Full-screen Lightbox Modal on Click
-    function handleBannerClick(imgUrl, linkUrl, title) {
-      // If user provided a specific redirect page/URL
-      if (linkUrl && linkUrl !== '#' && linkUrl !== 'null' && linkUrl !== 'undefined') {
-        window.location.href = linkUrl;
-        return;
-      }
-      openBannerLightbox(imgUrl, title);
-    }
-
-    function openBannerLightbox(imgUrl, title = '') {
-      const existing = document.getElementById('bannerLightboxModal');
-      if (existing) existing.remove();
-
-      const modal = document.createElement('div');
-      modal.id = 'bannerLightboxModal';
-      modal.className = 'banner-lightbox-backdrop';
-      modal.onclick = closeBannerLightbox;
-
-      modal.innerHTML = `
-        <div class="banner-lightbox-content" onclick="event.stopPropagation()">
-          <button class="banner-lightbox-close" onclick="closeBannerLightbox()" aria-label="Close Preview">&times;</button>
-          <div class="banner-lightbox-img-wrapper">
-            <img src="${imgUrl}" alt="${title || 'Banner Widescreen'}">
-          </div>
-          ${title ? `<div class="banner-lightbox-footer"><h4>${title}</h4></div>` : ''}
-        </div>
-      `;
-
-      document.body.appendChild(modal);
-      document.body.style.overflow = 'hidden';
-
-      // Animate in
-      requestAnimationFrame(() => {
-        modal.classList.add('open');
-      });
-
-      // Escape key to close
-      const escHandler = (e) => {
-        if (e.key === 'Escape') {
-          closeBannerLightbox();
-          window.removeEventListener('keydown', escHandler);
-        }
-      };
-      window.addEventListener('keydown', escHandler);
-    }
-
-    function closeBannerLightbox() {
-      const modal = document.getElementById('bannerLightboxModal');
-      if (!modal) return;
-      modal.classList.remove('open');
-      document.body.style.overflow = '';
-      setTimeout(() => modal.remove(), 260);
-    }
-
-    // Trigger on document ready
-    document.addEventListener('DOMContentLoaded', () => {
-      initHomeBanners();
-    });
-
-    window.addEventListener('resize', () => {
-      updateHomeBannerSlide();
-    });
   </script>
   <!-- Halloween Atmospheric Festival Effects -->
   <script src="halloween.js"></script>
